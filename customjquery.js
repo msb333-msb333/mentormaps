@@ -1,8 +1,9 @@
 $("#submitMentorRegistrationForm").click(function(){
+	console.log("button pressed");
 	$.ajax({
 		type: 'POST',
 		url: "./submitMentorForm.php",
-		data: { 
+		data: {
 			'mentor-name': document.getElementById("mentor-name").value,
 			'mentor-email': document.getElementById("mentor-email").value,
 			'mentor-address': document.getElementById("mentor-address").value,
@@ -30,7 +31,11 @@ $("#submitMentorRegistrationForm").click(function(){
 			'bio':							document.getElementById("bio").value
 		},
 		success: function(data){
+			console.log("success");
 			alert(data);
+		},
+		error: function(xhr, textStatus, errorThrown) {
+           alert("An error occurred");
 		}
 	});
 });

@@ -1,22 +1,29 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
+	file_put_contents("./result.txt", "1st step");
+	
 	require "./db.php";
 	require "./security/salt.php";
 	
-	$mentor_name = mysql_real_escape_string($_POST['mentor-name']);
-	$mentor_email = mysql_real_escape_string($_POST['mentor-email']);
-	$mentor_address = mysql_real_escape_string($_POST['mentor-address']);
-	$mentor_phone = mysql_real_escape_string($_POST['mentor-phone']);
-	$mentor_bio = mysql_real_escape_string($_POST['bio']);
-	$mentor_age = mysql_real_escape_string($_POST['mentor-age']);
-	$pass1 = mysql_real_escape_string($_POST['pass1']);
-	$pass2 = mysql_real_escape_string($_POST['pass2']);
-	$team_number = mysql_real_escape_string($_POST['team-number']]);
+	file_put_contents("./result.txt", "2nd step");
 	
-	if(!($pass1 == $pass2)){
+	$mentor_name = mysql_escape_mimic($_POST['mentor-name']);	
+	$mentor_email = mysql_escape_mimic($_POST['mentor-email']);
+	$mentor_address = mysql_escape_mimic($_POST['mentor-address']);
+	$mentor_phone = mysql_escape_mimic($_POST['mentor-phone']);
+	$mentor_bio = mysql_escape_mimic($_POST['bio']);
+	$mentor_age = mysql_escape_mimic($_POST['mentor-age']);
+	$pass1 = $_POST['pass1'];
+	$pass2 = $_POST['pass2'];
+	$team_number = mysql_escape_mimic($_POST['team-number']);
+	
+	if(!($pass1 === $pass2)){
 		echo("password does not match");
+		file_put_contents("./result.txt", "DONT MATCH");
 	}
+	
+	file_put_contents("./result.txt", "MATCH");
 	
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
@@ -48,6 +55,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	$json_encoded_skills = json_encode($json);
 	
+	file_put_contents("./result.txt", "json encoded");
+	
 	$pref = "UNDEFINED";
 	if($pref_fll===true){
 		$pref="FLL";
@@ -56,18 +65,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}else{
 		$pref="FRC";
 	}
+	file_put_contents("./result.txt", "set prefs");
+	
+	$mentor_pass = mysql_escape_mimic($pass1);
 	
 	$salt = createSalt($mentor_email);
 	$concatPass = $mentor_pass . $salt;
 	$pass_hash = md5($concatPass);
 	
+	file_put_contents("./result.txt", "made pass hash");
+	
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "');";
 	
+	$db->query($sql);
+	
 	$sql = "";
-	
-	$sql .= "INSERT INTO `mentors` (``, ``, ``, ``, ``, ``)";
-	
-	echo $mentor_name;
+	$sql .= "INSERT INTO `mentors` (`ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
+	$db->query($sql);
+
+	file_put_contents("./result.txt", "DONE DING DING DING DING");
 }else{
 	echo 'boo GET';
 }
