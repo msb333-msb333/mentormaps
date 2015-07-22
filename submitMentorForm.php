@@ -3,11 +3,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	require "./db.php";
 	
-	$mentor_name = $_POST['mentor-name'];
-	$mentor_email = $_POST['mentor-email'];
-	$mentor_address = $_POST['mentor-address'];
-	$mentor_phone = $_POST['mentor-phone'];
-	$mentor_bio = $_POST['bio'];
+	$mentor_name = mysql_real_escape_string($_POST['mentor-name']);
+	$mentor_email = mysql_real_escape_string($_POST['mentor-email']);
+	$mentor_address = mysql_real_escape_string($_POST['mentor-address']);
+	$mentor_phone = mysql_real_escape_string($_POST['mentor-phone']);
+	$mentor_bio = mysql_real_escape_string($_POST['bio']);
 	
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
@@ -48,6 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$pref="FRC";
 	}
 	
+	$st=$db->prepare();
 	
 	echo $mentor_name;
 }else{
