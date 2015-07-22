@@ -1,3 +1,41 @@
+$("#submitTeamRegistrationForm").click(function(){
+	console.log("button pressed");
+	$.ajax({
+		type: 'POST',
+		url: "./submitTeamForm.php",
+		data: {
+			'team-name': document.getElementById("team-name").value,
+			'team-email': document.getElementById("team-email").value,
+			'team-address': document.getElementById("team-address").value,
+			'team-phone': document.getElementById("team-phone").value,
+			'pass1': document.getElementById("pass1").value,
+			'pass2': document.getElementById("pass2").value,
+			'team-number': document.getElementById("team-number").value,
+			
+			'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
+			'skill-manufacturing': 			document.getElementById("skill-manufacturing").checked,
+			'skill-programming': 			document.getElementById("skill-programming").checked,
+			'skill-design': 				document.getElementById("skill-design").checked,
+			'skill-strategy': 				document.getElementById("skill-strategy").checked,
+			'skill-scouting': 				document.getElementById("skill-scouting").checked,
+			'skill-business': 				document.getElementById("skill-business").checked,
+			'skill-fundraising': 			document.getElementById("skill-fundraising").checked,
+			'skill-marketing': 				document.getElementById("skill-marketing").checked,
+			'skill-other':					document.getElementById("skill-other").checked,
+			'other-text-box': 				document.getElementById("other-text-box").value,
+			'comments':						document.getElementById("comments").value
+		},
+		success: function(data){
+			console.log("success");
+			alert(data);
+		},
+		error: function(xhr, textStatus, errorThrown) {
+           alert("An error occurred");
+		}
+	});
+});
+
+//dont touch this please
 $("#submitMentorRegistrationForm").click(function(){
 	console.log("button pressed");
 	$.ajax({
