@@ -1,0 +1,176 @@
+<?php
+	$lang = 'en';
+	$siteKey = '';
+	$secret = '';
+?>
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Mentor Maps</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		
+		<!--for recaptcha-->
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Mentor Maps</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html">Home</a></li>
+											<li><a href="generic.html">Generic</a></li>
+											<li><a href="elements.html">Elements</a></li>
+											<li><a href="#">Sign Up</a></li>
+											<li><a href="#">Log In</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Register as a Mentor</h2>
+							<p>Mentors do stuff</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<h4>Mentor Registration</h4>
+									<form method="post" action="#">
+										<div class="row uniform">
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="mentor-name" id="mentor-name" placeholder="Name" />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<input type="email" name="mentor-email" id="mentor-email" placeholder="Email" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="mentor-address" id="mentor-address" placeholder="Address" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="mentor-phone" id="mentor-phone" placeholder="Phone Number" />
+											</div>
+											<div class="4u 12u$(small)">
+												<input type="radio" id="FLLcheck" name="typeChecks" checked>
+												<label for="FLLcheck">FLL</label>
+											</div>
+											<div class="4u 12u$(small)">
+												<input type="radio" id="FTCcheck" name="typeChecks">
+												<label for="FTCcheck">FTC</label>
+											</div>
+											<div class="4u$ 12u$(small)">
+												<input type="radio" id="FRCcheck" name="typeChecks">
+												<label for="FRCcheck">FRC</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-mechanical-engineering" name="mechanical-engineering">
+												<label for="skill-mechanical-engineering">Mechanical Engineering</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-manufacturing" name="manufacturing">
+												<label for="skill-manufacturing">Manufacturing</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-programming" name="programming">
+												<label for="skill-programming">Programming</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-design" name="design">
+												<label for="skill-design">Design</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-strategy" name="strategy">
+												<label for="skill-strategy">Strategy</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-scouting" name="scouting">
+												<label for="skill-scouting">Scouting</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-business" name="business">
+												<label for="skill-business">Business</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-fundraising" name="fundraising">
+												<label for="skill-fundraising">Fundraising</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-marketing" name="marketing">
+												<label for="skill-marketing">Marketing</label>
+											</div>
+											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-other" name="other">
+												<label for="skill-other">Other</label>
+											</div>
+											<div class="6u 12u$(small)"></div>
+											<div class="6u 12u$(small)" style="visibility: hidden;">
+												<input type="text" id="other-text-box" name="other-text-box" placeholder="define 'other'...">
+											</div>
+											<div class="12u$">
+												<textarea name="bio" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
+											</div>
+											<!--<div class="6u$ 12u$(small)">
+												<div class="g-recaptcha" data-sitekey="6Le4JAoTAAAAAEVE_IFxMAiK2vdgoiQoo9R5SCTN"></div>
+											</div>-->
+											<div class="12u$">
+												<ul class="actions">
+													<li><button id="submitMentorRegistrationForm" type="submit" class="button special">Become a Mentor</button></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								</section>
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Joseph Sirna 2015</li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<script src="./customjquery.js"></script>
+
+	</body>
+</html>
