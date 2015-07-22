@@ -80,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$db->query($sql);
 	
 	$sql = "";
-	$sql .= "INSERT INTO `mentors` (`ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
+	$sql .= "INSERT INTO `mentors` (`EMAIL`, `ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$mentor_email."', '".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
 	$db->query($sql);
 
 	file_put_contents("./result.txt", "DONE; DING DING DING DING");

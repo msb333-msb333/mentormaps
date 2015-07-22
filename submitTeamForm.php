@@ -66,20 +66,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 	file_put_contents("./result.txt", "set prefs");
 	
-	$mentor_pass = mysql_escape_mimic($pass1);
+	$team_pass = mysql_escape_mimic($pass1);
 	
-	$salt = createSalt($mentor_email);
-	$concatPass = $mentor_pass . $salt;
+	$salt = createSalt($team_email);
+	$concatPass = $team_pass . $salt;
 	$pass_hash = md5($concatPass);
 	
 	file_put_contents("./result.txt", "made pass hash");
 	
-	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "');";
+	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $team_email . "', '" . $pass_hash . "');";
 	
 	$db->query($sql);
 	
 	$sql = "";
-	$sql .= "INSERT INTO `mentors` (`ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
+	$sql .= "INSERT INTO `teams` (`ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
 	$db->query($sql);
 
 	file_put_contents("./result.txt", "DONE; DING DING DING DING");
