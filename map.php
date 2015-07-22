@@ -42,6 +42,18 @@
             position: results[0].geometry.location,
             icon: './mentorflag.png'
         });
+
+        var infowindow=new google.maps.InfoWindow({
+        content: 'Your location'
+      });
+
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            infowindow.open(map, this);
+        });
+
+        google.maps.event.addListener(marker, 'mouseout', function() {
+            infowindow.close();
+        });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -54,6 +66,17 @@
         var marker = new google.maps.Marker({
             map: map, 
             position: results[0].geometry.location
+        });
+        var infowindow=new google.maps.InfoWindow({
+        content: address
+      });
+
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            infowindow.open(map, this);
+        });
+
+        google.maps.event.addListener(marker, 'mouseout', function() {
+            infowindow.close();
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
