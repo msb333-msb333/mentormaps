@@ -84,6 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$db->query($sql);
 
 	file_put_contents("./result.txt", "DONE DING DING DING DING");
+	echo "DONE DING DING DING DING";
 }else{
 	echo 'boo GET';
 }
