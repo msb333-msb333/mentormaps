@@ -6,6 +6,13 @@
 -->
 <html>
 	<head>
+		<style>
+			html, body, #map-canvas {
+				height:100%;
+				margin: 0;
+        		padding: 0;
+			}
+		</style>
 		<title>Mentor Maps</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,6 +20,48 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+				   <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
+
+        centerMap(map, "934 N Keystone St, Anaheim, CA");
+        codeAddress(map, "1021 N Hensel Dr, La Habra, CA");
+      	}
+      	geocoder = new google.maps.Geocoder();
+
+
+	function centerMap(map, address){
+		geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location,
+            icon: './mentorflag.png'
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+}
+
+  	function codeAddress(map, address) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 	</head>
 	<body>
 
@@ -42,14 +91,15 @@
 
 				<!-- Main -->
 					<article id="main">
-						<header style="padding-top:0px;padding-left:0px;padding-right:0px;padding-bottom:0px;">
-							<iframe width="70%" height="700px;" frameborder="0" style="border:0"
-src="https://www.google.com/maps/embed/v1/place?q=1021+N+Hensel+Dr,+La+Habra,+CA,+United+States&key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg" allowfullscreen></iframe>
-						</header>
 						<section class="wrapper style5">
-							<div class="inner">
-								<h3>Team Info...</h3>
-							</div>
+							<div id="map-section" width="100%">
+							<script>
+								document.getElementById('map-section').setAttribute("style","padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
+								document.getElementById("map-section").style.width= "100%";
+								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
+							</script>
+							<div id="map-canvas"></div>
+						</div>
 						</section>
 					</article>
 
