@@ -22,6 +22,10 @@
 		display: block;
 	}
 
+	b {
+		font-size:120%;
+	}
+	
 	body {
 		line-height: 1;
 	}
