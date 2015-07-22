@@ -12,6 +12,10 @@ $("#submitTeamRegistrationForm").click(function(){
 			'pass2': document.getElementById("pass2").value,
 			'team-number': document.getElementById("team-number").value,
 			
+			'FLLcheck': document.getElementById("FLLcheck").checked,
+			'FTCcheck': document.getElementById("FTCcheck").checked,
+			'FRCcheck': document.getElementById("FRCcheck").checked,
+			
 			'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
 			'skill-manufacturing': 			document.getElementById("skill-manufacturing").checked,
 			'skill-programming': 			document.getElementById("skill-programming").checked,
