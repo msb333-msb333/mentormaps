@@ -2,12 +2,21 @@
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	require "./db.php";
+	require "./security/salt.php";
 	
 	$mentor_name = mysql_real_escape_string($_POST['mentor-name']);
 	$mentor_email = mysql_real_escape_string($_POST['mentor-email']);
 	$mentor_address = mysql_real_escape_string($_POST['mentor-address']);
 	$mentor_phone = mysql_real_escape_string($_POST['mentor-phone']);
 	$mentor_bio = mysql_real_escape_string($_POST['bio']);
+	$mentor_age = mysql_real_escape_string($_POST['mentor-age']);
+	$pass1 = mysql_real_escape_string($_POST['pass1']);
+	$pass2 = mysql_real_escape_string($_POST['pass2']);
+	$team_number = mysql_real_escape_string($_POST['team-number']]);
+	
+	if(!($pass1 == $pass2)){
+		echo("password does not match");
+	}
 	
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
@@ -48,7 +57,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$pref="FRC";
 	}
 	
-	$st=$db->prepare();
+	$salt = createSalt($mentor_email);
+	$concatPass = $mentor_pass . $salt;
+	$pass_hash = md5($concatPass);
+	
+	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "');";
+	
+	$sql = "";
+	
+	$sql .= "INSERT INTO `mentors` (``, ``, ``, ``, ``, ``)";
 	
 	echo $mentor_name;
 }else{

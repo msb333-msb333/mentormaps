@@ -7,6 +7,10 @@ $("#submitMentorRegistrationForm").click(function(){
 			'mentor-email': document.getElementById("mentor-email").value,
 			'mentor-address': document.getElementById("mentor-address").value,
 			'mentor-phone': document.getElementById("mentor-phone").value,
+			'mentor-age': document.getElementById("mentor-age").value,
+			'pass1': document.getElementById("pass1").value,
+			'pass2': document.getElementById("pass2").value,
+			'team-number': document.getElementById("team-number").value,
 			
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
