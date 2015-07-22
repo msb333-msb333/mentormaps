@@ -75,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	file_put_contents("./result.txt", "made pass hash");
 	
-	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "');";
+	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "', 'MENTOR');";
 	
 	$db->query($sql);
 	
@@ -84,8 +84,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$db->query($sql);
 
 	file_put_contents("./result.txt", "DONE; DING DING DING DING");
-	echo "DONE DING DING DING DING";
+	echo json_encode(array('message' => 'registered successfully'));
 }else{
-	echo 'boo GET';
+	echo json_encode(array('error' => 'method was not POST'));
 }
 ?>

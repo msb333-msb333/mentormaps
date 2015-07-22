@@ -74,17 +74,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	file_put_contents("./result.txt", "made pass hash");
 	
-	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`) VALUES ('" . $team_email . "', '" . $pass_hash . "');";
-	
+	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');";	
 	$db->query($sql);
 	
-	$sql = "";
-	$sql .= "INSERT INTO `teams` (`ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
+	file_put_contents("./result.txt", "queried logins db");
+	
+	$sql = "INSERT INTO `teams` (`ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".$team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
 	$db->query($sql);
 
-	file_put_contents("./result.txt", "DONE; DING DING DING DING");
-	echo "DONE DING DING DING DING";
+	file_put_contents("./result.txt", "finished, returning json");
+	
+	$a = array('message' => 'registered successfully');
+	echo json_encode($a);
 }else{
-	echo 'boo GET';
+	echo json_encode(array('error' => 'request was not POST'));
 }
 ?>
