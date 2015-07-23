@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$skill_scout = $_POST['skill-scouting'];
 	$skill_fr = $_POST['skill-fundraising'];
 	$skill_other = $_POST['skill-other'];
-	$skill_other_desc = $_POST['other-text-box'];
+	$skill_other_desc = mysql_escape_mimic($_POST['other-text-box']);
 	
 	$json = array('skill-mechanical-engineering' => $skill_mech,
 				  'skill-programming' => $skill_prog,
@@ -58,9 +58,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	file_put_contents("./result.txt", "json encoded");
 	
 	$pref = "UNDEFINED";
-	if($pref_fll===true){
+	if($pref_fll==true){
 		$pref="FLL";
-	}else if($pref_ftc===true){
+	}else if($pref_ftc==true){
 		$pref="FTC";
 	}else{
 		$pref="FRC";
@@ -80,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	file_put_contents("./result.txt", "queried logins db");
 	
-	$sql = "INSERT INTO `teams` (`ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".$team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
+	$sql = "INSERT INTO `teams` (`OTHER_DETAIL`, `TYPE`, `ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".$skill_other_desc."', '".$pref."', '".$team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
 	$db->query($sql);
 
 	file_put_contents("./result.txt", "finished, returning json");

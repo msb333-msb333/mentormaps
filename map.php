@@ -61,8 +61,23 @@ while($r=mysqli_fetch_assoc($result)){
 		<?php
 			foreach($address_array as $address){
 				$teamjson = "UNDEFINED";
-				
-				echo 'codeAddress(map, "'.$address.'", "'.$teamjson.'");';
+				$sql = "SELECT * FROM `teams` WHERE `ADDRESS` = '$address';";
+				$result=$db->query($sql);
+				while($r=mysqli_fetch_assoc($result)){
+					$a = array( 'name' => $r['NAME'],
+								'searching_skills_json' => $r['SEARCHING_SKILLS_JSON'],
+								'team_number' => $r['TEAM_NUMBER'],
+								'comments' => $r['COMMENTS'],
+								'phone' => $r['PHONE'],
+								'email' => $r['EMAIL'],
+								'address' => $r['ADDRESS'],
+								'type' => $r['TYPE'],
+								'other_detail' => $r['OTHER_DETAIL']
+								);
+					$teamjson = json_encode($a);
+				}
+				echo 'var teamdata = ' . $teamjson . ';' . PHP_EOL;
+				echo 'codeAddress(map, "'.$address.'", teamdata);'. PHP_EOL;
 			}
 		?>
       	}
@@ -96,7 +111,7 @@ while($r=mysqli_fetch_assoc($result)){
     });
 }
 
-  	function codeAddress(map, address) {
+  	function codeAddress(map, address, teamdata) {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var marker = new google.maps.Marker({
@@ -104,8 +119,32 @@ while($r=mysqli_fetch_assoc($result)){
             position: results[0].geometry.location
         });
         var infowindow=new google.maps.InfoWindow({
-        content: address
+        content: "" + teamdata['name'] + ", " + teamdata['team_number']
       });
+	  
+		google.maps.event.addListener(marker, 'click', function(){
+			document.getElementById("img-container").innerHTML = "<img id=\"ross\" src=\"" + teamdata['type'] + ".png\" width=\"160px\" height=\"160px\" />";
+			document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
+			document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
+			document.getElementById("address-container").innerHTML = "<b><u>Location:<br /></u></b>" + teamdata['address'];
+			document.getElementById("comments-container").innerHTML = "<b><u>Comments:<br /></u></b>" + teamdata['comments'];
+			
+			var searchingFor = "";
+			var ssjson = $.parseJSON(teamdata['searching_skills_json']);
+			$.each(ssjson, function(key, value){
+				if(key == 'skill-other'){
+						searchingFor = searchingFor + "other ("+teamdata['other_detail']+")";
+				}else{
+					if(value=='true'){
+						console.log(value + " is true");
+						searchingFor = searchingFor + key + "<br />";
+					}
+				}
+			});
+			
+			document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
+			document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata['name'] + ", " + teamdata['team_number'];
+		});
 
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
@@ -160,27 +199,27 @@ while($r=mysqli_fetch_assoc($result)){
 						</div>
 						</section>
 						
-						<section class="wrapper style5" id="team-info">
-							<script>
-								document.getElementById("team-info").setAttribute("style","padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
-							</script>
-								<div class="3u 3u$(small)" id="imgcontainer">
-									
+						<section class="wrapper style5">
+						<div class="inner" id="team-info">
+							<section id="team-info-section">
+							<div class="6u 6u$(small)"><b><u>Team Info</u></b></div>
+								<div class="row uniform">
+									<div class="12u 12u$(small)" id="img-container"></div>
+									<div class="6u 3u$(small)" id="name-container"></div>
+									<div class="6u 3u$(small)" id="address-container"></div>
+									<div class="6u 3u$(small)" id="searching-skills-container"></div>
+									<div class="6u 3u$(small)" id="comments-container"></div>
+									<div class="6u 3u$(small)" id="phone-container"></div>
+									<div class="6u 3u$(small)" id="email-container"></div>
 								</div>
-							</div>
-						</section>
+							</section>
+						</div>
+					</section>
 						
 					</article>
 
 				<!-- Footer -->
 					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-						</ul>
 						<ul class="copyright">
 							<li>&copy; Joseph Sirna 2015</li>
 						</ul>
