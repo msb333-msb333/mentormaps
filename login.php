@@ -139,6 +139,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	
 	if($resultset->num_rows > 0){
 		$_SESSION['auth'] = true;
+		$_SESSION['email'] = $username;
 		echo "<meta http-equiv=\"refresh\" content=\"0;URL=$refurl\">";
 	}else{
 		echo "<meta http-equiv=\"refresh\" content=\"0;URL=./login.php?error=true\">";

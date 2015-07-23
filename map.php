@@ -1,14 +1,38 @@
 <?php
 //do all login operations / redirects
 require "./logincheck.php";
-?>
+require "./db.php";
 
+$email = $_SESSION['email'];
+$sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
+$type = "UNDEFINED";
+$result = $db->query($sql);
+while($r=mysqli_fetch_assoc($result)){
+	$type = $r['TYPE'];
+}
+
+$table = "UNDEFINED";
+if($type=='MENTOR'){
+	$table = 'mentors';
+}else{
+	$table = 'teams';
+}
+
+$sql = "SELECT `ADDRESS` FROM `$table` WHERE `EMAIL` = '$email'";
+$my_address = "UNDEFINED";
+$result = $db->query($sql);
+while($r=mysqli_fetch_assoc($result)){
+	$my_address=$r['ADDRESS'];
+}
+
+$address_array = array();
+$sql = "SELECT `ADDRESS` FROM `teams`";
+$result = $db->query($sql);
+while($r=mysqli_fetch_assoc($result)){
+	array_push($address_array, $r['ADDRESS']);
+}
+?>
 <!DOCTYPE HTML>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<style>
@@ -31,11 +55,18 @@ require "./logincheck.php";
     <script type="text/javascript">
       function initialize() {
         var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
-
-        centerMap(map, "934 N Keystone St, Anaheim, CA");
-        codeAddress(map, "1021 N Hensel Dr, La Habra, CA");
+		geocoder = new google.maps.Geocoder();
+        centerMap(map, "<?php echo $my_address; ?>");
+		
+		<?php
+			foreach($address_array as $address){
+				$teamjson = "UNDEFINED";
+				
+				echo 'codeAddress(map, "'.$address.'", "'.$teamjson.'");';
+			}
+		?>
       	}
-      	geocoder = new google.maps.Geocoder();
+      	
 
 
 	function centerMap(map, address){
@@ -121,13 +152,24 @@ require "./logincheck.php";
 						<section class="wrapper style5">
 							<div id="map-section" width="100%">
 							<script>
-								document.getElementById('map-section').setAttribute("style","padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
+								document.getElementById('map-section').setAttribute("style","padding-bottom:0px;padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
 								document.getElementById("map-section").style.width= "100%";
 								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
 							</script>
 							<div id="map-canvas"></div>
 						</div>
 						</section>
+						
+						<section class="wrapper style5" id="team-info">
+							<script>
+								document.getElementById("team-info").setAttribute("style","padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
+							</script>
+								<div class="3u 3u$(small)" id="imgcontainer">
+									
+								</div>
+							</div>
+						</section>
+						
 					</article>
 
 				<!-- Footer -->
