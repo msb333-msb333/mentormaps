@@ -108,6 +108,7 @@ require "./logincheck.php";
 											<li><a href="index.html">Home</a></li>
 											<li><a href="./register.html">Sign Up</a></li>
 											<li><a href="./login.php">Log In</a></li>
+											<li><a href="./logout.php">Log Out</a></li>
 										</ul>
 									</div>
 								</li>
