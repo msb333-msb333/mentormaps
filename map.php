@@ -187,8 +187,7 @@ while($r=mysqli_fetch_assoc($result)){
 					</header>
 
 				<!-- Main -->
-					<article id="main">
-						<section class="wrapper style5">
+					<article id="footer" style="padding-top:30px;">
 							<div id="map-section" width="100%">
 							<script>
 								document.getElementById('map-section').setAttribute("style","padding-bottom:0px;padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
@@ -197,12 +196,10 @@ while($r=mysqli_fetch_assoc($result)){
 							</script>
 							<div id="map-canvas"></div>
 						</div>
-						</section>
-						
-						<section class="wrapper style5">
-						<div class="inner" id="team-info">
+						<div style="display:inline-block;white-space: nowrap;padding-left:5%;">
+						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
-							<div class="6u 6u$(small)"><b><u>Team Info</u></b></div>
+							<div class="6u 6u$(small)"><b><u style="font-size:35px;">Team Info</u></b></div>
 								<div class="row uniform">
 									<div class="12u 12u$(small)" id="img-container"></div>
 									<div class="6u 3u$(small)" id="name-container"></div>
@@ -214,7 +211,7 @@ while($r=mysqli_fetch_assoc($result)){
 								</div>
 							</section>
 						</div>
-					</section>
+						</div>
 						
 					</article>
 
