@@ -30,8 +30,7 @@ $("#submitTeamRegistrationForm").click(function(){
 			'comments':						document.getElementById("comments").value
 		},
 		success: function(data){
-			console.log("success");
-			alert(data);
+			document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
 		},
 		error: function(xhr, textStatus, errorThrown) {
            alert("An error occurred");
@@ -73,8 +72,7 @@ $("#submitMentorRegistrationForm").click(function(){
 			'bio':							document.getElementById("bio").value
 		},
 		success: function(data){
-			console.log("success");
-			alert(data);
+			document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
 		},
 		error: function(xhr, textStatus, errorThrown) {
            alert("An error occurred");
