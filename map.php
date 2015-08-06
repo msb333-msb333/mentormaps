@@ -185,26 +185,15 @@ while($r=mysqli_fetch_assoc($result)){
 					</header>
 
 				<!-- Main -->
-					<article id="footer" style="padding-top:30px;color:black;">
-							<div id="map-section">
-								<script>
-									document.getElementById('map-section').setAttribute("style","position:absolute;display:inline-block;padding-left:"+(window.innerWidth / 10)+"px;padding-right:"+(window.innerWidth / 4)+"px;");
-									document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
-									document.getElementById("map-section").style.width= window.innerHeight - (window.innerWidth / 4) + "px";
-								</script>
-								<div id="map-canvas" width="500px"></div>
-							</div>
-						
-						<div style="display:inline;padding-top:0px;float:right;overflow-y:scroll;overflow:hidden;color:white;">
-							<ul>
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-								<li>4</li>
-								<li>5</li>
-							</ul>
+					<article id="footer" style="padding-top:30px;">
+							<div id="map-section" width="100%">
+							<script>
+								document.getElementById('map-section').setAttribute("style","padding-bottom:0px;padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
+								document.getElementById("map-section").style.width= "100%";
+								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
+							</script>
+							<div id="map-canvas"></div>
 						</div>
-						
 						<div style="display:inline-block;white-space: nowrap;padding-left:5%;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
