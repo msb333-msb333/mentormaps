@@ -186,13 +186,26 @@ while($r=mysqli_fetch_assoc($result)){
 
 				<!-- Main -->
 					<article id="footer" style="padding-top:30px;">
-							<div id="map-section" width="100%">
+					<div id="map-and-search-wrapper" style="display:inline;">
+							<div id="map-section" width="75%" style="float:left;">
 							<script>
 								document.getElementById('map-section').setAttribute("style","padding-bottom:0px;padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
 								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
 							</script>
 							<div id="map-canvas"></div>
 						</div>
+						
+						<div id="search-container" width="25%" style="float:right;">
+							<ul>
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+								<li>5</li>
+							</ul>
+						</div>
+						
+					</div>
 						<div style="display:inline-block;white-space: nowrap;padding-left:5%;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
