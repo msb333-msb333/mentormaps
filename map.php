@@ -189,7 +189,6 @@ while($r=mysqli_fetch_assoc($result)){
 							<div id="map-section" width="100%">
 							<script>
 								document.getElementById('map-section').setAttribute("style","padding-bottom:0px;padding-left:"+(window.innerWidth / 6)+"px;padding-right:"+(window.innerWidth / 6)+"px;");
-								document.getElementById("map-section").style.width= "100%";
 								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
 							</script>
 							<div id="map-canvas"></div>
