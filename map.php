@@ -168,16 +168,14 @@ while($r=mysqli_fetch_assoc($result)){
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Mentor Maps</a></h1>
+						<h1><a href="./index.php">Mentor Maps</a></h1>
 						<nav id="nav">
 							<ul>
 								<li class="special">
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>
 									<div id="menu">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="./register.html">Sign Up</a></li>
-											<li><a href="./login.php">Log In</a></li>
+											<li><a href="./index.php">Home</a></li>
 											<li><a href="./logout.php">Log Out</a></li>
 										</ul>
 									</div>

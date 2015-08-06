@@ -17,7 +17,7 @@ $("#submitTeamRegistrationForm").click(function(){
 	
 	$.ajax({
 		type: 'POST',
-		url: "./submitTeamForm.php",
+		url: "./registerteam.php",
 		dataType : 'html',
 		data: {
 			'team-name': team_name,
@@ -68,7 +68,7 @@ $("#submitMentorRegistrationForm").click(function(){
 	
 	$.ajax({
 		type: 'POST',
-		url: "./submitMentorForm.php",
+		url: "./registermentor.php",
 		data: {
 			'mentor-name': mentor_name,
 			'mentor-email': mentor_email,

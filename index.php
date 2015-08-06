@@ -8,12 +8,14 @@
 	<head>
 	<script>
 	function login(){
-		window.location="http://mrflark.org/mentormaps/login.php";
+		window.location="./login.php";
+	}
+	function register(){
+		window.location = "./register.php";
 	}
 	</script>
 		<title>Mentor Maps</title>
 		<meta charset="utf-8" />
-		<script src="./custom.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -34,8 +36,8 @@
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>
 									<div id="menu">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="./register.html">Sign Up</a></li>
+											<li><a href="index.php">Home</a></li>
+											<li><a href="./register.php">Sign Up</a></li>
 											<li><a href="./login.php">Log In</a></li>
 											<li><a href="./logout.php">Log Out</a></li>
 										</ul>
