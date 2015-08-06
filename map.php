@@ -185,16 +185,18 @@ while($r=mysqli_fetch_assoc($result)){
 					</header>
 
 				<!-- Main -->
-					<article id="footer" style="padding-top:30px;color:black;">
+					<article id="footer" style="padding-top:30px;">
+					<div id="map-and-search-wrapper" style="width:100%;display:inline;">
+						<div id="map-wrapper" style="float:left;">
 							<div id="map-section">
 								<script>
-									document.getElementById('map-section').setAttribute("style","position:absolute;display:inline-block;padding-left:"+(window.innerWidth / 10)+"px;padding-right:"+(window.innerWidth / 4)+"px;");
+									document.getElementById('map-section').setAttribute("style","padding-left:"+(window.innerWidth / 10)+"px;padding-right:"+(window.innerWidth / 4)+"px;color:black;");
 									document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
 									document.getElementById("map-section").style.width= window.innerHeight - (window.innerWidth / 4) + "px";
 								</script>
-								<div id="map-canvas" width="500px"></div>
+								<div id="map-canvas"></div>
 							</div>
-						
+						</div>
 						<div style="display:inline;padding-top:0px;float:right;overflow-y:scroll;overflow:hidden;color:white;">
 							<ul>
 								<li>1</li>
@@ -204,8 +206,10 @@ while($r=mysqli_fetch_assoc($result)){
 								<li>5</li>
 							</ul>
 						</div>
+						</div>
 						
-						<div style="display:inline-block;white-space: nowrap;padding-left:5%;">
+						
+						<div style="white-space:nowrap;padding-left:5%;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
 							<div class="6u 6u$(small)"><b><u style="font-size:35px;">Team Info</u></b></div>
