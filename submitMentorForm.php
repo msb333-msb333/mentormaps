@@ -1,13 +1,8 @@
 <?php
 header('Content-Type: application/json');
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-	
-	file_put_contents("./result.txt", "1st step");
-	
 	require "./db.php";
 	require "./security/salt.php";
-	
-	file_put_contents("./result.txt", "2nd step");
 	
 	$mentor_name = mysql_escape_mimic($_POST['mentor-name']);	
 	$mentor_email = mysql_escape_mimic($_POST['mentor-email']);
@@ -19,10 +14,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pass2 = $_POST['pass2'];
 	$team_number = mysql_escape_mimic($_POST['team-number']);
 	
-	if(!($pass1 === $pass2)){
-		echo("password does not match");
-		file_put_contents("./result.txt", "DONT MATCH");
-	}
+	$mentor_name=str_replace("<script>", "im a dirty little hacker: ", $mentor_name);
+	$mentor_email=str_replace("<script>", "im a dirty little hacker: ", $mentor_email);
+	$mentor_address=str_replace("<script>", "im a dirty little hacker: ", $mentor_address);
+	$mentor_phone=str_replace("<script>", "im a dirty little hacker: ", $mentor_phone);
+	$mentor_bio=str_replace("<script>", "im a dirty little hacker: ", $mentor_bio);
+	$mentor_age=str_replace("<script>", "im a dirty little hacker: ", $mentor_age);
+	$team_number=str_replace("<script>", "im a dirty little hacker: ", $team_number);
 	
 	file_put_contents("./result.txt", "MATCH");
 	
@@ -42,6 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$skill_other = $_POST['skill-other'];
 	$skill_other_desc = $_POST['other-text-box'];
 	
+	$skill_other_desc=str_replace("<script>", "im a dirty little hacker: ", $skill_other_desc);
+	
 	$json = array('skill-mechanical-engineering' => $skill_mech,
 				  'skill-programming' => $skill_prog,
 				  'skill-strategy' => $skill_strat,
@@ -56,8 +56,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	$json_encoded_skills = json_encode($json);
 	
-	file_put_contents("./result.txt", "json encoded");
-	
 	$pref = "UNDEFINED";
 	if($pref_fll===true){
 		$pref="FLL";
@@ -66,26 +64,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}else{
 		$pref="FRC";
 	}
-	file_put_contents("./result.txt", "set prefs");
-	
-	$mentor_pass = mysql_escape_mimic($pass1);
-	
+
+	$mentor_pass = mysql_escape_mimic($pass1);	
 	$salt = createSalt($mentor_email);
 	$concatPass = $mentor_pass . $salt;
 	$pass_hash = md5($concatPass);
-	
-	file_put_contents("./result.txt", "made pass hash");
-	
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "', 'MENTOR');";
-	
 	$db->query($sql);
-	
-	$sql = "";
-	$sql .= "INSERT INTO `mentors` (`EMAIL`, `ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$mentor_email."', '".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
+	$sql = "INSERT INTO `mentors` (`OTHER_DETAIL`, `EMAIL`, `ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$skill_other_desc."', '".$mentor_email."', '".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
 	$db->query($sql);
 
-	file_put_contents("./result.txt", "DONE; DING DING DING DING");
-	echo json_encode(array('message' => 'registered successfully'));
+	echo "{\"status\":\"ok\"}";
 }else{
 	echo json_encode(array('error' => 'method was not POST'));
 }

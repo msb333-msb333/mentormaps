@@ -1,16 +1,32 @@
 $("#submitTeamRegistrationForm").click(function(){
-	console.log("button pressed");
+	var team_number = document.getElementById("team-number").value;
+	var team_name = document.getElementById("team-name").value;
+	var team_email = document.getElementById("team-email").value;
+	var team_address = document.getElementById("team-address").value;
+	var team_phone = document.getElementById("team-phone").value;
+	var pass1 = document.getElementById("pass1").value;
+	var pass2 = document.getElementById("pass2").value;
+	
+	if(team_number==""||team_name==""||team_email==""||team_address==""||team_phone==""||pass1==""||pass2==""){
+		alert("you did not fill in a required field");
+	}
+	
+	if(!pass1==pass2){
+		alert("passwords do not match");
+	}
+	
 	$.ajax({
 		type: 'POST',
 		url: "./submitTeamForm.php",
+		dataType : 'html',
 		data: {
-			'team-name': document.getElementById("team-name").value,
-			'team-email': document.getElementById("team-email").value,
-			'team-address': document.getElementById("team-address").value,
-			'team-phone': document.getElementById("team-phone").value,
-			'pass1': document.getElementById("pass1").value,
-			'pass2': document.getElementById("pass2").value,
-			'team-number': document.getElementById("team-number").value,
+			'team-name': team_name,
+			'team-email': team_email,
+			'team-address': team_address,
+			'team-phone': team_phone,
+			'pass1': pass1,
+			'pass2': pass2,
+			'team-number': team_number,
 			
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
@@ -31,28 +47,37 @@ $("#submitTeamRegistrationForm").click(function(){
 		},
 		success: function(data){
 			document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
+			console.log("request successful");
 		},
 		error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred");
+           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+		   console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
 		}
 	});
 });
 
-//dont touch this please
 $("#submitMentorRegistrationForm").click(function(){
-	console.log("button pressed");
+	var team_number = document.getElementById("team-number").value;
+	var mentor_name = document.getElementById("mentor-name").value;
+	var mentor_email = document.getElementById("mentor-email").value;
+	var mentor_address = document.getElementById("mentor-address").value;
+	var mentor_phone = document.getElementById("mentor-phone").value;
+	var mentor_age = document.getElementById("mentor-age").value;
+	var pass1 = document.getElementById("pass1").value;
+	var pass2 = document.getElementById("pass2").value;
+	
 	$.ajax({
 		type: 'POST',
 		url: "./submitMentorForm.php",
 		data: {
-			'mentor-name': document.getElementById("mentor-name").value,
-			'mentor-email': document.getElementById("mentor-email").value,
-			'mentor-address': document.getElementById("mentor-address").value,
-			'mentor-phone': document.getElementById("mentor-phone").value,
-			'mentor-age': document.getElementById("mentor-age").value,
-			'pass1': document.getElementById("pass1").value,
-			'pass2': document.getElementById("pass2").value,
-			'team-number': document.getElementById("team-number").value,
+			'mentor-name': mentor_name,
+			'mentor-email': mentor_email,
+			'mentor-address': mentor_address,
+			'mentor-phone': mentor_phone,
+			'mentor-age': mentor_age,
+			'pass1': pass1,
+			'pass2': pass2,
+			'team-number': team_number,
 			
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
@@ -73,9 +98,11 @@ $("#submitMentorRegistrationForm").click(function(){
 		},
 		success: function(data){
 			document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
+			console.log("request successful");
 		},
 		error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred");
+           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+		   console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
 		}
 	});
 });
