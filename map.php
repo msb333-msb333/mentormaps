@@ -186,7 +186,8 @@ while($r=mysqli_fetch_assoc($result)){
 
 				<!-- Main -->
 					<article id="footer" style="padding-top:30px;">
-					<div id="map-and-search-wrapper" style="display:inline;width:100%;">
+					<div id="maybe-this-will-work-wrapper"><!--holy crap, it worked-->
+					<div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
 							<div id="map-section">
 							<script>
 								document.getElementById('map-section').setAttribute("style","float:left;padding-left:"+(window.innerWidth / 6)+"px;");
@@ -196,18 +197,18 @@ while($r=mysqli_fetch_assoc($result)){
 							<div id="map-canvas"></div>
 						</div>
 						
-						<div id="search-wrapper" style="float:right;">
+						<div id="search-wrapper" style="float:right;background-color:teal;width:22%;color:white;text-align:left;">
 							<ul>
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-								<li>4</li>
-								<li>5</li>
+								<?php
+									for($i=0;$i<50;$i++){
+										echo '<li>team '.$i.'</li>';
+									}
+								?>
 							</ul>
 						</div>
-						
 					</div>
-						<div style="white-space:nowrap;padding-left:5%;">
+					</div>
+						<div style="white-space:nowrap;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
 							<div class="6u 6u$(small)"><b><u style="font-size:35px;">Team Info</u></b></div>
