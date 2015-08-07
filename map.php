@@ -49,16 +49,33 @@ while($r=mysqli_fetch_assoc($result)){
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-				   <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg">
-    </script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
+		<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>-->
     <script type="text/javascript">
+	
+	var rad = function(x) {
+  return x * Math.PI / 180;
+};
+
+var getDistance = function(p1, p2) {
+  var R = 6378137; // Earth’s mean radius in meter
+  var dLat = rad(p2.lat() - p1.lat());
+  var dLong = rad(p2.lng() - p1.lng());
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d; // returns the distance in meter
+};
+	
       function initialize() {
         var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
 		geocoder = new google.maps.Geocoder();
         centerMap(map, "<?php echo $my_address; ?>");
 		
 		<?php
+		$allteams = array();
 			foreach($address_array as $address){
 				$teamjson = "UNDEFINED";
 				$sql = "SELECT * FROM `teams` WHERE `ADDRESS` = '$address';";
@@ -74,6 +91,7 @@ while($r=mysqli_fetch_assoc($result)){
 								'type' => $r['TYPE'],
 								'other_detail' => $r['OTHER_DETAIL']
 								);
+								array_push($allteams, $a);
 					$teamjson = json_encode($a);
 				}
 				echo 'var teamdata = ' . $teamjson . ';' . PHP_EOL;
@@ -197,16 +215,75 @@ while($r=mysqli_fetch_assoc($result)){
 							<div id="map-canvas"></div>
 						</div>
 						
-						<div id="search-wrapper" style="float:right;background-color:teal;width:22%;color:white;text-align:left;">
-							<ul>
-								<?php
-									for($i=0;$i<50;$i++){
-										echo '<li>team '.$i.'</li>';
-									}
-								?>
+						<div id="search-wrapper">
+						<script>
+						
+						document.getElementById('search-wrapper').setAttribute('style', 'height:' + document.getElementById('map-section').style.height + ";float:right;background-color:teal;width:22%;color:white;text-align:left;");
+						</script>
+						<!--
+							ul {
+							
+							border: 1px solid #ccc;
+							padding: 0;
+							margin: 0;
+							}
+						-->
+							<ul style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="list-thing">
+								<li id="refresh-list-thing">refresh listing</li>
 							</ul>
 						</div>
 					</div>
+					
+					<script>
+					<?php
+						echo 'var allteams = ' . json_encode($allteams) . ";" . PHP_EOL;
+						//echo 'var me = ' . json_encode() . ';' . PHP_EOL;
+					?>
+					
+					function getLatLngFromAddress(address){
+					geocoder.geocode( { 'address': address}, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							return results[0].geometry.location.LatLng;
+						}else{
+							//TODO handle else case for invalid address
+							console.log("error getting latlng from address");
+						}});
+					}
+					
+					function calculateDistance(address1, address2){
+						var p1 = getLatLngFromAddress(address1);
+						var p2 = getLatLngFromAddress(address2);
+						
+						console.log(getDistance(p1,p2));
+						return getDistance(p1,p2);
+					}
+					
+					function refreshListing(){
+						var maxdistance = 10;//miles
+						var skills_weight = 0.5;//out of 1 (100%)
+						var type_weight = 1;//either 0 or 1
+					
+						for(var i=0;i<allteams.length;i++){
+							console.log(allteams[i]);
+							for(var e in allteams[i]){
+								console.log("	" + e + " | " + allteams[i][e]);
+								if(e=='address'){
+									console.log(calculateDistance(allteams[i][e].toString(), "<?php echo $my_address; ?>"));
+								}
+								
+							}
+						}
+						
+						
+					}
+					
+					document.getElementById('list-thing').addEventListener("click", function(e){
+						if(e.target.id=='refresh-list-thing'){
+							refreshListing();
+						}
+					});
+					</script>
+					
 					</div>
 						<div style="white-space:nowrap;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
