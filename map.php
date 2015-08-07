@@ -47,6 +47,14 @@ while($r=mysqli_fetch_assoc($result)){
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
@@ -218,19 +226,38 @@ var getDistance = function(p1, p2) {
 						<div id="search-wrapper">
 						<script>
 						
+						var up = false;
+						
 						document.getElementById('search-wrapper').setAttribute('style', 'height:' + document.getElementById('map-section').style.height + ";float:right;background-color:teal;width:22%;color:white;text-align:left;");
-						</script>
-						<!--
-							ul {
-							
-							border: 1px solid #ccc;
-							padding: 0;
-							margin: 0;
+						
+						function frau(){
+							if(up){
+								up = !up;
+								$("#coolarrow").html('&#9660;');
+							}else{
+								up = !up;
+								$("#coolarrow").html('&#9650;');
 							}
-						-->
-							<ul style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="list-thing">
-								<li id="refresh-list-thing">refresh listing</li>
+							$("#pancakes").toggle();							
+						}
+						
+						</script>
+						<div style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
+							<ul id="pancakes" style="list-style-type:none;" id="list-thing">
+								<li>Team Search Filter</li>
+								<li>Range <input id="slidely-thing" type="range"/><div id="range-display" style="display:inline;"></div></li>
+								<li><button onclick="refreshListing();">refresh</button></li>
 							</ul>
+							<script>
+								$("#slidey-thing").change(function(){
+									$("#range-display").html($("#slidey-thing").data("rangeinput"));
+								});
+								$("#pancakes").toggle();
+							</script>
+							<ul style="list-style-type:none;">
+								<li><button id="coolarrow" onclick="frau();">&#9660;</button></li>
+							</ul>
+							</div>
 						</div>
 					</div>
 					
@@ -272,16 +299,8 @@ var getDistance = function(p1, p2) {
 								}
 								
 							}
-						}
-						
-						
+						}	
 					}
-					
-					document.getElementById('list-thing').addEventListener("click", function(e){
-						if(e.target.id=='refresh-list-thing'){
-							refreshListing();
-						}
-					});
 					</script>
 					
 					</div>
@@ -312,14 +331,5 @@ var getDistance = function(p1, p2) {
 					</footer>
 
 			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
 	</body>
 </html>
