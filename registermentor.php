@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$skill_other = $_POST['skill-other'];
 	$skill_other_desc = $_POST['other-text-box'];
 	
-	$skill_other_desc=str_replace("<script>", "im a dirty little hacker: ", $skill_other_desc);
+	$skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
 	
 	$json = array('skill-mechanical-engineering' => $skill_mech,
 				  'skill-programming' => $skill_prog,

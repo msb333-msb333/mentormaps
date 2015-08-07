@@ -36,7 +36,7 @@ header('Content-Type: application/json');
 	$skill_other = $_POST['skill-other'];
 	$skill_other_desc = mysql_escape_mimic($_POST['other-text-box']);
 	
-	$skill_other_desc=str_replace("<script>", "im a dirty little hacker: ", $skill_other_desc);
+	$skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
 	
 	$json = array('skill-mechanical-engineering' => $skill_mech,
 				  'skill-programming' => $skill_prog,
@@ -47,19 +47,15 @@ header('Content-Type: application/json');
 				  'skill-design' => $skill_design,
 				  'skill-scouting' => $skill_scout,
 				  'skill-fundraising' => $skill_fr,
-				  'skill-other' => $skill_other
+				  'skill-other' => $skill_other,
+				  'skill_other_desc' => $skill_other_desc
 				  );
 	
 	$json_encoded_skills = json_encode($json);
-	
-	$pref = "UNDEFINED";
-	if($pref_fll==true){
-		$pref="FLL";
-	}else if($pref_ftc==true){
-		$pref="FTC";
-	}else{
-		$pref="FRC";
-	}
+					
+	$pref = json_encode(array(  'pref_fll' => $pref_fll,
+								'pref_ftc' => $pref_ftc,
+								'pref_frc' => $pref_frc));
 	
 	$team_pass = mysql_escape_mimic($pass1);
 	$salt = createSalt($team_email);
@@ -67,7 +63,18 @@ header('Content-Type: application/json');
 	$pass_hash = md5($concatPass);
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');";	
 	$db->query($sql);
-	$sql = "INSERT INTO `teams` (`OTHER_DETAIL`, `TYPE`, `ADDRESS`, `COMMENTS`, `EMAIL`, `NAME`, `PHONE`, `SEARCHING_SKILLS_JSON`, `TEAM_NUMBER`) VALUES ('".$skill_other_desc."', '".$pref."', '".$team_address."', '".$comments."', '".$team_email."', '".$team_name."', '".$team_phone."', '".$json_encoded_skills."', '".$team_number."')";
+	
+	/*var conversions cause im too lazy to change the js*/
+	$email = $team_email;
+	$address = $team_address;
+	$name = $team_name;
+	$phone = $team_phone;
+	$type = $pref;
+	$skills_json = $json_encoded_skills;
+	$age = "!TODO";
+	
+	$sql = "INSERT INTO `mentors` (`NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$name."', '".$skills_json."', '".$team_number."', '".$comments."', '".$phone."', '".$email."', '".$address."', '".$type."', '".$age."');";
+	
 	$db->query($sql);
 	echo "{\"status\":\"ok\"}";
 }else{
