@@ -51,7 +51,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				  'skill-design' => $skill_design,
 				  'skill-scouting' => $skill_scout,
 				  'skill-fundraising' => $skill_fr,
-				  'skill-other' => $skill_other
+				  'skill-other' => $skill_other,
+				  'skill-other-desc' => $skill_other_desc
 				  );
 	
 	$json_encoded_skills = json_encode($json);
@@ -68,7 +69,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pass_hash = md5($concatPass);
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "', 'MENTOR');";
 	$db->query($sql);
-	$sql = "INSERT INTO `mentors` (`OTHER_DETAIL`, `EMAIL`, `ADDRESS`, `AGE`, `BIO`, `NAME`, `PHONE`, `PREF_AFFILIATION`, `SPECIALIZATIONS_JSON`, `TEAM_NUMBER`) VALUES ('".$skill_other_desc."', '".$mentor_email."', '".$mentor_address."', '".$mentor_age."', '".$mentor_bio."', '".$mentor_name."', '".$mentor_phone."', '".$pref."', '".$json_encoded_skills."', '".$team_number."')";
+	
+	/*var conversions cause im too lazy to change the js*/
+	$email = $mentor_email;
+	$address = $mentor_address;
+	$age = $mentor_age;
+	$comments = $mentor_bio;
+	$name = $mentor_name;
+	$phone = $mentor_phone;
+	$type = $pref;
+	$skills_json = $json_encoded_skills;
+	
+	$sql = "INSERT INTO `mentors` (`NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$name."', '".$skills_json."', '".$team_number."', '".$comments."', '".$phone."', '".$email."', '".$address."', '".$type."', '".$age."');";
 	$db->query($sql);
 
 	echo "{\"status\":\"ok\"}";
