@@ -86,7 +86,7 @@ var getDistance = function(p1, p2) {
 		$allteams = array();
 			foreach($address_array as $address){
 				$teamjson = "UNDEFINED";
-				$sql = "SELECT * FROM `teams` WHERE `ADDRESS` = '$address';";
+				$sql = "SELECT * FROM `$table` WHERE `ADDRESS` = '$address';";
 				$result=$db->query($sql);
 				while($r=mysqli_fetch_assoc($result)){
 					$a = array( 'name' => $r['NAME'],
@@ -249,9 +249,7 @@ var getDistance = function(p1, p2) {
 								<li><button onclick="refreshListing();">refresh</button></li>
 							</ul>
 							<script>
-								$("#slidey-thing").change(function(){
-									$("#range-display").html($("#slidey-thing").data("rangeinput"));
-								});
+								
 								$("#pancakes").toggle();
 							</script>
 							<ul style="list-style-type:none;">
@@ -264,7 +262,6 @@ var getDistance = function(p1, p2) {
 					<script>
 					<?php
 						echo 'var allteams = ' . json_encode($allteams) . ";" . PHP_EOL;
-						//echo 'var me = ' . json_encode() . ';' . PHP_EOL;
 					?>
 					
 					function getLatLngFromAddress(address){
