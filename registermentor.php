@@ -56,14 +56,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	$json_encoded_skills = json_encode($json);
 	
-	$pref = "UNDEFINED";
-	if($pref_fll===true){
-		$pref="FLL";
-	}else if($pref_ftc===true){
-		$pref="FTC";
-	}else{
-		$pref="FRC";
-	}
+	$thing = array( 'pref_fll' => $pref_fll,
+					'pref_ftc' => $pref_ftc,
+					'pref_frc' => $pref_frc);
+					
+	$pref = json_encode($thing);
 
 	$mentor_pass = mysql_escape_mimic($pass1);	
 	$salt = createSalt($mentor_email);
@@ -117,15 +114,15 @@ echoHeader();
 												<input type="text" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
 											</div>
 											<div class="4u 12u$(small)">
-												<input type="radio" id="FLLcheck" name="typeChecks" checked>
+												<input type="checkbox" id="FLLcheck" />
 												<label for="FLLcheck">FLL</label>
 											</div>
 											<div class="4u 12u$(small)">
-												<input type="radio" id="FTCcheck" name="typeChecks">
+												<input type="checkbox" id="FTCcheck" />
 												<label for="FTCcheck">FTC</label>
 											</div>
 											<div class="4u$ 12u$(small)">
-												<input type="radio" id="FRCcheck" name="typeChecks">
+												<input type="checkbox" id="FRCcheck" />
 												<label for="FRCcheck">FRC</label>
 											</div>
 											<div class="6u 12u$(small)">
