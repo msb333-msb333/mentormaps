@@ -11,14 +11,7 @@ while($r=mysqli_fetch_assoc($result)){
 	$type = $r['TYPE'];
 }
 
-$table = "UNDEFINED";
-if($type=='MENTOR'){
-	$table = 'mentors';
-}else{
-	$table = 'teams';
-}
-
-$sql = "SELECT `ADDRESS` FROM `$table` WHERE `EMAIL` = '$email'";
+$sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
 $my_address = "UNDEFINED";
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
@@ -26,7 +19,11 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
 $address_array = array();
-$sql = "SELECT `ADDRESS` FROM `teams`";
+if($type=="MENTOR"){
+	$sql = "SELECT `ADDRESS` FROM `data` WHERE TYPE = 'TEAM'";
+}else{
+	$sql = "SELECT `ADDRESS` FROM `data` WHERE TYPE = 'MENTOR'";
+}
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
 	array_push($address_array, $r['ADDRESS']);
