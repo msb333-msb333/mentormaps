@@ -20,9 +20,9 @@ while($r=mysqli_fetch_assoc($result)){
 
 $address_array = array();
 if($type=="MENTOR"){
-	$sql = "SELECT `ADDRESS` FROM `data` WHERE TYPE = 'TEAM'";
+	$sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'";
 }else{
-	$sql = "SELECT `ADDRESS` FROM `data` WHERE TYPE = 'MENTOR'";
+	$sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
@@ -44,6 +44,8 @@ while($r=mysqli_fetch_assoc($result)){
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<script src="compare.js"></script>
 		
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -67,20 +69,19 @@ while($r=mysqli_fetch_assoc($result)){
 		$allteams = array();
 			foreach($address_array as $address){
 				$teamjson = "UNDEFINED";
-				$sql = "SELECT * FROM `$table` WHERE `ADDRESS` = '$address';";
+				$sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
 				$result=$db->query($sql);
 				while($r=mysqli_fetch_assoc($result)){
 					$a = array( 'name' => $r['NAME'],
-								'searching_skills_json' => $r['SEARCHING_SKILLS_JSON'],
+								'searching_skills_json' => $r['SKILLS_JSON'],
 								'team_number' => $r['TEAM_NUMBER'],
 								'comments' => $r['COMMENTS'],
 								'phone' => $r['PHONE'],
 								'email' => $r['EMAIL'],
 								'address' => $r['ADDRESS'],
 								'type' => $r['TYPE'],
-								'other_detail' => $r['OTHER_DETAIL']
 								);
-								array_push($allteams, $a);
+					array_push($allteams, $a);
 					$teamjson = json_encode($a);
 				}
 				echo 'var teamdata = ' . $teamjson . ';' . PHP_EOL;
@@ -259,25 +260,20 @@ while($r=mysqli_fetch_assoc($result)){
 						var p1 = getLatLngFromAddress(address1);
 						var p2 = getLatLngFromAddress(address2);
 						
-						console.log(getDistance(p1,p2));
-						return getDistance(p1,p2);
+						console.log(p1);
+						
+						//console.log(getDistance(p1,p2));
+						//return getDistance(p1,p2);
 					}
 					
 					function refreshListing(){
-						var maxdistance = 10;//miles
-						var skills_weight = 0.5;//out of 1 (100%)
-						var type_weight = 1;//either 0 or 1
-					
-						for(var i=0;i<allteams.length;i++){
-							console.log(allteams[i]);
-							for(var e in allteams[i]){
-								console.log("	" + e + " | " + allteams[i][e]);
-								if(e=='address'){
-									console.log(calculateDistance(allteams[i][e].toString(), "<?php echo $my_address; ?>"));
-								}
-								
+						console.log("called refreshListing");
+						for(var i=0;i<allteams.length;i++){//rrgh cant get foreach loops to work right
+							var team = allteams[i];
+							for(var element in team){
+								console.log(element);
 							}
-						}	
+						}
 					}
 					</script>
 					
