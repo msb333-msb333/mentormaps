@@ -30,6 +30,24 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
 	array_push($address_array, $r['ADDRESS']);
 }
+
+$result=$db->query("SELECT * FROM `data`");
+$all_data = array();
+while($r=mysqli_fetch_assoc($result)){
+	$current = array(
+	'name' => $r['NAME'],
+	'skills_json' => $r['SKILLS_JSON'],
+	'team_number' => $r['TEAM_NUMBER'],
+	'comments' => $r['COMMENTS'],
+	'phone' => $r['PHONE'],
+	'email' => $r['EMAIL'],
+	'address' => $r['ADDRESS'],
+	'type' => $r['TYPE'],
+	'age' => $r['AGE'],
+	'account_type' => $r['ACCOUNT_TYPE'],
+	);
+	array_push($all_data, $current);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -156,7 +174,6 @@ while($r=mysqli_fetch_assoc($result)){
 						searchingFor = searchingFor + "other ("+teamdata['other_detail']+")";
 				}else{
 					if(value=='true'){
-						console.log(value + " is true");
 						searchingFor = searchingFor + key + "<br />";
 					}
 				}
@@ -256,7 +273,7 @@ while($r=mysqli_fetch_assoc($result)){
 							<script>
 								$("#pancakes").toggle();
 							</script>
-							<ul style="list-style-type:none;">
+							<ul style="list-style-type:none;" id="team-list">
 								<li><button id="coolarrow" onclick="frau();">&#9660;</button></li>
 							</ul>
 							</div>
@@ -265,8 +282,18 @@ while($r=mysqli_fetch_assoc($result)){
 					
 					<script>
 					<?php
+						echo 'var alldata = ' . json_encode($all_data) . ';' . PHP_EOL;
 						echo 'var allteams = ' . json_encode($allteams) . ";" . PHP_EOL;
 					?>
+					
+					var me;
+					for(var i=0;i<alldata.length;i++){
+						var current_item = alldata[i];
+						if(current_item['address'] == '<?php echo $my_address; ?>'){
+							me = current_item;
+							break;
+						}
+					}
 					
 					function getLatLngFromAddress(address){
 					geocoder.geocode( { 'address': address}, function(results, status) {
@@ -289,13 +316,50 @@ while($r=mysqli_fetch_assoc($result)){
 					}
 					
 					function refreshListing(){
+						
+						var teamscore_map = [];
+						
 						console.log("called refreshListing");
 						for(var i=0;i<allteams.length;i++){//rrgh cant get foreach loops to work right
 							var team = allteams[i];
-							for(var element in team){
-								console.log(element);
-							}
+								var searchingfor = $.parseJSON(me['skills_json']);
+								var offered = $.parseJSON(team['searching_skills_json']);
+								var distance = 100;//todo calc this
+								var process_teamtype = $.parseJSON(me['type']);
+								var process_mentortypes = $.parseJSON(team['type']);
+								var teamtype;
+								var mentortypes = [];
+								
+								for(var e in process_mentortypes){
+									if(process_mentortypes[e]=='true'){
+										mentortypes.push(e);
+									}
+								}
+								
+								for(var e in process_teamtype){
+									if(process_teamtype[e]=='true'){
+										teamtype = e;
+										break;
+									}
+								}
+								
+								var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance);
+								teamscore_map.push({team, compare_result});
 						}
+						console.log(teamscore_map);
+						
+						var comparator = function(a,b){
+							return parseInt(a['compare_result']) + parseInt(b['compare_result']);
+						}
+						
+						teamscore_map = teamscore_map.sort(comparator);
+						
+						for(var e in teamscore_map){
+							var team = teamscore_map[e]['team'];
+							$("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['address']+"</a></li>");
+						}
+						
+						console.log(teamscore_map);
 					}
 					</script>
 					
