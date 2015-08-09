@@ -20,8 +20,10 @@ while($r=mysqli_fetch_assoc($result)){
 
 $address_array = array();
 if($type=="MENTOR"){
+	echo '<!--you are a mentor, displaying all results for teams-->';
 	$sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'";
 }else{
+	echo '<!--you are a team, displaying all results for mentors-->';
 	$sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'";
 }
 $result = $db->query($sql);
@@ -131,11 +133,21 @@ while($r=mysqli_fetch_assoc($result)){
       });
 	  
 		google.maps.event.addListener(marker, 'click', function(){
-			document.getElementById("img-container").innerHTML = "<img id=\"ross\" src=\"" + teamdata['type'] + ".png\" width=\"160px\" height=\"160px\" />";
+			var typedata = $.parseJSON(teamdata['type']);
+			if(typedata['pref_fll']=='true'){
+				document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+			}
+			if(typedata['pref_ftc']=='true'){
+				document.getElementById("img-container").innerHTML += "<img id=\"ross2\" src=\"ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+			}
+			if(typedata['pref_frc']=='true'){
+				document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+			}
 			document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
 			document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
 			document.getElementById("address-container").innerHTML = "<b><u>Location:<br /></u></b>" + teamdata['address'];
 			document.getElementById("comments-container").innerHTML = "<b><u>Comments:<br /></u></b>" + teamdata['comments'];
+			document.getElementById("team-info-label").innerHTML = 'Team Info: <a href="./profile.php?p='+teamdata['email']+'"><img src="./ic_open_in_new_white_48dp_2x.png" width="32px" height="32px" /></a>';
 			
 			var searchingFor = "";
 			var ssjson = $.parseJSON(teamdata['searching_skills_json']);
@@ -149,9 +161,20 @@ while($r=mysqli_fetch_assoc($result)){
 					}
 				}
 			});
+			<?php
+			if($type=="MENTOR"){
+				echo'
+				document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
+				document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
+				';
+			}else{
+				echo '
+				document.getElementById("searching-skills-container").innerHTML = "<b><u>Offers:<br /></u></b>" + searchingFor;
+				document.getElementById("name-container").innerHTML = "<b><u>Mentor Info:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
+				';
+			}
+			?>
 			
-			document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
-			document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata['name'] + ", " + teamdata['team_number'];
 		});
 
         google.maps.event.addListener(marker, 'mouseover', function() {
@@ -231,7 +254,6 @@ while($r=mysqli_fetch_assoc($result)){
 								<li><button onclick="refreshListing();">refresh</button></li>
 							</ul>
 							<script>
-								
 								$("#pancakes").toggle();
 							</script>
 							<ul style="list-style-type:none;">
@@ -281,7 +303,7 @@ while($r=mysqli_fetch_assoc($result)){
 						<div style="white-space:nowrap;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
-							<div class="6u 6u$(small)"><b><u style="font-size:35px;">Team Info</u></b></div>
+							<div class="6u 6u$(small)"><b><u id="team-info-label" style="font-size:35px;">Team Info</u></b></div>
 								<div class="row uniform">
 									<div class="12u 12u$(small)" id="img-container"></div>
 									<div class="6u 3u$(small)" id="name-container"></div>
