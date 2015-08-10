@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 	require "./db.php";
 	require "./security/salt.php";
 	
+	$team_age = mysql_escape_mimic($_POST['team-age']);	
 	$team_name = mysql_escape_mimic($_POST['team-name']);	
 	$team_email = mysql_escape_mimic($_POST['team-email']);
 	$team_address = mysql_escape_mimic($_POST['team-address']);
@@ -13,12 +14,13 @@ header('Content-Type: application/json');
 	$pass2 = $_POST['pass2'];
 	$team_number = mysql_escape_mimic($_POST['team-number']);
 	
-	$team_name=str_replace("<script>", "im a dirty little hacker: ", $team_name);
-	$team_email=str_replace("<script>", "im a dirty little hacker: ", $team_email);
-	$team_address=str_replace("<script>", "im a dirty little hacker: ", $team_address);
-	$team_phone=str_replace("<script>", "im a dirty little hacker: ", $team_phone);
-	$comments=str_replace("<script>", "im a dirty little hacker: ", $comments);
-	$team_number=str_replace("<script>", "im a dirty little hacker: ", $team_number);
+	$team_age=str_replace("<script", "im a dirty little hacker: ", $team_age);
+	$team_name=str_replace("<script", "im a dirty little hacker: ", $team_name);
+	$team_email=str_replace("<script", "im a dirty little hacker: ", $team_email);
+	$team_address=str_replace("<script", "im a dirty little hacker: ", $team_address);
+	$team_phone=str_replace("<script", "im a dirty little hacker: ", $team_phone);
+	$comments=str_replace("<script", "im a dirty little hacker: ", $comments);
+	$team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
 	
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
@@ -71,7 +73,7 @@ header('Content-Type: application/json');
 	$phone = $team_phone;
 	$type = $pref;
 	$skills_json = $json_encoded_skills;
-	$age = "!TODO";
+	$age = $team_age;
 	
 	$sql = "INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$name."', '".$skills_json."', '".$team_number."', '".$comments."', '".$phone."', '".$email."', '".$address."', '".$type."', '".$age."');";
 	
@@ -110,6 +112,9 @@ header('Content-Type: application/json');
 											</div>
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="team-address" id="team-address" placeholder="Address" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="team-address" id="team-age" placeholder="Team Age (Optional)" />
 											</div>
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />

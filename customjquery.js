@@ -6,6 +6,7 @@ $("#submitTeamRegistrationForm").click(function(){
 	var team_phone = document.getElementById("team-phone").value;
 	var pass1 = document.getElementById("pass1").value;
 	var pass2 = document.getElementById("pass2").value;
+	var teamage = document.getElementById("team-age").value;
 	
 	if(team_number==""||team_name==""||team_email==""||team_address==""||team_phone==""||pass1==""||pass2==""){
 		alert("you did not fill in a required field");
@@ -27,6 +28,7 @@ $("#submitTeamRegistrationForm").click(function(){
 			'pass1': pass1,
 			'pass2': pass2,
 			'team-number': team_number,
+			'team-age' : teamage,
 			
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
