@@ -145,33 +145,43 @@ while($r=mysqli_fetch_assoc($result)){
 		var iconurl = "http://qca.st/images/redditor.png";
 		if(teamdata['account_type']=='TEAM'){
 			if(typedata['pref_ftc']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/FFFFFF';
+				iconurl = 'white.png';
 			}
 			if(typedata['pref_fll']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/66CCFF';
+				iconurl = 'blue.png';
 			}
 			if(typedata['pref_frc']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/FF0000';
+				iconurl = 'red.png';
+			}
+			if(typedata['pref_vex']=='true'){
+				iconurl = 'orange.png';
 			}
 		}else{
 			var does1 = false;
 			if(typedata['pref_ftc']=='true'){
 				does1 = true;
-				iconurl = 'http://www.googlemapsmarkers.com/v1/M/FFFFFF';
+				iconurl = 'whitem.png';
 			}
 			if(typedata['pref_fll']=='true'){
 				if(does1==true){
-					iconurl = 'http://www.googlemapsmarkers.com/v1/M/00CC00';
+					iconurl = 'greenm.png';
 				}else{
 					does1 = true;
-					iconurl = 'http://www.googlemapsmarkers.com/v1/M/66CCFF';
+					iconurl = 'bluem.png';
 				}
 			}
 			if(typedata['pref_frc']=='true'){
 				if(does1==true){
-					iconurl = 'http://www.googlemapsmarkers.com/v1/M/00CC00';
+					iconurl = 'greenm.png';
 				}else{
-					iconurl = 'http://www.googlemapsmarkers.com/v1/M/FF0000';
+					iconurl = 'redm.png';
+				}
+			}
+			if(typedata['pref_vex']=='true'){
+				if(does1==true){
+					iconurl = 'greenm.png';
+				}else{
+					iconurl = 'orangem.png';
 				}
 			}
 		}
@@ -321,6 +331,7 @@ while($r=mysqli_fetch_assoc($result)){
 						</div>
 					</div>
 					
+					
 					<script>
 					<?php
 						echo 'var alldata = ' . json_encode($all_data) . ';' . PHP_EOL;
@@ -403,6 +414,12 @@ while($r=mysqli_fetch_assoc($result)){
 					</script>
 					
 					</div>
+					<style>
+					.paddedImgHolder{
+						padding-top:10px;
+					}
+					</style>
+					<div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="white.png"/> FTC | <img class="paddedImgHolder" src="blue.png"/>FLL</div>
 						<div style="white-space:nowrap;">
 						<div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
 							<section id="team-info-section">
