@@ -66,7 +66,7 @@ header('Content-Type: application/json');
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');";	
 	$db->query($sql);
 	
-	/*var conversions cause im too lazy to change the js*/
+	//var conversions cause im too lazy to change the js
 	$email = $team_email;
 	$address = $team_address;
 	$name = $team_name;
