@@ -151,6 +151,7 @@ while($r=mysqli_fetch_assoc($result)){
       });
 	  
 		google.maps.event.addListener(marker, 'click', function(){
+			$("#img-container").html("");
 			var typedata = $.parseJSON(teamdata['type']);
 			if(typedata['pref_fll']=='true'){
 				document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
@@ -316,10 +317,8 @@ while($r=mysqli_fetch_assoc($result)){
 					}
 					
 					function refreshListing(){
-						
+						$("#team-list").html("<li><button id=\"coolarrow\" onclick=\"frau();\">&#9650;</button></li>");
 						var teamscore_map = [];
-						
-						console.log("called refreshListing");
 						for(var i=0;i<allteams.length;i++){//rrgh cant get foreach loops to work right
 							var team = allteams[i];
 								var searchingfor = $.parseJSON(me['skills_json']);
