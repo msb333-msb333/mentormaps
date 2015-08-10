@@ -273,28 +273,18 @@ while($r=mysqli_fetch_assoc($result)){
 					<article id="footer" style="padding-top:30px;">
 					<div id="maybe-this-will-work-wrapper"><!--holy crap, it worked-->
 					<div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
-					
-					<div id="legend">
+						<div id="legend">
 						<script>
 							document.getElementById('legend').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:10%;color:white;");
 						</script>
 					</div>
 					
-							<div id="map-section">
-							<script>
-								document.getElementById('map-section').setAttribute("style","text-align:center;margin: 0 auto;");
-								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
-								document.getElementById('map-section').style.width = window.innerWidth * 0.3 + "px";
-							</script>
-							<div id="map-canvas"></div>
-						</div>
-						
 						<div id="search-wrapper">
 						<script>
 						
 						var up = false;
 						
-						document.getElementById('search-wrapper').setAttribute('style', 'height:' + document.getElementById('map-section').style.height + ";text-align: center;float:right;background-color:teal;width:22%;color:white;text-align:left;");
+						document.getElementById('search-wrapper').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";text-align: center;float:right;background-color:teal;width:22%;color:white;text-align:left;");
 						
 						function frau(){
 							if(up){
@@ -321,6 +311,15 @@ while($r=mysqli_fetch_assoc($result)){
 								<li><button id="coolarrow" onclick="frau();">&#9660;</button></li>
 							</ul>
 							</div>
+						</div>
+						
+						<div id="map-section">
+							<script>
+								//document.getElementById('map-section').setAttribute("style","");
+								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
+								document.getElementById('map-section').style.width = window.innerWidth * 0.3 + "px";
+							</script>
+							<div id="map-canvas"></div>
 						</div>
 					</div>
 					
