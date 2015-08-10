@@ -112,14 +112,28 @@ header('Content-Type: application/json');
 											<div class="6u 12u$(small)">
 												<input type="text" name="team-number" id="team-number" placeholder="Team Number" />
 											</div>
+											
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="team-address" id="team-address" placeholder="Address" />
+												<input type="text" name="address-line-1" id="address-line-1" placeholder="Address" />
 											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-city" id="address-city" placeholder="City" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-state" id="address-state" placeholder="State" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-country" id="address-country" placeholder="Country" />
+											</div>
+											
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="team-address" id="team-age" placeholder="Team Age (Optional)" />
 											</div>
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
+											</div>
+											<div class="6u 12u$(small)">
+												<br />&nbsp;
 											</div>
 											<div class="3u 12u$(small)">
 												<input type="radio" id="FLLcheck" name="typeChecks" checked>

@@ -2,7 +2,14 @@ $("#submitTeamRegistrationForm").click(function(){
 	var team_number = document.getElementById("team-number").value;
 	var team_name = document.getElementById("team-name").value;
 	var team_email = document.getElementById("team-email").value;
-	var team_address = document.getElementById("team-address").value;
+	
+	var address1 = document.getElementById("address-line-1").value;
+	var address2 = document.getElementById("address-city").value;
+	var address3 = document.getElementById("address-state").value;
+	var address4 = document.getElementById("address-country").value;
+	
+	var team_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+	
 	var team_phone = document.getElementById("team-phone").value;
 	var pass1 = document.getElementById("pass1").value;
 	var pass2 = document.getElementById("pass2").value;
@@ -33,7 +40,7 @@ $("#submitTeamRegistrationForm").click(function(){
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
 			'FRCcheck': document.getElementById("FRCcheck").checked,
-			'VEXcheck': document.getElementById("VEXcheck").checked;
+			'VEXcheck': document.getElementById("VEXcheck").checked,
 			
 			'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
 			'skill-manufacturing': 			document.getElementById("skill-manufacturing").checked,
