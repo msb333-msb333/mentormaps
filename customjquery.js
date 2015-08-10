@@ -33,6 +33,7 @@ $("#submitTeamRegistrationForm").click(function(){
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
 			'FRCcheck': document.getElementById("FRCcheck").checked,
+			'VEXcheck': document.getElementById("VEXcheck").checked;
 			
 			'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
 			'skill-manufacturing': 			document.getElementById("skill-manufacturing").checked,

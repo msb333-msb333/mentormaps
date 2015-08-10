@@ -25,6 +25,7 @@ header('Content-Type: application/json');
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
 	$pref_frc = $_POST['FRCcheck'];
+	$pref_vex = $_POST['VEXcheck'];
 	
 	$skill_mech = $_POST['skill-mechanical-engineering'];
 	$skill_prog = $_POST['skill-programming'];
@@ -57,7 +58,8 @@ header('Content-Type: application/json');
 					
 	$pref = json_encode(array(  'pref_fll' => $pref_fll,
 								'pref_ftc' => $pref_ftc,
-								'pref_frc' => $pref_frc));
+								'pref_frc' => $pref_frc,
+								'pref_vex' => $pref_vex));
 	
 	$team_pass = mysql_escape_mimic($pass1);
 	$salt = createSalt($team_email);
@@ -119,20 +121,21 @@ header('Content-Type: application/json');
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
 											</div>
-											<div class="6u 12u$(small)">
-												<br />&nbsp;
-											</div>
-											<div class="4u 12u$(small)">
+											<div class="3u 12u$(small)">
 												<input type="radio" id="FLLcheck" name="typeChecks" checked>
 												<label for="FLLcheck">FLL</label>
 											</div>
-											<div class="4u 12u$(small)">
+											<div class="3u 12u$(small)">
 												<input type="radio" id="FTCcheck" name="typeChecks">
 												<label for="FTCcheck">FTC</label>
 											</div>
-											<div class="4u$ 12u$(small)">
+											<div class="3u 12u$(small)">
 												<input type="radio" id="FRCcheck" name="typeChecks">
 												<label for="FRCcheck">FRC</label>
+											</div>
+											<div class="3u 12u$(small)">
+												<input type="radio" id="VEXcheck" name="typeChecks">
+												<label for="VEXcheck">VEX</label>
 											</div>
 											<div class="6u 12u$(small)">
 												Searching for...
