@@ -272,16 +272,18 @@ while($r=mysqli_fetch_assoc($result)){
 				<!-- Main -->
 					<article id="footer" style="padding-top:30px;">
 					<div id="maybe-this-will-work-wrapper"><!--holy crap, it worked-->
-					<div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
-							<div id="map-section">
+					<table border=1>
+						<tr>
+						<td><div id="map-section">
 							<script>
 								document.getElementById('map-section').setAttribute("style","float:left;padding-left:"+(window.innerWidth / 6)+"px;");
 								document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
 								document.getElementById('map-section').style.width = window.innerWidth * 0.75 + "px";
 							</script>
 							<div id="map-canvas"></div>
-						</div>
+						</div></td>
 						
+						<td>
 						<div id="search-wrapper">
 						<script>
 						
@@ -315,6 +317,11 @@ while($r=mysqli_fetch_assoc($result)){
 							</ul>
 							</div>
 						</div>
+						</td>
+						
+						</tr>	
+						
+						
 					</div>
 					
 					<script>
