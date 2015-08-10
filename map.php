@@ -100,6 +100,7 @@ while($r=mysqli_fetch_assoc($result)){
 								'email' => $r['EMAIL'],
 								'address' => $r['ADDRESS'],
 								'type' => $r['TYPE'],
+								'account_type' => $r['ACCOUNT_TYPE']
 								);
 					array_push($allteams, $a);
 					$teamjson = json_encode($a);
@@ -140,11 +141,32 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
   	function codeAddress(map, address, teamdata) {
+		var typedata = $.parseJSON(teamdata['type']);
+		var iconurl = "http://qca.st/images/redditor.png";
+		if(teamdata['account_type']=='TEAM'){
+			if(typedata['pref_ftc']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/FFFFFF';
+			}else if(typedata['pref_fll']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/0066FF';
+			}else if(typedata['pref_frc']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/FF0000';
+			}
+		}else{
+			console.log("you are a mentor");
+			if(typedata['pref_ftc']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/M/FFFFFF';
+			}else if(typedata['pref_fll']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/M/0066FF';
+			}else if(typedata['pref_frc']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/M/FF0000';
+			}
+		}
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var marker = new google.maps.Marker({
             map: map, 
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+			icon: iconurl
         });
         var infowindow=new google.maps.InfoWindow({
         content: "" + teamdata['name'] + ", " + teamdata['team_number']
@@ -152,7 +174,7 @@ while($r=mysqli_fetch_assoc($result)){
 	  
 		google.maps.event.addListener(marker, 'click', function(){
 			$("#img-container").html("");
-			var typedata = $.parseJSON(teamdata['type']);
+			//http://www.googlemapsmarkers.com/v1/0099FF/
 			if(typedata['pref_fll']=='true'){
 				document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
 			}
