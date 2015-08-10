@@ -146,19 +146,33 @@ while($r=mysqli_fetch_assoc($result)){
 		if(teamdata['account_type']=='TEAM'){
 			if(typedata['pref_ftc']=='true'){
 				iconurl = 'http://www.googlemapsmarkers.com/v1/FFFFFF';
-			}else if(typedata['pref_fll']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/0066FF';
-			}else if(typedata['pref_frc']=='true'){
+			}
+			if(typedata['pref_fll']=='true'){
+				iconurl = 'http://www.googlemapsmarkers.com/v1/66CCFF';
+			}
+			if(typedata['pref_frc']=='true'){
 				iconurl = 'http://www.googlemapsmarkers.com/v1/FF0000';
 			}
 		}else{
-			console.log("you are a mentor");
+			var does1 = false;
 			if(typedata['pref_ftc']=='true'){
+				does1 = true;
 				iconurl = 'http://www.googlemapsmarkers.com/v1/M/FFFFFF';
-			}else if(typedata['pref_fll']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/M/0066FF';
-			}else if(typedata['pref_frc']=='true'){
-				iconurl = 'http://www.googlemapsmarkers.com/v1/M/FF0000';
+			}
+			if(typedata['pref_fll']=='true'){
+				if(does1==true){
+					iconurl = 'http://www.googlemapsmarkers.com/v1/M/00CC00';
+				}else{
+					does1 = true;
+					iconurl = 'http://www.googlemapsmarkers.com/v1/M/66CCFF';
+				}
+			}
+			if(typedata['pref_frc']=='true'){
+				if(does1==true){
+					iconurl = 'http://www.googlemapsmarkers.com/v1/M/00CC00';
+				}else{
+					iconurl = 'http://www.googlemapsmarkers.com/v1/M/FF0000';
+				}
 			}
 		}
     geocoder.geocode( { 'address': address}, function(results, status) {
