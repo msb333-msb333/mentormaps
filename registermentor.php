@@ -29,8 +29,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pref_frc = $_POST['FRCcheck'];
 	$pref_vex = $_POST['VEXcheck'];
 	
-	$skill_mech = $_POST['skill-mechanical-engineering'];
-	$skill_prog = $_POST['skill-programming'];
+	$skill_eng = $_POST['skill-engineering'];
+	$skill_programming = $_POST['skill-programming'];
 	$skill_strat = $_POST['skill-strategy'];
 	$skill_bus = $_POST['skill-business'];
 	$skill_mark = $_POST['skill-marketing'];
@@ -41,10 +41,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$skill_other = $_POST['skill-other'];
 	$skill_other_desc = $_POST['other-text-box'];
 	
+	$pc = $_POST['programming-c'];
+	$pj = $_POST['programming-java'];
+	$pcs = $_POST['programming-csharp'];
+	$ppy = $_POST['programming-python'];
+	$prc = $_POST['programming-robotc'];
+	$plv = $_POST['programming-labview'];
+	$pec = $_POST['programming-easyc'];
+	$pnxt = $_POST['programming-nxt'];
+	$pev3 = $_POST['programming-ev3'];
+	
+	$em = $_POST['engineering-mechanical'];
+	$ee = $_POST['engineering-electrical'];
+	
 	$skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
 	
-	$json = array('skill-mechanical-engineering' => $skill_mech,
-				  'skill-programming' => $skill_prog,
+	$json = array('skill-engineering' => $skill_eng,
+				  'engineering-desc' => json_encode(array(
+													'engineering-mechanical' => $em,
+													'engineering-electrical' => $ee)),
+													
+				  'skill-programming' => $skill_programming,
+				  'programming-desc' => json_encode(array('programming-c' => $pc,
+													'programming-java' => $pj,
+													'programming-csharp' => $pcs,
+													'programming-python' => $ppy,
+													'programming-robotc' => $prc,
+													'programming-labview' => $plv,
+													'programming-easyc' => $pec,
+													'programming-nxt' => $pnxt,
+													'programming-ev3' => $pev3)),
 				  'skill-strategy' => $skill_strat,
 				  'skill-business' => $skill_bus,
 				  'skill-marketing' => $skill_mark,
@@ -55,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				  'skill-other' => $skill_other,
 				  'skill-other-desc' => $skill_other_desc
 				  );
-	
+				  
 	$json_encoded_skills = json_encode($json);
 	
 	$thing = array( 'pref_fll' => $pref_fll,
@@ -72,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "', 'MENTOR');";
 	$db->query($sql);
 	
-	/*var conversions cause im too lazy to change the js*/
+	//var conversions cause im too lazy to change the js
 	$email = $mentor_email;
 	$address = $mentor_address;
 	$age = $mentor_age;
@@ -84,7 +110,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	$sql = "INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('MENTOR', '".$name."', '".$skills_json."', '".$team_number."', '".$comments."', '".$phone."', '".$email."', '".$address."', '".$type."', '".$age."');";
 	$db->query($sql);
-
+	
 	echo "{\"status\":\"ok\"}";
 }else{
 require "./core.php";
@@ -135,10 +161,10 @@ echoHeader();
 												<input type="text" name="mentor-age" id="mentor-age" placeholder="Age" />
 											</div>
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="mentor-address" id="mentor-address" placeholder="Address" />
-											</div>
-											<div class="6u 12u$(xsmall)">
 												<input type="text" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
+											</div>
+											<div class="6u 12u$(small)">
+												<br />&nbsp;
 											</div>
 											
 											<div class="3u 12u$(small)">
@@ -192,10 +218,14 @@ echoHeader();
 											<div class="6u 12u$">
 												<ul id="programming-types-list" style="list-style-type:none;">
 													<li>&nbsp;<input id="programming-c" type="checkbox"/><label for="programming-c">C</label></li>
-													<li>&nbsp;<input id="programming-java" type="checkbox"/><label for="programming-c">Java</label></li>
-													<li>&nbsp;<input id="programming-csharp" type="checkbox"/><label for="programming-c">C#</label></li>
-													<li>&nbsp;<input id="programming-python" type="checkbox"/><label for="programming-c">python</label></li>
-													<li>&nbsp;<input id="programming-robotc" type="checkbox"/><label for="programming-c">RobotC</label></li>
+													<li>&nbsp;<input id="programming-java" type="checkbox"/><label for="programming-java">Java</label></li>
+													<li>&nbsp;<input id="programming-csharp" type="checkbox"/><label for="programming-csharp">C#</label></li>
+													<li>&nbsp;<input id="programming-python" type="checkbox"/><label for="programming-python">python</label></li>
+													<li>&nbsp;<input id="programming-robotc" type="checkbox"/><label for="programming-robotc">RobotC</label></li>
+													<li>&nbsp;<input id="programming-labview" type="checkbox"/><label for="programming-labview">LabView</label></li>
+													<li>&nbsp;<input id="programming-easyc" type="checkbox"/><label for="programming-easyc">EasyC</label></li>
+													<li>&nbsp;<input id="programming-nxt" type="checkbox"/><label for="programming-nxt">NXT</label></li>
+													<li>&nbsp;<input id="programming-ev3" type="checkbox"/><label for="programming-ev3">EV3</label></li>
 												</ul>
 											</div>	
 											

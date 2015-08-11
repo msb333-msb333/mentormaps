@@ -101,10 +101,26 @@ $("#submitMentorRegistrationForm").click(function(){
 			'FLLcheck': document.getElementById("FLLcheck").checked,
 			'FTCcheck': document.getElementById("FTCcheck").checked,
 			'FRCcheck': document.getElementById("FRCcheck").checked,
+			'VEXcheck': document.getElementById("VEXcheck").checked,
 			
-			'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
+			'skill-engineering': document.getElementById("skill-engineering").checked,
+			
+			'engineering-mechanical' : document.getElementById("engineering-mechanical").checked,
+			'engineering-electrical' : document.getElementById("engineering-electrical").checked,
+			
 			'skill-manufacturing': 			document.getElementById("skill-manufacturing").checked,
 			'skill-programming': 			document.getElementById("skill-programming").checked,
+			
+			'programming-c':				document.getElementById("programming-c").checked,
+			'programming-java':				document.getElementById("programming-java").checked,
+			'programming-csharp':			document.getElementById("programming-csharp").checked,
+			'programming-python':			document.getElementById("programming-python").checked,
+			'programming-robotc':			document.getElementById("programming-robotc").checked,
+			'programming-nxt':			document.getElementById("programming-nxt").checked,
+			'programming-labview':			document.getElementById("programming-labview").checked,
+			'programming-easyc':			document.getElementById("programming-easyc").checked,
+			'programming-ev3':				document.getElementById("programming-ev3").checked,
+			
 			'skill-design': 				document.getElementById("skill-design").checked,
 			'skill-strategy': 				document.getElementById("skill-strategy").checked,
 			'skill-scouting': 				document.getElementById("skill-scouting").checked,
