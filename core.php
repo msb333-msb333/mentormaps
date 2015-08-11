@@ -1,5 +1,5 @@
 <?php
 function echoHeader(){
-	include "./pages/header.html";
+    include "./pages/header.html";
 }
 ?>
