@@ -4,100 +4,74 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	require "./db.php";
 	require "./security/salt.php";
 	
-	$mentor_name = mysql_escape_mimic($_POST['mentor-name']);	
-	$mentor_email = mysql_escape_mimic($_POST['mentor-email']);
-	$mentor_address = mysql_escape_mimic($_POST['mentor-address']);
-	$mentor_phone = mysql_escape_mimic($_POST['mentor-phone']);
-	$mentor_bio = mysql_escape_mimic($_POST['bio']);
-	$mentor_age = mysql_escape_mimic($_POST['mentor-age']);
-	$pass1 = $_POST['pass1'];
-	$pass2 = $_POST['pass2'];
-	$team_number = mysql_escape_mimic($_POST['team-number']);
+	$mentor_name = 			mysql_escape_mimic($_POST['mentor-name']   );	
+	$mentor_email = 		mysql_escape_mimic($_POST['mentor-email']  );
+	$mentor_address = 		mysql_escape_mimic($_POST['mentor-address']);
+	$mentor_phone = 		mysql_escape_mimic($_POST['mentor-phone']  );
+	$mentor_bio = 			mysql_escape_mimic($_POST['bio']           );
+	$mentor_age = 			mysql_escape_mimic($_POST['mentor-age']    );
+	$team_number = 			mysql_escape_mimic($_POST['team-number']);
 	
-	$mentor_name=str_replace("<script>", "im a dirty little hacker: ", $mentor_name);
-	$mentor_email=str_replace("<script>", "im a dirty little hacker: ", $mentor_email);
+	$pass1 = 				$_POST['pass1'];
+	$pass2 = 				$_POST['pass2'];
+	
+	$mentor_name=   str_replace("<script>", "im a dirty little hacker: ", $mentor_name   );
+	$mentor_email=  str_replace("<script>", "im a dirty little hacker: ", $mentor_email  );
 	$mentor_address=str_replace("<script>", "im a dirty little hacker: ", $mentor_address);
-	$mentor_phone=str_replace("<script>", "im a dirty little hacker: ", $mentor_phone);
-	$mentor_bio=str_replace("<script>", "im a dirty little hacker: ", $mentor_bio);
-	$mentor_age=str_replace("<script>", "im a dirty little hacker: ", $mentor_age);
-	$team_number=str_replace("<script>", "im a dirty little hacker: ", $team_number);
-	
-	file_put_contents("./result.txt", "MATCH");
-	
-	$pref_fll = $_POST['FLLcheck'];
-	$pref_ftc = $_POST['FTCcheck'];
-	$pref_frc = $_POST['FRCcheck'];
-	$pref_vex = $_POST['VEXcheck'];
-	$skill_cad = $_POST['skill-cad'];
-	
-	$skill_eng = $_POST['skill-engineering'];
-	$skill_programming = $_POST['skill-programming'];
-	$skill_strat = $_POST['skill-strategy'];
-	$skill_bus = $_POST['skill-business'];
-	$skill_mark = $_POST['skill-marketing'];
-	$skill_manu = $_POST['skill-manufacturing'];
-	$skill_design = $_POST['skill-design'];
-	$skill_scout = $_POST['skill-scouting'];
-	$skill_fr = $_POST['skill-fundraising'];
-	$skill_other = $_POST['skill-other'];
-	$skill_other_desc = $_POST['other-text-box'];
-	
-	$pc = $_POST['programming-c'];
-	$pj = $_POST['programming-java'];
-	$pcs = $_POST['programming-csharp'];
-	$ppy = $_POST['programming-python'];
-	$prc = $_POST['programming-robotc'];
-	$plv = $_POST['programming-labview'];
-	$pec = $_POST['programming-easyc'];
-	$pnxt = $_POST['programming-nxt'];
-	$pev3 = $_POST['programming-ev3'];
-	
-	$em = $_POST['engineering-mechanical'];
-	$ee = $_POST['engineering-electrical'];
-	
-	$skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
-	
-	$json = array('skill-engineering' => $skill_eng,
-				  'engineering-desc' => json_encode(array(
-													'engineering-mechanical' => $em,
-													'engineering-electrical' => $ee)),
-													
-				  'skill-programming' => $skill_programming,
-				  'skill-cad' => $skill_cad,
-				  'programming-desc' => json_encode(array('programming-c' => $pc,
-													'programming-java' => $pj,
-													'programming-csharp' => $pcs,
-													'programming-python' => $ppy,
-													'programming-robotc' => $prc,
-													'programming-labview' => $plv,
-													'programming-easyc' => $pec,
-													'programming-nxt' => $pnxt,
-													'programming-ev3' => $pev3)),
-				  'skill-strategy' => $skill_strat,
-				  'skill-business' => $skill_bus,
-				  'skill-marketing' => $skill_mark,
-				  'skill-manufacturing' => $skill_manu,
-				  'skill-design' => $skill_design,
-				  'skill-scouting' => $skill_scout,
-				  'skill-fundraising' => $skill_fr,
-				  'skill-other' => $skill_other,
-				  'skill-other-desc' => $skill_other_desc
-				  );
+	$mentor_phone=  str_replace("<script>", "im a dirty little hacker: ", $mentor_phone  );
+	$mentor_bio=    str_replace("<script>", "im a dirty little hacker: ", $mentor_bio    );
+	$mentor_age=    str_replace("<script>", "im a dirty little hacker: ", $mentor_age    );
+	$team_number=   str_replace("<script>", "im a dirty little hacker: ", $team_number   );
 				  
-	$json_encoded_skills = json_encode($json);
-	
-	$thing = array( 'pref_fll' => $pref_fll,
-					'pref_ftc' => $pref_ftc,
-					'pref_frc' => $pref_frc,
-					'pref_vex' => $pref_vex);
-					
-	$pref = json_encode($thing);
+	$json_encoded_skills = json_encode(
+									array(
+										'skill-engineering' => $_POST['skill-engineering'],
+										'engineering-desc'  => json_encode(
+																		array(
+																			'engineering-mechanical' => $_POST['engineering-mechanical'],
+																			'engineering-electrical' => $_POST['engineering-electrical'])),
+													
+										'skill-programming' => $_POST['skill-programming'],
+										'skill-cad' => $_POST['skill-cad'],
+										'programming-desc' => json_encode(
+																		array(
+																			'programming-c' => $_POST['programming-c'],
+																			'programming-java' => $_POST['programming-java'],
+																			'programming-csharp' => $_POST['programming-csharp'],
+																			'programming-python' => $_POST['programming-python'],
+																			'programming-robotc' => $_POST['programming-robotc'],
+																			'programming-labview' => $_POST['programming-labview'],
+																			'programming-easyc' => $_POST['programming-easyc'],
+																			'programming-nxt' => $_POST['programming-nxt'],
+																			'programming-ev3' => $_POST['programming-ev3'])),
+																			'skill-strategy' => $_POST['skill-strategy'],
+																			'skill-business' => $_POST['skill-business'],
+																			'skill-marketing' => $_POST['skill-marketing'],
+																			'skill-manufacturing' => $_POST['skill-manufacturing'],
+																			'skill-design' => $_POST['skill-design'],
+																			'skill-scouting' => $_POST['skill-scouting'],
+																			'skill-fundraising' => $_POST['skill-fundraising'],
+																			'skill-other' => $_POST['skill-other'],
+																			'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+										));
 
-	$mentor_pass = mysql_escape_mimic($pass1);	
+	$pref = json_encode(
+					array(
+						'pref_fll' => $_POST['FLLcheck'],
+						'pref_ftc' => $_POST['FTCcheck'],
+						'pref_frc' => $_POST['FRCcheck'],
+						'pref_vex' => $_POST['VEXcheck']));
+
+	$mentor_pass = mysql_escape_mimic($pass1);
+	
 	$salt = createSalt($mentor_email);
+	
 	$concatPass = $mentor_pass . $salt;
+	
 	$pass_hash = md5($concatPass);
+	
 	$sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $mentor_email . "', '" . $pass_hash . "', 'MENTOR');";
+	
 	$db->query($sql);
 	
 	//var conversions cause im too lazy to change the js
