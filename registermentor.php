@@ -28,6 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pref_ftc = $_POST['FTCcheck'];
 	$pref_frc = $_POST['FRCcheck'];
 	$pref_vex = $_POST['VEXcheck'];
+	$skill_cad = $_POST['skill-cad'];
 	
 	$skill_eng = $_POST['skill-engineering'];
 	$skill_programming = $_POST['skill-programming'];
@@ -62,6 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 													'engineering-electrical' => $ee)),
 													
 				  'skill-programming' => $skill_programming,
+				  'skill-cad' => $skill_cad,
 				  'programming-desc' => json_encode(array('programming-c' => $pc,
 													'programming-java' => $pj,
 													'programming-csharp' => $pcs,
@@ -258,10 +260,13 @@ echoHeader();
 												<label for="skill-marketing">Marketing</label>
 											</div>
 											<div class="6u 12u$(small)">
+												<input type="checkbox" id="skill-cad" name="cad">
+												<label for="skill-cad">CAD</label>
+											</div>
+											<div class="6u 12u$(small)">
 												<input type="checkbox" id="skill-other" name="other">
 												<label for="skill-other">Other</label>
 											</div>
-											<div class="6u 12u$(small)"></div>
 											<div class="6u 12u$(small)" style="visibility: hidden;">
 												<input type="text" id="other-text-box" name="other-text-box" placeholder="define 'other'">
 											</div>
