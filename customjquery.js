@@ -15,8 +15,9 @@ $("#submitTeamRegistrationForm").click(function(){
 	var pass2 = document.getElementById("pass2").value;
 	var teamage = document.getElementById("team-age").value;
 	
-	if(team_number==""||team_name==""||team_email==""||team_address==""||team_phone==""||pass1==""||pass2==""){
+	if(team_number==""||team_name==""||team_email==""||team_address==", , , "||team_phone==""||pass1==""||pass2==""){
 		alert("you did not fill in a required field");
+		return;
 	}
 	
 	if(!pass1==pass2){
@@ -83,7 +84,10 @@ $("#submitMentorRegistrationForm").click(function(){
 	var pass1 = document.getElementById("pass1").value;
 	var pass2 = document.getElementById("pass2").value;
 	
-	console.log(document.getElementById("FLLcheck").checked);
+	if(team_number==""||mentor_name==""||mentor_email==""||mentor_address==", , , "||mentor_phone==""||pass1==""||pass2==""){
+		alert("you did not fill in a required field");
+		return;
+	}
 	
 	$.ajax({
 		type: 'POST',
