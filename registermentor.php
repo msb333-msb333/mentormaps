@@ -27,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pref_fll = $_POST['FLLcheck'];
 	$pref_ftc = $_POST['FTCcheck'];
 	$pref_frc = $_POST['FRCcheck'];
+	$pref_vex = $_POST['VEXcheck'];
 	
 	$skill_mech = $_POST['skill-mechanical-engineering'];
 	$skill_prog = $_POST['skill-programming'];
@@ -59,7 +60,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	
 	$thing = array( 'pref_fll' => $pref_fll,
 					'pref_ftc' => $pref_ftc,
-					'pref_frc' => $pref_frc);
+					'pref_frc' => $pref_frc,
+					'pref_vex' => $pref_vex);
 					
 	$pref = json_encode($thing);
 
@@ -88,7 +90,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 require "./core.php";
 echoHeader();
 ?>
-
 				<!-- Main -->
 					<article id="main">
 						<header>
@@ -98,7 +99,7 @@ echoHeader();
 						<section class="wrapper style5">
 							<div class="inner">
 								<section id="register-section">
-									<h4>Mentor Registration</h4>
+									<h4 style="font-size:32px;">Mentor Registration</h4>
 									<div>
 										<div class="row uniform">
 											<div class="6u 12u$(xsmall)">
@@ -116,6 +117,20 @@ echoHeader();
 											<div class="6u 12u$(small)">
 												<input type="text" name="team-number" id="team-number" placeholder="Team Number (Optional)" />
 											</div>
+											
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-line-1" id="address-line-1" placeholder="Address" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-city" id="address-city" placeholder="City" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-state" id="address-state" placeholder="State" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="address-country" id="address-country" placeholder="Country" />
+											</div>
+											
 											<div class="6u 12u$(small)">
 												<input type="text" name="mentor-age" id="mentor-age" placeholder="Age" />
 											</div>
@@ -125,29 +140,68 @@ echoHeader();
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
 											</div>
-											<div class="4u 12u$(small)">
-												<input type="checkbox" id="FLLcheck" />
+											
+											<div class="3u 12u$(small)">
+												<input type="checkbox" id="FLLcheck" name="typeChecks">
 												<label for="FLLcheck">FLL</label>
 											</div>
-											<div class="4u 12u$(small)">
-												<input type="checkbox" id="FTCcheck" />
+											<div class="3u 12u$(small)">
+												<input type="checkbox" id="FTCcheck" name="typeChecks">
 												<label for="FTCcheck">FTC</label>
 											</div>
-											<div class="4u$ 12u$(small)">
-												<input type="checkbox" id="FRCcheck" />
+											<div class="3u 12u$(small)">
+												<input type="checkbox" id="FRCcheck" name="typeChecks">
 												<label for="FRCcheck">FRC</label>
 											</div>
-											<div class="6u 12u$(small)">
-												<input type="checkbox" id="skill-mechanical-engineering" name="mechanical-engineering">
-												<label for="skill-mechanical-engineering">Mechanical Engineering</label>
+											<div class="3u 12u$(small)">
+												<input type="checkbox" id="VEXcheck" name="typeChecks">
+												<label for="VEXcheck">VEX</label>
 											</div>
+											
+											<div class="6u 12u$(small)">
+												<br />
+											</div>
+											<div class="6u 12u$(small)">
+												<br />
+											</div>
+											<h4 style="font-size:23px;">
+												Mentor Skillset
+											</h4>
+											<div class="6u 12u$(small)">
+												<br />&nbsp;
+											</div>
+											
+											
+											<div class="12u 12u$(small)">
+												<input type="checkbox" id="skill-engineering">
+												<label for="skill-engineering">Engineering</label>
+											</div>
+											
+											<div class="6u 12u$">
+												<ul id="engineering-types-list" style="list-style-type:none;">
+													<li>&nbsp;<input id="engineering-mechanical" type="checkbox"/><label for="engineering-mechanical">Mechanical</label></li>
+													<li>&nbsp;<input id="engineering-electrical" type="checkbox"/><label for="engineering-electrical">Electrical</label></li>
+												</ul>
+											</div>					
+											
+											<div class="12u 12u$(small)">
+												<input type="checkbox" id="skill-programming" name="programming">
+												<label for="skill-programming">Programming</label>
+											</div>
+											
+											<div class="6u 12u$">
+												<ul id="programming-types-list" style="list-style-type:none;">
+													<li>&nbsp;<input id="programming-c" type="checkbox"/><label for="programming-c">C</label></li>
+													<li>&nbsp;<input id="programming-java" type="checkbox"/><label for="programming-c">Java</label></li>
+													<li>&nbsp;<input id="programming-csharp" type="checkbox"/><label for="programming-c">C#</label></li>
+													<li>&nbsp;<input id="programming-python" type="checkbox"/><label for="programming-c">python</label></li>
+													<li>&nbsp;<input id="programming-robotc" type="checkbox"/><label for="programming-c">RobotC</label></li>
+												</ul>
+											</div>	
+											
 											<div class="6u 12u$(small)">
 												<input type="checkbox" id="skill-manufacturing" name="manufacturing">
 												<label for="skill-manufacturing">Manufacturing</label>
-											</div>
-											<div class="6u 12u$(small)">
-												<input type="checkbox" id="skill-programming" name="programming">
-												<label for="skill-programming">Programming</label>
 											</div>
 											<div class="6u 12u$(small)">
 												<input type="checkbox" id="skill-design" name="design">
@@ -212,18 +266,14 @@ echoHeader();
 					</footer>
 
 			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-			<script src="./customjquery.js"></script>
-
 	</body>
+	<script src="./customjquery.js"></script>
+	<script>
+		$(function(){
+			$("#engineering-types-list").toggle();
+			$("#programming-types-list").toggle();
+		});
+	</script>
 </html>
 <?php
 }

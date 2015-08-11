@@ -70,7 +70,14 @@ $("#submitMentorRegistrationForm").click(function(){
 	var team_number = document.getElementById("team-number").value;
 	var mentor_name = document.getElementById("mentor-name").value;
 	var mentor_email = document.getElementById("mentor-email").value;
-	var mentor_address = document.getElementById("mentor-address").value;
+	
+	var address1 = document.getElementById("address-line-1").value;
+	var address2 = document.getElementById("address-city").value;
+	var address3 = document.getElementById("address-state").value;
+	var address4 = document.getElementById("address-country").value;
+	
+	var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+	
 	var mentor_phone = document.getElementById("mentor-phone").value;
 	var mentor_age = document.getElementById("mentor-age").value;
 	var pass1 = document.getElementById("pass1").value;
@@ -125,4 +132,12 @@ $("#skill-other").change(function(){
 	 }else{
 		document.getElementById("other-text-box").style.visibility="hidden";
 	 }
+});
+
+$("#skill-programming").change(function(){
+	$("#programming-types-list").toggle();
+});
+
+$("#skill-engineering").change(function(){
+		$("#engineering-types-list").toggle();
 });
