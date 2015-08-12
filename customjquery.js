@@ -1,3 +1,4 @@
+//dispatches async ajax request to submit team data, request is handled in a php if/else statement in the corresponding dispatch page
 $("#submitTeamRegistrationForm").click(function(){
     var team_number =  document.getElementById("team-number"    ).value;
     var team_name =    document.getElementById("team-name"      ).value;
@@ -174,6 +175,7 @@ $("#skill-other").change(function(){
      }
 });
 
+//enables collapsable lists for skillsets
 $("#skill-programming").change(function(){
     $("#programming-types-list").toggle();
 });

@@ -1,6 +1,8 @@
 <?php
+    //initialize database connection (credentials only available through localhost)
     $db = new mysqli("localhost", "mmuser", "mmpass", "mentormaps");
 
+    //function to escape mysql characters that doesn't require a mysqli instance
     function mysql_escape_mimic($inp) { 
         if(is_array($inp)) 
             return array_map(__METHOD__, $inp);

@@ -1,12 +1,18 @@
 <?php
 require "./core.php";
+
+//user must have the php session started
 require "./sessioncheck.php";
+
+//enable referral url to redirect to the previous page once logged in
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(!isset($refurl)){
-        $refurl="./map.php";
+        $refurl="./map.php";//default referral url
     }else{
         $refurl = $_GET['refurl'];
     }
+    
+    //echo default header for MM pages
     echoHeader();
 ?>
                 <!-- Main -->
@@ -46,13 +52,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
                 <!-- Footer -->
                     <footer id="footer">
-                        <ul class="icons">
-                            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                            <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-                            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                        </ul>
                         <ul class="copyright">
                             <li>&copy; Joseph Sirna 2015</li>
                         </ul>
@@ -71,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             <script src="./customjquery.js"></script>
             
             <?php
-            if(isset($_GET['error'])){
+            if(isset($_GET['error'])){//if the user has tried to log in before, display and error
                 echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password<br /><br />";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
             }
             ?>
@@ -80,25 +79,27 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 </html>
 <?php
 }else{
+    //require db connection and security features to verify salted password hash
     require "./security/salt.php";
     require "./db.php";
+    
     //handle login request
     $username = mysql_escape_mimic($_POST['username']);
     $password = mysql_escape_mimic($_POST['password']);
     $refurl = mysql_escape_mimic($_POST['refurl']);
     
     
-    $salt = createSalt($username);
+    $salt = createSalt($username);//yum
     $concatPass = $password . $salt;
-    $pass_hash = md5($concatPass);
+    $pass_hash = md5($concatPass);//if the login is correct, this value should match up with the email provided in the database
     
     $resultset = $db->query("SELECT * FROM `logins` WHERE `EMAIL` = '$username' AND `PASSWORD` = '$pass_hash'");
     
-    if($resultset->num_rows > 0){
+    if($resultset->num_rows > 0){//if at least 1 value matches, the user's session cookies are modified to store their email
         $_SESSION['auth'] = true;
         $_SESSION['email'] = $username;
         echo "<meta http-equiv=\"refresh\" content=\"0;URL=$refurl\">";
-    }else{
+    }else{//if no values are found, refresh the page and display an error
         echo "<meta http-equiv=\"refresh\" content=\"0;URL=./login.php?error=true\">";
     }
 }
