@@ -26,8 +26,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $comments=str_replace("<script", "im a dirty little hacker: ", $comments);
     $team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
     
-    $skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
-    
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],
