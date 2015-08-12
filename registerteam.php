@@ -180,8 +180,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
             <script src="assets/js/main.js"></script>
             <script src="./customjquery.js"></script>
-
     </body>
+    <script>
+        $(function(){
+            $("#engineering-types-list").toggle();
+            $("#programming-types-list").toggle();
+        });
+    </script>
 </html>
 <?php
 }
