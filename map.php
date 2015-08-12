@@ -3,6 +3,7 @@
 require "./logincheck.php";
 require "./db.php";
 
+//get the logged in user's account type from the session variable
 $email = $_SESSION['email'];
 $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
 $type = "UNDEFINED";
@@ -11,6 +12,7 @@ while($r=mysqli_fetch_assoc($result)){
     $type = $r['TYPE'];
 }
 
+//get the user's address
 $sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
 $my_address = "UNDEFINED";
 $result = $db->query($sql);
@@ -18,6 +20,7 @@ while($r=mysqli_fetch_assoc($result)){
     $my_address=$r['ADDRESS'];
 }
 
+//store all of the opposite kinds of addresses
 $address_array = array();
 if($type=="MENTOR"){
     echo '<!--you are a mentor, displaying all results for teams-->';
@@ -31,6 +34,7 @@ while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
 
+//populate an array with the entire database's contents so they can be accessed in javascript
 $result=$db->query("SELECT * FROM `data`");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){

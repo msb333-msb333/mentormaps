@@ -1,4 +1,5 @@
 <?php
+//dump all profile data for the provided email
     if(isset($_GET['p'])){
         $refurl = "./profile.php?p=" . $_GET['p'];
         require "./logincheck.php";

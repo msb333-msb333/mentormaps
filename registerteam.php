@@ -1,4 +1,4 @@
-<?php
+<?php /** register team page & db logic **/
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
