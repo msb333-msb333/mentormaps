@@ -1,6 +1,6 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-header('Content-Type: application/json');
+    header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
     
