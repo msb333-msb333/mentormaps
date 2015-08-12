@@ -107,7 +107,7 @@ echoHeader();
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="mentor-name" id="mentor-name" placeholder="Name" />
                                             </div>
-                                            <div class="6u$ 12u$(xsmall)">
+                                            <div class="6u 12u$(xsmall)">
                                                 <input type="email" name="mentor-email" id="mentor-email" placeholder="Email" />
                                             </div>
                                             <div class="6u 12u$(small)">
