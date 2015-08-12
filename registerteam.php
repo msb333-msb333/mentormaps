@@ -41,20 +41,37 @@ header('Content-Type: application/json');
     
     $skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
     
-    $json = array('skill-mechanical-engineering' => $skill_mech,
-                  'skill-programming' => $skill_prog,
-                  'skill-strategy' => $skill_strat,
-                  'skill-business' => $skill_bus,
-                  'skill-marketing' => $skill_mark,
-                  'skill-manufacturing' => $skill_manu,
-                  'skill-design' => $skill_design,
-                  'skill-scouting' => $skill_scout,
-                  'skill-fundraising' => $skill_fr,
-                  'skill-other' => $skill_other,
-                  'skill_other_desc' => $skill_other_desc
-                  );
-    
-    $json_encoded_skills = json_encode($json);
+    $json_encoded_skills = json_encode(
+                                    array(
+                                        'skill-engineering' => $_POST['skill-engineering'],
+                                        'engineering-desc'  => json_encode(
+                                                                        array(
+                                                                            'engineering-mechanical' => $_POST['engineering-mechanical'],
+                                                                            'engineering-electrical' => $_POST['engineering-electrical'])),
+                                                    
+                                        'skill-programming' => $_POST['skill-programming'],
+                                        'skill-cad' => $_POST['skill-cad'],
+                                        'programming-desc' => json_encode(
+                                                                        array(
+                                                                            'programming-c' => $_POST['programming-c'],
+                                                                            'programming-java' => $_POST['programming-java'],
+                                                                            'programming-csharp' => $_POST['programming-csharp'],
+                                                                            'programming-python' => $_POST['programming-python'],
+                                                                            'programming-robotc' => $_POST['programming-robotc'],
+                                                                            'programming-labview' => $_POST['programming-labview'],
+                                                                            'programming-easyc' => $_POST['programming-easyc'],
+                                                                            'programming-nxt' => $_POST['programming-nxt'],
+                                                                            'programming-ev3' => $_POST['programming-ev3'])),
+                                                                            'skill-strategy' => $_POST['skill-strategy'],
+                                                                            'skill-business' => $_POST['skill-business'],
+                                                                            'skill-marketing' => $_POST['skill-marketing'],
+                                                                            'skill-manufacturing' => $_POST['skill-manufacturing'],
+                                                                            'skill-design' => $_POST['skill-design'],
+                                                                            'skill-scouting' => $_POST['skill-scouting'],
+                                                                            'skill-fundraising' => $_POST['skill-fundraising'],
+                                                                            'skill-other' => $_POST['skill-other'],
+                                                                            'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        ));
                     
     $pref = json_encode(array(  'pref_fll' => $pref_fll,
                                 'pref_ftc' => $pref_ftc,
@@ -178,13 +195,6 @@ header('Content-Type: application/json');
 
                 <!-- Footer -->
                     <footer id="footer">
-                        <ul class="icons">
-                            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                            <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-                            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                        </ul>
                         <ul class="copyright">
                             <li>&copy; Joseph Sirna 2015</li>
                         </ul>
