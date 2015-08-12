@@ -157,50 +157,9 @@ header('Content-Type: application/json');
                                             <div class="6u 12u$(small)">
                                                 <br />&nbsp;
                                             </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-mechanical-engineering" name="mechanical-engineering">
-                                                <label for="skill-mechanical-engineering">Mechanical Engineering</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-manufacturing" name="manufacturing">
-                                                <label for="skill-manufacturing">Manufacturing</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-programming" name="programming">
-                                                <label for="skill-programming">Programming</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-design" name="design">
-                                                <label for="skill-design">Design</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-strategy" name="strategy">
-                                                <label for="skill-strategy">Strategy</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-scouting" name="scouting">
-                                                <label for="skill-scouting">Scouting</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-business" name="business">
-                                                <label for="skill-business">Business</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-fundraising" name="fundraising">
-                                                <label for="skill-fundraising">Fundraising</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-marketing" name="marketing">
-                                                <label for="skill-marketing">Marketing</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-other" name="other">
-                                                <label for="skill-other">Other</label>
-                                            </div>
-                                            <div class="6u 12u$(small)"></div>
-                                            <div class="6u 12u$(small)" style="visibility: hidden;">
-                                                <input type="text" id="other-text-box" name="other-text-box" placeholder="define 'other'">
-                                            </div>
+                                            <?php
+                                            include("./pages/skillset_form.html");
+                                            ?>
                                             <div class="12u$">
                                                 <textarea name="comments" id="comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>

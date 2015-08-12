@@ -173,77 +173,10 @@ echoHeader();
                                                 <br />&nbsp;
                                             </div>
                                             
+                                            <?php
+                                            include("./pages/skillset_form.html");
+                                            ?>
                                             
-                                            <div class="12u 12u$(small)">
-                                                <input type="checkbox" id="skill-engineering">
-                                                <label for="skill-engineering">Engineering</label>
-                                            </div>
-                                            
-                                            <div class="6u 12u$">
-                                                <ul id="engineering-types-list" style="list-style-type:none;">
-                                                    <li>&nbsp;<input id="engineering-mechanical" type="checkbox"/><label for="engineering-mechanical">Mechanical</label></li>
-                                                    <li>&nbsp;<input id="engineering-electrical" type="checkbox"/><label for="engineering-electrical">Electrical</label></li>
-                                                </ul>
-                                            </div>                  
-                                            
-                                            <div class="12u 12u$(small)">
-                                                <input type="checkbox" id="skill-programming" name="programming">
-                                                <label for="skill-programming">Programming</label>
-                                            </div>
-                                            
-                                            <div class="6u 12u$">
-                                                <ul id="programming-types-list" style="list-style-type:none;">
-                                                    <li>&nbsp;<input id="programming-c" type="checkbox"/><label for="programming-c">C</label></li>
-                                                    <li>&nbsp;<input id="programming-java" type="checkbox"/><label for="programming-java">Java</label></li>
-                                                    <li>&nbsp;<input id="programming-csharp" type="checkbox"/><label for="programming-csharp">C#</label></li>
-                                                    <li>&nbsp;<input id="programming-python" type="checkbox"/><label for="programming-python">python</label></li>
-                                                    <li>&nbsp;<input id="programming-robotc" type="checkbox"/><label for="programming-robotc">RobotC</label></li>
-                                                    <li>&nbsp;<input id="programming-labview" type="checkbox"/><label for="programming-labview">LabView</label></li>
-                                                    <li>&nbsp;<input id="programming-easyc" type="checkbox"/><label for="programming-easyc">EasyC</label></li>
-                                                    <li>&nbsp;<input id="programming-nxt" type="checkbox"/><label for="programming-nxt">NXT</label></li>
-                                                    <li>&nbsp;<input id="programming-ev3" type="checkbox"/><label for="programming-ev3">EV3</label></li>
-                                                </ul>
-                                            </div>  
-                                            
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-manufacturing" name="manufacturing">
-                                                <label for="skill-manufacturing">Manufacturing</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-design" name="design">
-                                                <label for="skill-design">Design</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-strategy" name="strategy">
-                                                <label for="skill-strategy">Strategy</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-scouting" name="scouting">
-                                                <label for="skill-scouting">Scouting</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-business" name="business">
-                                                <label for="skill-business">Business</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-fundraising" name="fundraising">
-                                                <label for="skill-fundraising">Fundraising</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-marketing" name="marketing">
-                                                <label for="skill-marketing">Marketing</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-cad" name="cad">
-                                                <label for="skill-cad">CAD</label>
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <input type="checkbox" id="skill-other" name="other">
-                                                <label for="skill-other">Other</label>
-                                            </div>
-                                            <div class="6u 12u$(small)" style="visibility: hidden;">
-                                                <input type="text" id="other-text-box" name="other-text-box" placeholder="define 'other'">
-                                            </div>
                                             <div class="12u$">
                                                 <textarea name="bio" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
                                             </div>

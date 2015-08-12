@@ -10,10 +10,10 @@ $("#submitTeamRegistrationForm").click(function(){
     
     var team_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
-    var team_phone = document.getElementById("team-phone"      ).value;
-    var pass1 =      document.getElementById("pass1"           ).value;
-    var pass2 =      document.getElementById("pass2"           ).value;
-    var teamage =    document.getElementById("team-age"        ).value;
+    var team_phone = document.getElementById("team-phone"       ).value;
+    var pass1 =      document.getElementById("pass1"            ).value;
+    var pass2 =      document.getElementById("pass2"            ).value;
+    var teamage =    document.getElementById("team-age"         ).value;
     
     if(team_number==""||team_name==""||team_email==""||team_address==", , , "||team_phone==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
@@ -42,9 +42,16 @@ $("#submitTeamRegistrationForm").click(function(){
             'FRCcheck':                     document.getElementById("FRCcheck"                    ).checked,
             'VEXcheck':                     document.getElementById("VEXcheck"                    ).checked,
             
-            'skill-mechanical-engineering': document.getElementById("skill-mechanical-engineering").checked,
+            'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
+            
+            'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
+            'engineering-electrical' :      document.getElementById("engineering-electrical"      ).checked,
+            
             'skill-manufacturing':          document.getElementById("skill-manufacturing"         ).checked,
+            
             'skill-programming':            document.getElementById("skill-programming"           ).checked,
+            'skill-cad':                    document.getElementById("skill-cad"                   ).checked,
+            
             'skill-design':                 document.getElementById("skill-design"                ).checked,
             'skill-strategy':               document.getElementById("skill-strategy"              ).checked,
             'skill-scouting':               document.getElementById("skill-scouting"              ).checked,
@@ -79,10 +86,10 @@ $("#submitMentorRegistrationForm").click(function(){
     
     var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
-    var mentor_phone = document.getElementById("mentor-phone").value;
-    var mentor_age = document.getElementById("mentor-age").value;
-    var pass1 = document.getElementById("pass1").value;
-    var pass2 = document.getElementById("pass2").value;
+    var mentor_phone = document.getElementById("mentor-phone"   ).value;
+    var mentor_age = document.getElementById("mentor-age"       ).value;
+    var pass1 = document.getElementById("pass1"                 ).value;
+    var pass2 = document.getElementById("pass2"                 ).value;
     
     if(team_number==""||mentor_name==""||mentor_email==""||mentor_address==", , , "||mentor_phone==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
