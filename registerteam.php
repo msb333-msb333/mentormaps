@@ -4,16 +4,20 @@ header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
     
+    //prevent sql injection
     $team_age = mysql_escape_mimic($_POST['team-age']); 
     $team_name = mysql_escape_mimic($_POST['team-name']);   
     $team_email = mysql_escape_mimic($_POST['team-email']);
     $team_address = mysql_escape_mimic($_POST['team-address']);
     $team_phone = mysql_escape_mimic($_POST['team-phone']);
     $comments = mysql_escape_mimic($_POST['comments']);
-    $pass1 = $_POST['pass1'];
-    $pass2 = $_POST['pass2'];
     $team_number = mysql_escape_mimic($_POST['team-number']);
     
+    //doesn't matter, it's going to be hashed anyway
+    $pass1 = $_POST['pass1'];
+    $pass2 = $_POST['pass2'];
+    
+    //prevent xss
     $team_age=str_replace("<script", "im a dirty little hacker: ", $team_age);
     $team_name=str_replace("<script", "im a dirty little hacker: ", $team_name);
     $team_email=str_replace("<script", "im a dirty little hacker: ", $team_email);
@@ -21,23 +25,6 @@ header('Content-Type: application/json');
     $team_phone=str_replace("<script", "im a dirty little hacker: ", $team_phone);
     $comments=str_replace("<script", "im a dirty little hacker: ", $comments);
     $team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
-    
-    $pref_fll = $_POST['FLLcheck'];
-    $pref_ftc = $_POST['FTCcheck'];
-    $pref_frc = $_POST['FRCcheck'];
-    $pref_vex = $_POST['VEXcheck'];
-    
-    $skill_mech = $_POST['skill-mechanical-engineering'];
-    $skill_prog = $_POST['skill-programming'];
-    $skill_strat = $_POST['skill-strategy'];
-    $skill_bus = $_POST['skill-business'];
-    $skill_mark = $_POST['skill-marketing'];
-    $skill_manu = $_POST['skill-manufacturing'];
-    $skill_design = $_POST['skill-design'];
-    $skill_scout = $_POST['skill-scouting'];
-    $skill_fr = $_POST['skill-fundraising'];
-    $skill_other = $_POST['skill-other'];
-    $skill_other_desc = mysql_escape_mimic($_POST['other-text-box']);
     
     $skill_other_desc=str_replace("<script", "im a dirty little hacker: ", $skill_other_desc);
     
@@ -73,30 +60,15 @@ header('Content-Type: application/json');
                                                                             'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
-    $pref = json_encode(array(  'pref_fll' => $pref_fll,
-                                'pref_ftc' => $pref_ftc,
-                                'pref_frc' => $pref_frc,
-                                'pref_vex' => $pref_vex));
+    $type = json_encode(array(  'pref_fll' => $_POST['FLLcheck'],
+                                'pref_ftc' => $_POST['FTCcheck'],
+                                'pref_frc' => $_POST['FRCcheck'],
+                                'pref_vex' => $_POST['VEXcheck']));
     
-    $team_pass = mysql_escape_mimic($pass1);
-    $salt = createSalt($team_email);
-    $concatPass = $team_pass . $salt;
-    $pass_hash = md5($concatPass);
-    $sql = "INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');";  
-    $db->query($sql);
+    $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($team_email));
     
-    //var conversions cause im too lazy to change the js
-    $email = $team_email;
-    $address = $team_address;
-    $name = $team_name;
-    $phone = $team_phone;
-    $type = $pref;
-    $skills_json = $json_encoded_skills;
-    $age = $team_age;
-    
-    $sql = "INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$name."', '".$skills_json."', '".$team_number."', '".$comments."', '".$phone."', '".$email."', '".$address."', '".$type."', '".$age."');";
-    
-    $db->query($sql);
+    $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');");    
+    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
     echo "{\"status\":\"ok\"}";
 }else{
     require "./core.php";
@@ -180,9 +152,6 @@ header('Content-Type: application/json');
                                             <div class="12u$">
                                                 <textarea name="comments" id="comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
-                                            <!--<div class="6u$ 12u$(small)">
-                                                <div class="g-recaptcha" data-sitekey="6Le4JAoTAAAAAEVE_IFxMAiK2vdgoiQoo9R5SCTN"></div>
-                                            </div>-->
                                             <div class="12u$">
                                                 <button id="submitTeamRegistrationForm" class="button special">Become a Team</button>
                                             </div>
