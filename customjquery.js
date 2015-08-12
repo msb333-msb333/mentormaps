@@ -50,6 +50,17 @@ $("#submitTeamRegistrationForm").click(function(){
             'skill-manufacturing':          document.getElementById("skill-manufacturing"         ).checked,
             
             'skill-programming':            document.getElementById("skill-programming"           ).checked,
+            
+            'programming-c':                document.getElementById("programming-c"         ).checked,
+            'programming-java':             document.getElementById("programming-java"      ).checked,
+            'programming-csharp':           document.getElementById("programming-csharp"    ).checked,
+            'programming-python':           document.getElementById("programming-python"    ).checked,
+            'programming-robotc':           document.getElementById("programming-robotc"    ).checked,
+            'programming-nxt':              document.getElementById("programming-nxt"       ).checked,
+            'programming-labview':          document.getElementById("programming-labview"   ).checked,
+            'programming-easyc':            document.getElementById("programming-easyc"     ).checked,
+            'programming-ev3':              document.getElementById("programming-ev3"       ).checked,
+            
             'skill-cad':                    document.getElementById("skill-cad"                   ).checked,
             
             'skill-design':                 document.getElementById("skill-design"                ).checked,
