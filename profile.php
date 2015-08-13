@@ -154,9 +154,10 @@
                                     if(skills_json['skills-other']=='true'){
                                         document.write("Other Skill: ("+value+")<br />");  
                                     }
-                                    }if(value=='true'){
-                                        document.write(assoc[key] + "<br />");
-                                      
+                                }else if(key=='skill-programming' || key=='skill-engineering'){
+                                    //don't print these keys
+                                }else if(value=='true'){
+                                    document.write(assoc[key] + "<br />");
                                 }
                             }
                         });
