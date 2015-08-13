@@ -83,18 +83,31 @@
     }
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
+    $session_email = $_SESSION['email'];
         $name = $_POST['NAME'];
-        $skills_json = $_POST['SKILLS_JSON'];
-        $team_number = $_POST['TEAM_NUMBER'];
-        $comments = $_POST['COMMENTS'];
-        $phone = $_POST['PHONE'];
-        $email = $_GET['p'];
-        $address = $_POST['ADDRESS'];
-        $type = $_POST['TYPE'];
-        $age = $_POST['AGE'];
-        $account_type = $_POST['ACCOUNT_TYPE'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
         
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = ''";
+        $skills_json = $_POST['SKILLS_JSON'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        $team_number = $_POST['TEAM_NUMBER'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        $comments = $_POST['COMMENTS'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        $phone = $_POST['PHONE'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        
+        $address = $_POST['ADDRESS'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        $type = $_POST['TYPE'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        $age = $_POST['AGE'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
         
     }else{//display edit page
         showEditPage();
