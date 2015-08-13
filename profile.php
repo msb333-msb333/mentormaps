@@ -143,8 +143,7 @@
                             "programming-labview" : 'LabView Programming',
                             "programming-nxt" : 'NXT Programming',
                             "programming-ev3" : 'EV3 Programming',
-                            "engineering-mechanical" : 'Mechanical Engineering'
-                            "engineering-electrical" : 'Electrical Engineering'
+                            "engineering-mechanical" : 'Mechanical Engineering',
                         };
                         $.each(skills_json['programming-desc'], function(key, value){
                             skills_json[key] = value;
@@ -160,9 +159,10 @@
                                     if(skills_json['skills-other']=='true'){
                                         document.write("Other Skill: ("+value+")<br />");  
                                     }
-                                    }if(value=='true'){
-                                        document.write(assoc[key] + "<br />");
-                                      
+                                }else if(key=='skill-programming' || key=='skill-engineering'){
+                                    //don't print these keys
+                                }else if(value=='true'){
+                                    document.write(assoc[key] + "<br />");
                                 }
                             }
                         });
