@@ -83,31 +83,42 @@
     }
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
-    $session_email = $_SESSION['email'];
+        require "./logincheck.php?p=" . $_GET['p'];
+        $session_email = $_SESSION['email'];
+        
         $name = $_POST['NAME'];
         $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $skills_json = $_POST['SKILLS_JSON'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET SKILLS_JSON = '$skills_json' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $team_number = $_POST['TEAM_NUMBER'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET TEAM_NUMBER = '$team_number' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $comments = $_POST['COMMENTS'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET COMMENTS = '$comments' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $phone = $_POST['PHONE'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
-        
+        $sql = "UPDATE `data` SET PHONE = '$phone' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $address = $_POST['ADDRESS'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET ADDRESS = '$address' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $type = $_POST['TYPE'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET TYPE = '$type' WHERE $email = '$session_email'";
+        $db->query($sql);
         
         $age = $_POST['AGE'];
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        $sql = "UPDATE `data` SET AGE = '$age' WHERE $email = '$session_email'";
+        $db->query($sql);
+        
+        echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$session_email.'">';
         
     }else{//display edit page
         showEditPage();
