@@ -83,7 +83,9 @@
     }
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
-    $session_email = $_SESSION['email'];
+        require "./logincheck.php?p=" . $_GET['p'];
+        $session_email = $_SESSION['email'];
+        
         $name = $_POST['NAME'];
         $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
         $db->query($sql);
