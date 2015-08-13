@@ -38,12 +38,14 @@
                     <h2><?php echo $name . "'s"?> Profile Page</h2>
                 </div>
             </header>
+            <div style="display: inline-block;">
+                <div style="float: left;">
                 <div id="personal-info"style="padding-left: 90px;">
                     <h3>Personal Info</h3>
                 </div>
                 <div style="padding-left: 130px;">
                     <div id="name-div">
-                        <b>Name:</b>   
+                        <b style="color: teal;">Name:</b>   
                             <?php 
                                 echo $name;
                             ?>
@@ -111,7 +113,9 @@
                                 </script>
                     </div>
                 </div>
-                <div id="skill-info"style="padding-left: 90px; padding-top: 15px;">
+                </div>
+                <div style="float:right;">
+                <div id="skill-info"style="padding-left: 90px;">
                     <h3>Mentor Skillset</h3>
                 </div>
                 <div style="padding-left: 130px;">
@@ -163,6 +167,8 @@
                             }
                         });
                     </script>
+                </div>
+                </div>
                 </div>
         </section>
     </article>
