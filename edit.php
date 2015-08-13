@@ -33,16 +33,52 @@
         }
         echoHeader();
         ?>
-            <input id="name" type="text" placeholder="name" value="<?php echo $name; ?>"/>
-            <input id="skills_json" type="text" placeholder="skills_json" value="<?php echo "skills_json_here"; ?>"/>
-            <input id="team_number" type="text" placeholder="team_number" value="<?php echo $team_number; ?>"/>
-            <input id="comments" type="text" placeholder="comments" value="<?php echo $comments; ?>"/>
-            <input id="phone" type="text" placeholder="phone" value="<?php echo $phone; ?>"/>
-            <input id="email" type="text" placeholder="email" value="<?php echo $email; ?>"/>
-            <input id="address" type="text" placeholder="address" value="<?php echo $address; ?>"/>
-            <input id="type" type="text" placeholder="type" value="<?php echo $type; ?>"/>
-            <input id="age" type="text" placeholder="age" value="<?php echo $age; ?>"/>
-            <input id="account_type" type="text" placeholder="account_type" value="<?php echo $account_type; ?>"/>
+        <article id="editprofile-article">
+            <section class="wrapper style5" style="padding-left:10%;">
+                <div class="6u 12u(small)">
+                Name
+                    <input id="name" type="text" placeholder="name" value="<?php echo $name; ?>"/>
+                </div>
+                <br />
+                Skills_Json
+                <div class="6u 12u(small)">
+                    <!--<input id="skills_json" type="text" placeholder="skills_json" value="<?php echo "skills_json_here"; ?>"/>-->
+                </div>
+                <br />
+                Team Number
+                <div class="6u 12u(small)">
+                    <input id="team_number" type="text" placeholder="team_number" value="<?php echo $team_number; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="comments" type="text" placeholder="comments" value="<?php echo $comments; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="phone" type="text" placeholder="phone" value="<?php echo $phone; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="email" type="text" placeholder="email" value="<?php echo $email; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="address" type="text" placeholder="address" value="<?php echo $address; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <!--<input id="type" type="text" placeholder="type" value="<?php echo 'type_here'; ?>"/>-->
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="age" type="text" placeholder="age" value="<?php echo $age; ?>"/>
+                </div>
+                <br />
+                <div class="6u 12u(small)">
+                    <input id="account_type" type="text" placeholder="account_type" value="<?php echo $account_type; ?>"/>
+                </div>
+            </section>
+        </article>
         <?php
     }
     
