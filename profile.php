@@ -139,12 +139,7 @@
                             "programming-labview" : 'LabView Programming',
                             "programming-nxt" : 'NXT Programming',
                             "programming-ev3" : 'EV3 Programming',
-<<<<<<< HEAD
                             "engineering-mechanical" : 'Mechanical Engineering',
-=======
-                            "engineering-mechanical" : 'Mechanical Engineering'
->>>>>>> pr/27
-                            "engineering-electrical" : 'Electrical Engineering'
                         };
                         $.each(skills_json['programming-desc'], function(key, value){
                             skills_json[key] = value;
