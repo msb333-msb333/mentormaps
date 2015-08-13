@@ -118,7 +118,7 @@
                             echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
                         ?>
                         var assoc = {
-                            "skill-egineering" : 'ross',
+                            "skill-engineering" : '',
                             "skill-programming" : '',
                             "skill-cad" : 'CAD',
                             "skill-strategy" : 'Strategy',
@@ -137,7 +137,8 @@
                             "programming-labview" : 'LabView Programming',
                             "programming-nxt" : 'NXT Programming',
                             "programming-ev3" : 'EV3 Programming',
-                            "engineering-mechanical" : 'Mechanical Engineering'
+                            "engineering-mechanical" : 'Mechanical Engineering',
+                            "engineering-electrical" : 'Electrical Engineering'
                         };
                         $.each(skills_json['programming-desc'], function(key, value){
                             skills_json[key] = value;
