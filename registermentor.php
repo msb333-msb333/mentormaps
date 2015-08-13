@@ -26,15 +26,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],
-                                        'engineering-desc'  => json_encode(
-                                                                        array(
+                                        'engineering-desc'  => array(
                                                                             'engineering-mechanical' => $_POST['engineering-mechanical'],
-                                                                            'engineering-electrical' => $_POST['engineering-electrical'])),
+                                                                            'engineering-electrical' => $_POST['engineering-electrical']),
                                                     
                                         'skill-programming' => $_POST['skill-programming'],
                                         'skill-cad' => $_POST['skill-cad'],
-                                        'programming-desc' => json_encode(
-                                                                        array(
+                                        'programming-desc' => array(
                                                                             'programming-c' => $_POST['programming-c'],
                                                                             'programming-java' => $_POST['programming-java'],
                                                                             'programming-csharp' => $_POST['programming-csharp'],
@@ -43,7 +41,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                                             'programming-labview' => $_POST['programming-labview'],
                                                                             'programming-easyc' => $_POST['programming-easyc'],
                                                                             'programming-nxt' => $_POST['programming-nxt'],
-                                                                            'programming-ev3' => $_POST['programming-ev3'])),
+                                                                            'programming-ev3' => $_POST['programming-ev3']),
+                                                                            
                                                                             'skill-strategy' => $_POST['skill-strategy'],
                                                                             'skill-business' => $_POST['skill-business'],
                                                                             'skill-marketing' => $_POST['skill-marketing'],
@@ -107,7 +106,7 @@ echoHeader();
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="mentor-name" id="mentor-name" placeholder="Name" />
                                             </div>
-                                            <div class="6u$ 12u$(xsmall)">
+                                            <div class="6u 12u$(xsmall)">
                                                 <input type="email" name="mentor-email" id="mentor-email" placeholder="Email" />
                                             </div>
                                             <div class="6u 12u$(small)">
