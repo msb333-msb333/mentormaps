@@ -1,5 +1,4 @@
 <?php
-    require "./logincheck.php";
     require "./core.php";
     
     if(!isset($_GET['p'])){
@@ -8,6 +7,7 @@
     
     function showEditPage(){
         require "./db.php";
+        require "./logincheck.php?p=" . $_GET['p'];
         $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
         $name = "";
         $skills_json = "";
@@ -83,18 +83,31 @@
     }
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
+    $session_email = $_SESSION['email'];
         $name = $_POST['NAME'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $skills_json = $_POST['SKILLS_JSON'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $team_number = $_POST['TEAM_NUMBER'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $comments = $_POST['COMMENTS'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $phone = $_POST['PHONE'];
-        $email = $_POST['EMAIL'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
+        
         $address = $_POST['ADDRESS'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $type = $_POST['TYPE'];
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
+        
         $age = $_POST['AGE'];
-        $account_type = $_POST['ACCOUNT_TYPE'];
-        
-        
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = '$session_email'";
         
     }else{//display edit page
         showEditPage();
