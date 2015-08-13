@@ -2,6 +2,7 @@
 //do all login operations / redirects
 require "./logincheck.php";
 require "./db.php";
+require "./core.php";
 
 //get the logged in user's account type from the session variable
 $email = $_SESSION['email'];
@@ -275,7 +276,7 @@ while($r=mysqli_fetch_assoc($result)){
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="./profile.php">Profile</a></li>
+                                            <li><a href="<?php echoEditProfile(); ?>">Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>

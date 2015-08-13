@@ -33,7 +33,7 @@
 											<li><a href="./register.php">Sign Up</a></li>
 											<li><a href="./login.php">Log In</a></li>
 											<li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="./profile.php">Profile</a></li>
+                                            <li><a href="<?php echoProfileLink(); ?>">Profile</a></li>
 										</ul>
 									</div>
 								</li>

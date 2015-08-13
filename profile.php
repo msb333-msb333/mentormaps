@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <div style="padding-left: 60%;">
-                    <button type="button"><a href="./edit.php">Edit Profile</a></button>
+                    <button type="button"><a href="<?php echoEditLink(); ?>">Edit Profile</a></button>
                 </div>
             </div>
         </section>

@@ -1,3 +1,7 @@
+<?php
+    require "./core.php";
+
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
