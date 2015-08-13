@@ -39,59 +39,97 @@
                 <div id="personal-info"style="padding-left: 25px;">
                     <h4>Personal Info</h4>
                 </div>
-                    <div id="name-div" style="padding-left: 60px;">
+                <div style="padding-left: 60px;">
+                    <div id="name-div">
                         <b>Name:</b>   
                             <?php 
                                 echo $name;
                             ?>
                     </div>
-                    <div id="age-div" style="padding-left: 60px;">
+                    <div id="age-div">
                         <b>Age:</b>   
                             <?php 
                                 echo $age;
                             ?>
                     </div>
-                    <div id="email-div" style="padding-left: 60px;">
+                    <div id="email-div">
                         <b>Email Address:</b>   
                             <?php 
                                 echo $email;
                             ?>
                     </div>
-                    <div id="address-div" style="padding-left: 60px;">
+                    <div id="address-div">
                         <b>Address:</b>   
                             <?php 
                                 echo $address;
                             ?>
                     </div>
-                    <div id="phone-div" style="padding-left: 60px;">
+                    <div id="phone-div">
                         <b>Phone Number:</b>   
                             <?php 
                                 echo $phone;
                             ?>
                     </div>
-                    <div id="type-div" style="padding-left: 60px;">
+                    <div id="type-div">
                         <b>Program Affiliation:</b>   
-                            <?php 
-                                echo $type;
-                            ?>
+                                <script>
+                                    <?php 
+                                        echo 'var type = '.$type.';' . PHP_EOL;
+                                    ?>
+                                    var types_array = [];
+                                    $.each(type, function(key, value){
+                                        if(value=='true'){
+                                            if(key=='pref_frc'){
+                                                types_array.push("FRC");
+                                            }
+                                            if(key=='pref_ftc'){
+                                                types_array.push("FTC");
+                                            }
+                                            if(key=='pref_fll'){
+                                                types_array.push("FLL");
+                                            }
+                                            if(key=='pref_vex'){
+                                                types_array.push("VEX");
+                                            }
+                                        }
+                                    });
+                                    for(var i=0; i<types_array.length; i++){
+                                        if(i==types_array.length-1){
+                                            document.write(types_array[i]);
+                                        }else{
+                                            document.write(types_array[i] + ", ");
+                                        }
+                                    }
+                                </script>
                     </div>
-                <div class="inner">
-                    <?php /*
-                    
-                        $array = json_decode($skills_json, true);
-                        
-                        $assoc_array = array();
-                        for($i = 0; $i < sizeof($array); $i++){
-                           $key = $array[$i]['name'];
-                           $assoc_array[$key] = $array[$i]['value'];
-                        }
-                        foreach($assoc_array as $element) {
-                            if($assoc_array[$element] == 'true'){
-                                echo $element;
+                </div>
+                <div id="skill-info"style="padding-left: 25px; padding-top: 15px;">
+                    <h4>Mentor Skillset</h4>
+                </div>
+                <div style="padding-left: 60px;">
+                    <script>
+                        <?php 
+                            echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
+                        ?>
+                        var assoc = {
+                            "skill-egineering" : 'Engineering: ',
+                            "skill-programming" : 'Programming: ',
+                            "skill-cad" : 'CAD',
+                            "skill-strategy" : 'Strategy',
+                            "skill-business" : 'Business',
+                            "skill-marketing" : 'Marketing',
+                            "skill-manufacturing" : 'Manufacturing',
+                            "skill-design" : 'Design',
+                            "skill-fundraising" : 'Fundraising',
+                            "skill-scouting" : 'Scouting'
+                        };
+
+                        $.each(skills_json, function(key, value){
+                            if(value=='true'){
+                                document.write(assoc[key] + "<br />");
                             }
-                        }
-                        
-                    */?>    
+                        });
+                    </script>
                 </div>
         </section>
     </article>
@@ -101,3 +139,4 @@
         die('please specify a user');
     }
 ?>
+
