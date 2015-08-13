@@ -1,3 +1,31 @@
+function getLatLngFromAddress(address){
+    var geo = new google.maps.Geocoder;
+    geo.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+        return results[0].geometry.location;
+    }else{
+        console.log("error getting latlng from address");
+    }});
+}
+
+function submitAddress(address){
+    var p = getLatLngFromAddress(address);
+    console.log(p);
+    
+    var latitude = p.lat();
+    var longitude = p.lng();
+    
+    $.ajax({
+        type: 'POST',
+        url: './storeaddress.php',
+        data : {
+            'address' : address,
+            'latitude' : latitude,
+            'longitude' : longitude
+        }
+    });
+}
+
 //dispatches async ajax request to submit team data, request is handled in a php if/else statement in the corresponding dispatch page
 $("#submitTeamRegistrationForm").click(function(){
     var team_number =  document.getElementById("team-number"    ).value;
@@ -15,6 +43,8 @@ $("#submitTeamRegistrationForm").click(function(){
     var pass1 =      document.getElementById("pass1"            ).value;
     var pass2 =      document.getElementById("pass2"            ).value;
     var teamage =    document.getElementById("team-age"         ).value;
+    
+    submitAddress(team_address);
     
     if(team_number==""||team_name==""||team_email==""||team_address==", , , "||team_phone==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
@@ -102,6 +132,8 @@ $("#submitMentorRegistrationForm").click(function(){
     var mentor_age = document.getElementById("mentor-age"       ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
+    
+    submitAddress(mentor_address);
     
     if(team_number==""||mentor_name==""||mentor_email==""||mentor_address==", , , "||mentor_phone==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");

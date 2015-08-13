@@ -15,13 +15,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass1 =                $_POST['pass1'];
     $pass2 =                $_POST['pass2'];
     
-    $mentor_name=   str_replace("<script>", "im a dirty little hacker: ", $mentor_name   );
-    $mentor_email=  str_replace("<script>", "im a dirty little hacker: ", $mentor_email  );
-    $mentor_address=str_replace("<script>", "im a dirty little hacker: ", $mentor_address);
-    $mentor_phone=  str_replace("<script>", "im a dirty little hacker: ", $mentor_phone  );
-    $mentor_bio=    str_replace("<script>", "im a dirty little hacker: ", $mentor_bio    );
-    $mentor_age=    str_replace("<script>", "im a dirty little hacker: ", $mentor_age    );
-    $team_number=   str_replace("<script>", "im a dirty little hacker: ", $team_number   );
+    $mentor_name=           str_replace("<script>", "im a dirty little hacker: ", $mentor_name   );
+    $mentor_email=          str_replace("<script>", "im a dirty little hacker: ", $mentor_email  );
+    $mentor_address=        str_replace("<script>", "im a dirty little hacker: ", $mentor_address);
+    $mentor_phone=          str_replace("<script>", "im a dirty little hacker: ", $mentor_phone  );
+    $mentor_bio=            str_replace("<script>", "im a dirty little hacker: ", $mentor_bio    );
+    $mentor_age=            str_replace("<script>", "im a dirty little hacker: ", $mentor_age    );
+    $team_number=           str_replace("<script>", "im a dirty little hacker: ", $team_number   );
                   
     $json_encoded_skills = json_encode(
                                     array(
