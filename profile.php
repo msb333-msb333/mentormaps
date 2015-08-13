@@ -34,12 +34,14 @@
     <article id="main"> 
         <section class="wrapper style5">
             <header>
-                <h3><?php echo $name . "'s"?> Profile Page</h3>
-            </header>
-                <div id="personal-info"style="padding-left: 25px;">
-                    <h4>Personal Info</h4>
+                <div id="profile-page" style="padding-left: 60px;">
+                    <h2><?php echo $name . "'s"?> Profile Page</h2>
                 </div>
-                <div style="padding-left: 60px;">
+            </header>
+                <div id="personal-info"style="padding-left: 90px;">
+                    <h3>Personal Info</h3>
+                </div>
+                <div style="padding-left: 130px;">
                     <div id="name-div">
                         <b>Name:</b>   
                             <?php 
@@ -109,10 +111,10 @@
                                 </script>
                     </div>
                 </div>
-                <div id="skill-info"style="padding-left: 25px; padding-top: 15px;">
-                    <h4>Mentor Skillset</h4>
+                <div id="skill-info"style="padding-left: 90px; padding-top: 15px;">
+                    <h3>Mentor Skillset</h3>
                 </div>
-                <div style="padding-left: 60px;">
+                <div style="padding-left: 130px;">
                     <script>
                         <?php 
                             echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
