@@ -1,3 +1,6 @@
+<?php
+    require "./core.php";
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -36,7 +39,7 @@
                                             <li><a href="./login.php">Log In</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
                                             <li><a href="<?php
-                                                echoProfileLink();
+                                               echoProfileLink();
                                             ?>">Profile</a></li>
                                         </ul>
                                     </div>
