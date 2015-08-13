@@ -59,6 +59,22 @@
         </style>
         
         <script>
+        
+        function del(){
+            if(confirm("Are you sure you want to delete your profile?")){
+                $.ajax({
+                    url: "./deleteprofile.php",
+                    type: 'POST',
+                    data: {
+                        'profile_to_delete' : <?php echo $_SESSION['email']; ?>
+                    },
+                    success : function(){
+                        window.location = "./logout.php";
+                    }
+                });
+            }
+        }
+        
             function submit(){
                 var team_number =  document.getElementById("team_number").value;
                 var name =    document.getElementById("name").value;
@@ -201,7 +217,7 @@
                 </div>
                 <br />
                 <div class="6u 12u$(small)">
-                    <button onclick="submit();">Update Profile</button><div class='notifier' class="notifier" style='display:none'>Profile Updated</div>
+                    <button onclick="submit();">Update Profile</button><div class='notifier' class="notifier" style='display:none'>Profile Updated</div><button onclick="del();" class="button special">Delete Profile</button>
                 </div>
                 <script>
                 var element1 = document.getElementById("readonly1");
