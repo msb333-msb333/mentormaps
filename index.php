@@ -35,6 +35,7 @@
                                             <li><a href="./register.php">Sign Up</a></li>
                                             <li><a href="./login.php">Log In</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
+                                            <li><a href="./profile.php<?php echo '?p=' . $_SESSION['email']; ?>">Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>
