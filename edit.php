@@ -1,5 +1,4 @@
 <?php
-    require "./logincheck.php";
     require "./core.php";
     
     if(!isset($_GET['p'])){
@@ -8,6 +7,7 @@
     
     function showEditPage(){
         require "./db.php";
+        require "./logincheck.php?p=" . $_GET['p'];
         $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
         $name = "";
         $skills_json = "";
@@ -88,13 +88,13 @@
         $team_number = $_POST['TEAM_NUMBER'];
         $comments = $_POST['COMMENTS'];
         $phone = $_POST['PHONE'];
-        $email = $_POST['EMAIL'];
+        $email = $_GET['p'];
         $address = $_POST['ADDRESS'];
         $type = $_POST['TYPE'];
         $age = $_POST['AGE'];
         $account_type = $_POST['ACCOUNT_TYPE'];
         
-        
+        $sql = "UPDATE `data` SET NAME = '$name' WHERE $email = ''";
         
     }else{//display edit page
         showEditPage();
