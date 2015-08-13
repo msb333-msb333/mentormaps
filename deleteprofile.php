@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 require "./logincheck.php";
-checkIfUserLoggedIn($_SESSION['email']);
+checkIfUserLoggedIn($_POST['user_to_delete']);
 require "./db.php":
 
 $sql = mysql_escape_mimic("DELETE FROM `logins` WHERE EMAIL = '" . $_POST['user_to_delete'] . "' LIMIT 1;");
