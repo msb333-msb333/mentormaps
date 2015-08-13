@@ -275,6 +275,7 @@ while($r=mysqli_fetch_assoc($result)){
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
+                                            <li><a href="./profile.php">Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>
