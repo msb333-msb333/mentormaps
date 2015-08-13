@@ -39,49 +39,49 @@
                 </div>
             </header>
             <div style="display: inline-block;">
-                <div style="float: left;">
+                <div style="float: left; width: 50%;">
                 <div id="personal-info"style="padding-left: 90px;">
                     <h3>Personal Info</h3>
                 </div>
                 <div style="padding-left: 130px;">
                     <div id="name-div">
-                        <b style="color: teal;">Name:</b>   
+                        <b style="color: #19D1AC;">Name:</b>   
                             <?php 
                                 echo $name;
                             ?>
                     </div>
                     <div id="age-div">
-                        <b>Age:</b>   
+                        <b style="color:#19D1AC;">Age:</b>   
                             <?php 
                                 echo $age;
                             ?>
                     </div>
                     <div id="email-div">
-                        <b>Email Address:</b>   
+                        <b style="color:#19D1AC;">Email Address:</b>   
                             <?php 
                                 echo $email;
                             ?>
                     </div>
                     <div id="address-div">
-                        <b>Address:</b>   
+                        <b style="color:#19D1AC;">Address:</b>   
                             <?php 
                                 echo $address;
                             ?>
                     </div>
                     <div id="phone-div">
-                        <b>Phone Number:</b>   
+                        <b style="color:#19D1AC;">Phone Number:</b>   
                             <?php 
                                 echo $phone;
                             ?>
                     </div>
                     <div id="bio-div">
-                        <b>Bio: </b>   
+                        <b style="color:#19D1AC;">Bio: </b>   
                             <?php 
                                 echo $comments;
                             ?>
                     </div>
                     <div id="type-div">
-                        <b>Program Affiliation:</b>   
+                        <b style="color:#19D1AC;">Program Affiliation:</b>   
                                 <script>
                                     <?php 
                                         echo 'var type = '.$type.';' . PHP_EOL;
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 </div>
-                <div style="float:right;">
+                <div style="float:right; width: 50%;">
                 <div id="skill-info"style="padding-left: 90px;">
                     <h3>Mentor Skillset</h3>
                 </div>
