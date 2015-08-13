@@ -66,7 +66,7 @@
                     url: "./deleteprofile.php",
                     type: 'POST',
                     data: {
-                        'profile_to_delete' : <?php echo $_SESSION['email']; ?>
+                        'profile_to_delete' : '<?php echo $_SESSION['email']; ?>'
                     },
                     success : function(){
                         window.location = "./logout.php";
