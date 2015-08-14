@@ -16,13 +16,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass2           =      $_POST['pass2'];
 
     //not this time, vinnie
-    $mentor_name     =      str_replace("<script>", "im a dirty little hacker: ", $mentor_name   );
-    $mentor_email    =      str_replace("<script>", "im a dirty little hacker: ", $mentor_email  );
-    $mentor_address  =      str_replace("<script>", "im a dirty little hacker: ", $mentor_address);
-    $mentor_phone    =      str_replace("<script>", "im a dirty little hacker: ", $mentor_phone  );
-    $mentor_bio      =      str_replace("<script>", "im a dirty little hacker: ", $mentor_bio    );
-    $mentor_age      =      str_replace("<script>", "im a dirty little hacker: ", $mentor_age    );
-    $team_number     =      str_replace("<script>", "im a dirty little hacker: ", $team_number   );
+    $mentor_name     =      str_replace("<script", "im a dirty little hacker: ", $mentor_name   );
+    $mentor_email    =      str_replace("<script", "im a dirty little hacker: ", $mentor_email  );
+    $mentor_address  =      str_replace("<script", "im a dirty little hacker: ", $mentor_address);
+    $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
+    $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
+    $mentor_age      =      str_replace("<script", "im a dirty little hacker: ", $mentor_age    );
+    $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
                   
     $json_encoded_skills = json_encode(
                                     array(
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                     
                                         'skill-programming' => $_POST['skill-programming'],
 
-                                        'programming-desc' => array(
+                                        'programming-desc'  => array(
                                                                     'programming-c'         => $_POST['programming-c'          ],
                                                                     'programming-java'      => $_POST['programming-java'       ],
                                                                     'programming-csharp'    => $_POST['programming-csharp'     ],
@@ -56,7 +56,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-fundraising'   => $_POST['skill-fundraising'   ],
                                         'skill-other'         => $_POST['skill-other'         ],
                                         'skill-other-desc'    => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
-                                        ));
+                                        )
+                                    );
 
     $pref = json_encode(
                     array(
