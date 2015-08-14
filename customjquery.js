@@ -1,23 +1,22 @@
 function getLatLngFromAddress(address){
-    var geo = new google.maps.Geocoder;
-    geo.geocode( { 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            //console.log("returning " + {results[0].geometry.location.lat(), results[0].geometry.location.lng()});
-            var lat = results[0].geometry.location.lat();
-            var lng = results[0].geometry.location.lng();
-            
-            return {lat, lng};
-        }else{
-            console.log("error getting latlng from address");
-        }});
+    console.log("address: " + address);
+      geocoder = new google.maps.Geocoder();
+      geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        submitLatLng(results[0].geometry.location, address);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
 }
 
 function submitAddress(address){
     var p = getLatLngFromAddress(address);
-    console.log("callback: " + p);
-    var latitude = p[0];
-    var longitude = p[1];
-    
+}
+
+function submitLatLng(pos, address){
+    var latitude = pos.lat();
+    var longitude = pos.lng();
     $.ajax({
         type: 'POST',
         url: './storeaddress.php',
@@ -56,6 +55,7 @@ $("#submitTeamRegistrationForm").click(function(){
     
     if(!pass1==pass2){
         alert("passwords do not match");
+        return;
     }
     
     $.ajax({
@@ -140,6 +140,11 @@ $("#submitMentorRegistrationForm").click(function(){
     
     if(team_number==""||mentor_name==""||mentor_email==""||mentor_address==", , , "||mentor_phone==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
+        return;
+    }
+    
+    if(!pass1==pass2){
+        alert("passwords do not match");
         return;
     }
     
