@@ -17,6 +17,7 @@ function submitAddress(address){
 function submitLatLng(pos, address){
     var latitude = pos.lat();
     var longitude = pos.lng();
+    console.log(address + " | " + latitude + " | " + longitude);
     $.ajax({
         type: 'POST',
         url: './storeaddress.php',
@@ -53,7 +54,7 @@ $("#submitTeamRegistrationForm").click(function(){
         return;
     }
     
-    if(!pass1==pass2){
+    if(!(pass1==pass2)){
         alert("passwords do not match");
         return;
     }

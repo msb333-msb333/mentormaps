@@ -90,10 +90,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <input type="email" name="team-email" id="team-email" placeholder="Email" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" name="pass1" id="pass1" placeholder="Password" />
+                                                <input type="password" id="pass1" placeholder="Password" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" name="pass2" id="pass2" placeholder="Retype Password" />
+                                                <input type="password" id="pass2" placeholder="Retype Password" />
                                             </div>
                                             <div class="6u 12u$(small)">
                                                 <input type="text" name="team-number" id="team-number" placeholder="Team Number" />
