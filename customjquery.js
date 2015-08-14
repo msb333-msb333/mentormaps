@@ -1,19 +1,22 @@
 function getLatLngFromAddress(address){
     var geo = new google.maps.Geocoder;
     geo.geocode( { 'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-        return results[0].geometry.location;
-    }else{
-        console.log("error getting latlng from address");
-    }});
+        if (status == google.maps.GeocoderStatus.OK) {
+            //console.log("returning " + {results[0].geometry.location.lat(), results[0].geometry.location.lng()});
+            var lat = results[0].geometry.location.lat();
+            var lng = results[0].geometry.location.lng();
+            
+            return {lat, lng};
+        }else{
+            console.log("error getting latlng from address");
+        }});
 }
 
 function submitAddress(address){
     var p = getLatLngFromAddress(address);
-    console.log(p);
-    
-    var latitude = p.lat();
-    var longitude = p.lng();
+    console.log("callback: " + p);
+    var latitude = p[0];
+    var longitude = p[1];
     
     $.ajax({
         type: 'POST',
