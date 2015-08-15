@@ -21,7 +21,10 @@
                 window.location = "./register.php";
             }
 
-            Mousetrap.bind("aubergine", function() { console.log('show shortcuts!'); });
+            Mousetrap.bind("&", function() {
+                $("#banner").html('<div onclick="window.location = \'http://en.wikipedia.org/wiki/Aubergine\'">&#x1f346;</div>');
+                $("#menu").html("<ul><li>Aubergine</li></ul>");
+            });
         </script>
     </head>
     <body class="landing">
