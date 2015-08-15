@@ -33,13 +33,14 @@
 ?>
     <article id="main"> 
         <section class="wrapper style5">
+        
             <header>
                 <div id="profile-page" style="padding-left: 60px;">
                     <h2><?php echo $name . "'s"?> Profile Page</h2>
                 </div>
             </header>
             <div style="display: inline-block;">
-                <div style="float: left; width: 50%;">
+                <div style="float: left;width:50%;">
                 <div id="personal-info"style="padding-left: 90px;">
                     <h3>Personal Info</h3>
                 </div>
@@ -114,63 +115,66 @@
                     </div>
                 </div>
                 </div>
-                <div style="float:right; width: 50%;">
-                <div id="skill-info"style="padding-left: 90px;">
-                    <h3>Mentor Skillset</h3>
-                </div>
-                <div style="padding-left: 130px;">
-                    <script>
-                        <?php 
-                            echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
-                        ?>
-                        var assoc = {
-                            "skill-engineering" : '',
-                            "skill-programming" : '',
-                            "skill-cad" : 'CAD',
-                            "skill-strategy" : 'Strategy',
-                            "skill-business" : 'Business',
-                            "skill-marketing" : 'Marketing',
-                            "skill-manufacturing" : 'Manufacturing',
-                            "skill-design" : 'Design',
-                            "skill-fundraising" : 'Fundraising',
-                            "skill-scouting" : 'Scouting',
-                            "skill-other" : '',
-                            "programming-c" : 'C Programming',
-                            "programming-java" : 'Java Programming',
-                            "programming-csharp" : 'C# Programming',
-                            "programming-python" : 'Python Programming',
-                            "programming-robotc" : 'RobotC Programming',
-                            "programming-labview" : 'LabView Programming',
-                            "programming-nxt" : 'NXT Programming',
-                            "programming-ev3" : 'EV3 Programming',
-                            "engineering-mechanical" : 'Mechanical Engineering',
-                            "engineering-electrical" : 'Electrical Engineering'
-                        };
-                        $.each(skills_json['programming-desc'], function(key, value){
-                            skills_json[key] = value;
-                        });
-                        
-                        $.each(skills_json['engineering-desc'], function(key, value){
-                            skills_json[key] = value;
-                        });
-                        
-                        $.each(skills_json, function(key, value){
-                            if(key != 'engineering-desc' && key != 'programming-desc'){
-                                if(key=='skill-other-desc'){
-                                    if(skills_json['skills-other']=='true'){
-                                        document.write("Other Skill: ("+value+")<br />");  
+                <div style="float:right;width:50%;">
+                    <div id="skill-info"style="padding-left: 90px;">
+                        <h3>Mentor Skillset</h3>
+                    </div>
+                    <div style="padding-left: 130px;">
+                        <script>
+                            <?php 
+                                echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
+                            ?>
+                            var assoc = {
+                                "skill-engineering" : '',
+                                "skill-programming" : '',
+                                "skill-cad" : 'CAD',
+                                "skill-strategy" : 'Strategy',
+                                "skill-business" : 'Business',
+                                "skill-marketing" : 'Marketing',
+                                "skill-manufacturing" : 'Manufacturing',
+                                "skill-design" : 'Design',
+                                "skill-fundraising" : 'Fundraising',
+                                "skill-scouting" : 'Scouting',
+                                "skill-other" : '',
+                                "programming-c" : 'C Programming',
+                                "programming-java" : 'Java Programming',
+                                "programming-csharp" : 'C# Programming',
+                                "programming-python" : 'Python Programming',
+                                "programming-robotc" : 'RobotC Programming',
+                                "programming-labview" : 'LabView Programming',
+                                "programming-nxt" : 'NXT Programming',
+                                "programming-ev3" : 'EV3 Programming',
+                                "engineering-mechanical" : 'Mechanical Engineering',
+                                "engineering-electrical" : 'Electrical Engineering'
+                            };
+                            $.each(skills_json['programming-desc'], function(key, value){
+                                skills_json[key] = value;
+                            });
+                            
+                            $.each(skills_json['engineering-desc'], function(key, value){
+                                skills_json[key] = value;
+                            });
+                            
+                            $.each(skills_json, function(key, value){
+                                if(key != 'engineering-desc' && key != 'programming-desc'){
+                                    if(key=='skill-other-desc'){
+                                        if(skills_json['skills-other']=='true'){
+                                            document.write("Other Skill: ("+value+")<br />");  
+                                        }
+                                    }else if(key=='skill-programming' || key=='skill-engineering'){
+                                        //don't print these keys
+                                    }else if(value=='true'){
+                                        document.write(assoc[key] + "<br />");
                                     }
-                                }else if(key=='skill-programming' || key=='skill-engineering'){
-                                    //don't print these keys
-                                }else if(value=='true'){
-                                    document.write(assoc[key] + "<br />");
                                 }
-                            }
-                        });
-                    </script>
+                            });
+                        </script>
+                    </div>
                 </div>
+                <div style="padding-left: 60%;">
+                    <button type="button"><a href="<?php echoEditLink(); ?>">Edit Profile</a></button>
                 </div>
-                </div>
+            </div>
         </section>
     </article>
 <?php

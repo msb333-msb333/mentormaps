@@ -33,7 +33,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                                     ),
                                                     
                                         'skill-programming' => $_POST['skill-programming'],
-
                                         'programming-desc'  => array(
                                                                     'programming-c'         => $_POST['programming-c'          ],
                                                                     'programming-java'      => $_POST['programming-java'       ],
@@ -73,6 +72,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query("INSERT INTO `logins` (`EMAIL`,             `PASSWORD`,       `TYPE`)".
         "VALUES".
                                     "('".$mentor_email."', '".$pass_hash."', 'MENTOR');");
+
+
 
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)" .
             . "VALUES" .
@@ -191,6 +192,7 @@ echoHeader();
     </body>
     <script src="./customjquery.js"></script>
     <script>
+    //disable uls by default
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();
