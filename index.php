@@ -21,7 +21,7 @@
                 window.location = "./register.php";
             }
 
-            Mousetrap.bind("?", function() { console.log('show shortcuts!'); });
+            Mousetrap.bind("aubergine", function() { console.log('show shortcuts!'); });
         </script>
     </head>
     <body class="landing">
