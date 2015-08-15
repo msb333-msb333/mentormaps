@@ -2,8 +2,6 @@
 //do all login operations / redirects
 require "./logincheck.php";
 require "./db.php";
-require "./core.php";
-
 //get the logged in user's account type from the session variable
 $email = $_SESSION['email'];
 $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
@@ -12,7 +10,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     $type = $r['TYPE'];
 }
-
 //get the user's address
 $sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
 $my_address = "UNDEFINED";
@@ -20,7 +17,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     $my_address=$r['ADDRESS'];
 }
-
 //store all of the opposite kinds of addresses
 $address_array = array();
 if($type=="MENTOR"){
@@ -34,7 +30,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
-
 //populate an array with the entire database's contents so they can be accessed in javascript
 $result=$db->query("SELECT * FROM `data`");
 $all_data = array();
@@ -115,8 +110,6 @@ while($r=mysqli_fetch_assoc($result)){
         ?>
         }
         
-
-
     function centerMap(map, address){
         geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -126,15 +119,12 @@ while($r=mysqli_fetch_assoc($result)){
             position: results[0].geometry.location,
             icon: './mentorflag.png'
         });
-
         var infowindow=new google.maps.InfoWindow({
         content: 'Your location'
       });
-
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
-
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
@@ -143,7 +133,6 @@ while($r=mysqli_fetch_assoc($result)){
       }
     });
 }
-
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
         var iconurl = "http://qca.st/images/redditor.png";
@@ -243,11 +232,9 @@ while($r=mysqli_fetch_assoc($result)){
             ?>
             
         });
-
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
-
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
@@ -275,7 +262,6 @@ while($r=mysqli_fetch_assoc($result)){
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="<?php echoEditProfile(); ?>">Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>
