@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         )
                                     );
 
-    $pref = json_encode(
+    $type = json_encode(
                     array(
                         'pref_fll' => $_POST['FLLcheck'],
                         'pref_ftc' => $_POST['FTCcheck'],
