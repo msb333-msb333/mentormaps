@@ -117,7 +117,7 @@ while($r=mysqli_fetch_assoc($result)){
         var marker = new google.maps.Marker({
             map: map, 
             position: results[0].geometry.location,
-            icon: './mentorflag.png'
+            icon: './img/mentorflag.png'
         });
         var infowindow=new google.maps.InfoWindow({
         content: 'Your location'
@@ -394,7 +394,7 @@ while($r=mysqli_fetch_assoc($result)){
                         padding-top:10px;
                     }
                     </style>
-                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
+                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
                         <div style="white-space:nowrap;">
                         <div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
                             <section id="team-info-section">
