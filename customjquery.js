@@ -148,7 +148,7 @@ $("#submitMentorRegistrationForm").click(function(){
         alert("passwords do not match");
         return;
     }
-    
+
     $.ajax({
         type:                               'POST',
         url:                                "./registermentor.php",
