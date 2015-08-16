@@ -138,43 +138,43 @@ while($r=mysqli_fetch_assoc($result)){
         var iconurl = "http://qca.st/images/redditor.png";
         if(teamdata['account_type']=='TEAM'){
             if(typedata['pref_ftc']=='true'){
-                iconurl = 'white.png';
+                iconurl = 'img/white.png';
             }
             if(typedata['pref_fll']=='true'){
-                iconurl = 'blue.png';
+                iconurl = 'img/blue.png';
             }
             if(typedata['pref_frc']=='true'){
-                iconurl = 'red.png';
+                iconurl = 'img/red.png';
             }
             if(typedata['pref_vex']=='true'){
-                iconurl = 'orange.png';
+                iconurl = 'img/orange.png';
             }
         }else{
             var does1 = false;
             if(typedata['pref_ftc']=='true'){
                 does1 = true;
-                iconurl = 'whitem.png';
+                iconurl = 'img/whitem.png';
             }
             if(typedata['pref_fll']=='true'){
                 if(does1==true){
-                    iconurl = 'greenm.png';
+                    iconurl = 'img/greenm.png';
                 }else{
                     does1 = true;
-                    iconurl = 'bluem.png';
+                    iconurl = 'img/bluem.png';
                 }
             }
             if(typedata['pref_frc']=='true'){
                 if(does1==true){
-                    iconurl = 'greenm.png';
+                    iconurl = 'img/greenm.png';
                 }else{
-                    iconurl = 'redm.png';
+                    iconurl = 'img/redm.png';
                 }
             }
             if(typedata['pref_vex']=='true'){
                 if(does1==true){
-                    iconurl = 'greenm.png';
+                    iconurl = 'img/greenm.png';
                 }else{
-                    iconurl = 'orangem.png';
+                    iconurl = 'img/orangem.png';
                 }
             }
         }
@@ -192,19 +192,19 @@ while($r=mysqli_fetch_assoc($result)){
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
             if(typedata['pref_fll']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_ftc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross2\" src=\"ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img id=\"ross2\" src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_frc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
             document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
             document.getElementById("address-container").innerHTML = "<b><u>Location:<br /></u></b>" + teamdata['address'];
             document.getElementById("comments-container").innerHTML = "<b><u>Comments:<br /></u></b>" + teamdata['comments'];
-            document.getElementById("team-info-label").innerHTML = 'Team Info: <a href="./profile.php?p='+teamdata['email']+'"><img src="./ic_open_in_new_white_48dp_2x.png" width="32px" height="32px" /></a>';
+            document.getElementById("team-info-label").innerHTML = 'Team Info: <a href="./profile.php?p='+teamdata['email']+'"><img src="img/ic_open_in_new_white_48dp_2x.png" width="32px" height="32px" /></a>';
             
             var searchingFor = "";
             var ssjson = $.parseJSON(teamdata['searching_skills_json']);
@@ -394,7 +394,7 @@ while($r=mysqli_fetch_assoc($result)){
                         padding-top:10px;
                     }
                     </style>
-                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="white.png"/> FTC | <img class="paddedImgHolder" src="blue.png"/>FLL | <img class="paddedImgHolder" src="orange.png" /> VEX</div>
+                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
                         <div style="white-space:nowrap;">
                         <div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
                             <section id="team-info-section">
