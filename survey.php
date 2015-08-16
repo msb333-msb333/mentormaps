@@ -1,9 +1,7 @@
 <?php
 require "./logincheck.php";
 if($_SERVER['REQUEST_METHOD']=='GET'){
-
     require "./core.php";
-    
     $email = $_SESSION['email'];
     echoHeader();
 ?>
@@ -34,7 +32,6 @@ function submit(){
     var recFeatures         = document.getElementById("recFeaturesField").value;
     var dislikedFeatures    = document.getElementById("dislikedFeaturesField").value;
     var toAddFeatures       = document.getElementById("toAddFeaturesField").value;
-
 
 $.ajax({
     url: './survey.php',
