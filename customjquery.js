@@ -133,7 +133,6 @@ $("#submitMentorRegistrationForm").click(function(){
     var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
-    var mentor_age = document.getElementById("mentor-age"       ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
     
@@ -157,7 +156,6 @@ $("#submitMentorRegistrationForm").click(function(){
             'mentor-email':                 mentor_email,
             'mentor-address':               mentor_address,
             'mentor-phone':                 mentor_phone,
-            'mentor-age':                   mentor_age,
             'pass1':                        pass1,
             'pass2':                        pass2,
             'team-number':                  team_number,

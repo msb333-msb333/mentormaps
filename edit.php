@@ -1,9 +1,9 @@
 <?php
     require "./core.php";
-    require "./db.php";
-    require "./logincheck.php";
-
+    
     function showEditPage(){
+        require "./db.php";
+        require "./logincheck.php";
         checkIfUserLoggedIn($_GET['p']);
         $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
         $name = "";
@@ -35,11 +35,12 @@
         
         function del(){
             if(confirm("Are you sure you want to delete your profile?")){
+                console.log("submitting ajax request");
                 $.ajax({
                     url: "./deleteprofile.php",
                     type: 'POST',
                     data: {
-                        'profile_to_delete' : '<?php echo $_SESSION['email']; ?>'
+                        'user_to_delete' : '<?php echo $_SESSION['email']; ?>'
                     },
                     success : function(){
                         window.location = "./logout.php";
