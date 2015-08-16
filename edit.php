@@ -1,9 +1,9 @@
 <?php
     require "./core.php";
-    require "./db.php";
-    require "./logincheck.php";
-
+    
     function showEditPage(){
+        require "./db.php";
+        require "./logincheck.php";
         checkIfUserLoggedIn($_GET['p']);
         $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
         $name = "";
@@ -31,6 +31,7 @@
         echoHeader();
         ?>
         
+        <script src="./customjquery.js"></script>
 <script>
         
         function del(){
@@ -39,7 +40,7 @@
                     url: "./deleteprofile.php",
                     type: 'POST',
                     data: {
-                        'profile_to_delete' : '<?php echo $_SESSION['email']; ?>'
+                        'user_to_delete' : '<?php echo $_SESSION['email']; ?>'
                     },
                     success : function(){
                         window.location = "./logout.php";
@@ -55,6 +56,12 @@
                 var phone = document.getElementById("phone").value;
                 var age =    document.getElementById("age").value;
                 
+                //add new address entry if it changed
+                if(!(address=='<?php echo $address; ?>')){
+                    submitAddress(address);
+                }
+
+                //update user info
                 $.ajax({
                     type: 'POST',
                     url: "./edit.php",
@@ -310,7 +317,9 @@
         
     }else{//display edit page
         if(!isset($_GET['p'])){
-            die("please specify a user");
+            require "./sessioncheck.php";
+            require "./logincheck.php";
+            echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
         }
         showEditPage();
     }

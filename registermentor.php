@@ -9,7 +9,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $mentor_address  =      mysql_escape_mimic($_POST['mentor-address']);
     $mentor_phone    =      mysql_escape_mimic($_POST['mentor-phone']  );
     $mentor_bio      =      mysql_escape_mimic($_POST['bio']           );
-    $mentor_age      =      mysql_escape_mimic($_POST['mentor-age']    );
     $team_number     =      mysql_escape_mimic($_POST['team-number']   );
     
     $pass1           =      $_POST['pass1'];
@@ -21,9 +20,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $mentor_address  =      str_replace("<script", "im a dirty little hacker: ", $mentor_address);
     $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
     $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
-    $mentor_age      =      str_replace("<script", "im a dirty little hacker: ", $mentor_age    );
     $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
-                  
+    
+    $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
+    if($result->num_rows > 0){
+        die("a user already has that email address");
+    }
+
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],
@@ -77,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)"
             . "VALUES" .
-                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$mentor_age."');");
+                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', 'NULL');");
     
     echo "{\"status\":\"ok\"}";
 }else{
@@ -122,15 +125,8 @@ echoHeader();
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="address-country" id="address-country" placeholder="Country" />
                                             </div>
-                                            
-                                            <div class="6u 12u$(small)">
-                                                <input type="text" name="mentor-age" id="mentor-age" placeholder="Age" />
-                                            </div>
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <br />&nbsp;
                                             </div>
                                             
                                             <div class="3u 12u$(small)">

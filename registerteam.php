@@ -3,10 +3,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
-    
+
     //prevent sql injection
-    $team_age = mysql_escape_mimic($_POST['team-age']); 
-    $team_name = mysql_escape_mimic($_POST['team-name']);   
+    $team_age = $_POST['team-age'];
+    $team_name = mysql_escape_mimic($_POST['team-name']);
     $team_email = mysql_escape_mimic($_POST['team-email']);
     $team_address = mysql_escape_mimic($_POST['team-address']);
     $team_phone = mysql_escape_mimic($_POST['team-phone']);
@@ -26,6 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $comments=str_replace("<script", "im a dirty little hacker: ", $comments);
     $team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
     
+    $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
+    if($result->num_rows > 0){
+        die("a user already has that email address");
+    }
+
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],
@@ -111,10 +116,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="address-country" id="address-country" placeholder="Country" />
                                             </div>
-                                            
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="team-address" id="team-age" placeholder="Team Age (Optional)" />
+                                                <input type="checkbox" id="team-age"/>
+                                                <label for="team-age">Rookie Team?</label>
                                             </div>
+                                            &nbsp;
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
                                             </div>
