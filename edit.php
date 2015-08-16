@@ -1,5 +1,6 @@
 <?php
     require "./core.php";
+    
     function showEditPage(){
         require "./db.php";
         require "./logincheck.php";
@@ -30,35 +31,8 @@
         echoHeader();
         ?>
         
-        <style>
-        #readonlyInput .readonlyInputNotifier{
-             display:none;
-        }
-        #readonlyInput:hover .readonlyInputNotifier{
-             display:block;
-        }
-        .notifier {
-            width:200px;
-            height:20px;
-            height:auto;
-            position:relative;
-            left:50%;
-            margin-left:-100px;
-            bottom:20px;
-            background-color: #383838;
-            color: #F0F0F0;
-            font-family: Calibri;
-            font-size: 20px;
-            padding:10px;
-            text-align:center;
-            border-radius: 2px;
-            -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-        }
-        </style>
-        
-        <script>
+        <script src="./customjquery.js"></script>
+<script>
         
         function del(){
             if(confirm("Are you sure you want to delete your profile?")){
@@ -66,7 +40,7 @@
                     url: "./deleteprofile.php",
                     type: 'POST',
                     data: {
-                        'profile_to_delete' : '<?php echo $_SESSION['email']; ?>'
+                        'user_to_delete' : '<?php echo $_SESSION['email']; ?>'
                     },
                     success : function(){
                         window.location = "./logout.php";
@@ -82,12 +56,18 @@
                 var phone = document.getElementById("phone").value;
                 var age =    document.getElementById("age").value;
                 
+                //add new address entry if it changed
+                if(!(address=='<?php echo $address; ?>')){
+                    submitAddress(address);
+                }
+
+                //update user info
                 $.ajax({
                     type: 'POST',
                     url: "./edit.php",
                     data: {
                         'NAME' : name,
-                        'userToUpdate' :                <?php echo $_SESSION['email']; ?>,
+                        'userToUpdate' :                '<?php echo $_SESSION['email']; ?>',
                         'ADDRESS':                      address,
                         'PHONE':                        phone,
                         'TEAM_NUMBER':                  team_number,
@@ -128,6 +108,34 @@
                 });
             }
         </script>
+
+        <style>
+        #readonlyInput .readonlyInputNotifier{
+             display:none;
+        }
+        #readonlyInput:hover .readonlyInputNotifier{
+             display:block;
+        }
+        .notifier {
+            width:200px;
+            height:20px;
+            height:auto;
+            position:relative;
+            left:50%;
+            margin-left:-100px;
+            bottom:20px;
+            background-color: #383838;
+            color: #F0F0F0;
+            font-family: Calibri;
+            font-size: 20px;
+            padding:10px;
+            text-align:center;
+            border-radius: 2px;
+            -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+            -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+            box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+        }
+        </style>
         
         <article id="editprofile-article">
             <section class="wrapper style5" style="padding-left:10%;">
@@ -309,7 +317,9 @@
         
     }else{//display edit page
         if(!isset($_GET['p'])){
-            die("please specify a user");
+            require "./sessioncheck.php";
+            require "./logincheck.php";
+            echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
         }
         showEditPage();
     }

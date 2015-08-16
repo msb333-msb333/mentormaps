@@ -8,7 +8,7 @@ function contains(a, obj) {
 }
 
 //alogorithm for comparing teams; returns a value 0-1 based on compatibility
-function compare(team_skills, mentor_skills, team_type, mentor_types, distance){
+function compare(team_skills, mentor_skills, team_type, mentor_types, distance, distance_weight){
     var skills_searching_for = [];
     var skills_offered = [];
 
@@ -31,17 +31,22 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance){
             matches++;
         }
     }
-
     var skills_score = matches / skills_searching_for.length;
+
     var type_score = 0;
     if(contains(mentor_types, team_type)){
         type_score = 1;
     }
 
     var numerator = skills_score * type_score;
-    var next = numerator / distance;
+    var denominator = distance * distance_weight;
+
+    var next = numerator / denominator;
+
+
 
     //debug info
+    /*
     console.log("team type: " + team_type);
     console.log("mentor types: " + mentor_types);
     console.log("Searching for: " + skills_searching_for);
@@ -52,6 +57,7 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance){
     console.log("numerator: " + numerator);
     console.log("distance: " + distance);
     console.log("result: " + next);
+    */
     
     return next;
 }

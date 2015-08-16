@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2015 at 08:40 AM
+-- Generation Time: Aug 16, 2015 at 11:03 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `data` (
   `NAME` varchar(100) DEFAULT NULL,
   `SKILLS_JSON` varchar(999) DEFAULT NULL,
   `TEAM_NUMBER` varchar(100) DEFAULT NULL,
-  `COMMENTS` varchar(100) DEFAULT NULL,
+  `COMMENTS` varchar(200) DEFAULT NULL,
   `PHONE` varchar(100) DEFAULT NULL,
   `EMAIL` varchar(100) DEFAULT NULL,
   `ADDRESS` varchar(100) DEFAULT NULL,
@@ -44,20 +44,47 @@ CREATE TABLE IF NOT EXISTS `data` (
 --
 
 INSERT INTO `data` (`NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`, `ACCOUNT_TYPE`) VALUES
-('Joseph Sirna', '{"skill-mechanical-engineering":"false","skill-programming":"true","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"false","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '3309', 'no', '5626650405', 'joseph.sirna@gmail.com', '1021 N Hensel Dr', '{"pref_fll":"false","pref_ftc":"true","pref_frc":"true"}', '16', 'MENTOR'),
-('test_team_1', '{"skill-mechanical-engineering":"true","skill-programming":"true","skill-strategy":"true","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"true","skill-scouting":"false","skill-fundraising":"false","skill-other":"true","skill_other_desc":"no"}', '1234', 'no', '7614253324', 'e', 'Denver, CO', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true"}', '!TODO', 'TEAM'),
-('test_team_2', '{"skill-mechanical-engineering":"false","skill-programming":"false","skill-strategy":"false","skill-business":"true","skill-marketing":"true","skill-manufacturing":"false","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"false","skill_other_desc":""}', '2', '', '', 'e', 'Seattle, Washington', '{"pref_fll":"true","pref_ftc":"false","pref_frc":"false"}', '!TODO', 'TEAM'),
-('mentor_2', '{"skill-mechanical-engineering":"true","skill-programming":"true","skill-strategy":"true","skill-business":"true","skill-marketing":"true","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"true","skill-other-desc":"no"}', '12345', 'okay', '4345709899', 'e3', 'Albany, New York', '{"pref_fll":"true","pref_ftc":"false","pref_frc":"false"}', '34', 'MENTOR'),
-('mentor_4', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"true","engineering-electrical":"true"}","skill-programming":0,"programming-desc":"{"programming-c":"true","programming-java":"true","programming-csharp":"true","programming-python":"true","programming-robotc":"true","programming-labview":"true","programming-easyc":"true","programming-nxt":null,"programming-ev3":"true"}","skill-strategy":"true","skill-business":"true","skill-marketing":"true","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"true","skill-other-desc":"no"}', '12356471623', 'asdfyoasdf', '532674578234', 'e4', 'Yorba Linda Blvd, Placentia, CA, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":null}', '35', 'MENTOR'),
-('', '{"skill-engineering":null,"engineering-desc":"{"engineering-mechanical":null,"engineering-electrical":null}","skill-programming":0,"programming-desc":"{"programming-c":null,"programming-java":null,"programming-csharp":null,"programming-python":null,"programming-robotc":null,"programming-labview":null,"programming-easyc":null,"programming-nxt":null,"programming-ev3":null}","skill-strategy":null,"skill-business":null,"skill-marketing":null,"skill-manufacturing":null,"skill-design":null,"skill-scouting":null,"skill-fundraising":null,"skill-other":null,"skill-other-desc":""}', '', '', '', '', '', '{"pref_fll":null,"pref_ftc":null,"pref_frc":null,"pref_vex":null}', '', 'MENTOR'),
-('', '{"skill-engineering":null,"engineering-desc":"{"engineering-mechanical":null,"engineering-electrical":null}","skill-programming":null,"programming-desc":"{"programming-c":null,"programming-java":null,"programming-csharp":null,"programming-python":null,"programming-robotc":null,"programming-labview":null,"programming-easyc":null,"programming-nxt":null,"programming-ev3":null}","skill-strategy":null,"skill-business":null,"skill-marketing":null,"skill-manufacturing":null,"skill-design":null,"skill-scouting":null,"skill-fundraising":null,"skill-other":null,"skill-other-desc":""}', '', '', '', '', '', '{"pref_fll":null,"pref_ftc":null,"pref_frc":null,"pref_vex":null}', '', 'MENTOR'),
-('mentor_4', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","programming-desc":"{"programming-c":"false","programming-java":"true","programming-csharp":"true","programming-python":"true","programming-robotc":"false","programming-labview":"true","programming-easyc":"false","programming-nxt":null,"programming-ev3":"false"}","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"true","skill-other-desc":""}', 'jashbfk', '', 'odeshapfrouisd', 'n', 'ouhasouihf, kljbsdluikgb, iujbhsdiogjfb, iusdhfg', '{"pref_fll":"true","pref_ftc":"true","pref_frc":"true","pref_vex":null}', 'iohdsf', 'MENTOR'),
-('mentor_4', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","programming-desc":"{"programming-c":"false","programming-java":"true","programming-csharp":"true","programming-python":"true","programming-robotc":"false","programming-labview":"true","programming-easyc":"false","programming-nxt":null,"programming-ev3":"false"}","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"true","skill-other-desc":""}', 'jashbfk', '', 'odeshapfrouisd', 'n', 'ouhasouihf, kljbsdluikgb, iujbhsdiogjfb, iusdhfg', '{"pref_fll":"true","pref_ftc":"true","pref_frc":"true","pref_vex":null}', 'iohdsf', 'MENTOR'),
-('', '{"skill-engineering":"false","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"false"}","skill-programming":"false","programming-desc":"{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":null,"programming-ev3":"false"}","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"false","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '', '', '', '', ', , , ', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"false","pref_vex":null}', '', 'MENTOR'),
-('1', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","programming-desc":"{"programming-c":"false","programming-java":"false","programming-csharp":"true","programming-python":"false","programming-robotc":"false","programming-labview":"true","programming-easyc":"true","programming-nxt":null,"programming-ev3":"false"}","skill-strategy":"false","skill-business":"true","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '1', 'no', '1', '1', '1, 1, 1, 1', '{"pref_fll":"false","pref_ftc":"true","pref_frc":"true","pref_vex":null}', '1', 'MENTOR'),
-('1', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","programming-desc":"{"programming-c":"false","programming-java":"false","programming-csharp":"true","programming-python":"false","programming-robotc":"false","programming-labview":"true","programming-easyc":"true","programming-nxt":null,"programming-ev3":"false"}","skill-strategy":"false","skill-business":"true","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '1', 'no', '1', '1', '1, 1, 1, 1', '{"pref_fll":"false","pref_ftc":"true","pref_frc":"true","pref_vex":null}', '1', 'MENTOR'),
-('1', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","programming-desc":"{"programming-c":"false","programming-java":"false","programming-csharp":"true","programming-python":"false","programming-robotc":"false","programming-labview":"true","programming-easyc":"true","programming-nxt":"false","programming-ev3":"false"}","skill-strategy":"false","skill-business":"true","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '1', 'no', '1', '1', '1, 1, 1, 1', '{"pref_fll":"false","pref_ftc":"true","pref_frc":"true","pref_vex":"true"}', '1', 'MENTOR'),
-('1', '{"skill-engineering":"true","engineering-desc":"{"engineering-mechanical":"false","engineering-electrical":"true"}","skill-programming":"true","skill-cad":"true","programming-desc":"{"programming-c":"false","programming-java":"false","programming-csharp":"true","programming-python":"false","programming-robotc":"false","programming-labview":"true","programming-easyc":"true","programming-nxt":"false","programming-ev3":"false"}","skill-strategy":"false","skill-business":"true","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '1', '', '1', '1', '1, 1, 1, 1', '{"pref_fll":"false","pref_ftc":"true","pref_frc":"true","pref_vex":"true"}', '1', 'MENTOR');
+('Joseph Sirna', '{"skill-engineering":"false","engineering-desc":{"engineering-mechanical":"false","engineering-electrical":"false"},"skill-programming":"true","skill-cad":"false","programming-desc":{"programming-c":"false","programming-java":"true","programming-csharp":"true","programming-python":"false","programming-robotc":"true","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"false","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '3309', 'no', '5626650405', 'joseph.sirna@gmail.com', '1021 N Hensel Dr, La Habra, CA, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"true"}', '16', 'MENTOR'),
+('Miriam', '{"skill-engineering":"true","engineering-desc":{"engineering-mechanical":"true","engineering-electrical":"true"},"skill-programming":"false","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-cad":"false","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '3309', 'Hi like puppies and food', '5626072362', 'miriammelendez78@yahoo.com', '3212 Magnolia Ave, Long  Beach, CA, United States', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"false"}', '17', 'MENTOR'),
+('Erick Locke', '{"skill-engineering":"true","engineering-desc":{"engineering-mechanical":"true","engineering-electrical":"false"},"skill-programming":"false","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-cad":"true","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"true","skill-scouting":"false","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '3309', 'I am a demigod.', '714-655-5241', 'erick.locke.2@gmail.com', '8271 Reilly Dr., Huntington Beach, California, United States', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"false"}', '18', 'MENTOR'),
+('Jon Logrippo', '{"skill-engineering":"false","engineering-desc":{"engineering-mechanical":"false","engineering-electrical":"false"},"skill-programming":"false","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-cad":"false","skill-strategy":"false","skill-business":"true","skill-marketing":"true","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"true","skill-other":"false","skill-other-desc":""}', '3309', 'Something about yourself', '7143293808', 'jonathan.logrippo@servitehs.org', '1800 N. Boisseranc Dr, Anaheim, California, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"false","pref_vex":"true"}', '15', 'MENTOR'),
+('The Friarbots', '{"skill-engineering":"false","engineering-desc":{"engineering-mechanical":"false","engineering-electrical":"false"},"skill-programming":"false","skill-cad":"false","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-strategy":"false","skill-business":"true","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"true","skill-fundraising":"true","skill-other":"false","skill-other-desc":""}', '3309', 'We are based out of Anaheim, CA and are looking for a mentor for Chairman''s.', '7148114564', 'events@team3309.org', '934 Keystone St. , Anaheim, California, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"false"}', '8', 'TEAM'),
+('Momentum', '{"skill-engineering":"true","engineering-desc":{"engineering-mechanical":"true","engineering-electrical":"true"},"skill-programming":"true","skill-cad":"true","programming-desc":{"programming-c":"false","programming-java":"true","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-strategy":"true","skill-business":"true","skill-marketing":"true","skill-manufacturing":"true","skill-design":"true","skill-scouting":"true","skill-fundraising":"true","skill-other":"true","skill-other-desc":"LITERALLY EVERYTHING"}', '6000', 'We are a brand new team in the Long Beach area with a great start and a great space.', '(562)-810-0625', 'momentumrobotics@gmail.com', '1100 Iroquois Ave., Long Beach, California, United States', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"false"}', '1', 'TEAM'),
+('Code Orange', '{"skill-engineering":"false","engineering-desc":{"engineering-mechanical":"false","engineering-electrical":"false"},"skill-programming":"false","skill-cad":"true","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-strategy":"true","skill-business":"true","skill-marketing":"true","skill-manufacturing":"false","skill-design":"false","skill-scouting":"false","skill-fundraising":"true","skill-other":"false","skill-other-desc":""}', '3476', '', '5558990345', 'code@orange.com', '15431 Verdun Circle, Irvine, California, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"false"}', '7', 'TEAM'),
+('Jon L', '{"skill-engineering":"false","engineering-desc":{"engineering-mechanical":"false","engineering-electrical":"false"},"skill-programming":"false","programming-desc":{"programming-c":"false","programming-java":"false","programming-csharp":"false","programming-python":"false","programming-robotc":"false","programming-labview":"false","programming-easyc":"false","programming-nxt":"false","programming-ev3":"false"},"skill-cad":"false","skill-strategy":"false","skill-business":"false","skill-marketing":"false","skill-manufacturing":"false","skill-design":"false","skill-scouting":"false","skill-fundraising":"false","skill-other":"false","skill-other-desc":""}', '3309', '', '7142393404', 'jfl2900@drkstr.com', ', Anaheim, California, USA', '{"pref_fll":"false","pref_ftc":"false","pref_frc":"true","pref_vex":"true"}', '15', 'MENTOR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locations`
+--
+
+CREATE TABLE IF NOT EXISTS `locations` (
+  `LATITUDE` varchar(500) DEFAULT NULL,
+  `LONGITUDE` varchar(500) DEFAULT NULL,
+  `ADDRESS` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`LATITUDE`, `LONGITUDE`, `ADDRESS`) VALUES
+('33.9408116', '-117.93860990000002', '1021 N Hensel Dr, La Habra, CA, USA'),
+('33.815702', '-118.19773299999997', '3212 Magnolia Ave, Long  Beach, CA, United States'),
+('33.664314', '-117.983139', '8271 Reilly Dr., Huntington Beach, California, United States'),
+('33.868209', '-117.80994299999998', '1800 N. Boisseranc Dr, Anaheim, California, USA'),
+('33.8451499', '-117.95057600000001', '934 Keystone St. , Anaheim, California, USA'),
+('33.7808849', '-118.10513709999998', '1100 Iroquois Ave., Long Beach, California, United States'),
+('33.682461', '-117.78089899999998', '15431 Verdun Circle, Irvine, California, USA'),
+('33.8352932', '-117.91450359999999', ', Anaheim, California, USA'),
+('33.938736', '-117.93725599999999', '840 E Whittier Blvd, La Habra, CA, USA'),
+('33.938736', '-117.93725599999999', '840 E Whittier Blvd, La Habra, CA, USA'),
+('31.470334', '-83.63726400000002', 'ty, ty, ty, ty'),
+('51.253775', '-85.32321389999998', 'Ontario, Canada'),
+('44.200797', '24.502298099999962', '0, 0, 0, 0'),
+('44.200797', '24.502298099999962', '0, 0, 0, 0'),
+('36.91472220000001', '-111.4558333', 'p, p, p, p');
 
 -- --------------------------------------------------------
 
@@ -77,19 +104,35 @@ CREATE TABLE IF NOT EXISTS `logins` (
 
 INSERT INTO `logins` (`PASSWORD`, `EMAIL`, `TYPE`) VALUES
 ('55237ab9371b8c293d04ded9667ae8e0', 'joseph.sirna@gmail.com', 'MENTOR'),
-('0e4260dd3059b582992e340a95a949db', 'e', 'TEAM'),
-('83ba4a6ce40e795134004b2cbafbd445', 'e', 'TEAM'),
-('4eba289f8d6618e94f65f8475289c85b', 'e3', 'MENTOR'),
-('274aa8348ca701a2b54f625dd6fcabe2', 'e4', 'MENTOR'),
-('ce19c5d4c3f2511a23f1639a1ba5d52f', '', 'MENTOR'),
-('ce19c5d4c3f2511a23f1639a1ba5d52f', '', 'MENTOR'),
-('dd1bae494643e02ae45aa3a896c4228e', 'n', 'MENTOR'),
-('dd1bae494643e02ae45aa3a896c4228e', 'n', 'MENTOR'),
-('ce19c5d4c3f2511a23f1639a1ba5d52f', '', 'MENTOR'),
-('547ca5d217ed7b72a0d0cc24d6c9bf52', '1', 'MENTOR'),
-('547ca5d217ed7b72a0d0cc24d6c9bf52', '1', 'MENTOR'),
-('568b97e59777a4a7f16907513e231968', '1', 'MENTOR'),
-('76a30ed9b36ec4264d336ac4cb1cdc26', '1', 'MENTOR');
+('729ff12d3a1d3a801389a0118499b15b', 'miriammelendez78@yahoo.com', 'MENTOR'),
+('71b47418dcf37583c4401118f98cd506', 'erick.locke.2@gmail.com', 'MENTOR'),
+('5747fd889d7a45f982d98fe713588071', 'jonathan.logrippo@servitehs.org', 'MENTOR'),
+('490146a2eb2b7307f3aad4b58b641321', 'events@team3309.org', 'TEAM'),
+('495817934838fd98105a34800f41c33f', 'momentumrobotics@gmail.com', 'TEAM'),
+('11735120082bc8ddc13c177626971ff2', 'code@orange.com', 'TEAM'),
+('2738694a8517427e75dee2d88ccabf03', 'jfl2900@drkstr.com', 'MENTOR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_results`
+--
+
+CREATE TABLE IF NOT EXISTS `survey_results` (
+  `REC_FRIEND` varchar(100) DEFAULT NULL,
+  `REC_FEATURES` varchar(100) DEFAULT NULL,
+  `TO_ADD_FEATURES` varchar(100) DEFAULT NULL,
+  `DISLIKED_FEATURES` varchar(100) DEFAULT NULL,
+  `EMAIL` varchar(100) DEFAULT NULL,
+  `WHY` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `survey_results`
+--
+
+INSERT INTO `survey_results` (`REC_FRIEND`, `REC_FEATURES`, `TO_ADD_FEATURES`, `DISLIKED_FEATURES`, `EMAIL`, `WHY`) VALUES
+('false', '', '', '', 'jonathan.logrippo@servitehs.org', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

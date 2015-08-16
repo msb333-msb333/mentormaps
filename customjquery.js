@@ -45,7 +45,12 @@ $("#submitTeamRegistrationForm").click(function(){
     var team_phone = document.getElementById("team-phone"       ).value;
     var pass1 =      document.getElementById("pass1"            ).value;
     var pass2 =      document.getElementById("pass2"            ).value;
-    var teamage =    document.getElementById("team-age"         ).value;
+    var teamage =    document.getElementById("team-age"         ).checked;
+    if(teamage){
+        teamage = "Rookie Team";
+    }else{
+        teamage = "Experienced Team";
+    }
     
     submitAddress(team_address);
     
@@ -114,8 +119,12 @@ $("#submitTeamRegistrationForm").click(function(){
             console.log("request successful");
         },
         error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
-           console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            if(errorThrown="SyntaxError: Unexpected token a"){
+                alert("a user already has that email address");
+            }else{
+                alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+                console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            }
         }
     });
 });
@@ -133,7 +142,6 @@ $("#submitMentorRegistrationForm").click(function(){
     var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
-    var mentor_age = document.getElementById("mentor-age"       ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
     
@@ -157,7 +165,6 @@ $("#submitMentorRegistrationForm").click(function(){
             'mentor-email':                 mentor_email,
             'mentor-address':               mentor_address,
             'mentor-phone':                 mentor_phone,
-            'mentor-age':                   mentor_age,
             'pass1':                        pass1,
             'pass2':                        pass2,
             'team-number':                  team_number,
@@ -202,8 +209,12 @@ $("#submitMentorRegistrationForm").click(function(){
             console.log("request successful");
         },
         error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
-           console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+           if(errorThrown="SyntaxError: Unexpected token a"){
+                alert("a user already has that email address");
+            }else{
+                alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+                console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            }
         }
     });
 });
