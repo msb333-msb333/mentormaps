@@ -31,6 +31,7 @@
         echoHeader();
         ?>
         
+        <script src="./customjquery.js"></script>
 <script>
         
         function del(){
@@ -55,6 +56,12 @@
                 var phone = document.getElementById("phone").value;
                 var age =    document.getElementById("age").value;
                 
+                //add new address entry if it changed
+                if(!(address=='<?php echo $address; ?>')){
+                    submitAddress(address);
+                }
+
+                //update user info
                 $.ajax({
                     type: 'POST',
                     url: "./edit.php",
