@@ -3,7 +3,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
-    
+
     //prevent sql injection
     $team_age = $_POST['team-age'];
     $team_name = mysql_escape_mimic($_POST['team-name']);
@@ -26,6 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $comments=str_replace("<script", "im a dirty little hacker: ", $comments);
     $team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
     
+    $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
+    if($result->num_rows > 0){
+        die("a user already has that email address");
+    }
+
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],

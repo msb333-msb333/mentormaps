@@ -21,7 +21,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
     $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
     $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
-                  
+    
+    $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
+    if($result->num_rows > 0){
+        die("a user already has that email address");
+    }
+
     $json_encoded_skills = json_encode(
                                     array(
                                         'skill-engineering' => $_POST['skill-engineering'],
