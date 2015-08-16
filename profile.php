@@ -185,7 +185,8 @@
 <?php
         
     }else{
-        die('please specify a user');
+        require "./sessioncheck.php";
+        require "./logincheck.php";
+        echo '<meta http-equiv="refresh" content="0;URL=./profile.php?p='.$_SESSION['email'].'">';
     }
 ?>
-
