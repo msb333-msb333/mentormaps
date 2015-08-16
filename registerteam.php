@@ -5,8 +5,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./security/salt.php";
     
     //prevent sql injection
-    $team_age = mysql_escape_mimic($_POST['team-age']); 
-    $team_name = mysql_escape_mimic($_POST['team-name']);   
+    $team_age = $_POST['team-age'];
+    $team_name = mysql_escape_mimic($_POST['team-name']);
     $team_email = mysql_escape_mimic($_POST['team-email']);
     $team_address = mysql_escape_mimic($_POST['team-address']);
     $team_phone = mysql_escape_mimic($_POST['team-phone']);
@@ -111,10 +111,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="address-country" id="address-country" placeholder="Country" />
                                             </div>
-                                            
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="team-address" id="team-age" placeholder="Team Age (Optional)" />
+                                                <input type="checkbox" id="team-age"/>
+                                                <label for="team-age">Rookie Team?</label>
                                             </div>
+                                            &nbsp;
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
                                             </div>

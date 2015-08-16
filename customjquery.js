@@ -45,7 +45,12 @@ $("#submitTeamRegistrationForm").click(function(){
     var team_phone = document.getElementById("team-phone"       ).value;
     var pass1 =      document.getElementById("pass1"            ).value;
     var pass2 =      document.getElementById("pass2"            ).value;
-    var teamage =    document.getElementById("team-age"         ).value;
+    var teamage =    document.getElementById("team-age"         ).checked;
+    if(teamage){
+        teamage = "Rookie Team";
+    }else{
+        teamage = "Experienced Team";
+    }
     
     submitAddress(team_address);
     
