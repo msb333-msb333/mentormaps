@@ -77,8 +77,12 @@
                     </div>
                     <div id="bio-div">
                         <b style="color:#19D1AC;">Bio: </b>   
-                            <?php 
+                            <?php
+                            if($comments==""){
+                                echo 'I lack basic descriptive abilities <a href="http://en.wikipedia.org/wiki/Aubergine">&#x1f346;</a>';
+                            }else{
                                 echo $comments;
+                            }
                             ?>
                     </div>
                     <div id="type-div">
@@ -143,6 +147,7 @@
                                 "programming-robotc" : 'RobotC Programming',
                                 "programming-labview" : 'LabView Programming',
                                 "programming-nxt" : 'NXT Programming',
+                                "programming-easyc" : 'EasyC Programming',
                                 "programming-ev3" : 'EV3 Programming',
                                 "engineering-mechanical" : 'Mechanical Engineering',
                                 "engineering-electrical" : 'Electrical Engineering'
