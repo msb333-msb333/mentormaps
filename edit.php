@@ -35,7 +35,6 @@
         
         function del(){
             if(confirm("Are you sure you want to delete your profile?")){
-                console.log("submitting ajax request");
                 $.ajax({
                     url: "./deleteprofile.php",
                     type: 'POST',
