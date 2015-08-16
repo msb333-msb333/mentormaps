@@ -119,8 +119,12 @@ $("#submitTeamRegistrationForm").click(function(){
             console.log("request successful");
         },
         error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
-           console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            if(errorThrown="SyntaxError: Unexpected token a"){
+                alert("a user already has that email address");
+            }else{
+                alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+                console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            }
         }
     });
 });
@@ -205,8 +209,12 @@ $("#submitMentorRegistrationForm").click(function(){
             console.log("request successful");
         },
         error: function(xhr, textStatus, errorThrown) {
-           alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
-           console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+           if(errorThrown="SyntaxError: Unexpected token a"){
+                alert("a user already has that email address");
+            }else{
+                alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
+                console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
+            }
         }
     });
 });
