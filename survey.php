@@ -60,6 +60,10 @@ $.ajax({
         }
     });
   });
+  
+  $("#no").change(function(){
+     $("#why").toggle();
+});
 </script>
 
 <article id="main" style="width:100%;">
@@ -80,22 +84,37 @@ $.ajax({
             <h3>Would you recommend MentorMaps to a friend?</h3>
             <div class="row uniform" style="display: inline-block;">
                 <div class="3u 12u$">
-                    <input type="radio" id="yes" name="yesno" checked>
+                    <input type="radio" id="yes" name="yesno"/>
                     <label for="yes">Yes</label>
-
-                    <input type="radio" id="no" name="yesno">
+                    <input type="radio" id="no" name="yesno"/>
                     <label for="no">No</label>
+                    <input type="text" id="why" placeholder="Why?"/>
+                    <script>
+                        document.getElementById("why").style.visibility="hidden";
+                    </script>
                 </div>
             </div>
             <hr />
-            <h3 style="padding-top:10px; padding-bottom:10px">What features did you like or use the most?</h3>
-            <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <input type="text" name="team-name" id="recFeaturesField" placeholder="Write Response" style="width: 60%"/>
+            <h3 style="padding-top:10px; padding-bottom:10px">What feature did you like or use the most?</h3>
+            <div style="padding-top:10px; padding-bottom:10px; text-align: center;">
+                <select>
+                    <option value="" disabled selected style="display:none;">Please Choose</option>
+                    <option value="algorithm">Team/Mentor Compatibility Algorithm</option>
+                    <option value="sponsor_filter">Search by Sponsor Filter</option>
+                    <option value="map">Map to see teams/mentors in your area.</option>
+                    <option value="messaging">Messaging System</option>
+                </select>
             </div>
             <hr />
-            <h3 style="padding-top:10px; padding-bottom:10px">What features did you dislike or never use?</h3>
+            <h3 style="padding-top:10px; padding-bottom:10px">What feature did you dislike or never use?</h3>
             <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <input type="text" name="team-name" id="dislikedFeaturesField" placeholder="Write Response" style="width: 60%"/>
+                <select>
+                    <option value="" disabled selected style="display:none;">Please Choose</option>
+                    <option value="algorithm">Team/Mentor Compatibility Algorithm</option>
+                    <option value="sponsor_filter">Search by Sponsor Filter</option>
+                    <option value="map">Map to see teams/mentors in your area.</option>
+                    <option value="messaging">Messaging System</option>
+                </select>
             </div>
             <hr />
             <h3 style="padding-top:10px; padding-bottom:10px">What features would you like to see added?</h3>
