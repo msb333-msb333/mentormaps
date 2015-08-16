@@ -310,7 +310,9 @@
         
     }else{//display edit page
         if(!isset($_GET['p'])){
-            die("please specify a user");
+            require "./sessioncheck.php";
+            require "./logincheck.php";
+            echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
         }
         showEditPage();
     }
