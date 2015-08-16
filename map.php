@@ -197,7 +197,6 @@ while($i=mysqli_fetch_assoc($r)){
             if(address==geoLocation.address){
                 Flat = parseFloat(geoLocation.latitude);
                 Flng = parseFloat(geoLocation.longitude);
-                break;
             }
         });
 
@@ -331,6 +330,23 @@ while($i=mysqli_fetch_assoc($r)){
                         echo 'var allteams = ' . json_encode($allteams) . ';' . PHP_EOL;
                         echo 'var geoLookup = ' . json_encode($geoLookup) . ';' . PHP_EOL;
                     ?>
+
+                    var rad = function(x) {
+                      return x * Math.PI / 180;
+                    };
+
+                    var getDistance = function(p1lat, p1lng, p2lat, p2lng) {
+                      var R = 6378137; // Earth’s mean radius in meter
+                      var dLat = rad(p2lat - p1lat);
+                      var dLong = rad(p2lng - p1lng);
+                      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) *
+                        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                      var d = R * c;
+                      var ret = ((d * 3.28) / 5280);
+                      return ret; // returns the distance in miles you damn commie
+                    };
                     
                     var me;
                     for(var i=0;i<alldata.length;i++){
@@ -341,15 +357,21 @@ while($i=mysqli_fetch_assoc($r)){
                         }
                     }
                     
+                    var globalRet = 0;
+
                     function getLatLngArrayFromAddress(address){
-                    $.each(geoLookup, function(key, value){
-                        var geoLocation = geoLookup[key];
-                        if(address==geoLocation.address){
-                            Flat = parseFloat(geoLocation.latitude);
-                            Flng = parseFloat(geoLocation.longitude);
-                            return [Flat, Flng];
-                        }
-                    });
+                        $.each(geoLookup, function(key, value){
+                            var geoLocation = geoLookup[key];
+                            if(address==geoLocation.address){
+                                var Flat = parseFloat(geoLocation.latitude);
+                                var Flng = parseFloat(geoLocation.longitude);
+                                var ret = {latitude : Flat, longitude : Flng};
+                                console.log("returning: " + ret + ";");
+                                console.log(ret);
+                                globalRet = ret;
+                                return ret;
+                            }
+                        });
                     }
                     
                     function refreshListing(){
@@ -360,15 +382,15 @@ while($i=mysqli_fetch_assoc($r)){
                                 var searchingfor = $.parseJSON(me['skills_json']);
                                 var offered = $.parseJSON(team['searching_skills_json']);
 
-                                var p1array = getLatLngArrayFromAddress(team['address'])
-                                var p1lat = p1array[0];
-                                var p1lng = p1array[1];
+                                var p1array = getLatLngArrayFromAddress(team['address']);
+                                var p1lat = globalRet.latitude;
+                                var p1lng = globalRet.longitude;
 
                                 var p2array = getLatLngArrayFromAddress(me['address']);
-                                var p2lat = p2array[0];
-                                var p2lng = p2array[1];
+                                var p2lat = globalRet.latitude;
+                                var p2lng = globalRet.longitude;
                                 
-                                var distance = /*google.maps.geometry.spherical.computeDistanceBetween (p1, p2);*/100;
+                                var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
                                 
                                 var process_teamtype = $.parseJSON(me['type']);
                                 var process_mentortypes = $.parseJSON(team['type']);
@@ -388,7 +410,8 @@ while($i=mysqli_fetch_assoc($r)){
                                     }
                                 }
                                 
-                                var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance);
+                                var distance_weight = $("#slidey-thing").val() / 50;
+                                var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
                                 teamscore_map.push({team, compare_result});
                         }
                         console.log(teamscore_map);
@@ -402,8 +425,7 @@ while($i=mysqli_fetch_assoc($r)){
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");
-                            }
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a> "+ Math.round(teamscore_map[e].compare_result * 100) +"% </li>");                            }
                         }
                         
                         console.log(teamscore_map);

@@ -8,7 +8,7 @@ function contains(a, obj) {
 }
 
 //alogorithm for comparing teams; returns a value 0-1 based on compatibility
-function compare(team_skills, mentor_skills, team_type, mentor_types, distance){
+function compare(team_skills, mentor_skills, team_type, mentor_types, distance, distance_weight){
     var skills_searching_for = [];
     var skills_offered = [];
 
@@ -39,7 +39,9 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance){
     }
 
     var numerator = skills_score * type_score;
-    var next = numerator / distance;
+    var denominator = distance * distance_weight;
+
+    var next = numerator / denominator;
 
     //debug info
     console.log("team type: " + team_type);
