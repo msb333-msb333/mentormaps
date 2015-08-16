@@ -48,6 +48,17 @@ while($r=mysqli_fetch_assoc($result)){
     );
     array_push($all_data, $current);
 }
+
+$geoLookup = array();
+$r=$db->query("SELECT * FROM `locations`");
+while($i=mysqli_fetch_assoc($r)){
+    $current = array(
+                    'latitude' => $i['LATITUDE'],
+                    'longitude' => $i['LONGITUDE'],
+                    'address' => $i['ADDRESS']
+                    );
+    array_push($geoLookup, $current);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -178,16 +189,26 @@ while($r=mysqli_fetch_assoc($result)){
                 }
             }
         }
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
+
+        var Flat = 0;
+        var Flng = 0;
+        $.each(geoLookup, function(key, value){
+            var geoLocation = geoLookup[key];
+            if(address==geoLocation.address){
+                Flat = parseFloat(geoLocation.latitude);
+                Flng = parseFloat(geoLocation.longitude);
+            }
+        });
+
         var marker = new google.maps.Marker({
-            map: map, 
-            position: results[0].geometry.location,
+            map: map,
+            position: {lat: Flat, lng: Flng},
             icon: iconurl
         });
-        var infowindow=new google.maps.InfoWindow({
-        content: "" + teamdata['name'] + ", " + teamdata['team_number']
-      });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: "" + teamdata['name'] + ", " + teamdata['team_number']
+        });
       
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
@@ -238,10 +259,6 @@ while($r=mysqli_fetch_assoc($result)){
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
   }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -310,7 +327,8 @@ while($r=mysqli_fetch_assoc($result)){
                     <script>
                     <?php
                         echo 'var alldata = ' . json_encode($all_data) . ';' . PHP_EOL;
-                        echo 'var allteams = ' . json_encode($allteams) . ";" . PHP_EOL;
+                        echo 'var allteams = ' . json_encode($allteams) . ';' . PHP_EOL;
+                        echo 'var geoLookup = ' . json_encode($geoLookup) . ';' . PHP_EOL;
                     ?>
                     
                     var me;
