@@ -1,9 +1,7 @@
 <?php
 require "./logincheck.php";
 if($_SERVER['REQUEST_METHOD']=='GET'){
-
     require "./core.php";
-    
     $email = $_SESSION['email'];
     echoHeader();
 ?>
@@ -13,6 +11,10 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 <script>
 var exp = 1;
+
+function redirect(){
+    window.location = "./index.php";
+}
 
 function submit(){
     var experience = exp;
@@ -31,7 +33,6 @@ function submit(){
     var dislikedFeatures    = document.getElementById("dislikedFeaturesField").value;
     var toAddFeatures       = document.getElementById("toAddFeaturesField").value;
 
-
 $.ajax({
     url: './survey.php',
     type: 'POST',
@@ -43,7 +44,7 @@ $.ajax({
         'email' : email
     },
     success:function(data){
-        document.getElementById("main").innerHTML = "Reponse Recorded<button onclick='window.location = \'./index.php\''>OK</button>";
+        document.getElementById("page-section").innerHTML = "<div align=\"center\">Reponse Recorded&nbsp;<button onclick='redirect();'>OK</button></div>";
     }
 });
 
@@ -60,10 +61,6 @@ $.ajax({
         }
     });
   });
-  
-  $("#no").change(function(){
-     $("#why").toggle();
-});
 </script>
 
 <article id="main" style="width:100%;">
@@ -71,8 +68,8 @@ $.ajax({
         <h2>Mentor Maps Survey</h2>
         <h3 style="color:#c1c1c1">Your answers will be collected to improve MentorMaps</h3> 
     </header>
-    <section class="wrapper style5" style="width:100%;">
-        <div style="display:block;width:100%;text-align:center;margin:auto;padding-top:10px; padding-bottom:10px">
+    <section id="page-section" class="wrapper style5" style="width:100%;">
+        <div style="width:100%;text-align:center;margin:auto;padding-top:10px;padding-bottom:10px">
             <h3>Rate your experience</h3>
             <div id="slider-wrapper" style="width:50%;margin:auto;">
                 <div id="slider"></div><div id="slider-display"></div>
@@ -82,22 +79,30 @@ $.ajax({
                 </script>
             <hr />
             <h3>Would you recommend MentorMaps to a friend?</h3>
-            <div class="row uniform" style="display: inline-block;">
-                <div class="3u 12u$">
+            <div class="row uniform" style="text-align:center;display:inline-block;">
+                <div class="12u 12u$">
                     <input type="radio" id="yes" name="yesno"/>
                     <label for="yes">Yes</label>
                     <input type="radio" id="no" name="yesno"/>
                     <label for="no">No</label>
-                    <input type="text" id="why" placeholder="Why?"/>
-                    <script>
-                        document.getElementById("why").style.visibility="hidden";
-                    </script>
+                    <textarea type="text" id="why" placeholder="Why?" rows="2"></textarea>
                 </div>
+                
+                <script>
+                    $("#why").hide();
+                    
+                    $("#no").change(function(){
+                        $("#why").show();
+                    });
+                    $("#yes").change(function(){
+                        $("#why").hide();
+                    });
+                </script>
             </div>
             <hr />
             <h3 style="padding-top:10px; padding-bottom:10px">What feature did you like or use the most?</h3>
-            <div style="padding-top:10px; padding-bottom:10px; text-align: center;">
-                <select>
+            <div style="padding-top:10px; padding-bottom:10px;text-align:center;display:inline-block;">
+                <select id="recFeaturesField">
                     <option value="" disabled selected style="display:none;">Please Choose</option>
                     <option value="algorithm">Team/Mentor Compatibility Algorithm</option>
                     <option value="sponsor_filter">Search by Sponsor Filter</option>
@@ -107,8 +112,8 @@ $.ajax({
             </div>
             <hr />
             <h3 style="padding-top:10px; padding-bottom:10px">What feature did you dislike or never use?</h3>
-            <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <select>
+            <div style="padding-top:10px; padding-bottom:10px;text-align:center;display:inline-block;">
+                <select id="dislikedFeaturesField">
                     <option value="" disabled selected style="display:none;">Please Choose</option>
                     <option value="algorithm">Team/Mentor Compatibility Algorithm</option>
                     <option value="sponsor_filter">Search by Sponsor Filter</option>
@@ -119,7 +124,7 @@ $.ajax({
             <hr />
             <h3 style="padding-top:10px; padding-bottom:10px">What features would you like to see added?</h3>
             <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <input type="text" name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"/>
+                <textarea type="text" name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"></textarea>
             </div>
             <button id="submit" onclick="submit();" class="button">submit</button>
             </div>
