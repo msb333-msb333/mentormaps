@@ -48,6 +48,17 @@ while($r=mysqli_fetch_assoc($result)){
     );
     array_push($all_data, $current);
 }
+
+$geoLookup = array();
+$r=$db->query("SELECT * FROM `locations`");
+while($i=mysqli_fetch_assoc($r)){
+    $current = array(
+                    'latitude' => $i['LATITUDE'],
+                    'longitude' => $i['LONGITUDE'],
+                    'address' => $i['ADDRESS']
+                    );
+    array_push($geoLookup, $current);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -117,7 +128,7 @@ while($r=mysqli_fetch_assoc($result)){
         var marker = new google.maps.Marker({
             map: map, 
             position: results[0].geometry.location,
-            icon: './mentorflag.png'
+            icon: './img/mentorflag.png'
         });
         var infowindow=new google.maps.InfoWindow({
         content: 'Your location'
@@ -178,16 +189,26 @@ while($r=mysqli_fetch_assoc($result)){
                 }
             }
         }
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
+
+        var Flat = 0;
+        var Flng = 0;
+        $.each(geoLookup, function(key, value){
+            var geoLocation = geoLookup[key];
+            if(address==geoLocation.address){
+                Flat = parseFloat(geoLocation.latitude);
+                Flng = parseFloat(geoLocation.longitude);
+            }
+        });
+
         var marker = new google.maps.Marker({
-            map: map, 
-            position: results[0].geometry.location,
+            map: map,
+            position: {lat: Flat, lng: Flng},
             icon: iconurl
         });
-        var infowindow=new google.maps.InfoWindow({
-        content: "" + teamdata['name'] + ", " + teamdata['team_number']
-      });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: "" + teamdata['name'] + ", " + teamdata['team_number']
+        });
       
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
@@ -238,10 +259,6 @@ while($r=mysqli_fetch_assoc($result)){
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
   }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -310,8 +327,26 @@ while($r=mysqli_fetch_assoc($result)){
                     <script>
                     <?php
                         echo 'var alldata = ' . json_encode($all_data) . ';' . PHP_EOL;
-                        echo 'var allteams = ' . json_encode($allteams) . ";" . PHP_EOL;
+                        echo 'var allteams = ' . json_encode($allteams) . ';' . PHP_EOL;
+                        echo 'var geoLookup = ' . json_encode($geoLookup) . ';' . PHP_EOL;
                     ?>
+
+                    var rad = function(x) {
+                      return x * Math.PI / 180;
+                    };
+
+                    var getDistance = function(p1lat, p1lng, p2lat, p2lng) {
+                      var R = 6378137; // Earth’s mean radius in meter
+                      var dLat = rad(p2lat - p1lat);
+                      var dLong = rad(p2lng - p1lng);
+                      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) *
+                        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                      var d = R * c;
+                      var ret = ((d * 3.28) / 5280);
+                      return ret; // returns the distance in miles you damn commie
+                    };
                     
 +   var rad = function(x) {
 +  return x * Math.PI / 180;
@@ -338,15 +373,18 @@ while($r=mysqli_fetch_assoc($result)){
                         }
                     }
                     
-                    function getLatLngFromAddress(address){
-                    var geo = new google.maps.Geocoder;
-                    geo.geocode( { 'address': address}, function(results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            return results[0].geometry.location.LatLng;
-                        }else{
-                            //TODO handle else case for invalid address
-                            console.log("error getting latlng from address");
-                        }});
+                    var globalRet = 0;
+                    function getLatLngArrayFromAddress(address){
+                        $.each(geoLookup, function(key, value){
+                            var geoLocation = geoLookup[key];
+                            if(address==geoLocation.address){
+                                var Flat = parseFloat(geoLocation.latitude);
+                                var Flng = parseFloat(geoLocation.longitude);
+                                var ret = {latitude : Flat, longitude : Flng};
+                                globalRet = ret;
+                                return ret;
+                            }
+                        });
                     }
                     
                     function refreshListing(){
@@ -356,33 +394,42 @@ while($r=mysqli_fetch_assoc($result)){
                             var team = allteams[i];
                                 var searchingfor = $.parseJSON(me['skills_json']);
                                 var offered = $.parseJSON(team['searching_skills_json']);
-                                var p1 = getLatLngFromAddress(team['address']);
-                                var p2 = getLatLngFromAddress(me['address']);
+
+                                var p1array = getLatLngArrayFromAddress(team['address']);
+                                var p1lat = globalRet.latitude;
+                                var p1lng = globalRet.longitude;
+
+                                var p2array = getLatLngArrayFromAddress(me['address']);
+                                var p2lat = globalRet.latitude;
+                                var p2lng = globalRet.longitude;
                                 
-                                var distance = /*google.maps.geometry.spherical.computeDistanceBetween (p1, p2);*/100
+                                var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
                                 
-                                var process_teamtype = $.parseJSON(me['type']);
-                                var process_mentortypes = $.parseJSON(team['type']);
-                                var teamtype;
-                                var mentortypes = [];
-                                
-                                for(var e in process_mentortypes){
-                                    if(process_mentortypes[e]=='true'){
-                                        mentortypes.push(e);
+                                if(!(distance > $("#slidey-thing").val())){
+                                    var process_teamtype = $.parseJSON(me['type']);
+                                    var process_mentortypes = $.parseJSON(team['type']);
+                                    var teamtype;
+                                    var mentortypes = [];
+                                    
+                                    for(var e in process_mentortypes){
+                                        if(process_mentortypes[e]=='true'){
+                                            mentortypes.push(e);
+                                        }
                                     }
-                                }
-                                
-                                for(var e in process_teamtype){
-                                    if(process_teamtype[e]=='true'){
-                                        teamtype = e;
-                                        break;
+                                    
+                                    for(var e in process_teamtype){
+                                        if(process_teamtype[e]=='true'){
+                                            teamtype = e;
+                                            break;
+                                        }
                                     }
-                                }
-                                
-                                var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance);
+                                    
+                                var distance_weight = 6.4;
+                                var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
                                 teamscore_map.push({team, compare_result});
+                            }
                         }
-                        console.log(teamscore_map);
+                        //console.log(teamscore_map);
                         
                         var comparator = function(a,b){
                             return b.compare_result - a.compare_result;
@@ -393,11 +440,10 @@ while($r=mysqli_fetch_assoc($result)){
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");
-                            }
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a> "+ Math.round(teamscore_map[e].compare_result * 100) +"% </li>");                            }
                         }
                         
-                        console.log(teamscore_map);
+                        //console.log(teamscore_map);
                     }
                     $(document).ready(function() {
                         refreshListing();
@@ -410,7 +456,7 @@ while($r=mysqli_fetch_assoc($result)){
                         padding-top:10px;
                     }
                     </style>
-                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
+                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
                         <div style="white-space:nowrap;">
                         <div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
                             <section id="team-info-section">
