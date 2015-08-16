@@ -442,9 +442,9 @@ while($i=mysqli_fetch_assoc($r)){
                     </style>
                     <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
                         <div style="white-space:nowrap;">
-                        <div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
+                        <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
                             <section id="team-info-section">
-                            <div class="6u 6u$(small)"><b><u id="team-info-label" style="font-size:35px;">Team Info</u></b></div>
+                            <div class="6u 6u$(small)"><b><div id="team-info-label" style="font-size:35px;">Team Info</div></b></div>
                                 <div class="row uniform">
                                     <div class="12u 12u$(small)" id="img-container"></div>
                                     <div class="6u 3u$(small)" id="name-container"></div>
@@ -457,7 +457,7 @@ while($i=mysqli_fetch_assoc($r)){
                             </section>
                         </div>
                         </div>
-                        
+                        <div><button onclick="window.location = './survey.php';">Take Our Survey</button></div>
                     </article>
 
                 <!-- Footer -->
