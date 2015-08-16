@@ -2,8 +2,6 @@
 //do all login operations / redirects
 require "./logincheck.php";
 require "./db.php";
-require "./core.php";
-
 //get the logged in user's account type from the session variable
 $email = $_SESSION['email'];
 $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
@@ -12,7 +10,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     $type = $r['TYPE'];
 }
-
 //get the user's address
 $sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
 $my_address = "UNDEFINED";
@@ -20,7 +17,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     $my_address=$r['ADDRESS'];
 }
-
 //store all of the opposite kinds of addresses
 $address_array = array();
 if($type=="MENTOR"){
@@ -34,7 +30,6 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
-
 //populate an array with the entire database's contents so they can be accessed in javascript
 $result=$db->query("SELECT * FROM `data`");
 $all_data = array();
@@ -81,8 +76,7 @@ while($r=mysqli_fetch_assoc($result)){
         <script src="assets/js/main.js"></script>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
-        <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>-->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
     <script type="text/javascript">
     
       function initialize() {
@@ -116,8 +110,6 @@ while($r=mysqli_fetch_assoc($result)){
         ?>
         }
         
-
-
     function centerMap(map, address){
         geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -127,15 +119,12 @@ while($r=mysqli_fetch_assoc($result)){
             position: results[0].geometry.location,
             icon: './mentorflag.png'
         });
-
         var infowindow=new google.maps.InfoWindow({
         content: 'Your location'
       });
-
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
-
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
@@ -144,7 +133,6 @@ while($r=mysqli_fetch_assoc($result)){
       }
     });
 }
-
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
         var iconurl = "http://qca.st/images/redditor.png";
@@ -244,11 +232,9 @@ while($r=mysqli_fetch_assoc($result)){
             ?>
             
         });
-
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
-
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
@@ -276,7 +262,6 @@ while($r=mysqli_fetch_assoc($result)){
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="<?php echoEditProfile(); ?>">Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -288,42 +273,27 @@ while($r=mysqli_fetch_assoc($result)){
                     <article id="footer" style="padding-top:30px;">
                     <div id="maybe-this-will-work-wrapper"><!--holy crap, it worked-->
                     <div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
-                        <div id="legend">
+                        <div id="team-list-wrapper">
                         <script>
-                            document.getElementById('legend').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
+                            document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
                         </script>
+                        <ul style="list-style-type:none;" id="team-list">
+                            
+                        </ul>
                     </div>
                     
                         <div id="search-wrapper">
                         <script>
-                        
-                        var up = false;
-                        
                         document.getElementById('search-wrapper').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";text-align: center;float:right;background-color:teal;width:15%;color:white;text-align:left;");
-                        
-                        function frau(){
-                            if(up){
-                                up = !up;
-                                $("#coolarrow").html('&#9660;');
-                            }else{
-                                up = !up;
-                                $("#coolarrow").html('&#9650;');
-                            }
-                            $("#pancakes").toggle();                            
+                        function updateRangeDisplay(){
+                            $("#range-display").html($("#slidey-thing").val());
                         }
-                        
                         </script>
                         <div style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
-                            <ul id="pancakes" style="list-style-type:none;" id="list-thing">
+                            <ul style="list-style-type:none;" id="list-thing">
                                 <li>Team Search Filter</li>
-                                <li>Range <input id="slidely-thing" type="range"/><div id="range-display" style="display:inline;"></div></li>
-                                <li><button onclick="refreshListing();">refresh</button></li>
-                            </ul>
-                            <script>
-                                $("#pancakes").toggle();
-                            </script>
-                            <ul style="list-style-type:none;" id="team-list">
-                                <li><button id="coolarrow" onclick="frau();">&#9660;</button></li>
+                                <li>Range <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();"/><div id="range-display" style="display:inline;">50</div></li>
+                                <li><button onclick="refreshListing();">Update List</button></li>
                             </ul>
                             </div>
                         </div>
@@ -331,7 +301,6 @@ while($r=mysqli_fetch_assoc($result)){
                         <div id="map-section">
                             <script>
                                 document.getElementById("map-section").style.height= window.innerHeight - (window.innerHeight / 4) + "px";
-                                //document.getElementById('map-section').style.width = window.innerWidth * 0.7 + "px";
                             </script>
                             <div id="map-canvas"></div>
                         </div>
@@ -354,7 +323,8 @@ while($r=mysqli_fetch_assoc($result)){
                     }
                     
                     function getLatLngFromAddress(address){
-                    geocoder.geocode( { 'address': address}, function(results, status) {
+                    var geo = new google.maps.Geocoder;
+                    geo.geocode( { 'address': address}, function(results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             return results[0].geometry.location.LatLng;
                         }else{
@@ -363,24 +333,18 @@ while($r=mysqli_fetch_assoc($result)){
                         }});
                     }
                     
-                    function calculateDistance(address1, address2){
-                        var p1 = getLatLngFromAddress(address1);
-                        var p2 = getLatLngFromAddress(address2);
-                        
-                        console.log(p1);
-                        
-                        //console.log(getDistance(p1,p2));
-                        //return getDistance(p1,p2);
-                    }
-                    
                     function refreshListing(){
-                        $("#team-list").html("<li><button id=\"coolarrow\" onclick=\"frau();\">&#9650;</button></li>");
+                        $("#team-list").html("");
                         var teamscore_map = [];
-                        for(var i=0;i<allteams.length;i++){//rrgh cant get foreach loops to work right
+                        for(var i=0;i<allteams.length;i++){
                             var team = allteams[i];
                                 var searchingfor = $.parseJSON(me['skills_json']);
                                 var offered = $.parseJSON(team['searching_skills_json']);
-                                var distance = 100;//todo calc this
+                                var p1 = getLatLngFromAddress(team['address']);
+                                var p2 = getLatLngFromAddress(me['address']);
+                                
+                                var distance = /*google.maps.geometry.spherical.computeDistanceBetween (p1, p2);*/100
+                                
                                 var process_teamtype = $.parseJSON(me['type']);
                                 var process_mentortypes = $.parseJSON(team['type']);
                                 var teamtype;
@@ -405,18 +369,23 @@ while($r=mysqli_fetch_assoc($result)){
                         console.log(teamscore_map);
                         
                         var comparator = function(a,b){
-                            return parseInt(a['compare_result']) + parseInt(b['compare_result']);
+                            return b.compare_result - a.compare_result;
                         }
                         
                         teamscore_map = teamscore_map.sort(comparator);
                         
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
-                            $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['address']+"</a></li>");
+                            if(teamscore_map[e].compare_result != 0){
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");
+                            }
                         }
                         
                         console.log(teamscore_map);
                     }
+                    $(document).ready(function() {
+                        refreshListing();
+                    });
                     </script>
                     
                     </div>
@@ -425,7 +394,7 @@ while($r=mysqli_fetch_assoc($result)){
                         padding-top:10px;
                     }
                     </style>
-                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="white.png"/> FTC | <img class="paddedImgHolder" src="blue.png"/>FLL</div>
+                    <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="red.png"/>FRC | <img class="paddedImgHolder" src="white.png"/> FTC | <img class="paddedImgHolder" src="blue.png"/>FLL | <img class="paddedImgHolder" src="orange.png" /> VEX</div>
                         <div style="white-space:nowrap;">
                         <div class="inner" id="team-info" style="padding-top:20px;float:center;text-align:center;">
                             <section id="team-info-section">

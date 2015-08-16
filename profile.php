@@ -143,6 +143,7 @@
                                 "programming-robotc" : 'RobotC Programming',
                                 "programming-labview" : 'LabView Programming',
                                 "programming-nxt" : 'NXT Programming',
+                                "programming-easyc" : 'EasyC Programming',
                                 "programming-ev3" : 'EV3 Programming',
                                 "engineering-mechanical" : 'Mechanical Engineering',
                                 "engineering-electrical" : 'Electrical Engineering'
