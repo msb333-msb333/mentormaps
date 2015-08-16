@@ -358,7 +358,6 @@ while($i=mysqli_fetch_assoc($r)){
                     }
                     
                     var globalRet = 0;
-
                     function getLatLngArrayFromAddress(address){
                         $.each(geoLookup, function(key, value){
                             var geoLocation = geoLookup[key];
@@ -366,8 +365,6 @@ while($i=mysqli_fetch_assoc($r)){
                                 var Flat = parseFloat(geoLocation.latitude);
                                 var Flng = parseFloat(geoLocation.longitude);
                                 var ret = {latitude : Flat, longitude : Flng};
-                                console.log("returning: " + ret + ";");
-                                console.log(ret);
                                 globalRet = ret;
                                 return ret;
                             }
@@ -392,29 +389,31 @@ while($i=mysqli_fetch_assoc($r)){
                                 
                                 var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
                                 
-                                var process_teamtype = $.parseJSON(me['type']);
-                                var process_mentortypes = $.parseJSON(team['type']);
-                                var teamtype;
-                                var mentortypes = [];
-                                
-                                for(var e in process_mentortypes){
-                                    if(process_mentortypes[e]=='true'){
-                                        mentortypes.push(e);
+                                if(!(distance > $("#slidey-thing").val())){
+                                    var process_teamtype = $.parseJSON(me['type']);
+                                    var process_mentortypes = $.parseJSON(team['type']);
+                                    var teamtype;
+                                    var mentortypes = [];
+                                    
+                                    for(var e in process_mentortypes){
+                                        if(process_mentortypes[e]=='true'){
+                                            mentortypes.push(e);
+                                        }
                                     }
-                                }
-                                
-                                for(var e in process_teamtype){
-                                    if(process_teamtype[e]=='true'){
-                                        teamtype = e;
-                                        break;
+                                    
+                                    for(var e in process_teamtype){
+                                        if(process_teamtype[e]=='true'){
+                                            teamtype = e;
+                                            break;
+                                        }
                                     }
-                                }
-                                
-                                var distance_weight = $("#slidey-thing").val() / 50;
+                                    
+                                var distance_weight = 6.4;
                                 var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
                                 teamscore_map.push({team, compare_result});
+                            }
                         }
-                        console.log(teamscore_map);
+                        //console.log(teamscore_map);
                         
                         var comparator = function(a,b){
                             return b.compare_result - a.compare_result;
@@ -428,7 +427,7 @@ while($i=mysqli_fetch_assoc($r)){
                                 $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a> "+ Math.round(teamscore_map[e].compare_result * 100) +"% </li>");                            }
                         }
                         
-                        console.log(teamscore_map);
+                        //console.log(teamscore_map);
                     }
                     $(document).ready(function() {
                         refreshListing();
