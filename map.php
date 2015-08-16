@@ -197,6 +197,7 @@ while($i=mysqli_fetch_assoc($r)){
             if(address==geoLocation.address){
                 Flat = parseFloat(geoLocation.latitude);
                 Flng = parseFloat(geoLocation.longitude);
+                break;
             }
         });
 
@@ -340,15 +341,15 @@ while($i=mysqli_fetch_assoc($r)){
                         }
                     }
                     
-                    function getLatLngFromAddress(address){
-                    var geo = new google.maps.Geocoder;
-                    geo.geocode( { 'address': address}, function(results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            return results[0].geometry.location.LatLng;
-                        }else{
-                            //TODO handle else case for invalid address
-                            console.log("error getting latlng from address");
-                        }});
+                    function getLatLngArrayFromAddress(address){
+                    $.each(geoLookup, function(key, value){
+                        var geoLocation = geoLookup[key];
+                        if(address==geoLocation.address){
+                            Flat = parseFloat(geoLocation.latitude);
+                            Flng = parseFloat(geoLocation.longitude);
+                            return [Flat, Flng];
+                        }
+                    });
                     }
                     
                     function refreshListing(){
@@ -358,10 +359,16 @@ while($i=mysqli_fetch_assoc($r)){
                             var team = allteams[i];
                                 var searchingfor = $.parseJSON(me['skills_json']);
                                 var offered = $.parseJSON(team['searching_skills_json']);
-                                var p1 = getLatLngFromAddress(team['address']);
-                                var p2 = getLatLngFromAddress(me['address']);
+
+                                var p1array = getLatLngArrayFromAddress(team['address'])
+                                var p1lat = p1array[0];
+                                var p1lng = p1array[1];
+
+                                var p2array = getLatLngArrayFromAddress(me['address']);
+                                var p2lat = p2array[0];
+                                var p2lng = p2array[1];
                                 
-                                var distance = /*google.maps.geometry.spherical.computeDistanceBetween (p1, p2);*/100
+                                var distance = /*google.maps.geometry.spherical.computeDistanceBetween (p1, p2);*/100;
                                 
                                 var process_teamtype = $.parseJSON(me['type']);
                                 var process_mentortypes = $.parseJSON(team['type']);
