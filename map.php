@@ -87,7 +87,7 @@ while($i=mysqli_fetch_assoc($r)){
         <script src="assets/js/main.js"></script>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
     <script type="text/javascript">
     
       function initialize() {
@@ -220,6 +220,9 @@ while($i=mysqli_fetch_assoc($r)){
             }
             if(typedata['pref_frc']=='true'){
                 document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+            }
+            if(typedata['pref_vex']=='true'){
+                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
             document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
