@@ -21,17 +21,17 @@ while($r=mysqli_fetch_assoc($result)){
 $address_array = array();
 if($type=="MENTOR"){
     echo '<!--you are a mentor, displaying all results for teams-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'  LIMIT 150;";
 }else{
     echo '<!--you are a team, displaying all results for mentors-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'  LIMIT 150;";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
 //populate an array with the entire database's contents so they can be accessed in javascript
-$result=$db->query("SELECT * FROM `data`");
+$result=$db->query("SELECT * FROM `data` LIMIT 150;");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){
     $current = array(
@@ -50,7 +50,7 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
 $geoLookup = array();
-$r=$db->query("SELECT * FROM `locations`");
+$r=$db->query("SELECT * FROM `locations` LIMIT 150;");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
                     'latitude' => $i['LATITUDE'],
@@ -99,8 +99,9 @@ while($i=mysqli_fetch_assoc($r)){
         $allteams = array();
             foreach($address_array as $address){
                 $teamjson = "UNDEFINED";
-                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
+                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address' LIMIT 150;";
                 $result=$db->query($sql);
+                
                 while($r=mysqli_fetch_assoc($result)){
                     $a = array( 'name' => $r['NAME'],
                                 'searching_skills_json' => $r['SKILLS_JSON'],
