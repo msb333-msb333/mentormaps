@@ -21,17 +21,17 @@ while($r=mysqli_fetch_assoc($result)){
 $address_array = array();
 if($type=="MENTOR"){
     echo '<!--you are a mentor, displaying all results for teams-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'  LIMIT 150;";
 }else{
     echo '<!--you are a team, displaying all results for mentors-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'  LIMIT 150;";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
 //populate an array with the entire database's contents so they can be accessed in javascript
-$result=$db->query("SELECT * FROM `data`");
+$result=$db->query("SELECT * FROM `data` LIMIT 150;");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){
     $current = array(
@@ -50,7 +50,7 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
 $geoLookup = array();
-$r=$db->query("SELECT * FROM `locations`");
+$r=$db->query("SELECT * FROM `locations` LIMIT 150;");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
                     'latitude' => $i['LATITUDE'],
@@ -87,7 +87,7 @@ while($i=mysqli_fetch_assoc($r)){
         <script src="assets/js/main.js"></script>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
     <script type="text/javascript">
     
       function initialize() {
@@ -99,8 +99,9 @@ while($i=mysqli_fetch_assoc($r)){
         $allteams = array();
             foreach($address_array as $address){
                 $teamjson = "UNDEFINED";
-                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
+                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address' LIMIT 150;";
                 $result=$db->query($sql);
+                
                 while($r=mysqli_fetch_assoc($result)){
                     $a = array( 'name' => $r['NAME'],
                                 'searching_skills_json' => $r['SKILLS_JSON'],
@@ -220,6 +221,9 @@ while($i=mysqli_fetch_assoc($r)){
             }
             if(typedata['pref_frc']=='true'){
                 document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+            }
+            if(typedata['pref_vex']=='true'){
+                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
             document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
@@ -424,7 +428,7 @@ while($i=mysqli_fetch_assoc($r)){
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a> "+ Math.round(teamscore_map[e].compare_result * 100) +"% </li>");                            }
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");                            }
                         }
                         
                         //console.log(teamscore_map);
@@ -450,7 +454,7 @@ while($i=mysqli_fetch_assoc($r)){
                                     <div class="6u 3u$(small)" id="name-container"></div>
                                     <div class="6u 3u$(small)" id="address-container"></div>
                                     <div class="6u 3u$(small)" id="searching-skills-container"></div>
-                                    <div class="6u 3u$(small)" id="comments-container"></div>
+                                    <textarea class="6u 3u$(small)" rows="3" id="comments-container"></textarea>
                                     <div class="6u 3u$(small)" id="phone-container"></div>
                                     <div class="6u 3u$(small)" id="email-container"></div>
                                 </div>
