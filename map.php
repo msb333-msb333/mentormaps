@@ -427,7 +427,7 @@ while($i=mysqli_fetch_assoc($r)){
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a> "+ Math.round(teamscore_map[e].compare_result * 100) +"% </li>");                            }
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");                            }
                         }
                         
                         //console.log(teamscore_map);
