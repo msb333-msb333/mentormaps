@@ -89,32 +89,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     <div>
                                         <div class="row uniform">
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="team-name" id="team-name" placeholder="Team Name" />
+                                                <input type="text" title="Team Name" name="team-name" id="team-name" placeholder="Team Name" />
                                             </div>
                                             <div class="6u$ 12u$(xsmall)">
-                                                <input type="email" name="team-email" id="team-email" placeholder="Email" />
+                                                <input type="email" title="Email" name="team-email" id="team-email" placeholder="Email" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" id="pass1" placeholder="Password" />
+                                                <input type="password" title="Password" id="pass1" placeholder="Password" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" id="pass2" placeholder="Retype Password" />
+                                                <input type="password" title="Retype Password" id="pass2" placeholder="Retype Password" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" name="team-number" id="team-number" placeholder="Team Number" />
+                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" />
                                             </div>
                                             
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="address-line-1" id="address-line-1" placeholder="Address" />
+                                                <input type="text" title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
                                             </div>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="address-city" id="address-city" placeholder="City" />
+                                                <input type="text" title="City" name="address-city" id="address-city" placeholder="City" />
                                             </div>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="address-state" id="address-state" placeholder="State" />
+                                                <input type="text" title="State" name="address-state" id="address-state" placeholder="State" />
                                             </div>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="address-country" id="address-country" placeholder="Country" />
+                                                <input type="text" title="Country" name="address-country" id="address-country" placeholder="Country" />
                                             </div>
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="checkbox" id="team-age"/>
@@ -153,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             include("./pages/skillset_form.html");
                                             ?>
                                             <div class="12u$">
-                                                <textarea name="comments" id="comments" placeholder="Write something about your team" rows="6"></textarea>
+                                                <textarea name="comments" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
                                                 <button id="submitTeamRegistrationForm" class="button special">Become a Team</button>
