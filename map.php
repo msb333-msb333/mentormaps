@@ -453,7 +453,7 @@ while($i=mysqli_fetch_assoc($r)){
                                     <div class="6u 3u$(small)" id="name-container"></div>
                                     <div class="6u 3u$(small)" id="address-container"></div>
                                     <div class="6u 3u$(small)" id="searching-skills-container"></div>
-                                    <div class="6u 3u$(small)" id="comments-container"></div>
+                                    <textarea class="6u 3u$(small)" rows="3" id="comments-container"></textarea>
                                     <div class="6u 3u$(small)" id="phone-container"></div>
                                     <div class="6u 3u$(small)" id="email-container"></div>
                                 </div>
