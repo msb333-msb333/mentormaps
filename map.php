@@ -112,9 +112,7 @@ while($i=mysqli_fetch_assoc($r)){
     <script>
       function initialize() {
         var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
-        geocoder = new google.maps.Geocoder();
         centerMap(map, "<?php echo $my_address; ?>");
-        
         <?php
         $allteams = array();
             foreach($address_array as $address){
