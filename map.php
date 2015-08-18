@@ -308,8 +308,8 @@ while($i=mysqli_fetch_assoc($r)){
                         <script>
                             document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
                         </script>
-                        <ul style="list-style-type:none;" id="team-list">
-                            
+                        <ul style="list-style-type:none;overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
+                            <!--li team elements go here (appended with javascript)-->
                         </ul>
                     </div>
                     
