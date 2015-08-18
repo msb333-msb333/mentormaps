@@ -83,23 +83,21 @@ while($i=mysqli_fetch_assoc($r)){
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        
         <script src="compare.js"></script>
-        
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
+
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
-    <script type="text/javascript">
-    
+    <script>
       function initialize() {
         var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
         geocoder = new google.maps.Geocoder();
@@ -357,9 +355,7 @@ while($i=mysqli_fetch_assoc($r)){
                       var R = 6378137; // Earth’s mean radius in meter
                       var dLat = rad(p2lat - p1lat);
                       var dLong = rad(p2lng - p1lng);
-                      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                        Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) *
-                        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
                       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                       var d = R * c;
                       var ret = ((d * 3.28) / 5280);
@@ -431,7 +427,6 @@ while($i=mysqli_fetch_assoc($r)){
                                 teamscore_map.push({team, compare_result});
                             }
                         }
-                        //console.log(teamscore_map);
                         
                         var comparator = function(a,b){
                             return b.compare_result - a.compare_result;
@@ -439,13 +434,13 @@ while($i=mysqli_fetch_assoc($r)){
                         
                         teamscore_map = teamscore_map.sort(comparator);
                         
+                        var teamListIndex = 0;
                         for(var e in teamscore_map){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+parseInt(parseInt(e)+1)+" | "+team['name']+"</a></li>");                            }
+                                teamListIndex++;
+                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+teamListIndex+" | "+team['name']+"</a></li>");                            }
                         }
-                        
-                        //console.log(teamscore_map);
                     }
                     $(document).ready(function() {
                         refreshListing();
