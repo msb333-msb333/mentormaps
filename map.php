@@ -1,7 +1,17 @@
 <?php
+function utf8_converter($array){
+    array_walk_recursive($array, function(&$item, $key){
+        if(!mb_detect_encoding($item, 'utf-8', true)){
+                $item = utf8_encode($item);
+        }
+    });
+    return $array;
+}
+
 //do all login operations / redirects
 require "./logincheck.php";
 require "./db.php";
+
 //get the logged in user's account type from the session variable
 $email = $_SESSION['email'];
 $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
@@ -21,17 +31,17 @@ while($r=mysqli_fetch_assoc($result)){
 $address_array = array();
 if($type=="MENTOR"){
     echo '<!--you are a mentor, displaying all results for teams-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM'   LIMIT 75;";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
 }else{
     echo '<!--you are a team, displaying all results for mentors-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR'   LIMIT 75;";
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
 //populate an array with the entire database's contents so they can be accessed in javascript
-$result=$db->query("SELECT * FROM `data`  LIMIT 75;");
+$result=$db->query("SELECT * FROM `data`;");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){
     $current = array(
@@ -50,7 +60,7 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
 $geoLookup = array();
-$r=$db->query("SELECT * FROM `locations`  LIMIT 75;");
+$r=$db->query("SELECT * FROM `locations`  ");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
                     'latitude' => $i['LATITUDE'],
@@ -99,25 +109,27 @@ while($i=mysqli_fetch_assoc($r)){
         $allteams = array();
             foreach($address_array as $address){
                 $teamjson = "UNDEFINED";
-                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address'  LIMIT 75;";
+                $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
                 $result=$db->query($sql);
-                
+                if($result==false){
+                    break;
+                }
                 while($r=mysqli_fetch_assoc($result)){
-                    $a = array( 'name' => $r['NAME'],
-                                'searching_skills_json' => $r['SKILLS_JSON'],
-                                'team_number' => $r['TEAM_NUMBER'],
-                                'comments' => $r['COMMENTS'],
-                                'phone' => $r['PHONE'],
-                                'email' => $r['EMAIL'],
-                                'address' => $r['ADDRESS'],
-                                'type' => $r['TYPE'],
-                                'account_type' => $r['ACCOUNT_TYPE']
+                    $a = array( 'name'                  => $r['NAME'        ],
+                                'searching_skills_json' => $r['SKILLS_JSON' ],
+                                'team_number'           => $r['TEAM_NUMBER' ],
+                                'comments'              => $r['COMMENTS'    ],
+                                'phone'                 => $r['PHONE'       ],
+                                'email'                 => $r['EMAIL'       ],
+                                'address'               => $r['ADDRESS'     ],
+                                'type'                  => $r['TYPE'        ],
+                                'account_type'          => $r['ACCOUNT_TYPE']
                                 );
                     array_push($allteams, $a);
-                    $teamjson = json_encode($a);
+                    $teamjson = json_encode(utf8_converter($a));
                 }
-                echo 'var teamdata = ' . $teamjson . ';' . PHP_EOL;
-                echo 'codeAddress(map, "'.$address.'", teamdata);'. PHP_EOL;
+                echo 'codeAddress(map, "'.$address.'", '.$teamjson.');'. PHP_EOL;
+
             }
         ?>
         }
@@ -330,9 +342,11 @@ while($i=mysqli_fetch_assoc($r)){
                     
                     <script>
                     <?php
-                        echo 'var alldata = ' . json_encode($all_data) . ';' . PHP_EOL;
-                        echo 'var allteams = ' . json_encode($allteams) . ';' . PHP_EOL;
-                        echo 'var geoLookup = ' . json_encode($geoLookup) . ';' . PHP_EOL;
+                        echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
+                        //file_put_contents('./debug.txt', json_encode(utf8_converter($all_data));
+                        file_put_contents('./debug.txt', json_last_error_msg());
+                        echo 'var allteams = ' . json_encode(utf8_converter($allteams)) . ';' . PHP_EOL;
+                        echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
                     ?>
 
                     var rad = function(x) {
