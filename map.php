@@ -86,6 +86,7 @@ while($i=mysqli_fetch_assoc($r)){
 
             .li-team-tile:hover{
                 background-color:#303030;
+                border-color:#303030;
             }
 
             #map-canvas {
