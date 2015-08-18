@@ -88,10 +88,8 @@ while($i=mysqli_fetch_assoc($r)){
                 background-color:#303030;
             }
 
-            html, body, #map-canvas {
+            #map-canvas {
                 height:100%;
-                margin: 0;
-                padding: 0;
             }
         </style>
         <title>Mentor Maps</title>
