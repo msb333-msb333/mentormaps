@@ -74,6 +74,26 @@ while($i=mysqli_fetch_assoc($r)){
 <html>
     <head>
         <style>
+            .li-team-tile{
+                background-color:#191919;
+                border-style: solid;
+                border-width: 5px;
+                padding: .2em 1em;
+                color:white;
+                border-color:#191919;
+                margin:0 0 7px 0;
+            }
+
+            .li-team-tile:hover{
+                background-color:#303030;
+                border-style: solid;
+                border-width: 5px;
+                padding: .2em 1em;
+                color:white;
+                border-color:#303030;
+                margin:0 0 7px 0;
+            }
+
             html, body, #map-canvas {
                 height:100%;
                 margin: 0;
@@ -133,28 +153,32 @@ while($i=mysqli_fetch_assoc($r)){
         }
         
     function centerMap(map, address){
-        geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
+        var Flat = 0;
+        var Flng = 0;
+        $.each(geoLookup, function(key, value){
+            var geoLocation = geoLookup[key];
+            if(address==geoLocation.address){
+                Flat = parseFloat(geoLocation.latitude);
+                Flng = parseFloat(geoLocation.longitude);
+            }
+        });
+        map.setCenter(new google.maps.LatLng(Flat, Flng), 4);
+
         var marker = new google.maps.Marker({
-            map: map, 
-            position: results[0].geometry.location,
+            map: map,
+            position: {lat: Flat, lng: Flng},
             icon: './img/mentorflag.png'
         });
-        var infowindow=new google.maps.InfoWindow({
-        content: 'Your location'
-      });
+        var infowindow = new google.maps.InfoWindow({
+            content: "Your location"
+        });
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-}
+    }
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
         var iconurl = "http://qca.st/images/redditor.png";
@@ -200,7 +224,6 @@ while($i=mysqli_fetch_assoc($r)){
                 }
             }
         }
-
         var Flat = 0;
         var Flng = 0;
         $.each(geoLookup, function(key, value){
@@ -210,13 +233,11 @@ while($i=mysqli_fetch_assoc($r)){
                 Flng = parseFloat(geoLocation.longitude);
             }
         });
-
         var marker = new google.maps.Marker({
             map: map,
             position: {lat: Flat, lng: Flng},
             icon: iconurl
         });
-
         var infowindow = new google.maps.InfoWindow({
             content: "" + teamdata['name'] + ", " + teamdata['team_number']
         });
@@ -308,7 +329,7 @@ while($i=mysqli_fetch_assoc($r)){
                         <script>
                             document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
                         </script>
-                        <ul style="list-style-type:none;overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
+                        <ul style="margin: 0;padding: 0;list-style-type:none;overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
                             <!--li team elements go here (appended with javascript)-->
                         </ul>
                     </div>
@@ -439,7 +460,8 @@ while($i=mysqli_fetch_assoc($r)){
                             var team = teamscore_map[e]['team'];
                             if(teamscore_map[e].compare_result != 0){
                                 teamListIndex++;
-                                $("#team-list").append("<li><a href='./profile.php?p="+team['email']+"'>"+teamListIndex+" | "+team['name']+"</a></li>");                            }
+                                $("#team-list").append("<li class='li-team-tile'>"+teamListIndex+" | "+team['name']+"</li>");
+                            }
                         }
                     }
                     $(document).ready(function() {
