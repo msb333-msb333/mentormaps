@@ -69,7 +69,8 @@ while($i=mysqli_fetch_assoc($r)){
                     );
     array_push($geoLookup, $current);
 }
-?>
+
+echo '<script>var marker_map = [];</script>';?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -111,8 +112,21 @@ while($i=mysqli_fetch_assoc($r)){
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <script>
+        var map;
+        function recenterMap(address){
+            var Flat = 0;
+            var Flng = 0;
+            $.each(geoLookup, function(key, value){
+                var geoLocation = geoLookup[key];
+                if(address==geoLocation.address){
+                    Flat = parseFloat(geoLocation.latitude);
+                    Flng = parseFloat(geoLocation.longitude);
+                }
+            });
+            map.setCenter(new google.maps.LatLng(Flat, Flng), 4);
+        }
       function initialize() {
-        var map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
+        map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
         centerMap(map, "<?php echo $my_address; ?>");
         <?php
         $allteams = array();
@@ -134,10 +148,16 @@ while($i=mysqli_fetch_assoc($r)){
                                 'type'                  => $r['TYPE'        ],
                                 'account_type'          => $r['ACCOUNT_TYPE']
                                 );
+                    $a2 = array( 'name'                  => $r['NAME'        ],
+                                'team_number'           => $r['TEAM_NUMBER' ],
+                                'address'               => $r['ADDRESS'     ],
+                                'type'                  => $r['TYPE'        ],
+                                'account_type'          => $r['ACCOUNT_TYPE']
+                                );
                     array_push($allteams, $a);
-                    $teamjson = json_encode(utf8_converter($a));
+                    $teamjson = json_encode(utf8_converter($a2));
                 }
-                echo 'codeAddress(map, "'.$address.'", '.$teamjson.');'. PHP_EOL;
+                echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
 
             }
         ?>
@@ -285,6 +305,8 @@ while($i=mysqli_fetch_assoc($r)){
         google.maps.event.addListener(marker, 'mouseout', function() {
             infowindow.close();
         });
+
+        return {'address': address, 'marker': marker};
   }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -453,7 +475,14 @@ while($i=mysqli_fetch_assoc($r)){
                             var result = teamscore_map[e].compare_result;
                             if(result != 0 && !isNaN(result)){
                                 teamListIndex++;
-                                $("#team-list").append("<li class='li-team-tile'>"+teamListIndex+" | "+team['name']+"</li>");
+                                $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+teamListIndex+" | "+team['name']+"</li>");
+                                console.log("marker_map length: " + marker_map.length);
+                                $.each(marker_map, function(key, value){
+                                    var m = marker_map[key];
+                                    if(m.address==team.address){
+                                        m.marker.setIcon("http://googlemapsmarkers.com/v1/"+teamListIndex+"/0066FF");
+                                    }
+                                });
                             }
                         }
                     }
