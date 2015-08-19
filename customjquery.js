@@ -138,6 +138,7 @@ $("#submitMentorRegistrationForm").click(function(){
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var age      =     document.getElementById("age"            ).value;
     
     var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
@@ -166,6 +167,7 @@ $("#submitMentorRegistrationForm").click(function(){
             'pass1':                        pass1,
             'pass2':                        pass2,
             'team-number':                  team_number,
+            'age' :                         age,
             
             'FLLcheck':                     document.getElementById("FLLcheck"              ).checked,
             'FTCcheck':                     document.getElementById("FTCcheck"              ).checked,

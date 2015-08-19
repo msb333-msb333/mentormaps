@@ -51,15 +51,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                                             'programming-nxt' => $_POST['programming-nxt'],
                                                                             'programming-ev3' => $_POST['programming-ev3']),
                                                                             
-                                                                            'skill-strategy' => $_POST['skill-strategy'],
-                                                                            'skill-business' => $_POST['skill-business'],
-                                                                            'skill-marketing' => $_POST['skill-marketing'],
-                                                                            'skill-manufacturing' => $_POST['skill-manufacturing'],
-                                                                            'skill-design' => $_POST['skill-design'],
-                                                                            'skill-scouting' => $_POST['skill-scouting'],
-                                                                            'skill-fundraising' => $_POST['skill-fundraising'],
-                                                                            'skill-other' => $_POST['skill-other'],
-                                                                            'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-strategy' => $_POST['skill-strategy'],
+                                        'skill-business' => $_POST['skill-business'],
+                                        'skill-marketing' => $_POST['skill-marketing'],
+                                        'skill-manufacturing' => $_POST['skill-manufacturing'],
+                                        'skill-design' => $_POST['skill-design'],
+                                        'skill-scouting' => $_POST['skill-scouting'],
+                                        'skill-fundraising' => $_POST['skill-fundraising'],
+                                        'skill-other' => $_POST['skill-other'],
+                                        'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
     $type = json_encode(array(  'pref_fll' => $_POST['FLLcheck'],
@@ -76,11 +76,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./core.php";
     echoHeader();
 ?>
-                <!-- Main -->
                     <article id="main">
                         <header>
-                            <h2>Register as a Team</h2>
-                            <p><!--text here :D--></p>  
+                            <h2>
+                                Register as a Team
+                            </h2>
                         </header>
                         <section class="wrapper style5">
                             <div class="inner">
