@@ -76,17 +76,17 @@ echo '<script>var marker_map = [];</script>';?>
     <head>
         <style>
             .li-team-tile{
-                background-color:#191919;
+                color:#191919;
+                background-color:#FFFFFF;
                 border-style: solid;
-                border-width: 5px;
+                border-width: 2px;
                 padding: .2em 1em;
-                color:white;
                 border-color:#191919;
                 margin:0 0 7px 0;
             }
 
             .li-team-tile:hover{
-                background-color:#303030;
+                background-color:#E8E8E8;
                 border-color:#303030;
             }
 

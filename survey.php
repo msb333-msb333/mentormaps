@@ -18,17 +18,14 @@ function redirect(){
 
 function submit(){
     var experience = exp;
-
     var yf = document.getElementById("yes").checked;
-
     var email = '<?php echo $email; ?>';
-
     var recFriend = true;
-
     if(yf!=true){
         recFriend = false;
     }
 
+    var why                 = document.getElementById("why").value;
     var recFeatures         = document.getElementById("recFeaturesField").value;
     var dislikedFeatures    = document.getElementById("dislikedFeaturesField").value;
     var toAddFeatures       = document.getElementById("toAddFeaturesField").value;
@@ -37,6 +34,7 @@ $.ajax({
     url: './survey.php',
     type: 'POST',
     data : {
+        'why' : why,
         'recFeatures' : recFeatures,
         'dislikedFeatures' : dislikedFeatures,
         'toAddFeatures' : toAddFeatures,
@@ -148,14 +146,26 @@ $recFeatures = $_POST['recFeatures'];
 $toAddFeatures = $_POST['toAddFeatures'];
 $dislikedFeatures = $_POST['dislikedFeatures'];
 $email = $_POST['email'];
+$why = $_POST['why'];
 
 //make sure we're not being attacked by mysql escaping the strings
 $recFeatures = mysql_escape_mimic($recFeatures);
 $toAddFeatures = mysql_escape_mimic($toAddFeatures);
 $dislikedFeatures = mysql_escape_mimic($dislikedFeatures);
+$why = mysql_escape_mimic($why);
+
+$recFeatures = str_replace("<script", "im a dirty little hacker: ", $recFeatures);
+$toAddFeatures = str_replace("<script", "im a dirty little hacker: ", $toAddFeatures);
+$dislikedFeatures = str_replace("<script", "im a dirty little hacker: ", $dislikedFeatures);
+$why = str_replace("<script", "im a dirty little hacker: ", $why);
+
+if($why==""){
+    $why = "NULL";
+}
 
 //add the result as a new row
-$sql = "INSERT INTO `survey_results` (EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
+$sql = "INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
+file_put_contents("./query.txt", $sql);
 $db->query($sql);
 echo '{"status":"queried successfully"}';
 }
