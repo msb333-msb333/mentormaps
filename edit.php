@@ -55,7 +55,7 @@
                 var address = document.getElementById("address").value;
                 var phone = document.getElementById("phone").value;
                 var age =    document.getElementById("age").value;
-                
+
                 //add new address entry if it changed
                 if(!(address=='<?php echo $address; ?>')){
                     submitAddress(address);
@@ -66,7 +66,7 @@
                     type: 'POST',
                     url: "./edit.php",
                     data: {
-                        'NAME' : name,
+                        'NAME' :                        name,
                         'userToUpdate' :                '<?php echo $_SESSION['email']; ?>',
                         'ADDRESS':                      address,
                         'PHONE':                        phone,

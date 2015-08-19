@@ -60,7 +60,7 @@ while($r=mysqli_fetch_assoc($result)){
 }
 
 $geoLookup = array();
-$r=$db->query("SELECT * FROM `locations`  ");
+$r=$db->query("SELECT LATITUDE, LONGITUDE, ADDRESS FROM `data`;");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
                     'latitude' => $i['LATITUDE'],

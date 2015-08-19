@@ -52,8 +52,6 @@ $("#submitTeamRegistrationForm").click(function(){
         teamage = "Experienced Team";
     }
     
-    submitAddress(team_address);
-    
     if(team_number==""||team_name==""||team_email==""||team_address==", , , "||pass1==""||pass2==""){
         alert("you did not fill in a required field");
         return;
@@ -127,6 +125,8 @@ $("#submitTeamRegistrationForm").click(function(){
             }
         }
     });
+    
+    submitAddress(team_address);
 });
 
 $("#submitMentorRegistrationForm").click(function(){
@@ -144,8 +144,6 @@ $("#submitMentorRegistrationForm").click(function(){
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
-    
-    submitAddress(mentor_address);
     
     if(mentor_name==""||mentor_email==""||mentor_address==", , , "||pass1==""||pass2==""){
         alert("you did not fill in a required field");
@@ -217,6 +215,8 @@ $("#submitMentorRegistrationForm").click(function(){
             }
         }
     });
+    
+    submitAddress(mentor_address);
 });
 
 $("#skill-other").change(function(){
