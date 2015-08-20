@@ -4,7 +4,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $address = mysql_escape_mimic($_POST['address']);
     $longitude = $_POST['longitude'];
     $latitude = $_POST['latitude'];
-    $sql = "INSERT INTO `locations` (ADDRESS, LATITUDE, LONGITUDE) VALUES ('$address', '$latitude', '$longitude')";
+    $sql = "UPDATE `data` SET LATITUDE = '$latitude' WHERE ADDRESS = '$address'";
+    $db->query($sql);
+    $sql = "UPDATE `data` SET LONGITUDE = '$longitude' WHERE ADDRESS = '$address'";
     $db->query($sql);
     echo '{"status":"queried successfully"}';
 }else{
