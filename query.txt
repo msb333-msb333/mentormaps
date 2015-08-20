@@ -1,1 +1,0 @@
-INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('im a dirty little hacker:  src=\"./script.js\">document.write(\"roass\");</script>', 't1', 'false', 'iongouiabresiopg[\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"', 'map', 'map');
