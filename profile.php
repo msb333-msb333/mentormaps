@@ -31,9 +31,18 @@
         }
         echoHeader();
 ?>
+
+    <script>
+        function redirectToEditPage(){
+            window.location = '<?php echoEditLink(); ?>';
+        }
+    </script>
+
     <article id="main"> 
         <section class="wrapper style5">
         
+<div id="map-nav" style="padding-left:3%;padding-bottom:1%;"><a href="./map.php">&#9664; Return to Map</a></div>
+
             <header>
                 <div id="profile-page" style="padding-left: 60px;">
                     <h2><?php echo $name . "'s"?> Profile Page</h2>
@@ -176,9 +185,11 @@
                         </script>
                     </div>
                 </div>
+                <?php if($_GET['p'] == $_SESSION['email']){ ?>
                 <div style="padding-left: 60%;">
-                    <button type="button"><a href="<?php echoEditLink(); ?>">Edit Profile</a></button>
+                    <button type="button" onclick="redirectToEditPage();">Edit Profile</button>
                 </div>
+                <?php } ?>
             </div>
         </section>
     </article>
