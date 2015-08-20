@@ -10,7 +10,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $mentor_phone    =      mysql_escape_mimic($_POST['mentor-phone']  );
     $mentor_bio      =      mysql_escape_mimic($_POST['bio']           );
     $team_number     =      mysql_escape_mimic($_POST['team-number']   );
-    
+    $age             =      mysql_escape_mimic($_POST['age']           );
+
     $pass1           =      $_POST['pass1'];
     $pass2           =      $_POST['pass2'];
 
@@ -21,6 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
     $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
     $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
+    $age             =      str_replace("<script", "im a dirty little hacker: ", $age           );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -80,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)"
             . "VALUES" .
-                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', 'NULL');");
+                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
     
     echo "{\"status\":\"ok\"}";
 }else{
@@ -112,7 +114,9 @@ echoHeader();
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number (Optional)" />
                                             </div>
-                                            
+                                            <div class="6u 12u$(small)">
+                                                <input type="text" title="Years Mentored" name="age" id="age" placeholder="Years Mentored" />
+                                            </div>
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text"  title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
                                             </div>

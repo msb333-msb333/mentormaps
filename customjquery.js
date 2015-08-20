@@ -52,8 +52,6 @@ $("#submitTeamRegistrationForm").click(function(){
         teamage = "Experienced Team";
     }
     
-    submitAddress(team_address);
-    
     if(team_number==""||team_name==""||team_email==""||team_address==", , , "||pass1==""||pass2==""){
         alert("you did not fill in a required field");
         return;
@@ -127,6 +125,8 @@ $("#submitTeamRegistrationForm").click(function(){
             }
         }
     });
+    
+    submitAddress(team_address);
 });
 
 $("#submitMentorRegistrationForm").click(function(){
@@ -138,14 +138,13 @@ $("#submitMentorRegistrationForm").click(function(){
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var age      =     document.getElementById("age"            ).value;
     
     var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
-    
-    submitAddress(mentor_address);
     
     if(mentor_name==""||mentor_email==""||mentor_address==", , , "||pass1==""||pass2==""){
         alert("you did not fill in a required field");
@@ -168,6 +167,7 @@ $("#submitMentorRegistrationForm").click(function(){
             'pass1':                        pass1,
             'pass2':                        pass2,
             'team-number':                  team_number,
+            'age' :                         age,
             
             'FLLcheck':                     document.getElementById("FLLcheck"              ).checked,
             'FTCcheck':                     document.getElementById("FTCcheck"              ).checked,
@@ -217,6 +217,8 @@ $("#submitMentorRegistrationForm").click(function(){
             }
         }
     });
+    
+    submitAddress(mentor_address);
 });
 
 $("#skill-other").change(function(){
