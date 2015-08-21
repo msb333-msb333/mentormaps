@@ -477,6 +477,8 @@ echo '<script>var marker_map = [];</script>';?>
                         
                                         teamscore_map = teamscore_map.sort(comparator);
                         
+                                        console.log(teamscore_map);
+
                                         var teamListIndex = 0;
                                         console.log("teamscore_map length: " + teamscore_map.length);
                                         for(var e in teamscore_map){
