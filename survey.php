@@ -173,9 +173,23 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     require "./db.php";
 
     //get vars from POST
+    $recFriend              = $_POST['recFriend'        ];
+    $recFeatures            = $_POST['recFeatures'      ];
+    $toAddFeatures          = $_POST['toAddFeatures'    ];
+    $dislikedFeatures       = $_POST['dislikedFeatures' ];
+    $email                  = $_POST['email'            ];
+    $why                    = $_POST['why'              ];
 
     //make sure we're not being attacked by mysql escaping the strings
+    $recFeatures            = mysql_escape_mimic($recFeatures     );
+    $toAddFeatures          = mysql_escape_mimic($toAddFeatures   );
+    $dislikedFeatures       = mysql_escape_mimic($dislikedFeatures);
+    $why                    = mysql_escape_mimic($why             );
 
+    $recFeatures            = str_replace("<script", "im a dirty little hacker: ", $recFeatures     );
+    $toAddFeatures          = str_replace("<script", "im a dirty little hacker: ", $toAddFeatures   );
+    $dislikedFeatures       = str_replace("<script", "im a dirty little hacker: ", $dislikedFeatures);
+    $why                    = str_replace("<script", "im a dirty little hacker: ", $Why             );
 
     if($why==""){
         $why = "NULL";
