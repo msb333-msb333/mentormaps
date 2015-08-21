@@ -192,7 +192,7 @@ echoHeader();
     </body>
     <script src="./customjquery.js"></script>
     <script>
-    //disable uls by default
+        //disable uls by default
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();
