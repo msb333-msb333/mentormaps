@@ -28,6 +28,7 @@
             $age                = $i['AGE'          ];
             $account_type       = $i['ACCOUNT_TYPE' ];
         }
+        echo '<!--this is a ' . $account_type . '-->';
         echoHeader();
 ?>
     <script>
@@ -103,11 +104,7 @@
                                 Bio: 
                             </b>   
                             <?php
-                                if($comments==""){
-                                    echo 'I lack basic descriptive abilities <a href="http://en.wikipedia.org/wiki/Aubergine">&#x1f346;</a>';
-                                }else{
-                                    echo $comments;
-                                }
+                                echo $comments;
                             ?>
                         </div>
                         <div id="type-div">
@@ -148,7 +145,7 @@
                 </div>
                 <div style="float:right;width:50%;">
                     <div id="skill-info"style="padding-left: 90px;">
-                        <h3>Mentor Skillset</h3>
+                        <?php if($account_type=="MENTOR"){ ?><h3>Mentor Skillset</h3><?php }else{ ?><h3>Searching For Help with</h3><?php } ?>
                     </div>
                     <div style="padding-left: 130px;">
                         <script>
@@ -156,28 +153,28 @@
                                 echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
                             ?>
                             var assoc = {
-                                "skill-engineering" : '',
-                                "skill-programming" : '',
-                                "skill-cad" : 'CAD',
-                                "skill-strategy" : 'Strategy',
-                                "skill-business" : 'Business',
-                                "skill-marketing" : 'Marketing',
-                                "skill-manufacturing" : 'Manufacturing',
-                                "skill-design" : 'Design',
-                                "skill-fundraising" : 'Fundraising',
-                                "skill-scouting" : 'Scouting',
-                                "skill-other" : '',
-                                "programming-c" : 'C Programming',
-                                "programming-java" : 'Java Programming',
-                                "programming-csharp" : 'C# Programming',
-                                "programming-python" : 'Python Programming',
-                                "programming-robotc" : 'RobotC Programming',
-                                "programming-labview" : 'LabView Programming',
-                                "programming-nxt" : 'NXT Programming',
-                                "programming-easyc" : 'EasyC Programming',
-                                "programming-ev3" : 'EV3 Programming',
-                                "engineering-mechanical" : 'Mechanical Engineering',
-                                "engineering-electrical" : 'Electrical Engineering'
+                                "skill-engineering"         : '',
+                                "skill-programming"         : '',
+                                "skill-other"               : '',
+                                "skill-cad"                 : 'CAD',
+                                "skill-strategy"            : 'Strategy',
+                                "skill-business"            : 'Business',
+                                "skill-marketing"           : 'Marketing',
+                                "skill-manufacturing"       : 'Manufacturing',
+                                "skill-design"              : 'Design',
+                                "skill-fundraising"         : 'Fundraising',
+                                "skill-scouting"            : 'Scouting',
+                                "programming-c"             : 'C Programming',
+                                "programming-java"          : 'Java Programming',
+                                "programming-csharp"        : 'C# Programming',
+                                "programming-python"        : 'Python Programming',
+                                "programming-robotc"        : 'RobotC Programming',
+                                "programming-labview"       : 'LabView Programming',
+                                "programming-nxt"           : 'NXT Programming',
+                                "programming-easyc"         : 'EasyC Programming',
+                                "programming-ev3"           : 'EV3 Programming',
+                                "engineering-mechanical"    : 'Mechanical Engineering',
+                                "engineering-electrical"    : 'Electrical Engineering'
                             };
                             $.each(skills_json['programming-desc'], function(key, value){
                                 skills_json[key] = value;
