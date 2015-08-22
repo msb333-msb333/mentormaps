@@ -87,6 +87,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             . "VALUES" .
                                   "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
 
+    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '{}', '{}')");
+
     require "./config.php";
     sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
 

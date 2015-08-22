@@ -6,6 +6,7 @@ create a file called 'config.php' in the root directory and define the following
 3. dbpass //database password
 4. dbname //database name
 5. sendgrid_api_key //the api key for sendgrid
+6. SITE_ROOT //the cwd starting with http://
 
 example config.php:
 --
@@ -16,5 +17,7 @@ example config.php:
     $dbname = "mentormaps_db";
 
     $sendgrid_api_key = "SG.xxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    
+    $SITE_ROOT = "http://mrflark.org/mmdev/mentormaps/";
 ?>
 --

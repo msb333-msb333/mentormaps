@@ -7,12 +7,15 @@ checkIfUserLoggedIn($user);
 
 $sql = "SELECT * FROM `assoc` WHERE email = '$user';";
 $result = $db->query($sql);
-$json = '{}';
+$interested_in = '{}';
+$interested_in_me = '{}';
 while($r=mysqli_fetch_assoc($result)){
-    $json = $r['data'];
+    $interested_in = $r['interested-in'];
+    $interested_in_me = $r['interested-in-me'];
 }
-echoHeader();
+//echoHeader();
 ?>
 <script>
-    var json = '<?php echo $json; ?>';
+    var interested_in = '<?php echo $interested_in; ?>';
+    var interested_in_me = '<?php echo $interested_in_me; ?>';
 </script>

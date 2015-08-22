@@ -1,4 +1,11 @@
 <?php
+$unbiased = false;
+if(isset($_GET['opt'])){
+    if($_GET['opt'] == 'unbiased'){
+        $unbiased = true;
+    }
+}
+
 function utf8_converter($array){
     array_walk_recursive($array, function(&$item, $key){
         if(!mb_detect_encoding($item, 'utf-8', true)){
@@ -29,12 +36,17 @@ while($r=mysqli_fetch_assoc($result)){
 }
 //store all of the opposite kinds of addresses
 $address_array = array();
-if($type=="MENTOR"){
-    echo '<!--you are a mentor, displaying all results for teams-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+if($unbiased==false){
+    if($type=="MENTOR"){
+        echo '<!--you are a mentor, displaying all results for teams-->';
+        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+    }else{
+        echo '<!--you are a team, displaying all results for mentors-->';
+        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+    }
 }else{
-    echo '<!--you are a team, displaying all results for mentors-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+    echo '<!--you are using an unbiased map, displaying all results in db-->';
+    $sql = "SELECT `ADDRESS` FROM `data`;";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
@@ -338,6 +350,11 @@ echo '<script>var marker_map = [];</script>';?>
                                             <li>
                                                 <a href="./profile.php">
                                                     Profile
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="./map.php?opt=unbiased">
+                                                    (advanced) view unbiased map
                                                 </a>
                                             </li>
                                         </ul>
