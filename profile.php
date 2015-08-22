@@ -32,7 +32,7 @@
 ?>
     <script>
         function redirectToEditPage(){
-            window.location = '<?php echoEditLink(); ?>';
+            window.location = './edit.php';
         }
     </script>
 
