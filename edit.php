@@ -225,7 +225,7 @@
                 </div>
                 <br />
                 <div class="6u 12u$(small)">
-                    <button onclick="submit();">Update Profile</button><div class='notifier' class="notifier" style='display:none'>Profile Updated</div><button onclick="del();" class="button special">Delete Profile</button>
+                    <button onclick="submit();">Update Profile</button><button onclick="del();" class="button special">Delete Profile</button><div class='notifier' class="notifier" style='display:none'>Profile Updated</div>
                 </div>
                 <script>
                 var element1 = document.getElementById("readonly1");
