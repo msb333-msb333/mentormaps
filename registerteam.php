@@ -3,6 +3,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
+    require "./mailsender.php";
 
     //prevent sql injection
     $team_age           = $_POST['team-age'];
@@ -69,8 +70,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($team_email));
     
-    $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');");    
+    $guid = md5($team_email) . md5($pass_hash);
+
+    file_put_contents("./query.txt", "INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', " . $team_email . "', '" . $pass_hash . "', 'TEAM');");
+    $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
+
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
+
+    require "./config.php";
+    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', '<a href="http://mrflark.org/mmdev/mentormaps/verify.php?key='.$guid.'">verify</a>');
+
     echo "{\"status\":\"ok\"}";
 }else{
     require "./core.php";

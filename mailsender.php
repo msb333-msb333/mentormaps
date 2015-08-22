@@ -1,8 +1,7 @@
 <?php
-    require "./config.php";
     require("./vendor/autoload.php");
 
-    function sendEmail($to, $subject, $html){
+    function sendEmail($sendgrid_api_key, $to, $subject, $html){
         $sendgrid = new SendGrid($sendgrid_api_key);
         $email    = new SendGrid\Email();
         $email->addTo($to)
