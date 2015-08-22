@@ -187,13 +187,13 @@
                             $.each(skills_json, function(key, value){
                                 if(key != 'engineering-desc' && key != 'programming-desc'){
                                     if(key=='skill-other-desc'){
-                                        if(skills_json['skills-other']=='true'){
+                                        if(skills_json['skill-other']=='true'){
                                             document.write("Other Skill: ("+value+")<br />");  
                                         }
                                     }else if(key=='skill-programming' || key=='skill-engineering'){
                                         //don't print these keys
                                     }else if(value=='true'){
-                                        document.write(assoc[key] + "<br />");
+                                        document.write('<li>' + assoc[key] + "</li>");
                                     }
                                 }
                             });
