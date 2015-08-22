@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         'email': '<?php echo $email; ?>'
                     },
                     success: function(data){
-                        document.write("reset successfully");
+                        window.location = "./login.php";
                     }
                 });
             }
