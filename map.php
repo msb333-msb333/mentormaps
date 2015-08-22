@@ -343,6 +343,11 @@ echo '<script>var marker_map = [];</script>';?>
                                                     Log Out
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="./profile.php">
+                                                    Profile
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
