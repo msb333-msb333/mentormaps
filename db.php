@@ -1,6 +1,7 @@
 <?php
-    //initialize database connection (credentials only available through localhost)
-    $db = new mysqli("localhost", "mmuser", "mmpass", "mentormaps");
+    require "./config.php";
+
+    $db = new mysqli($mysqlip, $dbuser, $dbpass, $dbname);
 
     //function to escape mysql characters that doesn't require a mysqli instance
     function mysql_escape_mimic($inp) { 

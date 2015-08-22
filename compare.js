@@ -40,24 +40,6 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance, 
 
     var numerator = skills_score * type_score;
     var denominator = distance * distance_weight;
-
-    var next = numerator / denominator;
-
-
-
-    //debug info
-    /*
-    console.log("team type: " + team_type);
-    console.log("mentor types: " + mentor_types);
-    console.log("Searching for: " + skills_searching_for);
-    console.log("Skills Offered: " + skills_offered);
-    console.log("type score: " + type_score);
-    console.log("skills score: " + skills_score);
-    console.log("matches: " + matches );
-    console.log("numerator: " + numerator);
-    console.log("distance: " + distance);
-    console.log("result: " + next);
-    */
     
-    return next;
+    return numerator / denominator;
 }

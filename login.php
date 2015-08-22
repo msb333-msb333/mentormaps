@@ -71,7 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             
             <?php
             if(isset($_GET['error'])){//if the user has tried to log in before, display and error
-                echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password<br /><br />";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
+                echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password <a href=\"./resetpassword.php\">reset?</a><br /><br />";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
             }
             ?>
             

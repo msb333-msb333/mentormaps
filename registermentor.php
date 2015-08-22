@@ -3,7 +3,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
-    
+    require "./mailsender.php";
+
     $mentor_name     =      mysql_escape_mimic($_POST['mentor-name']   );   
     $mentor_email    =      mysql_escape_mimic($_POST['mentor-email']  );
     $mentor_address  =      mysql_escape_mimic($_POST['mentor-address']);
@@ -73,17 +74,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     );
     
     $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($mentor_email));
+
+    $guid = md5($mentor_email) . md5($pass_hash);
     
-    $db->query("INSERT INTO `logins` (`EMAIL`,             `PASSWORD`,       `TYPE`)".
-        "VALUES".
-                                    "('".$mentor_email."', '".$pass_hash."', 'MENTOR');");
+    $db->query("INSERT INTO `logins` (`EMAIL`,             `PASSWORD`,       `TYPE`,    `KEY`,      `VERIFIED`)"
+            . "VALUES" .
+                                    "('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
 
 
 
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)"
             . "VALUES" .
                                   "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
-    
+
+    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '{}', '{}')");
+
+    require "./config.php";
+    sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
+
     echo "{\"status\":\"ok\"}";
 }else{
 require "./core.php";
@@ -192,7 +200,7 @@ echoHeader();
     </body>
     <script src="./customjquery.js"></script>
     <script>
-    //disable uls by default
+        //disable uls by default
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();
