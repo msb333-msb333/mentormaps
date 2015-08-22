@@ -4,12 +4,14 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Mentor Maps</title>
+        <title>
+            Mentor Maps
+        </title>
         <meta charset="utf-8" />
         <script src="./assets/js/mousetrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script>
@@ -28,55 +30,90 @@
         </script>
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
-                    <header id="header" class="alt">
-                        <h1><a href="index.html">Mentor Maps</a></h1>
-                        <nav id="nav">
-                            <ul>
-                                <li class="special">
-                                    <a href="#menu" class="menuToggle"><span>Menu</span></a>
-                                    <div id="menu">
-                                        <ul>
-                                            <li><a href="index.php">Home</a></li>
-                                            <li><a href="./register.php">Sign Up</a></li>
-                                            <li><a href="./login.php">Log In</a></li>
-                                            <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="<?php
-                                               echoProfileLink();
-                                            ?>">Profile</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                    </header>
-
-                <!-- Banner -->
-                    <section id="banner">
-                        <div class="inner">
-                            <h2>Mentor Maps</h2>
-                            <p>a useful tool to connect <b><em>FIRST</em></b> teams with mentors</p>
-                            <ul class="actions">
-                                <li><a href="#" class="button special" onclick="register();">Register</a></li>
-                                <li><a href="#" class="button special" onclick="login();">Log in</a></li>
-                                <!--<img src="./images/face.png"/>-->
-                            </ul>
-                        </div>
-                        <a href="#one" class="more scrolly">Learn More</a>
-                    </section>
-
-                <!-- One -->
-                    <section id="one" class="wrapper style1 special">
-                        <div class="inner">
-                            <header class="major">
-                                <h2>Arcu aliquet vel lobortis ata nisl<br />
-                                eget augue amet aliquet nisl cep donec</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-                                fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
+                <header id="header" class="alt">
+                    <h1>
+                        <a href="index.html">Mentor Maps</a>
+                    </h1>
+                    <nav id="nav">
+                        <ul>
+                            <li class="special">
+                                <a href="#menu" class="menuToggle">
+                                    <span>
+                                        Menu
+                                    </span>
+                                </a>
+                                <div id="menu">
+                                    <ul>
+                                        <li>
+                                            <a href="index.php">
+                                                Home
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./register.php">
+                                                Sign Up
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./login.php">
+                                                Log In
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./logout.php">
+                                                Log Out
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./profile.php">
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./map.php">
+                                                Map
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <section id="banner">
+                    <div class="inner">
+                        <h2>
+                            Mentor Maps
+                        </h2>
+                        <p>
+                            a useful tool to connect <b><em>FIRST</em></b> teams with mentors
+                        </p>
+                        <ul class="actions">
+                            <li>
+                                <a href="#" class="button special" onclick="register();">
+                                    Register
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="button special" onclick="login();">
+                                    Log in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#one" class="more scrolly">
+                        Learn More
+                    </a>
+                </section>
+                <!--careful, you're wandering into lorem ipsum territory now-->
+                <section id="one" class="wrapper style1 special">
+                    <div class="inner">
+                        <header class="major">
+                            <h2>Arcu aliquet vel lobortis ata nisl<br />
+                            eget augue amet aliquet nisl cep donec</h2>
+                            <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
+                            fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
                             </header>
                             <ul class="icons major">
                                 <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
@@ -177,15 +214,12 @@
                     </footer>
 
             </div>
-
-        <!-- Scripts -->
             <script src="assets/js/jquery.min.js"></script>
             <script src="assets/js/jquery.scrollex.min.js"></script>
             <script src="assets/js/jquery.scrolly.min.js"></script>
             <script src="assets/js/skel.min.js"></script>
             <script src="assets/js/util.js"></script>
-            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
             <script src="assets/js/main.js"></script>
-
+            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     </body>
 </html>

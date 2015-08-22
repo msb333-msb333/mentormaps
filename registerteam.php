@@ -3,28 +3,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     header('Content-Type: application/json');
     require "./db.php";
     require "./security/salt.php";
+    require "./mailsender.php";
 
     //prevent sql injection
-    $team_age = $_POST['team-age'];
-    $team_name = mysql_escape_mimic($_POST['team-name']);
-    $team_email = mysql_escape_mimic($_POST['team-email']);
-    $team_address = mysql_escape_mimic($_POST['team-address']);
-    $team_phone = mysql_escape_mimic($_POST['team-phone']);
-    $comments = mysql_escape_mimic($_POST['comments']);
-    $team_number = mysql_escape_mimic($_POST['team-number']);
+    $team_age           = $_POST['team-age'];
+    $team_name          = mysql_escape_mimic($_POST['team-name']);
+    $team_email         = mysql_escape_mimic($_POST['team-email']);
+    $team_address       = mysql_escape_mimic($_POST['team-address']);
+    $team_phone         = mysql_escape_mimic($_POST['team-phone']);
+    $comments           = mysql_escape_mimic($_POST['comments']);
+    $team_number        = mysql_escape_mimic($_POST['team-number']);
     
-    //doesn't matter, it's going to be hashed anyway
-    $pass1 = $_POST['pass1'];
-    $pass2 = $_POST['pass2'];
+    //sql injection doesn't matter, it's going to be hashed anyway
+    $pass1              = $_POST['pass1'];
+    $pass2              = $_POST['pass2'];
     
     //prevent xss
-    $team_age=str_replace("<script", "im a dirty little hacker: ", $team_age);
-    $team_name=str_replace("<script", "im a dirty little hacker: ", $team_name);
-    $team_email=str_replace("<script", "im a dirty little hacker: ", $team_email);
-    $team_address=str_replace("<script", "im a dirty little hacker: ", $team_address);
-    $team_phone=str_replace("<script", "im a dirty little hacker: ", $team_phone);
-    $comments=str_replace("<script", "im a dirty little hacker: ", $comments);
-    $team_number=str_replace("<script", "im a dirty little hacker: ", $team_number);
+    $team_age           = str_replace("<script", "im a dirty little hacker: ", $team_age    );
+    $team_name          = str_replace("<script", "im a dirty little hacker: ", $team_name   );
+    $team_email         = str_replace("<script", "im a dirty little hacker: ", $team_email  );
+    $team_address       = str_replace("<script", "im a dirty little hacker: ", $team_address);
+    $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
+    $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
+    $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -33,44 +34,53 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $json_encoded_skills = json_encode(
                                     array(
-                                        'skill-engineering' => $_POST['skill-engineering'],
-                                        'engineering-desc'  => array(
-                                                                            'engineering-mechanical' => $_POST['engineering-mechanical'],
-                                                                            'engineering-electrical' => $_POST['engineering-electrical']),
-                                                    
-                                        'skill-programming' => $_POST['skill-programming'],
-                                        'skill-cad' => $_POST['skill-cad'],
-                                        'programming-desc' => array(
-                                                                            'programming-c' => $_POST['programming-c'],
-                                                                            'programming-java' => $_POST['programming-java'],
-                                                                            'programming-csharp' => $_POST['programming-csharp'],
-                                                                            'programming-python' => $_POST['programming-python'],
-                                                                            'programming-robotc' => $_POST['programming-robotc'],
-                                                                            'programming-labview' => $_POST['programming-labview'],
-                                                                            'programming-easyc' => $_POST['programming-easyc'],
-                                                                            'programming-nxt' => $_POST['programming-nxt'],
-                                                                            'programming-ev3' => $_POST['programming-ev3']),
-                                                                            
-                                        'skill-strategy' => $_POST['skill-strategy'],
-                                        'skill-business' => $_POST['skill-business'],
-                                        'skill-marketing' => $_POST['skill-marketing'],
-                                        'skill-manufacturing' => $_POST['skill-manufacturing'],
-                                        'skill-design' => $_POST['skill-design'],
-                                        'skill-scouting' => $_POST['skill-scouting'],
-                                        'skill-fundraising' => $_POST['skill-fundraising'],
-                                        'skill-other' => $_POST['skill-other'],
-                                        'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-engineering'     => $_POST['skill-engineering'],
+                                        'engineering-desc'      => array(
+                                                                    'engineering-mechanical'    => $_POST['engineering-mechanical'],
+                                                                    'engineering-electrical'    => $_POST['engineering-electrical']
+                                                                    ),
+                                        'skill-programming'     => $_POST['skill-programming'],
+                                        'programming-desc'      => array(
+                                                                        'programming-c'         => $_POST['programming-c'         ],
+                                                                        'programming-java'      => $_POST['programming-java'      ],
+                                                                        'programming-csharp'    => $_POST['programming-csharp'    ],
+                                                                        'programming-python'    => $_POST['programming-python'    ],
+                                                                        'programming-robotc'    => $_POST['programming-robotc'    ],
+                                                                        'programming-labview'   => $_POST['programming-labview'   ],
+                                                                        'programming-easyc'     => $_POST['programming-easyc'     ],
+                                                                        'programming-nxt'       => $_POST['programming-nxt'       ],
+                                                                        'programming-ev3'       => $_POST['programming-ev3'       ]
+                                                                        ),
+                                        'skill-cad'             => $_POST['skill-cad'],
+                                        'skill-strategy'        => $_POST['skill-strategy'],
+                                        'skill-business'        => $_POST['skill-business'],
+                                        'skill-marketing'       => $_POST['skill-marketing'],
+                                        'skill-manufacturing'   => $_POST['skill-manufacturing'],
+                                        'skill-design'          => $_POST['skill-design'],
+                                        'skill-scouting'        => $_POST['skill-scouting'],
+                                        'skill-fundraising'     => $_POST['skill-fundraising'],
+                                        'skill-other'           => $_POST['skill-other'],
+                                        'skill-other-desc'      => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
-    $type = json_encode(array(  'pref_fll' => $_POST['FLLcheck'],
-                                'pref_ftc' => $_POST['FTCcheck'],
-                                'pref_frc' => $_POST['FRCcheck'],
-                                'pref_vex' => $_POST['VEXcheck']));
+    $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
+                              'pref_ftc' => $_POST['FTCcheck'],
+                              'pref_frc' => $_POST['FRCcheck'],
+                              'pref_vex' => $_POST['VEXcheck']));
     
     $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($team_email));
     
-    $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`) VALUES ('" . $team_email . "', '" . $pass_hash . "', 'TEAM');");    
+    $guid = md5($team_email) . md5($pass_hash);
+
+    $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
+
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
+
+    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '{}', '{}')");
+
+    require "./config.php";
+    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
+
     echo "{\"status\":\"ok\"}";
 }else{
     require "./core.php";

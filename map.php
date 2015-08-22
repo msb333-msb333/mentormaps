@@ -1,4 +1,11 @@
 <?php
+$unbiased = false;
+if(isset($_GET['opt'])){
+    if($_GET['opt'] == 'unbiased'){
+        $unbiased = true;
+    }
+}
+
 function utf8_converter($array){
     array_walk_recursive($array, function(&$item, $key){
         if(!mb_detect_encoding($item, 'utf-8', true)){
@@ -29,12 +36,17 @@ while($r=mysqli_fetch_assoc($result)){
 }
 //store all of the opposite kinds of addresses
 $address_array = array();
-if($type=="MENTOR"){
-    echo '<!--you are a mentor, displaying all results for teams-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+if($unbiased==false){
+    if($type=="MENTOR"){
+        echo '<!--you are a mentor, displaying all results for teams-->';
+        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+    }else{
+        echo '<!--you are a team, displaying all results for mentors-->';
+        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+    }
 }else{
-    echo '<!--you are a team, displaying all results for mentors-->';
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+    echo '<!--you are using an unbiased map, displaying all results in db-->';
+    $sql = "SELECT `ADDRESS` FROM `data`;";
 }
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
@@ -140,28 +152,20 @@ echo '<script>var marker_map = [];</script>';?>
                         break;
                     }
                     while($r=mysqli_fetch_assoc($result)){
-                        array_push($allteams, array(
-                                    'name'                  => $r['NAME'        ],
-                                    'searching_skills_json' => $r['SKILLS_JSON' ],
-                                    'team_number'           => $r['TEAM_NUMBER' ],
-                                    'comments'              => $r['COMMENTS'    ],
-                                    'phone'                 => $r['PHONE'       ],
-                                    'email'                 => $r['EMAIL'       ],
-                                    'address'               => $r['ADDRESS'     ],
-                                    'type'                  => $r['TYPE'        ],
-                                    'account_type'          => $r['ACCOUNT_TYPE']
-                                                    )
+                        $a = array(
+                                            'name'                  => $r['NAME'        ],
+                                            'searching_skills_json' => $r['SKILLS_JSON' ],
+                                            'team_number'           => $r['TEAM_NUMBER' ],
+                                            'comments'              => $r['COMMENTS'    ],
+                                            'phone'                 => $r['PHONE'       ],
+                                            'email'                 => $r['EMAIL'       ],
+                                            'address'               => $r['ADDRESS'     ],
+                                            'type'                  => $r['TYPE'        ],
+                                            'account_type'          => $r['ACCOUNT_TYPE']
                                     );
+                        array_push($allteams, $a);
                         $teamjson = json_encode(
-                                        utf8_converter(
-                                                    array(
-                                                        'name'         => $r['NAME'        ],
-                                                        'team_number'  => $r['TEAM_NUMBER' ],
-                                                        'address'      => $r['ADDRESS'     ],
-                                                        'type'         => $r['TYPE'        ],
-                                                        'account_type' => $r['ACCOUNT_TYPE']
-                                                        )
-                                                    )
+                                                utf8_converter($a)
                                                 );
                     }
                     echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
@@ -263,16 +267,16 @@ echo '<script>var marker_map = [];</script>';?>
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
             if(typedata['pref_fll']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_ftc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross2\" src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_frc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_vex']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
             document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
@@ -341,6 +345,16 @@ echo '<script>var marker_map = [];</script>';?>
                                             <li>
                                                 <a href="./logout.php">
                                                     Log Out
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="./profile.php">
+                                                    Profile
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="./map.php?opt=unbiased">
+                                                    (advanced) view unbiased map
                                                 </a>
                                             </li>
                                         </ul>
@@ -477,6 +491,8 @@ echo '<script>var marker_map = [];</script>';?>
                         
                                         teamscore_map = teamscore_map.sort(comparator);
                         
+                                        console.log(teamscore_map);
+
                                         var teamListIndex = 0;
                                         console.log("teamscore_map length: " + teamscore_map.length);
                                         for(var e in teamscore_map){

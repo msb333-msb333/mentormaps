@@ -113,8 +113,7 @@ $("#submitTeamRegistrationForm").click(function(){
             'comments':                     document.getElementById("comments"                    ).value
         },
         success: function(data){
-            document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
-            console.log("request successful");
+            document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
         },
         error: function(xhr, textStatus, errorThrown) {
             if(errorThrown="SyntaxError: Unexpected token a"){
@@ -205,7 +204,7 @@ $("#submitMentorRegistrationForm").click(function(){
             'bio':                          document.getElementById("bio"                   ).value
         },
         success: function(data){
-            document.getElementById("register-section").innerHTML = "Successfully Registered, you can log in <a href=\"./login.php\">here</a>";
+            document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
             console.log("request successful");
         },
         error: function(xhr, textStatus, errorThrown) {
