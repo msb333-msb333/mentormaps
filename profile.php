@@ -188,12 +188,12 @@
                                 if(key != 'engineering-desc' && key != 'programming-desc'){
                                     if(key=='skill-other-desc'){
                                         if(skills_json['skill-other']=='true'){
-                                            document.write("Other Skill: ("+value+")<br />");  
+                                            document.write("<li>Other Skill: ("+value+")</li>");  
                                         }
                                     }else if(key=='skill-programming' || key=='skill-engineering'){
                                         //don't print these keys
                                     }else if(value=='true'){
-                                        document.write('<li>' + assoc[key] + "</li>");
+                                        document.write('<li>' + assoc[key] + '</li>');
                                     }
                                 }
                             });
