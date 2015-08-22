@@ -88,7 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                   "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
 
     require "./config.php";
-    sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', '<a href="http://mrflark.org/mmdev/mentormaps/verify.php?key='.$guid.'">verify</a>');
+    sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
 
     echo "{\"status\":\"ok\"}";
 }else{

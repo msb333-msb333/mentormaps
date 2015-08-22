@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $comments           = mysql_escape_mimic($_POST['comments']);
     $team_number        = mysql_escape_mimic($_POST['team-number']);
     
-    //doesn't matter, it's going to be hashed anyway
+    //sql injection doesn't matter, it's going to be hashed anyway
     $pass1              = $_POST['pass1'];
     $pass2              = $_POST['pass2'];
     
@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
 
     require "./config.php";
-    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', '<a href="http://mrflark.org/mmdev/mentormaps/verify.php?key='.$guid.'">verify</a>');
+    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
 
     echo "{\"status\":\"ok\"}";
 }else{
