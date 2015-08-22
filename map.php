@@ -263,16 +263,16 @@ echo '<script>var marker_map = [];</script>';?>
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
             if(typedata['pref_fll']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross1\" src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_ftc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross2\" src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_frc']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             if(typedata['pref_vex']=='true'){
-                document.getElementById("img-container").innerHTML += "<img id=\"ross3\" src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
             document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
