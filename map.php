@@ -140,28 +140,20 @@ echo '<script>var marker_map = [];</script>';?>
                         break;
                     }
                     while($r=mysqli_fetch_assoc($result)){
-                        array_push($allteams, array(
-                                    'name'                  => $r['NAME'        ],
-                                    'searching_skills_json' => $r['SKILLS_JSON' ],
-                                    'team_number'           => $r['TEAM_NUMBER' ],
-                                    'comments'              => $r['COMMENTS'    ],
-                                    'phone'                 => $r['PHONE'       ],
-                                    'email'                 => $r['EMAIL'       ],
-                                    'address'               => $r['ADDRESS'     ],
-                                    'type'                  => $r['TYPE'        ],
-                                    'account_type'          => $r['ACCOUNT_TYPE']
-                                                    )
+                        $a = array(
+                                            'name'                  => $r['NAME'        ],
+                                            'searching_skills_json' => $r['SKILLS_JSON' ],
+                                            'team_number'           => $r['TEAM_NUMBER' ],
+                                            'comments'              => $r['COMMENTS'    ],
+                                            'phone'                 => $r['PHONE'       ],
+                                            'email'                 => $r['EMAIL'       ],
+                                            'address'               => $r['ADDRESS'     ],
+                                            'type'                  => $r['TYPE'        ],
+                                            'account_type'          => $r['ACCOUNT_TYPE']
                                     );
+                        array_push($allteams, $a);
                         $teamjson = json_encode(
-                                        utf8_converter(
-                                                    array(
-                                                        'name'         => $r['NAME'        ],
-                                                        'team_number'  => $r['TEAM_NUMBER' ],
-                                                        'address'      => $r['ADDRESS'     ],
-                                                        'type'         => $r['TYPE'        ],
-                                                        'account_type' => $r['ACCOUNT_TYPE']
-                                                        )
-                                                    )
+                                                utf8_converter($a)
                                                 );
                     }
                     echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;

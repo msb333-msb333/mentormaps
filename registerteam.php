@@ -72,7 +72,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $guid = md5($team_email) . md5($pass_hash);
 
-    file_put_contents("./query.txt", "INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', " . $team_email . "', '" . $pass_hash . "', 'TEAM');");
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
 
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
