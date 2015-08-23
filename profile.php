@@ -55,14 +55,6 @@
         }
 
         function updateInterest(interest, email, from){
-            $.each(theirInterests, function(key, value){
-                var currentInterest = theirInterests[key];
-                if(currentInterest.email == email){
-                    currentInterest.interested = interest;
-                }
-            });
-            theirInterests.push({'email':from, 'interested':interest});
-            myInterests.push({'email':email, 'interested':interest});
 
             $.ajax({
                 url: './updateinterest.php',
