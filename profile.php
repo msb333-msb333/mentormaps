@@ -138,7 +138,7 @@
                     </h2>
                     <div class="6u 12u$(small)">
                         <input type="checkbox" id="im-interested"/>
-                        <label for="im-interested">I'm interested in this team</label>
+                        <label for="im-interested">I'm interested in this <?php echo strtolower($account_type); ?></label>
                         <script>
                             $("#im-interested").change(function(){
                                 console.log("int checkbox: " + $("#im-interested").val());
