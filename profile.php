@@ -30,10 +30,45 @@
         }
         echo '<!--this is a ' . $account_type . '-->';
         echoHeader();
+
+        $theirInterests;
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '$email'";
+        $result=$db->query($sql);
+        while($r=mysqli_fetch_assoc($result)){
+            $theirInterests = $r['interested-in-me'];
+        }
+        
+        $myInterests;
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".$_SESSION['email']."'";
+        $result=$db->query($sql);
+        while($r=mysqli_fetch_assoc($result)){
+            $myInterests = $r['interested-in'];
+        }
+
 ?>
     <script>
+        var myInterests = '<?php echo $myInterests; ?>';
+        var theirInterests = '<?php echo $theirInterests; ?>';
+
         function redirectToEditPage(){
             window.location = './edit.php';
+        }
+
+        function updateInterest(interest, email, from){
+            
+            theirInterests.push({'email':from, 'interested':interest});
+            myInterests.push({'email':email, 'interested':interest});
+
+            $.ajax({
+                url: './updateinterest.php',
+                type: 'POST',
+                data: {
+                    'theirEmail': email,
+                    'myEmail': "<?php echo $_SESSION['email']; ?>",
+                    'theirIntJSON': theirInterests,
+                    'myIntJSON': myInterests
+                }
+            });
         }
     </script>
 
@@ -45,10 +80,23 @@
                 </a>
             </div>
             <header>
-                <div id="profile-page" style="padding-left: 60px;">
+                <div id="profile-page" style="padding-left: 60px;" style="display:inline-block;">
                     <h2>
-                        <?php echo $name . "'s Profile Page"?>
+                        <?php echo $name . "'s Profile Page"; ?>
                     </h2>
+                    <div class="6u 12u$(small)">
+                        <input type="checkbox" id="im-interested"/>
+                        <label for="im-interested">I'm interested in this team</label>
+                        <script>
+                            $("#im-interested").change(function(){
+                                if($("#im-interested").checked){
+                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                }else{
+                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </header>
             <div style="display: inline-block;">
@@ -63,49 +111,37 @@
                             <b style="color: #19D1AC;">
                                 Name:
                             </b>
-                            <?php 
-                                echo $name;
-                            ?>
+                            <?php echo $name; ?>
                         </div>
                         <div id="age-div">
                             <b style="color:#19D1AC;">
                                 Age: 
                             </b>
-                            <?php
-                                echo $age;
-                            ?>
+                            <?php echo $age; ?>
                         </div>
                         <div id="email-div">
                             <b style="color:#19D1AC;">
                                 Email Address: 
                             </b>
-                            <?php 
-                                echo $email;
-                            ?>
+                            <?php echo $email; ?>
                         </div>
                         <div id="address-div">
                             <b style="color:#19D1AC;">
                                 Address: 
                             </b>
-                            <?php 
-                                echo $address;
-                            ?>
+                            <?php echo $address; ?>
                         </div>
                         <div id="phone-div">
                             <b style="color:#19D1AC;">
                                 Phone Number: 
                             </b>   
-                            <?php 
-                                echo $phone;
-                            ?>
+                            <?php echo $phone; ?>
                         </div>
                         <div id="bio-div">
                             <b style="color:#19D1AC;">
                                 Bio: 
                             </b>   
-                            <?php
-                                echo $comments;
-                            ?>
+                            <?php echo $comments; ?>
                         </div>
                         <div id="type-div">
                             <b style="color:#19D1AC;">

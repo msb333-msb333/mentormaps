@@ -110,9 +110,6 @@
                 <section id="one" class="wrapper style1 special">
                     <div class="inner">
                         <header class="major">
-                            <h2></h2>
-                            <p>
-                            </p>
                             </header>
                             <ul class="icons major">
                                 <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
@@ -195,20 +192,11 @@
                         </div>
                     </section>
 
-                <!-- Footer -->
                     <footer id="footer">
-                        <ul class="icons">
-                            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                            <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-                            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                        </ul>
                         <ul class="copyright">
                             <li>&copy; Joseph Sirna 2015</li>
                         </ul>
                     </footer>
-
             </div>
             <script src="assets/js/jquery.min.js"></script>
             <script src="assets/js/jquery.scrollex.min.js"></script>

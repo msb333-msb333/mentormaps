@@ -153,15 +153,15 @@ echo '<script>var marker_map = [];</script>';?>
                     }
                     while($r=mysqli_fetch_assoc($result)){
                         $a = array(
-                                            'name'                  => $r['NAME'        ],
-                                            'searching_skills_json' => $r['SKILLS_JSON' ],
-                                            'team_number'           => $r['TEAM_NUMBER' ],
-                                            'comments'              => $r['COMMENTS'    ],
-                                            'phone'                 => $r['PHONE'       ],
-                                            'email'                 => $r['EMAIL'       ],
-                                            'address'               => $r['ADDRESS'     ],
-                                            'type'                  => $r['TYPE'        ],
-                                            'account_type'          => $r['ACCOUNT_TYPE']
+                                    'name'                  => $r['NAME'        ],
+                                    'searching_skills_json' => $r['SKILLS_JSON' ],
+                                    'team_number'           => $r['TEAM_NUMBER' ],
+                                    'comments'              => $r['COMMENTS'    ],
+                                    'phone'                 => $r['PHONE'       ],
+                                    'email'                 => $r['EMAIL'       ],
+                                    'address'               => $r['ADDRESS'     ],
+                                    'type'                  => $r['TYPE'        ],
+                                    'account_type'          => $r['ACCOUNT_TYPE']
                                     );
                         array_push($allteams, $a);
                         $teamjson = json_encode(
