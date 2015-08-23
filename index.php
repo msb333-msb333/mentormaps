@@ -46,7 +46,7 @@
                                 <div id="menu">
                                     <ul>
                                         <li>
-                                            <a href="index.php">
+                                            <a href="./map.php">
                                                 Home
                                             </a>
                                         </li>
@@ -60,22 +60,6 @@
                                                 Log In
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="./logout.php">
-                                                Log Out
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./profile.php">
-                                                Profile
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./map.php">
-                                                Map
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </li>
                         </ul>
@@ -87,12 +71,12 @@
                             Mentor Maps
                         </h2>
                         <p>
-                            a useful tool to connect <b><em>FIRST</em></b> teams with mentors
+                            a useful tool to connect <b><em>FIRST</em> & VEX</b> teams with mentors
                         </p>
                         <ul class="actions">
                             <li>
                                 <a href="#" class="button special" onclick="register();">
-                                    Register
+                                    Sign Up
                                 </a>
                             </li>
                             <li>
@@ -110,6 +94,8 @@
                 <section id="one" class="wrapper style1 special">
                     <div class="inner">
                         <header class="major">
+                            <h2>Mentorship Made Easy</h2>
+                            <p>MentorMaps' features allow you to find exactly what team or mentor you're looking for without the hassle of using three different services at once.</p>
                             </header>
                             <ul class="icons major">
                                 <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
@@ -123,7 +109,7 @@
                     <section id="two" class="wrapper alt style2">
                         <section class="spotlight">
                             <div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-                                <h2>Nicely displays all <i>FIRST</i> teams that sign up on a Google Map<br /></h2>
+                                <h2>Nicely displays all teams that sign up on a Google Map<br /></h2>
                                 <p>Instead of dealing with going through several different services just to find a team or mentor, MentorMaps beautifully displays all collected data for any user to view.</p>
                             </div>
                         </section>
@@ -145,34 +131,24 @@
                     <section id="three" class="wrapper style3 special">
                         <div class="inner">
                             <header class="major">
-                                <h2>Accumsan mus tortor nunc aliquet</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-                                fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
+                                <h2>The value of Mentorship</h2>
                             </header>
                             <ul class="features">
-                                <li class="icon fa-paper-plane-o">
-                                    <h3>Arcu accumsan</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                                <li>
+                                    <h3><br><br>"Mentors are the lubrication that keeps a team well oiled. "</h3>
+                                    <p> - <i>Rick Sisk, FIRST Senior Mentor</i></p>
                                 </li>
-                                <li class="icon fa-laptop">
-                                    <h3>Ac Augue Eget</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                                <li>
+                                    <h3>"FIRST Robotics mentors inspire students to apply their academics in developing robots utilizing unique and memorable techniques."</h3>
+                                    <p> - <i>Evan Smith, Lead Mentor for Team 3309 "The Friarbots"</i></p>
                                 </li>
-                                <li class="icon fa-code">
-                                    <h3>Mus Scelerisque</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                                <li>
+                                    <h3>"...Every single student needs someone who they can look up too and work with to build a great foundation for themselves and, as mentors, we provide that opportunity for them..."</h3>
+                                    <p> - <i>Pauline Tasci, Mentor and Student Alum of Team 3476 "Code Orange"</i></p>
                                 </li>
-                                <li class="icon fa-headphones">
-                                    <h3>Mauris Imperdiet</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-                                </li>
-                                <li class="icon fa-heart-o">
-                                    <h3>Aenean Primis</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-                                </li>
-                                <li class="icon fa-flag-o">
-                                    <h3>Tortor Ut</h3>
-                                    <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                                <li>
+                                    <h3><br>"Mentors create a spark of knowledge in a student to see their ideas transformed into reality… very uplifting"</h3>
+                                    <p> - <i>Paul Capparelli, Four-year FLL Lead Coach</i></p>
                                 </li>
                             </ul>
                         </div>
@@ -182,12 +158,11 @@
                     <section id="cta" class="wrapper style4">
                         <div class="inner">
                             <header>
-                                <h2>Arcue ut vel commodo</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.</p>
+                                <h2>Ready to sign up?</h2>
+                                <p>Just hit the red button.</p>
                             </header>
                             <ul class="actions vertical">
-                                <li><a href="#" class="button fit special">Activate</a></li>
-                                <li><a href="#" class="button fit">Learn More</a></li>
+                                <li><a href="./register.php" class="button fit special">Yeah!</a></li>
                             </ul>
                         </div>
                     </section>
