@@ -45,68 +45,71 @@
             $myInterests = $r['interested-in'];
         }
 
+        if($myInterests==""){
+            $myInterests = "[]";
+        }
+        if($theirInterests==""){
+            $theirInterests = "[]";
+        }
+
 ?>
     <script>
-if (!Array.prototype.indexOf)
-  {
+        if (!Array.prototype.indexOf){
+            Array.prototype.indexOf = function(searchElement /*, fromIndex */){
+                "use strict";
+                if (this === void 0 || this === null)
+                    throw new TypeError();
+                var t = Object(this);
+                var len = t.length >>> 0;
+                if (len === 0)
+                    return -1;
+                var n = 0;
+                if (arguments.length > 0){
+                    n = Number(arguments[1]);
+                    if (n !== n)
+                        n = 0;
+                    else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
+                        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                }
+                if (n >= len)
+                    return -1;
+                var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
 
-       Array.prototype.indexOf = function(searchElement /*, fromIndex */)
+                for (; k < len; k++){
+                    if (k in t && t[k] === searchElement)
+                        return k;
+                    }
+                return -1;
+            };
+        }
 
-    {
-
-
-    "use strict";
-
-    if (this === void 0 || this === null)
-      throw new TypeError();
-
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (len === 0)
-      return -1;
-
-    var n = 0;
-    if (arguments.length > 0)
-    {
-      n = Number(arguments[1]);
-      if (n !== n)
-        n = 0;
-      else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
-        n = (n > 0 || -1) * Math.floor(Math.abs(n));
-    }
-
-    if (n >= len)
-      return -1;
-
-    var k = n >= 0
-          ? n
-          : Math.max(len - Math.abs(n), 0);
-
-    for (; k < len; k++)
-    {
-      if (k in t && t[k] === searchElement)
-        return k;
-    }
-    return -1;
-  };
-
-}
-    
         var myInterests = <?php echo $myInterests; ?>;
         var theirInterests = <?php echo $theirInterests; ?>;
+
+        $(function(){
+            if(myInterests.indexOf('<?php echo $email; ?>') > -1){
+                $("#im-interested").prop('checked', true);
+            }
+        });
 
         function redirectToEditPage(){
             window.location = './edit.php';
         }
 
         function updateInterest(interest, email, from){
+            console.log("val if int param: " + interest);
             if(interest){
+                console.log("int is true, adding " + email + " to myint");
                 myInterests.push(email);
                 theirInterests.push(from);
             }else{
+                console.log("int is false, removing " + email + " from myint");
                 myInterests.splice(myInterests.indexOf(email), 1);
                 theirInterests.splice(theirInterests.indexOf(from), 1);
             }
+
+            console.log("new myint: " + myInterests);
+            console.log("new theirint: " + theirInterests);
 
             $.ajax({
                 url: './updateinterest.php',
@@ -114,8 +117,8 @@ if (!Array.prototype.indexOf)
                 data: {
                     'theirEmail': email,
                     'myEmail': "<?php echo $_SESSION['email']; ?>",
-                    'theirIntJSON': theirInterests,
-                    'myIntJSON': myInterests
+                    'theirIntJSON': JSON.stringify(theirInterests),
+                    'myIntJSON': JSON.stringify(myInterests)
                 }
             });
         }
@@ -138,7 +141,8 @@ if (!Array.prototype.indexOf)
                         <label for="im-interested">I'm interested in this team</label>
                         <script>
                             $("#im-interested").change(function(){
-                                if($("#im-interested").checked){
+                                console.log("int checkbox: " + $("#im-interested").val());
+                                if($("#im-interested").is(':checked')){
                                     updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 }else{
                                     updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
