@@ -47,15 +47,20 @@
 
 ?>
     <script>
-        var myInterests = '<?php echo $myInterests; ?>';
-        var theirInterests = '<?php echo $theirInterests; ?>';
+        var myInterests = <?php echo $myInterests; ?>;
+        var theirInterests = <?php echo $theirInterests; ?>;
 
         function redirectToEditPage(){
             window.location = './edit.php';
         }
 
         function updateInterest(interest, email, from){
-            
+            $.each(theirInterests, function(key, value){
+                var currentInterest = theirInterests[key];
+                if(currentInterest.email == email){
+                    currentInterest.interested = interest;
+                }
+            });
             theirInterests.push({'email':from, 'interested':interest});
             myInterests.push({'email':email, 'interested':interest});
 
