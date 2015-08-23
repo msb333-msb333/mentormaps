@@ -47,17 +47,27 @@
 
 ?>
     <script>
-        var myInterests = <?php echo $myInterests; ?>;
-        var theirInterests = <?php echo $theirInterests; ?>;
+        var myInterests = '<?php echo $myInterests; ?>';
+        var theirInterests = '<?php echo $theirInterests; ?>';
 
         function redirectToEditPage(){
             window.location = './edit.php';
         }
 
-        function updateInterest(interest, email){
-            //update their interests
-            $.each(theirInterests, function(key, value){
-                console.log(value);
+        function updateInterest(interest, email, from){
+            
+            theirInterests.push({'email':from, 'interested':interest});
+            myInterests.push({'email':email, 'interested':interest});
+
+            $.ajax({
+                url: './updateinterest.php',
+                type: 'POST',
+                data: {
+                    'theirEmail': email,
+                    'myEmail': "<?php echo $_SESSION['email']; ?>",
+                    'theirIntJSON': theirInterests,
+                    'myIntJSON': myInterests
+                }
             });
         }
     </script>
@@ -80,9 +90,9 @@
                         <script>
                             $("#im-interested").change(function(){
                                 if($("#im-interested").checked){
-                                    updateInterest(true, '<?php echo $email; ?>');
+                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 }else{
-                                    updateInterest(false, '<?php echo $email; ?>');
+                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 }
                             });
                         </script>
