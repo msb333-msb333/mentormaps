@@ -110,10 +110,9 @@
                 <section id="one" class="wrapper style1 special">
                     <div class="inner">
                         <header class="major">
-                            <h2>Arcu aliquet vel lobortis ata nisl<br />
-                            eget augue amet aliquet nisl cep donec</h2>
-                            <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-                            fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
+                            <h2></h2>
+                            <p>
+                            </p>
                             </header>
                             <ul class="icons major">
                                 <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
@@ -127,23 +126,20 @@
                     <section id="two" class="wrapper alt style2">
                         <section class="spotlight">
                             <div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-                                <h2>Magna primis lobortis<br />
-                                sed ullamcorper</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                                <h2>Nicely displays all <i>FIRST</i> teams that sign up on a Google Map<br /></h2>
+                                <p>Instead of dealing with going through several different services just to find a team or mentor, MentorMaps beautifully displays all collected data for any user to view.</p>
                             </div>
                         </section>
                         <section class="spotlight">
                             <div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
-                                <h2>Tortor dolore feugiat<br />
-                                elementum magna</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                                <h2>Automatically calculates what team or mentor works best for you<br /></h2>
+                                <p> By comparing what skills a mentor adds to their profiles and what type of mentor a team wants, MentorMaps calculates how much a team/mentor matches with exactly what you’re looking for.</p>
                             </div>
                         </section>
                         <section class="spotlight">
                             <div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-                                <h2>Augue eleifend aliquet<br />
-                                sed condimentum</h2>
-                                <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                                <h2>Rolling LinkedIn and Social Media Websites Into One<br /></h2>
+                                <p>By combining profile-matching algorithms and a job posting-like environment, MentorMaps makes it easy to search, find, and connect with teams or mentors in your area</p>
                             </div>
                         </section>
                     </section>
