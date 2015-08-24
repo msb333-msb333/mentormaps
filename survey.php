@@ -22,24 +22,23 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         <script src="assets/js/main.js"></script>
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
                             <ul>
                                 <li class="special">
-                                    <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                                    <a href="#menu" class="menuToggle">
+                                        <span>
+                                            Menu
+                                        </span></a>
                                     <div id="menu">
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./register.php">Sign Up</a></li>
                                             <li><a href="./login.php">Log In</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="./profile.php">Profile</a></li>
+                   <li><a href="./profile.php">Profile</a></li>
                                             <li><a href="./map.php">Map</a></li>
                                         </ul>
                                     </div>
