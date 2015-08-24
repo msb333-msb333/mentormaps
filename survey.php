@@ -3,7 +3,7 @@ require "./logincheck.php";
 if($_SERVER['REQUEST_METHOD']=='GET'){
     require "./core.php";
     $email = $_SESSION['email'];
-    echoHeader();
+    echoHeaderSurvey();
 ?>
 
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

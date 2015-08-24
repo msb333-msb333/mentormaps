@@ -28,7 +28,7 @@
             $age = $i['AGE'];
             $account_type = $i['ACCOUNT_TYPE'];
         }
-        echoHeader();
+        echoHeaderEdit();
         ?>
         
         <script src="./customjquery.js"></script>

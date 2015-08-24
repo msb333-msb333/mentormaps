@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
     
     //echo default header for MM pages
-    echoHeader();
+    echoHeaderLogin();
 ?>
                 <!-- Main -->
                     <article id="main">
