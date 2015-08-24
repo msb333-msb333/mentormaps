@@ -94,16 +94,11 @@
                 <section id="one" class="wrapper style1 special">
                     <div class="inner">
                         <header class="major">
-                            <h2>Mentorship Made Easy</h2>
-                            <p>MentorMaps' features allow you to find exactly what team or mentor you're looking for without the hassle of using three different services at once.</p>
-                            </header>
-                            <ul class="icons major">
-                                <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
-                                <li><span class="icon fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
-                                <li><span class="icon fa-code major style3"><span class="label">Dolor</span></span></li>
-                            </ul>
-                        </div>
-                    </section>
+                            <h2>MentorMaps takes the hassle out of finding mentors</h2>
+                            <p>MentorMaps was developed by FRC Team 3309 to make every team/mentor's life just a little bit easier </p>
+                        </header>
+                    </div>
+                </section>
 
                 <!-- Two -->
                     <section id="two" class="wrapper alt style2">
