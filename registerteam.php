@@ -84,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo "{\"status\":\"ok\"}";
 }else{
     require "./core.php";
-    echoHeaderReg();
+    echoHeader();
 ?>
                     <article id="main">
                         <header>

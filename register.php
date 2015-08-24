@@ -1,6 +1,6 @@
 <?php /** register redirect page; displays registration info and links to register as a mentor or a team **/
     require "./core.php";
-    echoHeaderReg();
+    echoHeader();
 ?>
 <article id="main">
     <header>

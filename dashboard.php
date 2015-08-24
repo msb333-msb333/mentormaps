@@ -18,7 +18,7 @@ if(isset($_GET['p'])){
 }else{
     echo "<meta http-equiv=\"refresh\" content=\"0;URL=./dashboard.php?p=".$_SESSION['email']."\">";
 }
-echoHeaderDash();
+echoHeader();
 ?>
             <script>
                 var interested_in = <?php echo $interested_in; ?>;

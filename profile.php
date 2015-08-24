@@ -29,7 +29,7 @@
             $account_type       = $i['ACCOUNT_TYPE' ];
         }
         echo '<!--this is a ' . $account_type . '-->';
-        echoHeaderPro();
+        echoHeader();
 
         $theirInterests;
         $sql = "SELECT * FROM `assoc` WHERE EMAIL = '$email'";
