@@ -47,17 +47,14 @@
 
 ?>
     <script>
-        var myInterests = '<?php echo $myInterests; ?>';
-        var theirInterests = '<?php echo $theirInterests; ?>';
+        var myInterests = <?php echo $myInterests; ?>;
+        var theirInterests = <?php echo $theirInterests; ?>;
 
         function redirectToEditPage(){
             window.location = './edit.php';
         }
 
         function updateInterest(interest, email, from){
-            
-            theirInterests.push({'email':from, 'interested':interest});
-            myInterests.push({'email':email, 'interested':interest});
 
             $.ajax({
                 url: './updateinterest.php',
