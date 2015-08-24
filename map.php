@@ -338,23 +338,28 @@ echo '<script>var marker_map = [];</script>';?>
                                     <div id="menu">
                                         <ul>
                                             <li>
-                                                <a href="./index.php">
-                                                    Home
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="./logout.php">
-                                                    Log Out
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="./profile.php">
                                                     Profile
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="./dashboard.php">
+                                                    Dashboard
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="./survey.php">
+                                                    Survey
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="./map.php?opt=unbiased">
                                                     (advanced) view unbiased map
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="./logout.php">
+                                                    Log Out
                                                 </a>
                                             </li>
                                         </ul>
@@ -384,7 +389,7 @@ echo '<script>var marker_map = [];</script>';?>
                                     <div style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
                                         <ul style="list-style-type:none;" id="list-thing">
                                             <li>
-                                                Team Search Filter
+                                                Search Filter
                                             </li>
                                             <li>
                                                 Range <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();"/><div id="range-display" style="display:inline;">50</div>

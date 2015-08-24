@@ -94,7 +94,7 @@
                 <section id="one" class="wrapper style1 special">
                     <div class="inner">
                         <header class="major">
-                            <h2>MentorMaps takes the hassle out of finding mentors</h2>
+                            <h2>Find the people that will guide your team with MentorMaps</h2>
                             <p>MentorMaps was developed by FRC Team 3309 to make every team/mentor's life just a little bit easier </p>
                         </header>
                     </div>
@@ -104,20 +104,20 @@
                     <section id="two" class="wrapper alt style2">
                         <section class="spotlight">
                             <div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-                                <h2>Nicely displays all teams that sign up on a Google Map<br /></h2>
-                                <p>Instead of dealing with going through several different services just to find a team or mentor, MentorMaps beautifully displays all collected data for any user to view.</p>
+                                <h2>Nicely displays local <i>FIRST</i> and VEX teams on a Google Map!<br /></h2>
+                                <p>Instead of going through several complicated services to find a team or mentor, MentorMaps beautifully displays collected data for any user to view.</p>
                             </div>
                         </section>
                         <section class="spotlight">
                             <div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
-                                <h2>Automatically calculates what team or mentor works best for you<br /></h2>
-                                <p> By comparing what skills a mentor adds to their profiles and what type of mentor a team wants, MentorMaps calculates how much a team/mentor matches with exactly what you’re looking for.</p>
+                                <h2>Calculates what mentor you need or what team you can help!<br /></h2>
+                                <p> By comparing what skills a mentor has and what type of mentor a team needs, MentorMaps matches teams and mentors with exactly what you're looking for.</p>
                             </div>
                         </section>
                         <section class="spotlight">
                             <div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-                                <h2>Rolling LinkedIn and Social Media Websites Into One<br /></h2>
-                                <p>By combining profile-matching algorithms and a job posting-like environment, MentorMaps makes it easy to search, find, and connect with teams or mentors in your area</p>
+                                <h2>Merging LinkedIn and Social Media for <i>FIRST</i> and VEX Teams<br /></h2>
+                                <p>Combining profile-matching algorithms and a job posting-like environment together to easily search, find, and connect with teams or mentors close to you!</p>
                             </div>
                         </section>
                     </section>
