@@ -1,4 +1,5 @@
 <?php /** checks the user's session cookies to verify that they are logged in **/
+require "./sessioncheck.php";
 
 function checkIfUserLoggedIn($userToCheck){
     if($userToCheck == $_SESSION['email']){
