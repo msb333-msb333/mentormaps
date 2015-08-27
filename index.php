@@ -1,6 +1,3 @@
-<?php
-    require "./core.php";
-?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -33,7 +30,7 @@
             <div id="page-wrapper">
                 <header id="header" class="alt">
                     <h1>
-                        <a href="index.html">Mentor Maps</a>
+                        <a href="index.php">Mentor Maps</a>
                     </h1>
                     <nav id="nav">
                         <ul>

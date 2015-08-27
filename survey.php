@@ -35,10 +35,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                                     <div id="menu">
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
-                                            <li><a href="./register.php">Sign Up</a></li>
-                                            <li><a href="./login.php">Log In</a></li>
                                             <li><a href="./logout.php">Log Out</a></li>
-                   <li><a href="./profile.php">Profile</a></li>
+                                            <li><a href="./profile.php">Profile</a></li>
+                                            <li><a href="./dashboard.php">Dashboard</a></li>
                                             <li><a href="./map.php">Map</a></li>
                                         </ul>
                                     </div>

@@ -129,10 +129,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         <ul>
                                             <li><a href="./index.php">Home</a></li>
                                             <li><a href="./register.php">Sign Up</a></li>
-                                            <li><a href="./login.php">Log In</a></li>
-                                            <li><a href="./logout.php">Log Out</a></li>
-                                            <li><a href="./profile.php">Profile</a></li>
-                                            <li><a href="./map.php">Map</a></li>
                                         </ul>
                                     </div>
                                 </li>
