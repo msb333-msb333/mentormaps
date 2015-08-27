@@ -1,6 +1,5 @@
 <?php
     if(isset($_GET['p'])){
-        require "./core.php";
         $refurl = "./profile.php?p=" . $_GET['p'];
         require "./logincheck.php";
         require "./db.php";
@@ -29,11 +28,139 @@
             $account_type       = $i['ACCOUNT_TYPE' ];
         }
         echo '<!--this is a ' . $account_type . '-->';
-        echoHeader();
+
+        $theirInterests;
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '$email'";
+        $result=$db->query($sql);
+        while($r=mysqli_fetch_assoc($result)){
+            $theirInterests = $r['interested-in-me'];
+        }
+        
+        $myInterests;
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".$_SESSION['email']."'";
+        $result=$db->query($sql);
+        while($r=mysqli_fetch_assoc($result)){
+            $myInterests = $r['interested-in'];
+        }
+
+        if($myInterests==""){
+            $myInterests = "[]";
+        }
+        if($theirInterests==""){
+            $theirInterests = "[]";
+        }
+
 ?>
+<html>
+    <head>
+        <title>Mentor Maps</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
+        <script src="assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="assets/js/main.js"></script>
+    </head>
+    <body class="landing">
+
+        <!-- Page Wrapper -->
+            <div id="page-wrapper">
+
+                <!-- Header -->
+                    <header id="header">
+                        <h1><a href="./index.php">Mentor Maps</a></h1>
+                        <nav id="nav">
+                            <ul>
+                                <li class="special">
+                                    <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                                    <div id="menu">
+                                        <ul>
+                                            <li><a href="./index.php">Home</a></li>
+                                            <li><a href="./logout.php">Log Out</a></li>
+                                            <li><a href="./profile.php">Profile</a></li>
+                                            <li><a href="./map.php">Map</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </header>
     <script>
+        if (!Array.prototype.indexOf){
+            Array.prototype.indexOf = function(searchElement /*, fromIndex */){
+                "use strict";
+                if (this === void 0 || this === null)
+                    throw new TypeError();
+                var t = Object(this);
+                var len = t.length >>> 0;
+                if (len === 0)
+                    return -1;
+                var n = 0;
+                if (arguments.length > 0){
+                    n = Number(arguments[1]);
+                    if (n !== n)
+                        n = 0;
+                    else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
+                        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                }
+                if (n >= len)
+                    return -1;
+                var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+
+                for (; k < len; k++){
+                    if (k in t && t[k] === searchElement)
+                        return k;
+                    }
+                return -1;
+            };
+        }
+
+        var myInterests = <?php echo $myInterests; ?>;
+        var theirInterests = <?php echo $theirInterests; ?>;
+
+        $(function(){
+            if(myInterests.indexOf('<?php echo $email; ?>') > -1){
+                $("#im-interested").prop('checked', true);
+            }
+        });
+
         function redirectToEditPage(){
             window.location = './edit.php';
+        }
+
+        function updateInterest(interest, email, from){
+            console.log("val if int param: " + interest);
+            if(interest){
+                console.log("int is true, adding " + email + " to myint");
+                myInterests.push(email);
+                theirInterests.push(from);
+            }else{
+                console.log("int is false, removing " + email + " from myint");
+                myInterests.splice(myInterests.indexOf(email), 1);
+                theirInterests.splice(theirInterests.indexOf(from), 1);
+            }
+
+            console.log("new myint: " + myInterests);
+            console.log("new theirint: " + theirInterests);
+
+            $.ajax({
+                url: './updateinterest.php',
+                type: 'POST',
+                data: {
+                    'theirEmail': email,
+                    'myEmail': "<?php echo $_SESSION['email']; ?>",
+                    'theirIntJSON': JSON.stringify(theirInterests),
+                    'myIntJSON': JSON.stringify(myInterests)
+                }
+            });
         }
     </script>
 
@@ -45,10 +172,28 @@
                 </a>
             </div>
             <header>
-                <div id="profile-page" style="padding-left: 60px;">
+                <div id="profile-page" style="padding-left: 60px;" style="display:inline-block;">
                     <h2>
-                        <?php echo $name . "'s Profile Page"?>
+                        <?php echo $name . "'s Profile Page"; ?>
                     </h2>
+                    <div id="im-interested-wrapper" class="6u 12u$(small)">
+                        <input type="checkbox" id="im-interested"/>
+                        <label for="im-interested">I'm interested in this <?php echo strtolower($account_type); ?></label>
+                        <script>
+                            $(function(){
+                                if('<?php echo $email; ?>' == '<?php echo $_SESSION['email'] ?>'){
+                                    $("#im-interested-wrapper").hide();
+                                }
+                            });
+                            $("#im-interested").change(function(){
+                                if($("#im-interested").is(':checked')){
+                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                }else{
+                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </header>
             <div style="display: inline-block;">
@@ -63,49 +208,37 @@
                             <b style="color: #19D1AC;">
                                 Name:
                             </b>
-                            <?php 
-                                echo $name;
-                            ?>
+                            <?php echo $name; ?>
                         </div>
                         <div id="age-div">
                             <b style="color:#19D1AC;">
                                 Age: 
                             </b>
-                            <?php
-                                echo $age;
-                            ?>
+                            <?php echo $age; ?>
                         </div>
                         <div id="email-div">
                             <b style="color:#19D1AC;">
                                 Email Address: 
                             </b>
-                            <?php 
-                                echo $email;
-                            ?>
+                            <?php echo $email; ?>
                         </div>
                         <div id="address-div">
                             <b style="color:#19D1AC;">
                                 Address: 
                             </b>
-                            <?php 
-                                echo $address;
-                            ?>
+                            <?php echo $address; ?>
                         </div>
                         <div id="phone-div">
                             <b style="color:#19D1AC;">
                                 Phone Number: 
                             </b>   
-                            <?php 
-                                echo $phone;
-                            ?>
+                            <?php echo $phone; ?>
                         </div>
                         <div id="bio-div">
                             <b style="color:#19D1AC;">
                                 Bio: 
                             </b>   
-                            <?php
-                                echo $comments;
-                            ?>
+                            <?php echo $comments; ?>
                         </div>
                         <div id="type-div">
                             <b style="color:#19D1AC;">
@@ -210,7 +343,6 @@
     </article>
 <?php
     }else{
-        require "./sessioncheck.php";
         require "./logincheck.php";
         echo '<meta http-equiv="refresh" content="0;URL=./profile.php?p='.$_SESSION['email'].'">';
     }
