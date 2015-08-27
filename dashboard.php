@@ -81,7 +81,7 @@ if(isset($_GET['p'])){
                                 </tr>
                                 <script>
                                     $.each(interested_in_me, function(key, value){
-                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                 </script>
                             </table>
