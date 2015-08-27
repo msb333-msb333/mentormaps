@@ -176,12 +176,16 @@
                     <h2>
                         <?php echo $name . "'s Profile Page"; ?>
                     </h2>
-                    <div class="6u 12u$(small)">
+                    <div id="im-interested-wrapper" class="6u 12u$(small)">
                         <input type="checkbox" id="im-interested"/>
                         <label for="im-interested">I'm interested in this <?php echo strtolower($account_type); ?></label>
                         <script>
+                            $(function(){
+                                if('<?php echo $email; ?>' == '<?php echo $_SESSION['email'] ?>'){
+                                    $("#im-interested-wrapper").hide();
+                                }
+                            });
                             $("#im-interested").change(function(){
-                                console.log("int checkbox: " + $("#im-interested").val());
                                 if($("#im-interested").is(':checked')){
                                     updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 }else{
