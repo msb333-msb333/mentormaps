@@ -1,6 +1,10 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     require "./pages/default_header.html";
+    ?>
+        <section class="wrapper style4">
+            <div class="inner">
+    <?php
     if(isset($_GET['key'])){
         require "./db.php";
 
