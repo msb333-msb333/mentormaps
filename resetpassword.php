@@ -3,7 +3,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./config.php";
     require "./db.php";
     require "./mailsender.php";
-
     $result=$db->query("SELECT * FROM `logins` WHERE `EMAIL` = '".$_POST['email']."';");
     while($r=mysqli_fetch_assoc($result)){
         $key = $r['KEY'];
@@ -15,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         die("so such email in db");
     }
 }else{
+    require "./pages/default_header.html";
     ?>
     
     <form method="post">
@@ -23,5 +23,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </form>
 
     <?php
+    require "./pages/default_footer.html";
 }
 ?>
