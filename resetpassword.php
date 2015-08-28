@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $key = $r['KEY'];
     }
     if(isset($key)){
-        sendEmail($sendgrid_api_key, $_POST['email'], 'MentorMaps: Reset Password', '<a href="http://mrflark.org/mmdev/mentormaps/reset.php?key='.$key.'">reset</a>');
+        sendEmail($sendgrid_api_key, $_POST['email'], 'MentorMaps: Reset Password', file_get_contents("./pages/reset_password_email.php"));
         die("sent reset email");
     }else{
         die("so such email in db");
