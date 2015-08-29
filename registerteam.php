@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $team_phone         = mysql_escape_mimic($_POST['team-phone']);
     $comments           = mysql_escape_mimic($_POST['comments']);
     $team_number        = mysql_escape_mimic($_POST['team-number']);
+    $rname              = mysql_escape_mimic($_POST['rname']);
     
     //sql injection doesn't matter, it's going to be hashed anyway
     $pass1              = $_POST['pass1'];
@@ -26,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
     $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
     $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
+    $rname              = str_replace("<script", "im a dirty little hacker: ", $rname       );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -74,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
 
-    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
+    $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
 
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
 

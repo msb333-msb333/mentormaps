@@ -8,10 +8,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $key = $r['KEY'];
     }
     if(isset($key)){
+        require "./pages/default_header.html";
         sendEmail($sendgrid_api_key, $_POST['email'], 'MentorMaps: Reset Password', file_get_contents("./pages/reset_password_email.php"));
         die("sent reset email");
+        require "./pages/default_footer.html";
     }else{
-        die("so such email in db");
+        require "./pages/default_header.html";
+        die("no such email in db");
+        require "./pages/default_footer.html";
     }
 }else{
     require "./pages/default_header.html";
