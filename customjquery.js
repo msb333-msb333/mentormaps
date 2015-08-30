@@ -5,7 +5,8 @@ function getLatLngFromAddress(address){
       if (status == google.maps.GeocoderStatus.OK) {
         submitLatLng(results[0].geometry.location, address);
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        alert("Google Maps was unable to find the lat/lng for that address");
+        return;
       }
     });
 }
@@ -34,13 +35,15 @@ $("#submitTeamRegistrationForm").click(function(){
     var team_number =  document.getElementById("team-number"    ).value;
     var team_name =    document.getElementById("team-name"      ).value;
     var team_email =   document.getElementById("team-email"     ).value;
+    var rname =   document.getElementById("rname"     ).value;
     
     var address1 =     document.getElementById("address-line-1" ).value;
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var zip = document.getElementById("zip").value;
     
-    var team_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+    var team_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
     
     var team_phone = document.getElementById("team-phone"       ).value;
     var pass1 =      document.getElementById("pass1"            ).value;
@@ -56,8 +59,8 @@ $("#submitTeamRegistrationForm").click(function(){
         alert("you did not fill in a required field");
         return;
     }
-    
-    if(!(pass1==pass2)){
+
+    if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
         return;
     }
@@ -66,6 +69,7 @@ $("#submitTeamRegistrationForm").click(function(){
         type:                               'POST',
         url:                                "./registerteam.php",
         data: {
+            'rname' : rname,
             'team-name':                    team_name,
             'team-email':                   team_email,
             'team-address':                 team_address,
@@ -137,9 +141,10 @@ $("#submitMentorRegistrationForm").click(function(){
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var zip = document.getElementById("zip").value;
     var age      =     document.getElementById("age"            ).value;
     
-    var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+    var mentor_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
@@ -150,7 +155,7 @@ $("#submitMentorRegistrationForm").click(function(){
         return;
     }
     
-    if(!pass1==pass2){
+    if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
         return;
     }

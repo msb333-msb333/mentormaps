@@ -163,22 +163,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Years Mentored" name="age" id="age" placeholder="Years Mentored" />
                                             </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text"  title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="City" name="address-city" id="address-city" placeholder="City" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="State" name="address-state" id="address-state" placeholder="State" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Country" name="address-country" id="address-country" placeholder="Country" />
-                                            </div>
+
+                                            <?php include "./pages/address_form.html"; ?>
+
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" title="Phone Number" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
                                             </div>
-                                            
                                             <div class="3u 12u$(small)">
                                                 <input type="checkbox" id="FLLcheck" name="typeChecks">
                                                 <label for="FLLcheck">FLL</label>
@@ -195,7 +185,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <input type="checkbox" id="VEXcheck" name="typeChecks">
                                                 <label for="VEXcheck">VEX</label>
                                             </div>
-                                            
                                             <div class="6u 12u$(small)">
                                                 <br />
                                             </div>
@@ -230,7 +219,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <!-- Footer -->
                     <footer id="footer">
                         <ul class="copyright">
-                            <li>&copy; Joseph Sirna 2015</li>
+                            <li>&copy; FRC Team 3309, 2015</li>
                         </ul>
                     </footer>
 

@@ -126,6 +126,8 @@ echo '<script>var marker_map = [];</script>';?>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <script>
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
         var map;
         function recenterMap(address){
             var Flat = 0;
@@ -137,11 +139,18 @@ echo '<script>var marker_map = [];</script>';?>
                     Flng = parseFloat(geoLocation.longitude);
                 }
             });
+            if(Flat==0||Flng==0||isNaN(Flat)||isNaN(Flng)){
+                Flat = 0;
+                Flng = 0;
+                alert("error getting lat/lng from geolookup array");
+            }
             map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
         }
         function initialize() {
+            directionsDisplay = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
             centerMap(map, "<?php echo $my_address; ?>");
+            directionsDisplay.setMap(map);
             <?php
                 $allteams = array();
                 foreach($address_array as $address){
@@ -172,6 +181,19 @@ echo '<script>var marker_map = [];</script>';?>
 
                 }
             ?>
+        }
+
+        function calcRoute(start, end) {
+            var request = {
+                origin:start,
+                destination:end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                }
+            });
         }
         
     function centerMap(map, address){
@@ -562,7 +584,7 @@ echo '<script>var marker_map = [];</script>';?>
                     <footer id="footer">
                         <ul class="copyright">
                             <li>
-                                &copy; Joseph Sirna 2015
+                                &copy; FRC Team 3309, 2015
                             </li>
                         </ul>
                     </footer>

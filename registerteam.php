@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $team_phone         = mysql_escape_mimic($_POST['team-phone']);
     $comments           = mysql_escape_mimic($_POST['comments']);
     $team_number        = mysql_escape_mimic($_POST['team-number']);
+    $rname              = mysql_escape_mimic($_POST['rname']);
     
     //sql injection doesn't matter, it's going to be hashed anyway
     $pass1              = $_POST['pass1'];
@@ -26,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
     $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
     $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
+    $rname              = str_replace("<script", "im a dirty little hacker: ", $rname       );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -74,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
 
-    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
+    $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
 
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
 
@@ -89,18 +91,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     </head>
     <body class="landing">
 
@@ -151,29 +153,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" />
                                             </div>
-                                            
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
+                                            <div class="6u 12u$(small)">
+                                                <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" />
                                             </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="City" name="address-city" id="address-city" placeholder="City" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="State" name="address-state" id="address-state" placeholder="State" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Country" name="address-country" id="address-country" placeholder="Country" />
-                                            </div>
+
+                                            <?php include "./pages/address_form.html"; ?>
+
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="checkbox" id="team-age"/>
                                                 <label for="team-age">Rookie Team?</label>
                                             </div>
-                                            &nbsp;
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <br />&nbsp;
                                             </div>
                                             <div class="3u 12u$(small)">
                                                 <input type="radio" id="FLLcheck" name="typeChecks" checked>
@@ -212,11 +203,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             </div>
                         </section>
                     </article>
-
-                <!-- Footer -->
                     <footer id="footer">
                         <ul class="copyright">
-                            <li>&copy; Joseph Sirna 2015</li>
+                            <li>&copy; FRC Team 3309, 2015</li>
                         </ul>
                     </footer>
 

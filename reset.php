@@ -1,5 +1,10 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    require "./pages/default_header.html";
+    ?>
+        <section class="wrapper style4">
+            <div class="inner">
+    <?php
     if(isset($_GET['key'])){
         require "./db.php";
 
@@ -37,16 +42,17 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
             echo '<h1>Reset password for ' . $email . '</h1><br/>'
             ?>
-                type: <input type="text" id="newpass"><br/>
-                retype: <input type="text" id="newpass2"><br/>
+                type: <input type="password" id="newpass"><br/>
+                retype: <input type="password" id="newpass2"><br/>
                 <button onclick="checkAndSubmit();">reset password</button>
             <?php
         }else{
-            die("no email for that key");
+            die("Sorry, no email is associated with that key");
         }
     }else{
-        die("please define a key");
+        die("No key defined<br/>Perhaps you'd like to go back <a href='./index.php'>home</a>?");
     }
+    require "./pages/default_footer.html";
 }else{
     require "./db.php";
     require "./security/salt.php";
