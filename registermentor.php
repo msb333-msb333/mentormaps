@@ -90,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '[]', '[]')");
 
     require "./config.php";
-    sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', file_get_contents('./pages/emailheader.html') . '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>' . file_get_contents('./pages/email_footer.html'));
+    sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', file_get_contents("./pages/account_verify_email.php"));
 
     echo "{\"status\":\"ok\"}";
 }else{
@@ -163,22 +163,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Years Mentored" name="age" id="age" placeholder="Years Mentored" />
                                             </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text"  title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="City" name="address-city" id="address-city" placeholder="City" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="State" name="address-state" id="address-state" placeholder="State" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Country" name="address-country" id="address-country" placeholder="Country" />
-                                            </div>
+
+                                            <?php include "./pages/address_form.html"; ?>
+
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" title="Phone Number" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
                                             </div>
-                                            
                                             <div class="3u 12u$(small)">
                                                 <input type="checkbox" id="FLLcheck" name="typeChecks">
                                                 <label for="FLLcheck">FLL</label>
@@ -195,7 +185,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <input type="checkbox" id="VEXcheck" name="typeChecks">
                                                 <label for="VEXcheck">VEX</label>
                                             </div>
-                                            
                                             <div class="6u 12u$(small)">
                                                 <br />
                                             </div>
