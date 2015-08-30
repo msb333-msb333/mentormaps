@@ -81,7 +81,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
 
     require "./config.php";
-    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', '<a href="'.$SITE_ROOT.'/verify.php?key='.$guid.'">verify</a>');
+    require "./pages/account_verify_email.php";
+    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', echoEmail($guid, $SITE_ROOT));
 
     echo "{\"status\":\"ok\"}";
 }else{
