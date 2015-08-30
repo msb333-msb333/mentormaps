@@ -156,28 +156,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" />
                                             </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="City" name="address-city" id="address-city" placeholder="City" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="State" name="address-state" id="address-state" placeholder="State" />
-                                            </div>
-                                            <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Country" name="address-country" id="address-country" placeholder="Country" />
-                                            </div>
+
+                                            <?php include "./pages/address_form.html"; ?>
+
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="checkbox" id="team-age"/>
                                                 <label for="team-age">Rookie Team?</label>
                                             </div>
-                                            &nbsp;
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
-                                            </div>
-                                            <div class="6u 12u$(small)">
-                                                <br />&nbsp;
                                             </div>
                                             <div class="3u 12u$(small)">
                                                 <input type="radio" id="FLLcheck" name="typeChecks" checked>
