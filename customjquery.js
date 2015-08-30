@@ -34,6 +34,7 @@ $("#submitTeamRegistrationForm").click(function(){
     var team_number =  document.getElementById("team-number"    ).value;
     var team_name =    document.getElementById("team-name"      ).value;
     var team_email =   document.getElementById("team-email"     ).value;
+    var rname =   document.getElementById("rname"     ).value;
     
     var address1 =     document.getElementById("address-line-1" ).value;
     var address2 =     document.getElementById("address-city"   ).value;
@@ -66,6 +67,7 @@ $("#submitTeamRegistrationForm").click(function(){
         type:                               'POST',
         url:                                "./registerteam.php",
         data: {
+            'rname' : rname,
             'team-name':                    team_name,
             'team-email':                   team_email,
             'team-address':                 team_address,

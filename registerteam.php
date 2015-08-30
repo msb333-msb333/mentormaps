@@ -153,7 +153,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" />
                                             </div>
-                                            
+                                            <div class="6u 12u$(small)">
+                                                <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" />
+                                            </div>
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" title="Address" name="address-line-1" id="address-line-1" placeholder="Address" />
                                             </div>
