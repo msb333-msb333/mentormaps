@@ -92,7 +92,7 @@ if(isset($_GET['p'])){
                                 </tr>
                                 <script>
                                     $.each(interested_in, function(key, value){
-                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                 </script>
                             </table>
@@ -105,7 +105,7 @@ if(isset($_GET['p'])){
             <footer id="footer">
                 <ul class="copyright">
                     <li>
-                        &copy; Joseph Sirna 2015
+                        &copy; FRC Team 3309, 2015
                     </li>
                 </ul>
             </footer>

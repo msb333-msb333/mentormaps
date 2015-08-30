@@ -584,7 +584,7 @@ echo '<script>var marker_map = [];</script>';?>
                     <footer id="footer">
                         <ul class="copyright">
                             <li>
-                                &copy; Joseph Sirna 2015
+                                &copy; FRC Team 3309, 2015
                             </li>
                         </ul>
                     </footer>
