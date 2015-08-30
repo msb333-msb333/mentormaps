@@ -126,6 +126,8 @@ echo '<script>var marker_map = [];</script>';?>
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <script>
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
         var map;
         function recenterMap(address){
             var Flat = 0;
@@ -145,8 +147,10 @@ echo '<script>var marker_map = [];</script>';?>
             map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
         }
         function initialize() {
+            directionsDisplay = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
             centerMap(map, "<?php echo $my_address; ?>");
+            directionsDisplay.setMap(map);
             <?php
                 $allteams = array();
                 foreach($address_array as $address){
@@ -177,6 +181,19 @@ echo '<script>var marker_map = [];</script>';?>
 
                 }
             ?>
+        }
+
+        function calcRoute(start, end) {
+            var request = {
+                origin:start,
+                destination:end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                }
+            });
         }
         
     function centerMap(map, address){
