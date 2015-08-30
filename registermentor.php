@@ -169,9 +169,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" title="Phone Number" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
                                             </div>
-                                            <div class="6u 12u$(small)">
-                                                <br />&nbsp;
-                                            </div>
                                             <div class="3u 12u$(small)">
                                                 <input type="checkbox" id="FLLcheck" name="typeChecks">
                                                 <label for="FLLcheck">FLL</label>

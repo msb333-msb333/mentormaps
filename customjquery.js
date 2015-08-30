@@ -40,8 +40,9 @@ $("#submitTeamRegistrationForm").click(function(){
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var zip = document.getElementById("zip").value;
     
-    var team_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+    var team_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
     
     var team_phone = document.getElementById("team-phone"       ).value;
     var pass1 =      document.getElementById("pass1"            ).value;
@@ -139,9 +140,10 @@ $("#submitMentorRegistrationForm").click(function(){
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
+    var zip = document.getElementById("zip").value;
     var age      =     document.getElementById("age"            ).value;
     
-    var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+    var mentor_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
