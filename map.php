@@ -137,6 +137,11 @@ echo '<script>var marker_map = [];</script>';?>
                     Flng = parseFloat(geoLocation.longitude);
                 }
             });
+            if(Flat==0||Flng==0||isNaN(Flat)||isNaN(Flng)){
+                Flat = 0;
+                Flng = 0;
+                alert("error getting lat/lng from geolookup array");
+            }
             map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
         }
         function initialize() {
