@@ -5,7 +5,8 @@ function getLatLngFromAddress(address){
       if (status == google.maps.GeocoderStatus.OK) {
         submitLatLng(results[0].geometry.location, address);
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        alert("Google Maps was unable to find the lat/lng for that address");
+        return;
       }
     });
 }
@@ -58,8 +59,8 @@ $("#submitTeamRegistrationForm").click(function(){
         alert("you did not fill in a required field");
         return;
     }
-    
-    if(!(pass1==pass2)){
+
+    if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
         return;
     }
@@ -154,7 +155,7 @@ $("#submitMentorRegistrationForm").click(function(){
         return;
     }
     
-    if(!pass1==pass2){
+    if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
         return;
     }
