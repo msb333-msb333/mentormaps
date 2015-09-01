@@ -75,7 +75,7 @@
 
 <footer id="footer">
     <ul class="copyright">
-        <li>&copy; Joseph Sirna 2015</li>
+        <li>&copy; FRC Team 3309, 2015</li>
     </ul>
 </footer>
 </div>
