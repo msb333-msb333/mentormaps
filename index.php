@@ -135,11 +135,11 @@
                                     <p> - <i>Evan Smith, Lead Mentor for Team 3309 "The Friarbots"</i></p>
                                 </li>
                                 <li>
-                                    <h3>"...Every single student needs someone who they can look up too and work with to build a great foundation for themselves and, as mentors, we provide that opportunity for them..."</h3>
+                                    <h3>"...Every single student needs someone who they can look up to and work with to build a great foundation for themselves and, as mentors, we provide that opportunity for them..."</h3>
                                     <p> - <i>Pauline Tasci, Mentor and Student Alum of Team 3476 "Code Orange"</i></p>
                                 </li>
                                 <li>
-                                    <h3><br>"Mentors create a spark of knowledge in a student to see their ideas transformed into reality… very uplifting"</h3>
+                                    <h3><br>"Mentors create a spark of knowledge in a student to see their ideas transformed into reality."</h3>
                                     <p> - <i>Paul Capparelli, Four-year FLL Lead Coach</i></p>
                                 </li>
                             </ul>
