@@ -64,12 +64,14 @@ while($r=mysqli_fetch_assoc($result)){
     }
 }
 
+if(!in_array($_SESSION['email'], $verif_data)){
+    echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
+}
+
 //populate an array with the entire database's contents so they can be accessed in javascript
 $result=$db->query("SELECT * FROM `data`;");
 $all_data = array();
-var_dump($verif_data);
 while($r=mysqli_fetch_assoc($result)){
-
         $current = array(
                         'name'          => $r['NAME'],
                         'skills_json'   => $r['SKILLS_JSON'],
