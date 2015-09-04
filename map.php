@@ -52,23 +52,38 @@ $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
 }
+
+$verif_data = array();
+$result=$db->query("SELECT * FROM `logins`");
+while($r=mysqli_fetch_assoc($result)){
+    if($r['VERIFIED']=='true'){
+        echo '<!--' . $r['EMAIL'] . ' is verified-->';
+        array_push($verif_data, $r['EMAIL']);
+    }else{
+        echo '<!--' . $r['EMAIL'] . ' is not verified-->';
+    }
+}
+
 //populate an array with the entire database's contents so they can be accessed in javascript
 $result=$db->query("SELECT * FROM `data`;");
 $all_data = array();
+var_dump($verif_data);
 while($r=mysqli_fetch_assoc($result)){
-    $current = array(
-    'name' => $r['NAME'],
-    'skills_json' => $r['SKILLS_JSON'],
-    'team_number' => $r['TEAM_NUMBER'],
-    'comments' => $r['COMMENTS'],
-    'phone' => $r['PHONE'],
-    'email' => $r['EMAIL'],
-    'address' => $r['ADDRESS'],
-    'type' => $r['TYPE'],
-    'age' => $r['AGE'],
-    'account_type' => $r['ACCOUNT_TYPE'],
-    );
-    array_push($all_data, $current);
+
+        $current = array(
+                        'name'          => $r['NAME'],
+                        'skills_json'   => $r['SKILLS_JSON'],
+                        'team_number'   => $r['TEAM_NUMBER'],
+                        'comments'      => $r['COMMENTS'],
+                        'phone'         => $r['PHONE'],
+                        'email'         => $r['EMAIL'],
+                        'address'       => $r['ADDRESS'],
+                        'type'          => $r['TYPE'],
+                        'age'           => $r['AGE'],
+                        'account_type'  => $r['ACCOUNT_TYPE'],
+                        );
+        if(in_array($current['email'], $verif_data))
+            array_push($all_data, $current);
 }
 
 $geoLookup = array();
@@ -177,7 +192,8 @@ echo '<script>var marker_map = [];</script>';?>
                                                 utf8_converter($a)
                                                 );
                     }
-                    echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
+                    if(in_array($a['email'], $verif_data))
+                        echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
 
                 }
             ?>
