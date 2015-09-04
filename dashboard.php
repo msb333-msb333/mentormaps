@@ -8,11 +8,15 @@ if(isset($_GET['p'])){
 
     $sql = "SELECT * FROM `assoc` WHERE email = '$user';";
     $result = $db->query($sql);
-    $interested_in = '[]';
-    $interested_in_me = '[]';
-    while($r=mysqli_fetch_assoc($result)){
-        $interested_in = $r['interested-in'];
-        $interested_in_me = $r['interested-in-me'];
+    $interested_in      = '[]';
+    $interested_in_me   = '[]';
+    if($result){
+        while($r=mysqli_fetch_assoc($result)){
+            $interested_in      = $r['interested-in'];
+            $interested_in_me   = $r['interested-in-me'];
+        }
+    }else{
+        //invalid query
     }
 }else{
     echo "<meta http-equiv=\"refresh\" content=\"0;URL=./dashboard.php?p=".$_SESSION['email']."\">";
