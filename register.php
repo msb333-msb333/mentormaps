@@ -67,7 +67,7 @@
                 Register as a Team
             </h4>
             <p>
-                Registering as a team with Mentor Maps allows an organization to connect with many local and experienced mentors.  Simply fill out the form with your needs and contact information and wait as your team will be connected with mentors in your area.
+                Registering as a team with Mentor Maps allows an organization to connect with many local and experienced mentors.  Simply fill out the form with your needs and contact information and watch as your team will be connected with mentors in your area.
             </p>
         </div>
     </section>
