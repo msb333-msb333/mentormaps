@@ -1,3 +1,4 @@
+<?php function echoResetPasswordEmail($key, $SITE_ROOT){ return '
 <html>
 	<head>
 		<style>
@@ -16,7 +17,7 @@
 				float: left;
 			}
 			h1, p{
-				font-family: 'OpenSans', sans-serif;
+				font-family: \'OpenSans\', sans-serif;
 			}
 			h1{
 				font-size: 24px;
@@ -44,7 +45,7 @@
 		</div>
 		<div id="body">
 			<h1>Your account has submitted a password request.</h1>
-			<p>To reset your password, click this <?php echo '<a href="'.$SITE_ROOT.'reset.php?key='.$key.'">link.</a>';?></p>
+			<p>To reset your password, click this <?php echo \'<a href="'.$SITE_ROOT.'reset.php?key='.$key.'">link.</a>\';?></p>
 			<p>
 				<br/>
 				From,<br/>
@@ -52,7 +53,7 @@
 				Team 3309
 				<br/>
 				<br/>
-				<a href='http://www.team3309.org'>Team 3309 Website</a> | <a href='https://www.facebook.com/friarbots'>Team 3309 Facebook Page</a>
+				<a href=\'http://www.team3309.org\'>Team 3309 Website</a> | <a href=\'https://www.facebook.com/friarbots\'>Team 3309 Facebook Page</a>
 			</p>
 		</div>
 			
@@ -60,4 +61,4 @@
 			<img src="<?php echo $SITE_ROOT; ?>/images/mentorfooter.jpg"/>
 		</div>
 	</div>
-</html>
+</html>'; } ?>

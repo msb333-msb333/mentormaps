@@ -46,7 +46,7 @@
 		<div id="body">
 			<h1>Welcome to MentorMaps</h1>
 			<p>All you need to do now is verify your account. Just click this 
-			<a href="'.$SITE_ROOT.'reset.php?key='.$guid.'">link</a> to be redirected.</p>
+			<a href="'.$SITE_ROOT.'verify.php?key='.$guid.'">link</a> to be redirected.</p>
 			<br/>
 			<p>Thanks for making an account!</p>
 			<p>
