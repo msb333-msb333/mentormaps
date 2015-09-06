@@ -206,7 +206,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             ?>
 
                                             <div class="12u$">
-                                                <textarea name="bio" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
+                                                <textarea name="bio" maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
                                                 <button id="submitMentorRegistrationForm" class="button special">Become a Mentor</button>

@@ -226,7 +226,7 @@
                 
                 <div class="6u 12u$(small)">
                 Comments
-                    <input id="comments" name="COMMENTS" type="text" placeholder="comments" value="<?php echo $comments; ?>"/>
+                    <input id="comments" name="COMMENTS"  maxlength="200" type="text" placeholder="comments" value="<?php echo $comments; ?>"/>
                 </div>
                 <br />
                 
