@@ -45,7 +45,7 @@
 		</div>
 		<div id="body">
 			<h1>Your account has submitted a password request.</h1>
-			<p>To reset your password, click this <?php echo \'<a href="'.$SITE_ROOT.'reset.php?key='.$key.'">link.</a>\';?></p>
+			<p>To reset your password, click this <a href="'.$SITE_ROOT.'reset.php?key='.$key.'">link.</a></p>
 			<p>
 				<br/>
 				From,<br/>

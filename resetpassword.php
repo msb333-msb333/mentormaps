@@ -22,14 +22,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }else{
     require "./pages/default_header.html";
     ?>
-            <article id="main">
-                        <header>
-                            <h2>
-                        <a href="index.php">Reset Password</a>
-                    </h2>
-                        </header>
-                <section class="wrapper style5">
-                    <div class="inner">
     
     <form method="post">
         Email: <input type="text" name="email" /><br/>
