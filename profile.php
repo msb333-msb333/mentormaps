@@ -89,11 +89,11 @@
                             </ul>
                         </nav>
                     </header>
-    <script>
-        if (!Array.prototype.indexOf){
-            Array.prototype.indexOf = function(searchElement /*, fromIndex */){
-                "use strict";
-                if (this === void 0 || this === null)
+                <script>
+                    if (!Array.prototype.indexOf){
+                        Array.prototype.indexOf = function(searchElement /*, fromIndex */){
+                            "use strict";
+                            if (this === void 0 || this === null)
                     throw new TypeError();
                 var t = Object(this);
                 var len = t.length >>> 0;
@@ -208,7 +208,9 @@
                         </div>
                         <div id="age-div">
                             <b style="color:#19D1AC;">
-                                Age: 
+                                <?php if($account_type=="MENTORMAPS"){
+                                    echo 'Years of';
+                                } ?> Experience: 
                             </b>
                             <?php echo $age; ?>
                         </div>
