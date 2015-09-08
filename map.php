@@ -320,11 +320,7 @@ echo '<script>var marker_map = [];</script>';?>
             if(typedata['pref_vex']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
-            document.getElementById("phone-container").innerHTML = "<b><u>Phone:<br /></u></b>" + teamdata['phone'];
-            document.getElementById("email-container").innerHTML = "<b><u>Email:<br /></u></b>" + teamdata['email'];
-            document.getElementById("address-container").innerHTML = "<b><u>Location:<br /></u></b>" + teamdata['address'];
-            document.getElementById("comments-container").innerHTML = "<b><u>Comments:<br /></u></b>" + teamdata['comments'];
-            document.getElementById("team-info-label").innerHTML = 'Team Info: <a href="./profile.php?p='+teamdata['email']+'"><img src="img/ic_open_in_new_white_48dp_2x.png" width="32px" height="32px" /></a>';
+            document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;">Team Info: </div><a href="./profile.php?p='+teamdata['email']+'" target="_blank"><img src="img/ic_open_in_new_white_48dp_2x.png" width="24px" height="24px" /></a>';
             
             var searchingFor = "";
             var ssjson = $.parseJSON(teamdata['searching_skills_json']);
@@ -576,30 +572,17 @@ echo '<script>var marker_map = [];</script>';?>
                         <div style="white-space:nowrap;">
                             <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
                                 <section id="team-info-section">
-                                    <div class="6u 6u$(small)">
-                                        <b>
-                                            <div id="team-info-label" style="font-size:35px;">
-                                                Team Info
-                                            </div>
-                                        </b>
-                                    </div>
+                                    <div id="team-info-label"></div>
                                     <div class="row uniform">
                                         <div class="12u 12u$(small)" id="img-container"></div>
-                                        <div class="6u 3u$(small)" id="name-container"></div>
-                                        <div class="6u 3u$(small)" id="address-container"></div>
-                                        <div class="6u 3u$(small)" id="searching-skills-container"></div>
-                                        <div class="6u 3u$(small)" style="width:30%;overflow:hidden;" id="comments-container"></div>
-                                        <div class="6u 3u$(small)" id="phone-container"></div>
-                                        <div class="6u 3u$(small)" id="email-container"></div>
                                     </div>
                                 </section>
                             </div>
                         </div>
-                        <div>
-                            <button onclick="window.location = './survey.php';">
-                                Take Our Survey
-                            </button>
-                        </div>
+                        <br/>
+                        <button onclick="window.location = './survey.php';">
+                            Take Our Survey
+                        </button>
                     </article>
                     <footer id="footer">
                         <ul class="copyright">
