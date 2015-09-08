@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         if(yf!=true){
             recFriend = false;
         }
-        var why                 = document.getElementById("why").value;
+        var why                 = $("#why").val();
         var recFeatures         = document.getElementById("recFeaturesField").value;
         var dislikedFeatures    = document.getElementById("dislikedFeaturesField").value;
         var toAddFeatures       = document.getElementById("toAddFeaturesField").value;
@@ -87,7 +87,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     }
 
     $(function() {
-        $( "#slider" ).slider({
+        $("#slider").slider({
             min: 1,
             max: 10,
             change: function(event, ui){
@@ -230,7 +230,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     $recFeatures            = str_replace("<script", "im a dirty little hacker: ", $recFeatures     );
     $toAddFeatures          = str_replace("<script", "im a dirty little hacker: ", $toAddFeatures   );
     $dislikedFeatures       = str_replace("<script", "im a dirty little hacker: ", $dislikedFeatures);
-    $why                    = str_replace("<script", "im a dirty little hacker: ", $Why             );
+    $why                    = str_replace("<script", "im a dirty little hacker: ", $why             );
 
     if($why==""){
         $why = "NULL";
@@ -238,7 +238,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
     //add the result as a new row
     $sql = "INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
-    file_put_contents("./query.txt", $sql);
     $db->query($sql);
     echo '{"status":"queried successfully"}';
 }
