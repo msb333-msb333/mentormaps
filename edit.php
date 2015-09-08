@@ -1,32 +1,33 @@
 <?php
     function showEditPage(){
         require "./db.php";
-        require "./logincheck.php";
-        checkIfUserLoggedIn($_GET['p']);
-        $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
-        $name = "";
-        $skills_json = "";
-        $team_number = "";
-        $comments = "";
-        $phone = "";
-        $email = "";
-        $address = "";
-        $type = "";
-        $age = "";
-        $account_type = "";
-        while($i=mysqli_fetch_assoc($result)){
-            $name = $i['NAME'];
-            $skills_json = $i['SKILLS_JSON'];
-            $team_number = $i['TEAM_NUMBER'];
-            $comments = $i['COMMENTS'];
-            $phone = $i['PHONE'];
-            $email = $i['EMAIL'];
-            $address = $i['ADDRESS'];
-            $type = $i['TYPE'];
-            $age = $i['AGE'];
-            $account_type = $i['ACCOUNT_TYPE'];
+        if(isset($_GET['p'])){
+            checkIfUserLoggedIn($_GET['p']);
+            $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
+            $name = "";
+            $skills_json = "";
+            $team_number = "";
+            $comments = "";
+            $phone = "";
+            $email = "";
+            $address = "";
+            $type = "";
+            $age = "";
+            $account_type = "";
+            while($i=mysqli_fetch_assoc($result)){
+                $name = $i['NAME'];
+                $skills_json = $i['SKILLS_JSON'];
+                $team_number = $i['TEAM_NUMBER'];
+                $comments = $i['COMMENTS'];
+                $phone = $i['PHONE'];
+                $email = $i['EMAIL'];
+                $address = $i['ADDRESS'];
+                $type = $i['TYPE'];
+                $age = $i['AGE'];
+                $account_type = $i['ACCOUNT_TYPE'];
+            }
         }
-        ?>
+?>
 <html>
     <head>
         <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
@@ -92,11 +93,11 @@
         }
         
             function submit(){
-                var team_number =  document.getElementById("team_number").value;
-                var name =    document.getElementById("name").value;
+                var team_number = document.getElementById("team_number").value;
+                var name = document.getElementById("name").value;
                 var address = document.getElementById("address").value;
                 var phone = document.getElementById("phone").value;
-                var age =    document.getElementById("age").value;
+                var age = document.getElementById("age").value;
 
                 //add new address entry if it changed
                 if(!(address=='<?php echo $address; ?>')){
@@ -183,13 +184,13 @@
             <section class="wrapper style5" style="padding-left:10%;">
                 <div class="6u 12u$(small)">
                 Name
-                    <input id="name" name="NAME"type="text" placeholder="name" value="<?php echo $name; ?>"/>
+                    <input id="name" name="NAME"type="text" placeholder="name" value="<?php if(isset($name))echo $name;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Email
-                    <input id="readonly1" type="text" value="<?php echo $email; ?>" readonly>
+                    <input id="readonly1" type="text" value="<?php if(isset($email))echo $email;else echo 'loading...'; ?>" readonly>
                     <div id="notice1" style="color:red;display:none;">Not editable</div>
                 </div>
                 <br />
@@ -221,25 +222,25 @@
                 
                 <div class="6u 12u$(small)">
                 Team Number
-                    <input id="team_number" name="TEAM_NUMBER" type="text" placeholder="team_number" value="<?php echo $team_number; ?>"/>
+                    <input id="team_number" name="TEAM_NUMBER" type="text" placeholder="team_number" value="<?php if(isset($team_number))echo $team_number;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Comments
-                    <input id="comments" name="COMMENTS"  maxlength="200" type="text" placeholder="comments" value="<?php echo $comments; ?>"/>
+                    <input id="comments" name="COMMENTS"  maxlength="200" type="text" placeholder="comments" value="<?php if(isset($comments))echo $comments;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Phone
-                    <input id="phone" name="PHONE" type="text" placeholder="phone" value="<?php echo $phone; ?>"/>
+                    <input id="phone" name="PHONE" type="text" placeholder="phone" value="<?php if(isset($phone))echo $phone;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Address
-                    <input id="address" name="ADDRESS" type="text" placeholder="address" value="<?php echo $address; ?>"/>
+                    <input id="address" name="ADDRESS" type="text" placeholder="address" value="<?php if(isset($address))echo $address;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
 
@@ -254,7 +255,7 @@
                 <?php if($account_type=="MENTOR"){
                     echo 'Years of ';
                 } ?>Experience
-                    <input id="age" name="AGE" type="text" placeholder="age" value="<?php echo $age; ?>"/>
+                    <input id="age" name="AGE" type="text" placeholder="age" value="<?php if(isset($age))echo $age;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 <div class="6u 12u$(small)">
@@ -286,10 +287,8 @@
         </article>
         <?php
     }
-    
+    require "./logincheck.php";
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
-        require "./logincheck.php";
-        require "./db.php";
         checkIfUserLoggedIn($_POST['userToUpdate']);
         $session_email = $_SESSION['email'];
         
@@ -356,8 +355,6 @@
         
     }else{//display edit page
         if(!isset($_GET['p'])){
-            require "./sessioncheck.php";
-            require "./logincheck.php";
             echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
         }
         showEditPage();

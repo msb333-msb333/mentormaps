@@ -1,7 +1,7 @@
 <?php
+require "./logincheck.php";
     if(isset($_GET['p'])){
         $refurl = "./profile.php?p=" . $_GET['p'];
-        require "./logincheck.php";
         require "./db.php";
         
         $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
@@ -342,7 +342,6 @@
     </article>
 <?php
     }else{
-        require "./logincheck.php";
         echo '<meta http-equiv="refresh" content="0;URL=./profile.php?p='.$_SESSION['email'].'">';
     }
 ?>
