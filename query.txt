@@ -1,0 +1,1 @@
+INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('NULL', 'joseph.sirna@gmail.com', 'false', '', '', '');

@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

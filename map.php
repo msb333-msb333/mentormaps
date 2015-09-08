@@ -123,6 +123,7 @@ echo '<script>var marker_map = [];</script>';?>
                 height:100%;
             }
         </style>
+        <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
         <title>
             Mentor Maps
         </title>

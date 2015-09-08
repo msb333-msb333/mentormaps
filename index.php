@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
         <title>
             Mentor Maps
         </title>
