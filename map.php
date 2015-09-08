@@ -57,10 +57,7 @@ $verif_data = array();
 $result=$db->query("SELECT * FROM `logins`");
 while($r=mysqli_fetch_assoc($result)){
     if($r['VERIFIED']=='true'){
-        echo '<!--' . $r['EMAIL'] . ' is verified-->';
         array_push($verif_data, $r['EMAIL']);
-    }else{
-        echo '<!--' . $r['EMAIL'] . ' is not verified-->';
     }
 }
 
