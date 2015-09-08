@@ -237,25 +237,22 @@
                 <br />
                 
                 <div class="6u 12u$(small)">
-                Email
-                    <input id="email" name="EMAIL" type="text" placeholder="email" value="<?php echo $email; ?>"/>
-                </div>
-                <br />
-                
-                <div class="6u 12u$(small)">
                 Address
                     <input id="address" name="ADDRESS" type="text" placeholder="address" value="<?php echo $address; ?>"/>
                 </div>
                 <br />
-                
+
+                <!--todo maybe
                 <div class="6u 12u$(small)">
-                Type
-                    <!--<input id="type" name="TYPE" type="text" placeholder="type" value="<?php echo 'type_here'; ?>" readonly/>-->
+                    Type
+                    <input id="type" name="TYPE" type="text" placeholder="type" value="<?php echo 'type_here'; ?>" readonly/>
                 </div>
-                <br />
+                <br />-->
                 
                 <div class="6u 12u$(small)">
-                Age
+                <?php if($account_type=="MENTOR"){
+                    echo 'Years of ';
+                } ?>Experience
                     <input id="age" name="AGE" type="text" placeholder="age" value="<?php echo $age; ?>"/>
                 </div>
                 <br />
