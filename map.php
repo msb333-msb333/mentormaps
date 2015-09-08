@@ -189,7 +189,8 @@ echo '<script>var marker_map = [];</script>';?>
                                     'type'                  => $r['TYPE'        ],
                                     'account_type'          => $r['ACCOUNT_TYPE']
                                     );
-                        array_push($allteams, $a);
+                        if(in_array($a['email'], $verif_data))
+                            array_push($allteams, $a);
                         $teamjson = json_encode(
                                                 utf8_converter($a)
                                                 );
