@@ -211,6 +211,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="12u$">
                                                 <button id="submitMentorRegistrationForm" class="button special">Become a Mentor</button>
                                             </div>
+                                            <div class="12u$">
+                                                <input type="checkbox" id="EulaAgreement"></input>
+                                                <label for="EulaAgreement">I agree to the <a target="_blank" href="./tos.php">terms of service</a></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </section>
