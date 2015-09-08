@@ -10,6 +10,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query($sql);
     echo '{"status":"queried successfully"}';
 }else{
-    die("post");
+    die("not post");
 }
 ?>

@@ -30,8 +30,20 @@ function submitLatLng(pos, address){
     });
 }
 
+function checkEULA(){
+    if(!($('#EulaAgreement').is(':checked'))){
+        alert("You must agree to the EULA");
+        return false;
+    }else{
+        return true;
+    }
+}
+
 //dispatches async ajax request to submit team data, request is handled in a php if/else statement in the corresponding dispatch page
 $("#submitTeamRegistrationForm").click(function(){
+    if(!(checkEULA())){
+        return;
+    }
     var team_number =  document.getElementById("team-number"    ).value;
     var team_name =    document.getElementById("team-name"      ).value;
     var team_email =   document.getElementById("team-email"     ).value;
@@ -133,6 +145,9 @@ $("#submitTeamRegistrationForm").click(function(){
 });
 
 $("#submitMentorRegistrationForm").click(function(){
+    if(!(checkEULA())){
+        return;
+    }
     var team_number =  document.getElementById("team-number"    ).value;
     var mentor_name =  document.getElementById("mentor-name"    ).value;
     var mentor_email = document.getElementById("mentor-email"   ).value;

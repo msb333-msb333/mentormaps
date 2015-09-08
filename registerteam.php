@@ -196,6 +196,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <textarea name="comments" maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
+                                                <input type="checkbox" id="EulaAgreement"></input>
+                                                <label for="EulaAgreement">I agree to the <a target="_blank" href="./tos.php">terms of service</a> and certify that I am of 18 years of age or older</label>
+                                            </div>
+                                            <div class="12u$">
                                                 <button id="submitTeamRegistrationForm" class="button special">Become a Team</button>
                                             </div>
                                         </div>
