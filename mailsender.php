@@ -1,6 +1,7 @@
 <?php
     require("./vendor/autoload.php");
 
+    //function that simplifies the sendgrid api
     function sendEmail($sendgrid_api_key, $to, $subject, $html){
         $sendgrid = new SendGrid($sendgrid_api_key);
         $email    = new SendGrid\Email();

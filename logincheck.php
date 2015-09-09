@@ -2,9 +2,7 @@
 require "./sessioncheck.php";
 
 function checkIfUserLoggedIn($userToCheck){
-    if($userToCheck == $_SESSION['email']){
-        //do nothing
-    }else{
+    if(!($userToCheck == $_SESSION['email'])){
         die("wrong user logged in");
     }
 }

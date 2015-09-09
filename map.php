@@ -257,6 +257,7 @@ echo '<script>var marker_map = [];</script>';?>
                 iconurl = 'img/orange.png';
             }
         }else{
+            //the does1 variable checks whether the account is affiliated with more than one type (FRC & FTC, VEX & FRC, etc)
             var does1 = false;
             if(typedata['pref_ftc']=='true'){
                 does1 = true;
