@@ -3,6 +3,7 @@
         require "./db.php";
         if(isset($_GET['p'])){
             checkIfUserLoggedIn($_GET['p']);
+            //get all info from the db
             $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
             $name = "";
             $skills_json = "";

@@ -6,6 +6,7 @@ if(isset($_GET['p'])){
     $user = $_GET['p'];
     checkIfUserLoggedIn($user);
 
+    //get all information from the db about the specified user
     $sql = "SELECT * FROM `assoc` WHERE email = '$user';";
     $result = $db->query($sql);
     $interested_in      = '[]';
@@ -16,6 +17,7 @@ if(isset($_GET['p'])){
             $interested_in_me   = $r['interested-in-me'];
         }
     }else{
+        //TODO handle invalid query error
         //invalid query
     }
 }else{
@@ -85,6 +87,7 @@ if(isset($_GET['p'])){
                                     <th>Who's Interested In Me:</th>
                                 </tr>
                                 <script>
+                                //iterate over every account that is interested in the currently logged in user
                                     $.each(interested_in_me, function(key, value){
                                         document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
@@ -96,6 +99,7 @@ if(isset($_GET['p'])){
                                     <th>Who I'm Interested In:</th>
                                 </tr>
                                 <script>
+                                    //iterate over every account that the currently logged in user is interested in
                                     $.each(interested_in, function(key, value){
                                         document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });

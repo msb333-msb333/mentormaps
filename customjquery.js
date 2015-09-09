@@ -1,3 +1,4 @@
+//submit a geocode request to google once so as to not overload per second limit
 function getLatLngFromAddress(address){
     console.log("address: " + address);
       geocoder = new google.maps.Geocoder();
@@ -11,10 +12,12 @@ function getLatLngFromAddress(address){
     });
 }
 
+//just a semantic function to make the code easier to understand
 function submitAddress(address){
-    var p = getLatLngFromAddress(address);
+    getLatLngFromAddress(address);
 }
 
+//store the latitude and longitude for the given address in the database
 function submitLatLng(pos, address){
     var latitude = pos.lat();
     var longitude = pos.lng();
@@ -30,6 +33,7 @@ function submitLatLng(pos, address){
     });
 }
 
+//verify that the user has checked the EULA agreement checkbox
 function checkEULA(){
     if(!($('#EulaAgreement').is(':checked'))){
         alert("You must agree to the EULA");
@@ -47,13 +51,13 @@ $("#submitTeamRegistrationForm").click(function(){
     var team_number =  document.getElementById("team-number"    ).value;
     var team_name =    document.getElementById("team-name"      ).value;
     var team_email =   document.getElementById("team-email"     ).value;
-    var rname =   document.getElementById("rname"     ).value;
+    var rname =         document.getElementById("rname"         ).value;
     
     var address1 =     document.getElementById("address-line-1" ).value;
     var address2 =     document.getElementById("address-city"   ).value;
     var address3 =     document.getElementById("address-state"  ).value;
     var address4 =     document.getElementById("address-country").value;
-    var zip = document.getElementById("zip").value;
+    var zip =           document.getElementById("zip").value;
     
     var team_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
     
@@ -61,22 +65,27 @@ $("#submitTeamRegistrationForm").click(function(){
     var pass1 =      document.getElementById("pass1"            ).value;
     var pass2 =      document.getElementById("pass2"            ).value;
     var teamage =    document.getElementById("team-age"         ).checked;
+
     if(teamage){
         teamage = "Rookie Team";
     }else{
         teamage = "Experienced Team";
     }
     
+    //checks that the user has filled out all required fields
     if(team_number==""||team_name==""||team_email==""||team_address==", , , "||pass1==""||pass2==""){
         alert("you did not fill in a required field");
         return;
     }
 
+    //checks for mismatched passwords
     if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
         return;
     }
     
+    //submit ajax request to store the data,
+    //  this will probably get replaced with some parse api code at one point
     $.ajax({
         type:                               'POST',
         url:                                "./registerteam.php",
@@ -129,18 +138,21 @@ $("#submitTeamRegistrationForm").click(function(){
             'comments':                     document.getElementById("comments"                    ).value
         },
         success: function(data){
+            //replace the form with a success message
             document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
         },
         error: function(xhr, textStatus, errorThrown) {
+            //TODO make this error-catching system more reliable
             if(errorThrown="SyntaxError: Unexpected token a"){
                 alert("a user already has that email address");
             }else{
+                //display the error if one occured in the form of a js alert
                 alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
                 console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
             }
         }
     });
-    
+    //wrap up by storing the user's address
     submitAddress(team_address);
 });
 
@@ -240,6 +252,7 @@ $("#submitMentorRegistrationForm").click(function(){
     submitAddress(mentor_address);
 });
 
+//brings up the other text box if the other checkbox is checked
 $("#skill-other").change(function(){
      if (this.checked) {
         document.getElementById("other-text-box").style.visibility="visible";
