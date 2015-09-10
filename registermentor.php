@@ -100,9 +100,7 @@
                                                 <br />&nbsp;
                                             </div>
 
-                                            <?php
-                                                include("./pages/skillset_form.html");
-                                            ?>
+                                            <?php include("./pages/skillset_form.html"); ?>
 
                                             <div class="12u$">
                                                 <textarea name="bio" maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
@@ -236,6 +234,10 @@
                     console.log(error);
                 }
             });
+        });
+        $(function(){
+            $("#engineering-types-list").toggle();
+            $("#programming-types-list").toggle();
         });
     </script>
 </html>

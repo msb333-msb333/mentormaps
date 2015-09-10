@@ -1,92 +1,3 @@
-<?php /** register team page & db logic **/
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    header('Content-Type: application/json');
-    require "./db.php";
-    require "./security/salt.php";
-    require "./mailsender.php";
-
-    //prevent sql injection
-    $team_age           = $_POST['team-age'];
-    $team_name          = mysql_escape_mimic($_POST['team-name']);
-    $team_email         = mysql_escape_mimic($_POST['team-email']);
-    $team_address       = mysql_escape_mimic($_POST['team-address']);
-    $team_phone         = mysql_escape_mimic($_POST['team-phone']);
-    $comments           = mysql_escape_mimic($_POST['comments']);
-    $team_number        = mysql_escape_mimic($_POST['team-number']);
-    $rname              = mysql_escape_mimic($_POST['rname']);
-    
-    //sql injection doesn't matter, it's going to be hashed anyway
-    $pass1              = $_POST['pass1'];
-    $pass2              = $_POST['pass2'];
-    
-    //prevent xss
-    $team_age           = str_replace("<script", "im a dirty little hacker: ", $team_age    );
-    $team_name          = str_replace("<script", "im a dirty little hacker: ", $team_name   );
-    $team_email         = str_replace("<script", "im a dirty little hacker: ", $team_email  );
-    $team_address       = str_replace("<script", "im a dirty little hacker: ", $team_address);
-    $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
-    $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
-    $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
-    $rname              = str_replace("<script", "im a dirty little hacker: ", $rname       );
-    
-    $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
-    if($result->num_rows > 0){
-        die("a user already has that email address");
-    }
-
-    $json_encoded_skills = json_encode(
-                                    array(
-                                        'skill-engineering'     => $_POST['skill-engineering'],
-                                        'engineering-desc'      => array(
-                                                                    'engineering-mechanical'    => $_POST['engineering-mechanical'],
-                                                                    'engineering-electrical'    => $_POST['engineering-electrical']
-                                                                    ),
-                                        'skill-programming'     => $_POST['skill-programming'],
-                                        'programming-desc'      => array(
-                                                                        'programming-c'         => $_POST['programming-c'         ],
-                                                                        'programming-java'      => $_POST['programming-java'      ],
-                                                                        'programming-csharp'    => $_POST['programming-csharp'    ],
-                                                                        'programming-python'    => $_POST['programming-python'    ],
-                                                                        'programming-robotc'    => $_POST['programming-robotc'    ],
-                                                                        'programming-labview'   => $_POST['programming-labview'   ],
-                                                                        'programming-easyc'     => $_POST['programming-easyc'     ],
-                                                                        'programming-nxt'       => $_POST['programming-nxt'       ],
-                                                                        'programming-ev3'       => $_POST['programming-ev3'       ]
-                                                                        ),
-                                        'skill-cad'             => $_POST['skill-cad'],
-                                        'skill-strategy'        => $_POST['skill-strategy'],
-                                        'skill-business'        => $_POST['skill-business'],
-                                        'skill-marketing'       => $_POST['skill-marketing'],
-                                        'skill-manufacturing'   => $_POST['skill-manufacturing'],
-                                        'skill-design'          => $_POST['skill-design'],
-                                        'skill-scouting'        => $_POST['skill-scouting'],
-                                        'skill-fundraising'     => $_POST['skill-fundraising'],
-                                        'skill-other'           => $_POST['skill-other'],
-                                        'skill-other-desc'      => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
-                                        ));
-                    
-    $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
-                              'pref_ftc' => $_POST['FTCcheck'],
-                              'pref_frc' => $_POST['FRCcheck'],
-                              'pref_vex' => $_POST['VEXcheck']));
-    
-    $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($team_email));
-    
-    $guid = md5($team_email) . md5($pass_hash);
-
-    $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
-
-    $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
-
-    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
-
-    require "./config.php";
-    require "./pages/account_verify_email.php";
-    sendEmail($sendgrid_api_key, $team_email, 'MentorMaps: Complete Registration', echoEmail($guid, $SITE_ROOT));
-
-    echo "{\"status\":\"ok\"}";
-}else{
-?>
 <html>
     <head>
         <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
@@ -98,20 +9,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
+        <script src="https://parse.com/downloads/javascript/parse-1.6.0.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
@@ -190,9 +98,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <br />&nbsp;
                                             </div>
-                                            <?php
-                                            include("./pages/skillset_form.html");
-                                            ?>
+
+                                            <?php include("./pages/skillset_form.html"); ?>
+
                                             <div class="12u$">
                                                 <textarea name="comments" maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
@@ -214,18 +122,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             <li>&copy; FRC Team 3309, 2015</li>
                         </ul>
                     </footer>
-
             </div>
-
-            <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/js/jquery.scrollex.min.js"></script>
-            <script src="assets/js/jquery.scrolly.min.js"></script>
-            <script src="assets/js/skel.min.js"></script>
-            <script src="assets/js/util.js"></script>
-            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-            <script src="assets/js/main.js"></script>
-            <script src="./customjquery.js"></script>
     </body>
+    <script src="./customjquery.js"></script>
     <script>
         $(function(){
             $("#engineering-types-list").toggle();
