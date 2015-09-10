@@ -1,4 +1,81 @@
+function passworkCheck(pass1, pass2){
+    return (pass1.toString()==pass2.toString());
+}
 
+function createSkillsArray(){
+            var data = {
+                engineering_mechanical:         $("#engineering-mechanical").is(":checked"),
+                engineering_electrical:         $("#engineering-electrical").is(":checked"),
+
+                programming_c:                  $("#programming-c").is(":checked"),
+                programming_java:               $("#programming-java").is(":checked"),
+                programming_csharp:             $("#programming-csharp").is(":checked"),
+                programming_python:             $("#programming-python").is(":checked"),
+                programming_robotc:             $("#programming-robotc").is(":checked"),
+                programming_nxt:                $("#programming-nxt").is(":checked"),
+                programming_labview:            $("#programming-labview").is(":checked"),
+                programming_easyc:              $("#programming-easyc").is(":checked"),
+                programming_ev3:                $("#programming-ev3").is(":checked"),
+
+                cad:                            $("#skill-cad").is(":checked"),
+                design:                         $("#skill-design").is(":checked"),
+                strategy:                       $("#skill-strategy").is(":checked"),
+                scouting:                       $("#skill-scouting").is(":checked"),
+                business:                       $("#skill-business").is(":checked"),
+                fundraising:                    $("#skill-fundraising").is(":checked"),
+                marketing:                      $("#skill-marketing").is(":checked"),
+                other:                          $("#skill-other").is(":checked"),
+                other_desc:                     $("#other-text-box").is(":checked")
+            };
+            return JSON.stringify(data);
+        }
+
+        function createTypeArray(){
+            var data = {
+                frc: $("#FRCcheck").is(":checked"),
+                ftc: $("#FTCcheck").is(":checked"),
+                fll: $("#FLLcheck").is(":checked"),
+                vex: $("#VEXcheck").is(":checked")
+            };
+            return JSON.stringify(data);
+        }
+
+        function createAddress(){
+            var address =   $("#address-line-1").val();
+            var city =      $("#address-city").val();
+            var state =     $("#address-state").val();
+            var zip =       $("#zip").val();
+            var country =   $("#address-country").val();
+            return address + ", " + city + ", " + zip + ", " + state + ", " + country;//TODO don't add commas if the address parts are not set
+        }
+
+        function addUserData(email, accountType, registrantName){
+            var UDClass = Parse.Object.extend("UserData");
+            var ud = new UDClass();
+            
+            var address = createAddress();
+
+            ud.set("email", email);
+            ud.set("skillsJSON", createSkillsArray());
+            ud.set("typeJSON", createTypeArray());
+            ud.set("address", address);
+            ud.set("name", $("#name").val());
+            ud.set("teamNumber", $("#teamNumber").val());
+            ud.set("comments", $("#bio").val());
+            ud.set("phone", $("#phone").val());
+            ud.set("age", $("#age").val());
+            ud.set("accountType", accountType);
+            ud.set("registrantName", registrantName);
+
+            ud.save(null, {
+                success: function(ud){
+                    geocode(address);
+                },
+                error: function(ud, error){
+                    alert('Failed to add user data, error code: ' + error.message);
+                }
+            });
+        }
 
 //verify that the user has checked the EULA agreement checkbox
 function checkEULA(){
@@ -9,119 +86,6 @@ function checkEULA(){
         return true;
     }
 }
-
-//dispatches async ajax request to submit team data, request is handled in a php if/else statement in the corresponding dispatch page
-$("#submitTeamRegistrationForm").click(function(){
-    if(!(checkEULA())){
-        return;
-    }
-    var team_number =  document.getElementById("team-number"    ).value;
-    var team_name =    document.getElementById("team-name"      ).value;
-    var team_email =   document.getElementById("team-email"     ).value;
-    var rname =         document.getElementById("rname"         ).value;
-    
-    var address1 =     document.getElementById("address-line-1" ).value;
-    var address2 =     document.getElementById("address-city"   ).value;
-    var address3 =     document.getElementById("address-state"  ).value;
-    var address4 =     document.getElementById("address-country").value;
-    var zip =           document.getElementById("zip").value;
-    
-    var team_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
-    
-    var team_phone = document.getElementById("team-phone"       ).value;
-    var pass1 =      document.getElementById("pass1"            ).value;
-    var pass2 =      document.getElementById("pass2"            ).value;
-    var teamage =    document.getElementById("team-age"         ).checked;
-
-    if(teamage){
-        teamage = "Rookie Team";
-    }else{
-        teamage = "Experienced Team";
-    }
-    
-    //checks that the user has filled out all required fields
-    if(team_number==""||team_name==""||team_email==""||team_address==", , , "||pass1==""||pass2==""){
-        alert("you did not fill in a required field");
-        return;
-    }
-
-    //checks for mismatched passwords
-    if(!(pass1.toString()==pass2.toString())){
-        alert("passwords do not match");
-        return;
-    }
-    
-    //submit ajax request to store the data,
-    //  this will probably get replaced with some parse api code at one point
-    $.ajax({
-        type:                               'POST',
-        url:                                "./registerteam.php",
-        data: {
-            'rname' : rname,
-            'team-name':                    team_name,
-            'team-email':                   team_email,
-            'team-address':                 team_address,
-            'team-phone':                   team_phone,
-            'pass1':                        pass1,
-            'pass2':                        pass2,
-            'team-number':                  team_number,
-            'team-age' :                    teamage,
-            
-            'FLLcheck':                     document.getElementById("FLLcheck"                    ).checked,
-            'FTCcheck':                     document.getElementById("FTCcheck"                    ).checked,
-            'FRCcheck':                     document.getElementById("FRCcheck"                    ).checked,
-            'VEXcheck':                     document.getElementById("VEXcheck"                    ).checked,
-            
-            'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
-            
-            'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
-            'engineering-electrical' :      document.getElementById("engineering-electrical"      ).checked,
-            
-            'skill-manufacturing':          document.getElementById("skill-manufacturing"         ).checked,
-            
-            'skill-programming':            document.getElementById("skill-programming"           ).checked,
-            
-            'programming-c':                document.getElementById("programming-c"               ).checked,
-            'programming-java':             document.getElementById("programming-java"            ).checked,
-            'programming-csharp':           document.getElementById("programming-csharp"          ).checked,
-            'programming-python':           document.getElementById("programming-python"          ).checked,
-            'programming-robotc':           document.getElementById("programming-robotc"          ).checked,
-            'programming-nxt':              document.getElementById("programming-nxt"             ).checked,
-            'programming-labview':          document.getElementById("programming-labview"         ).checked,
-            'programming-easyc':            document.getElementById("programming-easyc"           ).checked,
-            'programming-ev3':              document.getElementById("programming-ev3"             ).checked,
-            
-            'skill-cad':                    document.getElementById("skill-cad"                   ).checked,
-            
-            'skill-design':                 document.getElementById("skill-design"                ).checked,
-            'skill-strategy':               document.getElementById("skill-strategy"              ).checked,
-            'skill-scouting':               document.getElementById("skill-scouting"              ).checked,
-            'skill-business':               document.getElementById("skill-business"              ).checked,
-            'skill-fundraising':            document.getElementById("skill-fundraising"           ).checked,
-            'skill-marketing':              document.getElementById("skill-marketing"             ).checked,
-            'skill-other':                  document.getElementById("skill-other"                 ).checked,
-            
-            'other-text-box':               document.getElementById("other-text-box"              ).value,
-            'comments':                     document.getElementById("comments"                    ).value
-        },
-        success: function(data){
-            //replace the form with a success message
-            document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            //TODO make this error-catching system more reliable
-            if(errorThrown="SyntaxError: Unexpected token a"){
-                alert("a user already has that email address");
-            }else{
-                //display the error if one occured in the form of a js alert
-                alert("An error occurred: " + xhr.statusText + " : " + errorThrown);
-                console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
-            }
-        }
-    });
-    //wrap up by storing the user's address
-    submitAddress(team_address);
-});
 
 //brings up the other text box if the other checkbox is checked
 $("#skill-other").change(function(){

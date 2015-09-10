@@ -125,7 +125,53 @@
             </div>
     </body>
     <script src="./customjquery.js"></script>
+    <script src="./geocoder.js"></script>
     <script>
+        $("#submitTeamRegistrationForm").click(function(){
+            if(!(checkEULA())){
+                return;
+            }
+            var team_number =  $("#team-number").val();
+            var team_name =    $("#team-name").val();
+            var email =        $("#team-email").val();
+            
+            var team_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
+            
+            var team_phone =   $("#team-phone").val();
+            var pass1 =        $("#pass1").val();
+            var pass2 =        $("#pass2").val();
+ 
+            var teamage = "undefined";
+            if($("#team-age").is(":checked")){
+                teamage = "Rookie Team";
+            }else{
+                teamage = "Experienced Team";
+            }
+
+            //workaround for consistency's sake
+            document.write("<div style='display:none;' id='age'>"+teamage+"</div>");
+            
+            if(!passwordCheck(pass1, pass2)){
+                alert("passwords do not match");
+                return;
+            }
+
+            var user = new Parse.User();
+            user.set("username", email);
+            user.set("email", email);
+            user.set("password", pass1);
+            user.signUp(null, {
+                success: function(user){
+                    addUserData(email, "TEAM", $("#rname").val());
+                },
+                error: function(user, error){
+                    alert("an error occurred; check the console");
+                    console.log(error);
+                }
+            });
+            
+        });
+
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();

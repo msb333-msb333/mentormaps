@@ -132,89 +132,13 @@
     <script src="./geocoder.js"></script>
     <script>
         Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
-
-        function createSkillsArray(){
-            var data = {
-                engineering_mechanical:         $("#engineering-mechanical").is(":checked"),
-                engineering_electrical:         $("#engineering-electrical").is(":checked"),
-
-                programming_c:                  $("#programming-c").is(":checked"),
-                programming_java:               $("#programming-java").is(":checked"),
-                programming_csharp:             $("#programming-csharp").is(":checked"),
-                programming_python:             $("#programming-python").is(":checked"),
-                programming_robotc:             $("#programming-robotc").is(":checked"),
-                programming_nxt:                $("#programming-nxt").is(":checked"),
-                programming_labview:            $("#programming-labview").is(":checked"),
-                programming_easyc:              $("#programming-easyc").is(":checked"),
-                programming_ev3:                $("#programming-ev3").is(":checked"),
-
-                cad:                            $("#skill-cad").is(":checked"),
-                design:                         $("#skill-design").is(":checked"),
-                strategy:                       $("#skill-strategy").is(":checked"),
-                scouting:                       $("#skill-scouting").is(":checked"),
-                business:                       $("#skill-business").is(":checked"),
-                fundraising:                    $("#skill-fundraising").is(":checked"),
-                marketing:                      $("#skill-marketing").is(":checked"),
-                other:                          $("#skill-other").is(":checked"),
-                other_desc:                     $("#other-text-box").is(":checked")
-            };
-            return JSON.stringify(data);
-        }
-
-        function createTypeArray(){
-            var data = {
-                frc: $("#FRCcheck").is(":checked"),
-                ftc: $("#FTCcheck").is(":checked"),
-                fll: $("#FLLcheck").is(":checked"),
-                vex: $("#VEXcheck").is(":checked")
-            };
-            return JSON.stringify(data);
-        }
-
-        function createAddress(){
-            var address =   $("#address-line-1").val();
-            var city =      $("#address-city").val();
-            var state =     $("#address-state").val();
-            var zip =       $("#zip").val();
-            var country =   $("#address-country").val();
-            return address + ", " + city + ", " + zip + ", " + state + ", " + country;//TODO don't add commas if the address parts are not set
-        }
-
-        function addUserData(email){
-            var UDClass = Parse.Object.extend("UserData");
-            var ud = new UDClass();
-            
-            var address = createAddress();
-
-            ud.set("email", email);
-            ud.set("skillsJSON", createSkillsArray());
-            ud.set("typeJSON", createTypeArray());
-            ud.set("address", address);
-            ud.set("name", $("#name").val());
-            ud.set("teamNumber", $("#teamNumber").val());
-            ud.set("comments", $("#bio").val());
-            ud.set("phone", $("#phone").val());
-            ud.set("age", $("#age").val());
-            ud.set("accountType", "MENTOR");
-            ud.set("registrantName", "undefined");
-
-            ud.save(null, {
-                success: function(ud){
-                    geocode(address);
-                },
-                error: function(ud, error){
-                    alert('Failed to add user data, error code: ' + error.message);
-                }
-            });
-        }
-
         
         $("#submitMentorRegistrationForm").click(function(){
             var email = $("#email").val();
             var pass1 = $("#pass1").val();
             var pass2 = $("#pass2").val();
 
-            if(!pass1==pass2){
+            if(!passwordCheck(pass1, pass2)){
                 alert("passwords do not match");
                 return;
             }
@@ -227,7 +151,7 @@
             user.set("password", pass1);
             user.signUp(null, {
                 success: function(user){
-                    addUserData(email);
+                    addUserData(email, "MENTOR", "undefined");
                 },
                 error: function(user, error){
                     alert("an error occurred; check the console");
