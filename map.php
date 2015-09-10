@@ -35,12 +35,49 @@
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
+        <script src="https://parse.com/downloads/javascript/parse-1.6.0.js"></script>
 
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <script>
+    var alldata = [];
+    var geoLookup = [];
+    var allteams = [];
+        Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
+
+        var user = Parse.User.current();
+
+        //check if the user is logged in
+        if(user==null){
+            window.location = "./login.php";
+        }
+
+        console.log(user);
+
+        var UDClass = Parse.Object.extend("UserData");
+        var q = new Parse.Query(UDClass);
+        console.log(user.email);
+        q.equalTo("email", user.email);
+        q.find({
+            success: function(results){
+                console.log("rs1: " + results.length);
+                var me = results[0];
+                var my_address = me.address;
+                var q2 = new Parse.Query(Parse.Object.extend("Locations"));
+                q2.equalTo("Address", my_address);
+                q2.find({
+                    success:function(results){
+                        var mylocation = results[0];
+                        var mylat = mylocation.Latitude;
+                        var mylng = mylocation.Longitude;
+                        console.log(address + " | " + mylat + " | " + mylng);
+                    }
+                });
+            }
+        });
+
         var directionsDisplay;
         var directionsService = new google.maps.DirectionsService();
         var map;
@@ -64,7 +101,7 @@
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
-            centerMap(map, "<?php echo $my_address; ?>");
+            centerMap(map, "1021 N Hensel Dr La Habra CA");
             directionsDisplay.setMap(map);
         }
 
@@ -318,7 +355,7 @@
                                 var me;
                                 for(var i=0;i<alldata.length;i++){
                                     var current_item = alldata[i];
-                                    if(current_item['address'] == '<?php echo $my_address; ?>'){
+                                    if(current_item['address'] == ''){
                                         me = current_item;
                                         break;
                                     }
