@@ -20,4 +20,5 @@ function submitLatLng(pos, address){
   ud.set("Latitude", latitude);
   ud.set("Longitude", longitude);
   ud.save();
+  showSuccessPage();
 }

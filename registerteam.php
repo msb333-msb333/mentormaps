@@ -49,10 +49,10 @@
                                     <div>
                                         <div class="row uniform">
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Team Name" name="team-name" id="team-name" placeholder="Team Name" />
+                                                <input type="text" title="Team Name" id="name" placeholder="Team Name" />
                                             </div>
                                             <div class="6u$ 12u$(xsmall)">
-                                                <input type="email" title="Email" name="team-email" id="team-email" placeholder="Email" />
+                                                <input type="email" title="Email" id="email" placeholder="Email" />
                                             </div>
                                             <div class="6u 12u$(small)">
                                                 <input type="password" title="Password" id="pass1" placeholder="Password" />
@@ -61,10 +61,10 @@
                                                 <input type="password" title="Retype Password" id="pass2" placeholder="Retype Password" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" />
+                                                <input type="text" title="Team Number" id="teamNumber" placeholder="Team Number" />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" />
+                                                <input type="text" title="Contact Person" id="rname" placeholder="Contact Person" />
                                             </div>
 
                                             <?php include "./pages/address_form.html"; ?>
@@ -74,7 +74,7 @@
                                                 <label for="team-age">Rookie Team?</label>
                                             </div>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
+                                                <input type="text" id="phone" placeholder="Phone Number (Optional)" />
                                             </div>
                                             <div class="3u 12u$(small)">
                                                 <input type="radio" id="FLLcheck" name="typeChecks" checked>
@@ -127,6 +127,8 @@
     <script src="./customjquery.js"></script>
     <script src="./geocoder.js"></script>
     <script>
+        Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
+        Parse.User.logOut();
         $("#submitTeamRegistrationForm").click(function(){
             if(!(checkEULA())){
                 return;
@@ -134,8 +136,6 @@
             var team_number =  $("#team-number").val();
             var team_name =    $("#team-name").val();
             var email =        $("#team-email").val();
-            
-            var team_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
             
             var team_phone =   $("#team-phone").val();
             var pass1 =        $("#pass1").val();

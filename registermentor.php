@@ -68,7 +68,7 @@
                                             <?php include "./pages/address_form.html"; ?>
 
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Phone Number" name="phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
+                                                <input type="text" title="Phone Number" id="phone" placeholder="Phone Number (Optional)" />
                                             </div>
                                             <div class="3u 12u$(small)">
                                                 <input type="checkbox" id="FLLcheck" name="typeChecks">
@@ -103,7 +103,7 @@
                                             <?php include("./pages/skillset_form.html"); ?>
 
                                             <div class="12u$">
-                                                <textarea name="bio" maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
+                                                <textarea maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
                                                 <input type="checkbox" id="EulaAgreement"></input>
@@ -132,8 +132,13 @@
     <script src="./geocoder.js"></script>
     <script>
         Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
-        
+        Parse.User.logOut();
+
         $("#submitMentorRegistrationForm").click(function(){
+            if(!(checkEULA())){
+                return;
+            }
+            
             var email = $("#email").val();
             var pass1 = $("#pass1").val();
             var pass2 = $("#pass2").val();
