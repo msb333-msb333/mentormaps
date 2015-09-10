@@ -1,20 +1,5 @@
-//update the data in parse
-function updateLatLng(geoLocation, address, email){
-  var latitude = geoLocation.lat();
-  var longitude = geoLocaiton.lng();
-  var userData = Parse.Object.extend("UserData");
-  userData.save({
-    email: email,
-    address: address,
-    latitude: latitude,
-    longitude: longitude
-  }).then(function(){
-    alert("yay");
-  });
-}
-
 //submit a geocode request to google once so as to not overload per second limit
-function submitLocationForUser(email, address){
+function geocode(address){
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
@@ -24,4 +9,15 @@ function submitLocationForUser(email, address){
         return;
     }
   });
+}
+
+function submitLatLng(pos, address){
+  var latitude = pos.lat();
+  var longitude = pos.lng();
+  var dc = Parse.Object.extend("Locations");
+  var ud = new dc();
+  ud.set("Address", address);
+  ud.set("Latitude", latitude);
+  ud.set("Longitude", longitude);
+  ud.save();
 }

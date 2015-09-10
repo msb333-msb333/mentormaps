@@ -186,10 +186,12 @@
             var UDClass = Parse.Object.extend("UserData");
             var ud = new UDClass();
             
+            var address = createAddress();
+
             ud.set("email", email);
             ud.set("skillsJSON", createSkillsArray());
             ud.set("typeJSON", createTypeArray());
-            ud.set("address", createAddress());
+            ud.set("address", address);
             ud.set("name", $("#name").val());
             ud.set("teamNumber", $("#teamNumber").val());
             ud.set("comments", $("#bio").val());
@@ -200,10 +202,10 @@
 
             ud.save(null, {
                 success: function(ud){
-                    alert("yay, now ready for geocode");
+                    geocode(address);
                 },
                 error: function(ud, error){
-                    alert('Failed to create new object, with error code: ' + error.message);
+                    alert('Failed to add user data, error code: ' + error.message);
                 }
             });
         }
