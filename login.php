@@ -1,40 +1,24 @@
-<?php
-//user must have the php session started
-require "./sessioncheck.php";
-
-//enable referral url to redirect to the previous page once logged in
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    if(!isset($refurl)){
-        $refurl="./map.php";//default referral url
-    }else{
-        $refurl = $_GET['refurl'];
-    }
-?>
 <html>
     <head>
         <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
@@ -57,7 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                             <div class="inner">
                                 <section>
                                     <h4>Login</h4>
-                                    <form method="post">
                                         <div class="row uniform">
                                             <div class="6u 12u$(small)">
                                                 <input type="text" name="username" id="username-field" placeholder="email" />
@@ -76,67 +59,40 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                                                 <br />
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="hidden" value="<?php echo $refurl; ?>" name="refurl" />
-                                                <input type="submit" value="login" class="button special" id="submit-button"/>
+                                                <button class="button special" id="login-button">login</button>
                                             </div>
                                         </div>
-                                    </form>
                                 </section>
                             </div>
                         </section>
                     </article>
-
-                <!-- Footer -->
                     <footer id="footer">
                         <ul class="copyright">
                             <li>&copy; FRC Team 3309, 2015</li>
                         </ul>
                     </footer>
-
             </div>
-
-        <!-- Scripts -->
-            <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/js/jquery.scrollex.min.js"></script>
-            <script src="assets/js/jquery.scrolly.min.js"></script>
-            <script src="assets/js/skel.min.js"></script>
-            <script src="assets/js/util.js"></script>
-            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-            <script src="assets/js/main.js"></script>
-            <script src="./customjquery.js"></script>
-            
-            <?php
-            if(isset($_GET['error'])){//if the user has tried to log in before, display and error
-                echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password <a href=\"./resetpassword.php\">reset?</a><br /><br />";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
-            }
-            ?>
-            
     </body>
+    <script src="https://parse.com/downloads/javascript/parse-1.6.0.js"></script>
+    <script>
+    $("#login-button").click(function(){
+        Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
+        Parse.User.logOut();
+
+        var user = $("#username-field").val();
+        var pass = $("#password-field").val();
+
+        Parse.User.logIn(user, pass, {
+            success:function(user){
+                alert("logged in successfully as " + user);
+                console.log(user);
+            },
+            error:function(user, error){
+                alert("failed to login; error: " + error);
+                console.log(error);
+            }
+        });
+    });
+    
+    </script>
 </html>
-<?php
-}else{
-    //require db connection and security features to verify salted password hash
-    require "./security/salt.php";
-    require "./db.php";
-    
-    //handle login request
-    $username = mysql_escape_mimic($_POST['username']);
-    $password = mysql_escape_mimic($_POST['password']);
-    $refurl = mysql_escape_mimic($_POST['refurl']);
-    
-    
-    $salt = createSalt($username);//yum
-    $concatPass = $password . $salt;
-    $pass_hash = md5($concatPass);//if the login is correct, this value should match up with the email provided in the database
-    
-    $resultset = $db->query("SELECT * FROM `logins` WHERE `EMAIL` = '$username' AND `PASSWORD` = '$pass_hash'");
-    
-    if($resultset->num_rows > 0){//if at least 1 value matches, the user's session cookies are modified to store their email
-        $_SESSION['auth'] = true;
-        $_SESSION['email'] = $username;
-        echo "<meta http-equiv=\"refresh\" content=\"0;URL=$refurl\">";
-    }else{//if no values are found, refresh the page and display an error
-        echo "<meta http-equiv=\"refresh\" content=\"0;URL=./login.php?error=true\">";
-    }
-}
-?>
