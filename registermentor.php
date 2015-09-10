@@ -103,7 +103,7 @@
                                             <?php include("./pages/skillset_form.html"); ?>
 
                                             <div class="12u$">
-                                                <textarea maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
+                                                <textarea maxlength="200" title="Write something about yourself" id="comments" placeholder="Write something about yourself" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
                                                 <input type="checkbox" id="EulaAgreement"></input>
@@ -138,7 +138,7 @@
             if(!(checkEULA())){
                 return;
             }
-            
+
             var email = $("#email").val();
             var pass1 = $("#pass1").val();
             var pass2 = $("#pass2").val();

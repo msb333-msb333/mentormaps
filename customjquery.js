@@ -1,5 +1,6 @@
 function showSuccessPage(){
-    $("#register-page").html("successfully registered");
+    $("#register-section").html("successfully registered");
+    //TODO better confirmation page
 }
 
 function passwordCheck(pass1, pass2){
@@ -63,7 +64,7 @@ function addUserData(email, accountType, registrantName){
     ud.set("address", address);
     ud.set("name", $("#name").val());
     ud.set("teamNumber", $("#teamNumber").val());
-    ud.set("comments", $("#bio").val());
+    ud.set("comments", $("#comments").val());
     ud.set("phone", $("#phone").val());
     ud.set("age", $("#age").val());
     ud.set("accountType", accountType);
