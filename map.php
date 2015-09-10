@@ -1,103 +1,3 @@
-<?php
-$unbiased = false;
-if(isset($_GET['opt'])){
-    if($_GET['opt'] == 'unbiased'){
-        $unbiased = true;
-    }
-}
-
-function utf8_converter($array){
-    array_walk_recursive($array, function(&$item, $key){
-        if(!mb_detect_encoding($item, 'utf-8', true)){
-                $item = utf8_encode($item);
-        }
-    });
-    return $array;
-}
-
-//do all login operations / redirects
-require "./logincheck.php";
-require "./db.php";
-
-//get the logged in user's account type from the session variable
-$email = $_SESSION['email'];
-$sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
-$type = "UNDEFINED";
-$result = $db->query($sql);
-while($r=mysqli_fetch_assoc($result)){
-    $type = $r['TYPE'];
-}
-//get the user's address
-$sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
-$my_address = "UNDEFINED";
-$result = $db->query($sql);
-while($r=mysqli_fetch_assoc($result)){
-    $my_address=$r['ADDRESS'];
-}
-//store all of the opposite kinds of addresses
-$address_array = array();
-if($unbiased==false){
-    if($type=="MENTOR"){
-        echo '<!--you are a mentor, displaying all results for teams-->';
-        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
-    }else{
-        echo '<!--you are a team, displaying all results for mentors-->';
-        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
-    }
-}else{
-    echo '<!--you are using an unbiased map, displaying all results in db-->';
-    $sql = "SELECT `ADDRESS` FROM `data`;";
-}
-$result = $db->query($sql);
-while($r=mysqli_fetch_assoc($result)){
-    array_push($address_array, $r['ADDRESS']);
-}
-
-$verif_data = array();
-$result=$db->query("SELECT * FROM `logins`");
-while($r=mysqli_fetch_assoc($result)){
-    if($r['VERIFIED']=='true'){
-        array_push($verif_data, $r['EMAIL']);
-    }
-}
-
-if(!in_array($_SESSION['email'], $verif_data)){
-    echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
-}
-
-//populate an array with the entire database's contents so they can be accessed in javascript
-$result=$db->query("SELECT * FROM `data`;");
-$all_data = array();
-while($r=mysqli_fetch_assoc($result)){
-        $current = array(
-                        'name'          => $r['NAME'],
-                        'skills_json'   => $r['SKILLS_JSON'],
-                        'team_number'   => $r['TEAM_NUMBER'],
-                        'comments'      => $r['COMMENTS'],
-                        'phone'         => $r['PHONE'],
-                        'email'         => $r['EMAIL'],
-                        'address'       => $r['ADDRESS'],
-                        'type'          => $r['TYPE'],
-                        'age'           => $r['AGE'],
-                        'account_type'  => $r['ACCOUNT_TYPE'],
-                        );
-        if(in_array($current['email'], $verif_data))
-            array_push($all_data, $current);
-}
-
-$geoLookup = array();
-$r=$db->query("SELECT LATITUDE, LONGITUDE, ADDRESS FROM `data`;");
-while($i=mysqli_fetch_assoc($r)){
-    $current = array(
-                    'latitude' => $i['LATITUDE'],
-                    'longitude' => $i['LONGITUDE'],
-                    'address' => $i['ADDRESS']
-                    );
-    array_push($geoLookup, $current);
-}
-
-echo '<script>var marker_map = [];</script>';?>
-<!DOCTYPE HTML>
 <html>
     <head>
         <style>
@@ -166,38 +66,6 @@ echo '<script>var marker_map = [];</script>';?>
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
             centerMap(map, "<?php echo $my_address; ?>");
             directionsDisplay.setMap(map);
-            <?php
-                $allteams = array();
-                foreach($address_array as $address){
-                    $teamjson = "UNDEFINED";
-                    $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
-                    $result=$db->query($sql);
-                    if($result==false){
-                        break;
-                    }
-                    while($r=mysqli_fetch_assoc($result)){
-                        $a = array(
-                                    'name'                  => $r['NAME'        ],
-                                    'searching_skills_json' => $r['SKILLS_JSON' ],
-                                    'team_number'           => $r['TEAM_NUMBER' ],
-                                    'comments'              => $r['COMMENTS'    ],
-                                    'phone'                 => $r['PHONE'       ],
-                                    'email'                 => $r['EMAIL'       ],
-                                    'address'               => $r['ADDRESS'     ],
-                                    'type'                  => $r['TYPE'        ],
-                                    'account_type'          => $r['ACCOUNT_TYPE']
-                                    );
-                        if(in_array($a['email'], $verif_data))
-                            array_push($allteams, $a);
-                        $teamjson = json_encode(
-                                                utf8_converter($a)
-                                                );
-                    }
-                    if(in_array($a['email'], $verif_data))
-                        echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
-
-                }
-            ?>
         }
 
         function calcRoute(start, end) {
@@ -331,20 +199,6 @@ echo '<script>var marker_map = [];</script>';?>
                     }
                 }
             });
-            <?php
-            if($type=="MENTOR"){
-                echo'
-                document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
-                document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                ';
-            }else{
-                echo '
-                document.getElementById("searching-skills-container").innerHTML = "<b><u>Offers:<br /></u></b>" + searchingFor;
-                document.getElementById("name-container").innerHTML = "<b><u>Mentor Info:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                ';
-            }
-            ?>
-            
             });
             google.maps.event.addListener(marker, 'mouseover', function() {
                 infowindow.open(map, this);
@@ -446,12 +300,6 @@ echo '<script>var marker_map = [];</script>';?>
                                 </div>
                             </div>
                             <script>
-                                <?php
-                                    echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
-                                    echo 'var allteams = ' . json_encode(utf8_converter($allteams)) . ';' . PHP_EOL;
-                                    echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
-                                ?>
-
                                 var rad = function(x) {
                                     return x * Math.PI / 180;
                                 };

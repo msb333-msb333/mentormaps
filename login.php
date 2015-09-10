@@ -86,6 +86,7 @@
             success:function(user){
                 alert("logged in successfully as " + user);
                 console.log(user);
+                window.location = "./map.php";
             },
             error:function(user, error){
                 alert("failed to login; error: " + error);
