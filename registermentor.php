@@ -132,71 +132,99 @@
     </body>
     <script src="./customjquery.js"></script>
     <script src="./geocoder.js"></script>
-    <script src="./md5.min.js"></script>
-    <script src="./security.js"></script>
     <script>
         Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
 
         function createSkillsArray(){
             var data = {
+                engineering_mechanical:         $("#engineering-mechanical").is(":checked"),
+                engineering_electrical:         $("#engineering-electrical").is(":checked"),
 
+                programming_c:                  $("#programming-c").is(":checked"),
+                programming_java:               $("#programming-java").is(":checked"),
+                programming_csharp:             $("#programming-csharp").is(":checked"),
+                programming_python:             $("#programming-python").is(":checked"),
+                programming_robotc:             $("#programming-robotc").is(":checked"),
+                programming_nxt:                $("#programming-nxt").is(":checked"),
+                programming_labview:            $("#programming-labview").is(":checked"),
+                programming_easyc:              $("#programming-easyc").is(":checked"),
+                programming_ev3:                $("#programming-ev3").is(":checked"),
+
+                cad:                            $("#skill-cad").is(":checked"),
+                design:                         $("#skill-design").is(":checked"),
+                strategy:                       $("#skill-strategy").is(":checked"),
+                scouting:                       $("#skill-scouting").is(":checked"),
+                business:                       $("#skill-business").is(":checked"),
+                fundraising:                    $("#skill-fundraising").is(":checked"),
+                marketing:                      $("#skill-marketing").is(":checked"),
+                other:                          $("#skill-other").is(":checked"),
+                other_desc:                     $("#other-text-box").is(":checked")
             };
+            return JSON.stringify(data);
         }
 
         function createTypeArray(){
             var data = {
-                frc:
-                ftc:
-                fll:
-                vex:
+                frc: $("#FRCcheck").is(":checked"),
+                ftc: $("#FTCcheck").is(":checked"),
+                fll: $("#FLLcheck").is(":checked"),
+                vex: $("#VEXcheck").is(":checked")
             };
+            return JSON.stringify(data);
         }
 
         function createAddress(){
-            var address =   $("#").val();
-            var city =      $("#").val();
-            var state =     $("#").val();
-            var zip =       $("#").val();
-            var country =   $("#").val();
+            var address =   $("#address-line-1").val();
+            var city =      $("#address-city").val();
+            var state =     $("#address-state").val();
+            var zip =       $("#zip").val();
+            var country =   $("#address-country").val();
+            return address + ", " + city + ", " + zip + ", " + state + ", " + country;//TODO don't add commas if the address parts are not set
         }
 
         function addUserData(email){
             var UDClass = Parse.Object.extend("UserData");
-            var ud = new UDCLass();
-            ud.save({
-                email:      email,
-                skillsJSON: createSkillsArray(),
-                typeJSON:   createTypeArray(),
-                address:    createAddress(),
-                name:       $("#name").val(),
-                teamNumber: $("#teamNumber").val(),
-                comments:   $("#bio").val(),
-                phone:      $("#phone").val(),
-                age:        $("#age").val(),
-                //specific to registermentor.php
-                accountType:"MENTOR",
-                registrantName:"undefined"
+            var ud = new UDClass();
+            
+            ud.set("email", email);
+            ud.set("skillsJSON", createSkillsArray());
+            ud.set("typeJSON", createTypeArray());
+            ud.set("address", createAddress());
+            ud.set("name", $("#name").val());
+            ud.set("teamNumber", $("#teamNumber").val());
+            ud.set("comments", $("#bio").val());
+            ud.set("phone", $("#phone").val());
+            ud.set("age", $("#age").val());
+            ud.set("accountType", "MENTOR");
+            ud.set("registrantName", "undefined");
+
+            ud.save(null, {
+                success: function(ud){
+                    alert("yay, now ready for geocode");
+                },
+                error: function(ud, error){
+                    alert('Failed to create new object, with error code: ' + error.message);
+                }
             });
         }
 
         
         $("#submitMentorRegistrationForm").click(function(){
-            var currentUser = Parse.User.current();
-                if (currentUser) {
-                    // do stuff with the user
-                    Parse.User.logOut();
-                }
-            
             var email = $("#email").val();
             var pass1 = $("#pass1").val();
             var pass2 = $("#pass2").val();
-            var securePassword = createSecurePassword(email, pass1);
-            console.log(securePassword);
+
+            if(!pass1==pass2){
+                alert("passwords do not match");
+                return;
+            }
+
+            //TODO required fields
+
             var user = new Parse.User();
             user.set("username", email);
             user.set("email", email);
-            user.set("password", "this doesnt work");
-            user.set("securePassword", securePassword);
+            user.set("password", pass1);
             user.signUp(null, {
                 success: function(user){
                     addUserData(email);
@@ -206,7 +234,6 @@
                     console.log(error);
                 }
             });
-            user.save();
         });
     </script>
 </html>
