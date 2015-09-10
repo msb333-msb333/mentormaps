@@ -133,11 +133,8 @@
             if(!(checkEULA())){
                 return;
             }
-            var team_number =  $("#team-number").val();
-            var team_name =    $("#team-name").val();
-            var email =        $("#team-email").val();
             
-            var team_phone =   $("#team-phone").val();
+            var email =        $("#email").val();
             var pass1 =        $("#pass1").val();
             var pass2 =        $("#pass2").val();
  

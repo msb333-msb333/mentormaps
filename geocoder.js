@@ -1,11 +1,12 @@
 //submit a geocode request to google once so as to not overload per second limit
 function geocode(address){
+    console.log("address: " + address);
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
         submitLatLng(results[0].geometry.location, address);
     } else {
-        alert("Google Maps was unable to find the lat/lng for that address");
+        alert("Google Maps was unable to find the lat/lng for that address, " + status);
         return;
     }
   });

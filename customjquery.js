@@ -47,7 +47,8 @@ function createTypeArray(){
 
 function createAddress(){
     var address =   $("#address-line-1").val();
-    var city =      $("#address-city").val();            var state =     $("#address-state").val();
+    var city =      $("#address-city").val();
+    var state =     $("#address-state").val();
     var zip =       $("#zip").val();
     var country =   $("#address-country").val();
     return address + ", " + city + ", " + zip + ", " + state + ", " + country;//TODO don't add commas if the address parts are not set
