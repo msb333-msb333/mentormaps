@@ -12,7 +12,6 @@
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
-        <script src="https://parse.com/downloads/javascript/parse-1.6.0.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -131,9 +130,6 @@
     <script src="./customjquery.js"></script>
     <script src="./geocoder.js"></script>
     <script>
-        Parse.initialize("883aq7xdHmsFK7htfN2muJ5K3GE6eXWDiW7WwdYh", "jpoT2BB11qnlhNVUkrdovj9ACj3Ejctu2iaFMJr5");
-        Parse.User.logOut();
-
         $("#submitMentorRegistrationForm").click(function(){
             if(!(checkEULA())){
                 return;
@@ -147,23 +143,6 @@
                 alert("passwords do not match");
                 return;
             }
-
-            //TODO required fields
-
-            var user = new Parse.User();
-            user.set("username", email);
-            user.set("email", email);
-            user.set("password", pass1);
-            user.signUp(null, {
-                success: function(user){
-                    addUserData(email, "MENTOR", "undefined");
-                },
-                error: function(user, error){
-                    alert("an error occurred; check the console");
-                    console.log(error);
-                }
-            });
-        });
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();
