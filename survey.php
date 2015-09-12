@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 <script>
     var exp = 1;
     function redirect(){
-        window.location = "./index.php";
+        window.location = "./map.php";
     }
 
     function submit(){
