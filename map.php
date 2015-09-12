@@ -417,9 +417,15 @@ echo '<script>var marker_map = [];</script>';?>
                                                 </a>
                                             </li>
                                             <li>
+                                                <?php if($unbiased){ ?>
                                                 <a href="./map.php?opt=unbiased">
                                                     (advanced) view unbiased map
                                                 </a>
+                                                <?php }else{ ?>
+                                                <a href="./map.php">
+                                                    view regular map
+                                                </a>
+                                                <?php } ?>
                                             </li>
                                             <li>
                                                 <a href="./logout.php">
