@@ -17,21 +17,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass2           =      $_POST['pass2'];
 
     //prevent xss
-    $mentor_name     =      str_replace("<script", "NO_XSS", $mentor_name   );
-    $mentor_email    =      str_replace("<script", "NO_XSS", $mentor_email  );
-    $mentor_address  =      str_replace("<script", "NO_XSS", $mentor_address);
-    $mentor_phone    =      str_replace("<script", "NO_XSS", $mentor_phone  );
-    $mentor_bio      =      str_replace("<script", "NO_XSS", $mentor_bio    );
-    $team_number     =      str_replace("<script", "NO_XSS", $team_number   );
-    $age             =      str_replace("<script", "NO_XSS", $age           );
-
-    $mentor_name     =      str_replace("<SCRIPT", "NO_XSS", $mentor_name   );
-    $mentor_email    =      str_replace("<SCRIPT", "NO_XSS", $mentor_email  );
-    $mentor_address  =      str_replace("<SCRIPT", "NO_XSS", $mentor_address);
-    $mentor_phone    =      str_replace("<SCRIPT", "NO_XSS", $mentor_phone  );
-    $mentor_bio      =      str_replace("<SCRIPT", "NO_XSS", $mentor_bio    );
-    $team_number     =      str_replace("<SCRIPT", "NO_XSS", $team_number   );
-    $age             =      str_replace("<SCRIPT", "NO_XSS", $age           );
+    $mentor_name     =      htmlspecialchars($mentor_name,      ENT_QUOTES, 'UTF-8');
+    $mentor_email    =      htmlspecialchars($mentor_email,     ENT_QUOTES, 'UTF-8');
+    $mentor_address  =      htmlspecialchars($mentor_address,   ENT_QUOTES, 'UTF-8');
+    $mentor_phone    =      htmlspecialchars($mentor_phone,     ENT_QUOTES, 'UTF-8');
+    $mentor_bio      =      htmlspecialchars($mentor_bio,       ENT_QUOTES, 'UTF-8');
+    $team_number     =      htmlspecialchars($team_number,      ENT_QUOTES, 'UTF-8');
+    $age             =      htmlspecialchars($age,              ENT_QUOTES, 'UTF-8');
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -68,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'      => $_POST['skill-scouting'      ],
                                         'skill-fundraising'   => $_POST['skill-fundraising'   ],
                                         'skill-other'         => $_POST['skill-other'         ],
-                                        'skill-other-desc'    => str_replace("<script", "NO_XSS", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
                                         )
                                     );
 

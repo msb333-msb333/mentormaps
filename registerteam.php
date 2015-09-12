@@ -6,37 +6,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./mailsender.php";
 
     //prevent sql injection
-    $team_age           = $_POST['team-age'];
-    $team_name          = mysql_escape_mimic($_POST['team-name']);
-    $team_email         = mysql_escape_mimic($_POST['team-email']);
-    $team_address       = mysql_escape_mimic($_POST['team-address']);
-    $team_phone         = mysql_escape_mimic($_POST['team-phone']);
-    $comments           = mysql_escape_mimic($_POST['comments']);
-    $team_number        = mysql_escape_mimic($_POST['team-number']);
-    $rname              = mysql_escape_mimic($_POST['rname']);
+    $team_age           = mysql_escape_mimic($_POST['team-age']     );
+    $team_name          = mysql_escape_mimic($_POST['team-name']    );
+    $team_email         = mysql_escape_mimic($_POST['team-email']   );
+    $team_address       = mysql_escape_mimic($_POST['team-address'] );
+    $team_phone         = mysql_escape_mimic($_POST['team-phone']   );
+    $comments           = mysql_escape_mimic($_POST['comments']     );
+    $team_number        = mysql_escape_mimic($_POST['team-number']  );
+    $rname              = mysql_escape_mimic($_POST['rname']        );
     
     //sql injection doesn't matter, it's going to be hashed anyway
     $pass1              = $_POST['pass1'];
     $pass2              = $_POST['pass2'];
     
     //prevent xss
-    $team_age           = str_replace("<script", "NO_XSS", $team_age    );
-    $team_name          = str_replace("<script", "NO_XSS", $team_name   );
-    $team_email         = str_replace("<script", "NO_XSS", $team_email  );
-    $team_address       = str_replace("<script", "NO_XSS", $team_address);
-    $team_phone         = str_replace("<script", "NO_XSS", $team_phone  );
-    $comments           = str_replace("<script", "NO_XSS", $comments    );
-    $TEAM_NUMBER        = str_replace("<script", "NO_XSS", $team_number );
-    $rname              = str_replace("<script", "NO_XSS", $rname       );
-
-    $team_age           = str_replace("<SCRIPT", "NO_XSS", $team_age    );
-    $team_name          = str_replace("<SCRIPT", "NO_XSS", $team_name   );
-    $team_email         = str_replace("<SCRIPT", "NO_XSS", $team_email  );
-    $team_address       = str_replace("<SCRIPT", "NO_XSS", $team_address);
-    $team_phone         = str_replace("<SCRIPT", "NO_XSS", $team_phone  );
-    $comments           = str_replace("<SCRIPT", "NO_XSS", $comments    );
-    $TEAM_NUMBER        = str_replace("<SCRIPT", "NO_XSS", $team_number );
-    $rname              = str_replace("<SCRIPT", "NO_XSS", $rname       );
+    $team_age           = htmlspecialchars($team_age,       ENT_QUOTES, 'UTF-8');
+    $team_name          = htmlspecialchars($team_name,      ENT_QUOTES, 'UTF-8');
+    $team_email         = htmlspecialchars($team_email,     ENT_QUOTES, 'UTF-8');
+    $team_address       = htmlspecialchars($team_address,   ENT_QUOTES, 'UTF-8');
+    $team_phone         = htmlspecialchars($team_phone,     ENT_QUOTES, 'UTF-8');
+    $comments           = htmlspecialchars($comments,       ENT_QUOTES, 'UTF-8');
+    $TEAM_NUMBER        = htmlspecialchars($team_number,    ENT_QUOTES, 'UTF-8');
+    $rname              = htmlspecialchars($rname,          ENT_QUOTES, 'UTF-8');
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -71,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'        => $_POST['skill-scouting'],
                                         'skill-fundraising'     => $_POST['skill-fundraising'],
                                         'skill-other'           => $_POST['skill-other'],
-                                        'skill-other-desc'      => str_replace("<script", "NO_XSS", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'      => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
     $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
