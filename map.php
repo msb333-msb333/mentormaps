@@ -177,7 +177,7 @@ echo '<script>var marker_map = [];</script>';?>
             if($noaccount){
                 echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
             }else{
-                echo 'centerMap(map, '. $my_address .');';
+                echo 'centerMap(map, "'. $my_address .'");';
             }
                 
             ?>
@@ -515,6 +515,14 @@ echo '<script>var marker_map = [];</script>';?>
                                     });
                                 }
                     
+                                function listTeams(){
+                                    $("#team-list").html("");
+                                    for(var i=0;i<allteams.length;i++){
+                                        var team = allteams[i];
+                                        $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
+                                    }
+                                }
+
                                 function refreshListing(){
                                     $("#team-list").html("");
                                         var teamscore_map = [];
@@ -587,7 +595,11 @@ echo '<script>var marker_map = [];</script>';?>
                                     }
                                 }
                                 $(document).ready(function() {
-                                    refreshListing();
+                                    <?php if($noaccount){ ?>
+                                        listTeams();
+                                    <?php }else{ ?>
+                                        refreshListing();
+                                    <?php } ?>
                                 });
                             </script>
                         </div>
