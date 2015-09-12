@@ -69,6 +69,10 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         var dislikedFeatures    = document.getElementById("dislikedFeaturesField").value;
         var toAddFeatures       = document.getElementById("toAddFeaturesField").value;
 
+        if(recFeatures==""||dislikedFeatures==""||toAddFeatures==""){
+            alert("you did not fill in a required field");
+        }
+
         $.ajax({
             url: './survey.php',
             type: 'POST',
@@ -81,7 +85,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                 'email' : email
             },
             success:function(data){
-                document.getElementById("page-section").innerHTML = "<div align=\"center\">Reponse Recorded&nbsp;<button onclick='redirect();'>OK</button></div>";
+                document.getElementById("page-section").innerHTML = "<div align=\"center\">Reponse Recorded<br/><button onclick='redirect();'>OK</button></div>";
             }
         });
     }
