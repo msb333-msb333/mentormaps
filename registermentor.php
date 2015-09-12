@@ -16,14 +16,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass1           =      $_POST['pass1'];
     $pass2           =      $_POST['pass2'];
 
-    //not this time, vinnie
-    $mentor_name     =      str_replace("<script", "im a dirty little hacker: ", $mentor_name   );
-    $mentor_email    =      str_replace("<script", "im a dirty little hacker: ", $mentor_email  );
-    $mentor_address  =      str_replace("<script", "im a dirty little hacker: ", $mentor_address);
-    $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
-    $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
-    $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
-    $age             =      str_replace("<script", "im a dirty little hacker: ", $age           );
+    //prevent xss
+    $mentor_name     =      str_replace("<script", "NO_XSS", $mentor_name   );
+    $mentor_email    =      str_replace("<script", "NO_XSS", $mentor_email  );
+    $mentor_address  =      str_replace("<script", "NO_XSS", $mentor_address);
+    $mentor_phone    =      str_replace("<script", "NO_XSS", $mentor_phone  );
+    $mentor_bio      =      str_replace("<script", "NO_XSS", $mentor_bio    );
+    $team_number     =      str_replace("<script", "NO_XSS", $team_number   );
+    $age             =      str_replace("<script", "NO_XSS", $age           );
+
+    $mentor_name     =      str_replace("<SCRIPT", "NO_XSS", $mentor_name   );
+    $mentor_email    =      str_replace("<SCRIPT", "NO_XSS", $mentor_email  );
+    $mentor_address  =      str_replace("<SCRIPT", "NO_XSS", $mentor_address);
+    $mentor_phone    =      str_replace("<SCRIPT", "NO_XSS", $mentor_phone  );
+    $mentor_bio      =      str_replace("<SCRIPT", "NO_XSS", $mentor_bio    );
+    $team_number     =      str_replace("<SCRIPT", "NO_XSS", $team_number   );
+    $age             =      str_replace("<SCRIPT", "NO_XSS", $age           );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -60,7 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'      => $_POST['skill-scouting'      ],
                                         'skill-fundraising'   => $_POST['skill-fundraising'   ],
                                         'skill-other'         => $_POST['skill-other'         ],
-                                        'skill-other-desc'    => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'    => str_replace("<script", "NO_XSS", mysql_escape_mimic($_POST['other-text-box']))
                                         )
                                     );
 
@@ -77,21 +85,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $guid = md5($mentor_email) . md5($pass_hash);
     
-    $db->query("INSERT INTO `logins` (`EMAIL`,             `PASSWORD`,       `TYPE`,    `KEY`,      `VERIFIED`)"
-            . "VALUES" .
-                                    "('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
-
-
-
-    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)"
-            . "VALUES" .
-                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
-
+    $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`, `KEY`, `VERIFIED`) VALUES ('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
+    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('MENTOR', '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '[]', '[]')");
 
     require "./config.php";
-    require "./pages/account_verify_email.php";
-    
+    require "./pages/account_verify_email.php";    
     sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', echoEmail($guid, $SITE_ROOT));
 
     echo "{\"status\":\"ok\"}";

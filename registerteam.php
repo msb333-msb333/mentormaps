@@ -20,14 +20,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass2              = $_POST['pass2'];
     
     //prevent xss
-    $team_age           = str_replace("<script", "im a dirty little hacker: ", $team_age    );
-    $team_name          = str_replace("<script", "im a dirty little hacker: ", $team_name   );
-    $team_email         = str_replace("<script", "im a dirty little hacker: ", $team_email  );
-    $team_address       = str_replace("<script", "im a dirty little hacker: ", $team_address);
-    $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
-    $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
-    $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
-    $rname              = str_replace("<script", "im a dirty little hacker: ", $rname       );
+    $team_age           = str_replace("<script", "NO_XSS", $team_age    );
+    $team_name          = str_replace("<script", "NO_XSS", $team_name   );
+    $team_email         = str_replace("<script", "NO_XSS", $team_email  );
+    $team_address       = str_replace("<script", "NO_XSS", $team_address);
+    $team_phone         = str_replace("<script", "NO_XSS", $team_phone  );
+    $comments           = str_replace("<script", "NO_XSS", $comments    );
+    $TEAM_NUMBER        = str_replace("<script", "NO_XSS", $team_number );
+    $rname              = str_replace("<script", "NO_XSS", $rname       );
+
+    $team_age           = str_replace("<SCRIPT", "NO_XSS", $team_age    );
+    $team_name          = str_replace("<SCRIPT", "NO_XSS", $team_name   );
+    $team_email         = str_replace("<SCRIPT", "NO_XSS", $team_email  );
+    $team_address       = str_replace("<SCRIPT", "NO_XSS", $team_address);
+    $team_phone         = str_replace("<SCRIPT", "NO_XSS", $team_phone  );
+    $comments           = str_replace("<SCRIPT", "NO_XSS", $comments    );
+    $TEAM_NUMBER        = str_replace("<SCRIPT", "NO_XSS", $team_number );
+    $rname              = str_replace("<SCRIPT", "NO_XSS", $rname       );
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -62,7 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'        => $_POST['skill-scouting'],
                                         'skill-fundraising'     => $_POST['skill-fundraising'],
                                         'skill-other'           => $_POST['skill-other'],
-                                        'skill-other-desc'      => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'      => str_replace("<script", "NO_XSS", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
     $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
@@ -75,9 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $guid = md5($team_email) . md5($pass_hash);
 
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
-
     $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
-
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
 
     require "./config.php";
