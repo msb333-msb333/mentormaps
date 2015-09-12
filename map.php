@@ -177,7 +177,11 @@ echo '<script>var marker_map = [];</script>';?>
             if($noaccount){
                 echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
             }else{
-                echo 'centerMap(map, "'. $my_address .'");';
+                if(!$unbiased){
+                    echo 'centerMap(map, "'. $my_address .'");';
+                }else{
+                    echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
+                }
             }
                 
             ?>
