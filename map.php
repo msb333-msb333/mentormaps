@@ -501,7 +501,7 @@ echo '<script>var marker_map = [];</script>';?>
                                 }
                                 <?php } ?>
                     
-                                var globalRet = 0;
+                                var globalRet = 0;//workaround because the return statement below doesn't do what it's supposed to
                                 function getLatLngArrayFromAddress(address){
                                     $.each(geoLookup, function(key, value){
                                         var geoLocation = geoLookup[key];
@@ -535,7 +535,7 @@ echo '<script>var marker_map = [];</script>';?>
                                             <?php } ?>
                                             var offered = $.parseJSON(team['searching_skills_json']);
                                             var p1array = getLatLngArrayFromAddress(team['address']);
-                                            var p1lat = globalRet.latitude;
+                                            var p1lat = globalRet.latitude;//TODO find out why the return statement doesn't work
                                             var p1lng = globalRet.longitude;
                                             <?php if(!$noaccount){ ?>
                                                 var p2array = getLatLngArrayFromAddress(me['address']);
