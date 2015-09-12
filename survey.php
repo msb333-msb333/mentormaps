@@ -71,6 +71,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
         if(recFeatures==""||dislikedFeatures==""||toAddFeatures==""){
             alert("you did not fill in a required field");
+            return;
         }
 
         $.ajax({
