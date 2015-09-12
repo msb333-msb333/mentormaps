@@ -1,8 +1,11 @@
 <?php
 $unbiased = false;
+$noaccount = false;
 if(isset($_GET['opt'])){
     if($_GET['opt'] == 'unbiased'){
         $unbiased = true;
+    } else if($_GET['opt'] == 'noaccount'){
+        $noaccount = true;
     }
 }
 
@@ -15,39 +18,43 @@ function utf8_converter($array){
     return $array;
 }
 
-//do all login operations / redirects
-require "./logincheck.php";
 require "./db.php";
-
-//get the logged in user's account type from the session variable
-$email = $_SESSION['email'];
-$sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
-$type = "UNDEFINED";
-$result = $db->query($sql);
-while($r=mysqli_fetch_assoc($result)){
-    $type = $r['TYPE'];
-}
-//get the user's address
-$sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
-$my_address = "UNDEFINED";
-$result = $db->query($sql);
-while($r=mysqli_fetch_assoc($result)){
-    $my_address=$r['ADDRESS'];
-}
-//store all of the opposite kinds of addresses
 $address_array = array();
-if($unbiased==false){
-    if($type=="MENTOR"){
-        echo '<!--you are a mentor, displaying all results for teams-->';
-        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+
+if(!$noaccount){
+    require "./logincheck.php";
+    //get the logged in user's account type from the session variable
+    $email = $_SESSION['email'];
+    $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
+    $type = "UNDEFINED";
+    $result = $db->query($sql);
+    while($r=mysqli_fetch_assoc($result)){
+        $type = $r['TYPE'];
+    }
+    //get the user's address
+    $sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
+    $my_address = "UNDEFINED";
+    $result = $db->query($sql);
+    while($r=mysqli_fetch_assoc($result)){
+        $my_address=$r['ADDRESS'];
+    }
+    //store all of the opposite kinds of addresses
+    if($unbiased==false){
+        if($type=="MENTOR"){
+            echo '<!--you are a mentor, displaying all results for teams-->';
+            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
+        }else{
+            echo '<!--you are a team, displaying all results for mentors-->';
+            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+        }
     }else{
-        echo '<!--you are a team, displaying all results for mentors-->';
-        $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
+        echo '<!--you are using an unbiased map, displaying all results in db-->';
+        $sql = "SELECT `ADDRESS` FROM `data`;";
     }
 }else{
-    echo '<!--you are using an unbiased map, displaying all results in db-->';
     $sql = "SELECT `ADDRESS` FROM `data`;";
 }
+
 $result = $db->query($sql);
 while($r=mysqli_fetch_assoc($result)){
     array_push($address_array, $r['ADDRESS']);
@@ -61,8 +68,10 @@ while($r=mysqli_fetch_assoc($result)){
     }
 }
 
-if(!in_array($_SESSION['email'], $verif_data)){
-    echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
+if(!$noaccount){
+    if(!in_array($_SESSION['email'], $verif_data)){
+        echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
+    }
 }
 
 //populate an array with the entire database's contents so they can be accessed in javascript
@@ -164,7 +173,14 @@ echo '<script>var marker_map = [];</script>';?>
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
-            centerMap(map, "<?php echo $my_address; ?>");
+            <?php
+            if($noaccount){
+                echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
+            }else{
+                echo 'centerMap(map, "'. $my_address .'");';
+            }
+                
+            ?>
             directionsDisplay.setMap(map);
             <?php
                 $allteams = array();
@@ -213,6 +229,10 @@ echo '<script>var marker_map = [];</script>';?>
             });
         }
         
+    function centerMapNoAccount(map, lat, lng){
+        map.setCenter(new google.maps.LatLng(lat, lng), 2);
+    }
+
     function centerMap(map, address){
         var Flat = 0;
         var Flng = 0;
@@ -332,16 +352,20 @@ echo '<script>var marker_map = [];</script>';?>
                 }
             });
             <?php
-            if($type=="MENTOR"){
-                echo'
-                document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
-                document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                ';
+            if(isset($type)){
+                if($type=="MENTOR"){
+                    echo'
+                    document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
+                    document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
+                    ';
+                }else{
+                    echo '
+                    document.getElementById("searching-skills-container").innerHTML = "<b><u>Offers:<br /></u></b>" + searchingFor;
+                    document.getElementById("name-container").innerHTML = "<b><u>Mentor Info:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
+                    ';
+                }
             }else{
-                echo '
-                document.getElementById("searching-skills-container").innerHTML = "<b><u>Offers:<br /></u></b>" + searchingFor;
-                document.getElementById("name-container").innerHTML = "<b><u>Mentor Info:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                ';
+
             }
             ?>
             
@@ -466,7 +490,7 @@ echo '<script>var marker_map = [];</script>';?>
                                     var ret = ((d * 3.28) / 5280);
                                     return ret; // returns the distance in miles you damn commie
                                 };
-                                
+                                <?php if(!$noaccount){ ?>
                                 var me;
                                 for(var i=0;i<alldata.length;i++){
                                     var current_item = alldata[i];
@@ -475,6 +499,7 @@ echo '<script>var marker_map = [];</script>';?>
                                         break;
                                     }
                                 }
+                                <?php } ?>
                     
                                 var globalRet = 0;
                                 function getLatLngArrayFromAddress(address){
@@ -490,19 +515,36 @@ echo '<script>var marker_map = [];</script>';?>
                                     });
                                 }
                     
+                                function listTeams(){
+                                    $("#team-list").html("");
+                                    for(var i=0;i<allteams.length;i++){
+                                        var team = allteams[i];
+                                        $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
+                                    }
+                                }
+
                                 function refreshListing(){
                                     $("#team-list").html("");
                                         var teamscore_map = [];
                                         for(var i=0;i<allteams.length;i++){
                                             var team = allteams[i];
-                                            var searchingfor = $.parseJSON(me['skills_json']);
+                                            <?php if(!$noaccount){ ?>
+                                                var searchingfor = $.parseJSON(me['skills_json']);
+                                            <?php }else{ ?>
+                                                var searchingfor = {};
+                                            <?php } ?>
                                             var offered = $.parseJSON(team['searching_skills_json']);
                                             var p1array = getLatLngArrayFromAddress(team['address']);
                                             var p1lat = globalRet.latitude;
                                             var p1lng = globalRet.longitude;
-                                            var p2array = getLatLngArrayFromAddress(me['address']);
-                                            var p2lat = globalRet.latitude;
-                                            var p2lng = globalRet.longitude;
+                                            <?php if(!$noaccount){ ?>
+                                                var p2array = getLatLngArrayFromAddress(me['address']);
+                                                var p2lat = globalRet.latitude;
+                                                var p2lng = globalRet.longitude;
+                                            <?php }else{ ?>
+                                                var p2lat = 33.878652;
+                                                var p2lng = -117.997470;
+                                            <?php } ?>
                                             var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
                                             if(!(distance > $("#slidey-thing").val())){
                                                 var process_teamtype = $.parseJSON(me['type']);
@@ -553,7 +595,11 @@ echo '<script>var marker_map = [];</script>';?>
                                     }
                                 }
                                 $(document).ready(function() {
-                                    refreshListing();
+                                    <?php if($noaccount){ ?>
+                                        listTeams();
+                                    <?php }else{ ?>
+                                        refreshListing();
+                                    <?php } ?>
                                 });
                             </script>
                         </div>
@@ -562,11 +608,17 @@ echo '<script>var marker_map = [];</script>';?>
                             padding-top:10px;
                         }
                     </style>
-                    <?php if($type=="TEAM"){ ?>
+                    <?php if(isset($type)){
+                            if($type=="TEAM"){ ?>
                         <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png" /> VEX | <img class="paddedImgHolder" src="img/greenm.png" /> MULTI</div>
-                    <?php }else{ ?>
+                      <?php }else{ ?>
                         <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
-                    <?php } ?>
+                      <?php }
+                          }else{
+                            ?>
+                            <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png" /> VEX</div>
+                            <?php
+                          } ?>
                         <div style="white-space:nowrap;">
                             <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
                                 <section id="team-info-section">
