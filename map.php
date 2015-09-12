@@ -417,7 +417,7 @@ echo '<script>var marker_map = [];</script>';?>
                                                 </a>
                                             </li>
                                             <li>
-                                                <?php if($unbiased){ ?>
+                                                <?php if(!$unbiased){ ?>
                                                 <a href="./map.php?opt=unbiased">
                                                     (advanced) view unbiased map
                                                 </a>
