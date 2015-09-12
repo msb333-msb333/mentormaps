@@ -16,14 +16,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass1           =      $_POST['pass1'];
     $pass2           =      $_POST['pass2'];
 
-    //not this time, vinnie
-    $mentor_name     =      str_replace("<script", "im a dirty little hacker: ", $mentor_name   );
-    $mentor_email    =      str_replace("<script", "im a dirty little hacker: ", $mentor_email  );
-    $mentor_address  =      str_replace("<script", "im a dirty little hacker: ", $mentor_address);
-    $mentor_phone    =      str_replace("<script", "im a dirty little hacker: ", $mentor_phone  );
-    $mentor_bio      =      str_replace("<script", "im a dirty little hacker: ", $mentor_bio    );
-    $team_number     =      str_replace("<script", "im a dirty little hacker: ", $team_number   );
-    $age             =      str_replace("<script", "im a dirty little hacker: ", $age           );
+    //prevent xss
+    $mentor_name     =      htmlspecialchars($mentor_name,      ENT_QUOTES, 'UTF-8');
+    $mentor_email    =      htmlspecialchars($mentor_email,     ENT_QUOTES, 'UTF-8');
+    $mentor_address  =      htmlspecialchars($mentor_address,   ENT_QUOTES, 'UTF-8');
+    $mentor_phone    =      htmlspecialchars($mentor_phone,     ENT_QUOTES, 'UTF-8');
+    $mentor_bio      =      htmlspecialchars($mentor_bio,       ENT_QUOTES, 'UTF-8');
+    $team_number     =      htmlspecialchars($team_number,      ENT_QUOTES, 'UTF-8');
+    $age             =      htmlspecialchars($age,              ENT_QUOTES, 'UTF-8');
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -60,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'      => $_POST['skill-scouting'      ],
                                         'skill-fundraising'   => $_POST['skill-fundraising'   ],
                                         'skill-other'         => $_POST['skill-other'         ],
-                                        'skill-other-desc'    => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
                                         )
                                     );
 
@@ -77,21 +77,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $guid = md5($mentor_email) . md5($pass_hash);
     
-    $db->query("INSERT INTO `logins` (`EMAIL`,             `PASSWORD`,       `TYPE`,    `KEY`,      `VERIFIED`)"
-            . "VALUES" .
-                                    "('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
-
-
-
-    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`,             `SKILLS_JSON`,              `TEAM_NUMBER`,      `COMMENTS`,         `PHONE`,             `EMAIL`,            `ADDRESS`,             `TYPE`,      `AGE`)"
-            . "VALUES" .
-                                  "('MENTOR',       '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
-
+    $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`, `KEY`, `VERIFIED`) VALUES ('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
+    $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('MENTOR', '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '[]', '[]')");
 
     require "./config.php";
-    require "./pages/account_verify_email.php";
-    
+    require "./pages/account_verify_email.php";    
     sendEmail($sendgrid_api_key, $mentor_email, 'MentorMaps: Complete Registration', echoEmail($guid, $SITE_ROOT));
 
     echo "{\"status\":\"ok\"}";
@@ -103,25 +94,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
@@ -202,9 +189,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <br />&nbsp;
                                             </div>
 
-                                            <?php
-                                                include("./pages/skillset_form.html");
-                                            ?>
+                                            <?php include("./pages/skillset_form.html"); ?>
 
                                             <div class="12u$">
                                                 <textarea name="bio" maxlength="200" title="Write something about yourself" id="bio" placeholder="Write something about yourself" rows="6"></textarea>
@@ -222,19 +207,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             </div>
                         </section>
                     </article>
-
-                <!-- Footer -->
                     <footer id="footer">
                         <ul class="copyright">
                             <li>&copy; FRC Team 3309, 2015</li>
                         </ul>
                     </footer>
-
             </div>
     </body>
     <script src="./customjquery.js"></script>
     <script>
-        //disable uls by default
         $(function(){
             $("#engineering-types-list").toggle();
             $("#programming-types-list").toggle();

@@ -6,28 +6,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./mailsender.php";
 
     //prevent sql injection
-    $team_age           = $_POST['team-age'];
-    $team_name          = mysql_escape_mimic($_POST['team-name']);
-    $team_email         = mysql_escape_mimic($_POST['team-email']);
-    $team_address       = mysql_escape_mimic($_POST['team-address']);
-    $team_phone         = mysql_escape_mimic($_POST['team-phone']);
-    $comments           = mysql_escape_mimic($_POST['comments']);
-    $team_number        = mysql_escape_mimic($_POST['team-number']);
-    $rname              = mysql_escape_mimic($_POST['rname']);
+    $team_age           = mysql_escape_mimic($_POST['team-age']     );
+    $team_name          = mysql_escape_mimic($_POST['team-name']    );
+    $team_email         = mysql_escape_mimic($_POST['team-email']   );
+    $team_address       = mysql_escape_mimic($_POST['team-address'] );
+    $team_phone         = mysql_escape_mimic($_POST['team-phone']   );
+    $comments           = mysql_escape_mimic($_POST['comments']     );
+    $team_number        = mysql_escape_mimic($_POST['team-number']  );
+    $rname              = mysql_escape_mimic($_POST['rname']        );
     
     //sql injection doesn't matter, it's going to be hashed anyway
     $pass1              = $_POST['pass1'];
     $pass2              = $_POST['pass2'];
     
     //prevent xss
-    $team_age           = str_replace("<script", "im a dirty little hacker: ", $team_age    );
-    $team_name          = str_replace("<script", "im a dirty little hacker: ", $team_name   );
-    $team_email         = str_replace("<script", "im a dirty little hacker: ", $team_email  );
-    $team_address       = str_replace("<script", "im a dirty little hacker: ", $team_address);
-    $team_phone         = str_replace("<script", "im a dirty little hacker: ", $team_phone  );
-    $comments           = str_replace("<script", "im a dirty little hacker: ", $comments    );
-    $TEAM_NUMBER        = str_replace("<script", "im a dirty little hacker: ", $team_number );
-    $rname              = str_replace("<script", "im a dirty little hacker: ", $rname       );
+    $team_age           = htmlspecialchars($team_age,       ENT_QUOTES, 'UTF-8');
+    $team_name          = htmlspecialchars($team_name,      ENT_QUOTES, 'UTF-8');
+    $team_email         = htmlspecialchars($team_email,     ENT_QUOTES, 'UTF-8');
+    $team_address       = htmlspecialchars($team_address,   ENT_QUOTES, 'UTF-8');
+    $team_phone         = htmlspecialchars($team_phone,     ENT_QUOTES, 'UTF-8');
+    $comments           = htmlspecialchars($comments,       ENT_QUOTES, 'UTF-8');
+    $TEAM_NUMBER        = htmlspecialchars($team_number,    ENT_QUOTES, 'UTF-8');
+    $rname              = htmlspecialchars($rname,          ENT_QUOTES, 'UTF-8');
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -62,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'        => $_POST['skill-scouting'],
                                         'skill-fundraising'     => $_POST['skill-fundraising'],
                                         'skill-other'           => $_POST['skill-other'],
-                                        'skill-other-desc'      => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'      => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
                                         ));
                     
     $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
@@ -75,9 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $guid = md5($team_email) . md5($pass_hash);
 
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
-
     $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
-
     $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
 
     require "./config.php";
