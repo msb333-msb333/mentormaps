@@ -136,22 +136,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     <div>
                                         <div class="row uniform">
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Full Name" name="mentor-name" id="mentor-name" placeholder="Full Name" />
+                                                <input type="text" title="Full Name" name="mentor-name" id="mentor-name" placeholder="Full Name" required/>
                                             </div>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="email" title="Email" name="mentor-email" id="mentor-email" placeholder="Email" />
+                                                <input type="email" title="Email" name="mentor-email" id="mentor-email" placeholder="Email" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" title="Password" name="pass1" id="pass1" placeholder="Password" />
+                                                <input type="password" title="Password" name="pass1" id="pass1" placeholder="Password" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" title="Retype Password" name="pass2" id="pass2" placeholder="Retype Password" />
+                                                <input type="password" title="Retype Password" name="pass2" id="pass2" placeholder="Retype Password" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number (Optional)" />
+                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number (Optional)"/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Years Mentored" name="age" id="age" placeholder="Years Mentored" />
+                                                <input type="text" title="Years Mentored" name="age" id="age" placeholder="Years Mentored" required/>
                                             </div>
 
                                             <?php include "./pages/address_form.html"; ?>
