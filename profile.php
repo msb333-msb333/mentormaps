@@ -209,7 +209,7 @@ require "./logincheck.php";
                         </div>
                         <div id="age-div">
                             <b style="color:#19D1AC;">
-                                <?php if($account_type=="MENTORMAPS"){
+                                <?php if($account_type=="MENTOR"){
                                     echo 'Years of';
                                 } ?> Experience: 
                             </b>

@@ -215,6 +215,12 @@
                         $.each(skills_json, function(key, value){
                             if(value=='true'){
                                 $("#" + key).prop('checked', true);
+                                if(key=="skill-other"){
+                                    document.getElementById("other-text-box").style.visibility = "visible";
+                                }
+                            }
+                            if(key=="skill-other-desc"){
+                                $("#other-text-box").val(value);
                             }
                         });
                     </script>
@@ -260,12 +266,6 @@
                 </div>
                 <br />
                 <div class="6u 12u$(small)">
-                Account Type
-                    <input id="readonly2" type="text" placeholder="account_type" value="<?php echo $account_type; ?>" readonly/>
-                    <div id="notice2" style="color:red;display:none;">Not editable</div>
-                </div>
-                <br />
-                <div class="6u 12u$(small)">
                     <button onclick="submit();">Update Profile</button><button onclick="del();" class="button special">Delete Profile</button><div class='notifier' class="notifier" style='display:none'>Profile Updated</div>
                 </div>
                 <script>
@@ -276,12 +276,8 @@
                 element1.onmouseout = function(){
                     document.getElementById("notice1").style.display = "none";
                 }
-                var element2 = document.getElementById("readonly2");
-                element2.onmouseover = function(){
-                    document.getElementById("notice2").style.display = "block";
-                }
-                element2.onmouseout = function(){
-                    document.getElementById("notice2").style.display = "none";
+                if($("#skill-other").is(":checked")){
+                    $("#other-text-box").css("");
                 }
                 </script>
             </section>
@@ -290,6 +286,7 @@
     }
     require "./logincheck.php";
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
+        require "./db.php";
         checkIfUserLoggedIn($_POST['userToUpdate']);
         $session_email = $_SESSION['email'];
         
@@ -351,10 +348,14 @@
         $age = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['AGE']));
         $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
         $db->query($sql);
+
+        if($db->errno){
+            echo $db->error();
+        }
         
-        echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$session_email.'">';
+        //echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$session_email.'">';
         
-    }else{//display edit page
+    }else{
         if(!isset($_GET['p'])){
             echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
         }
