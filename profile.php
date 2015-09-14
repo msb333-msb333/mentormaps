@@ -322,7 +322,7 @@ require "./logincheck.php";
                                         if(skills_json['skill-other']=='true'){
                                             document.write("<li>Other Skill: ("+value+")</li>");  
                                         }
-                                    }else if(key=='skill-programming' || key=='skill-engineering'){
+                                    }else if(key=='skill-programming' || key=='skill-engineering'||key=="skill-other"){
                                         //don't print these keys
                                     }else if(value=='true'){
                                         document.write('<li>' + assoc[key] + '</li>');
