@@ -252,15 +252,6 @@ $("#submitMentorRegistrationForm").click(function(){
     submitAddress(mentor_address);
 });
 
-//brings up the other text box if the other checkbox is checked
-$("#skill-other").change(function(){
-     if (this.checked) {
-        document.getElementById("other-text-box").style.visibility="visible";
-     }else{
-        document.getElementById("other-text-box").style.visibility="hidden";
-     }
-});
-
 //enables collapsable lists for skillsets
 $("#skill-programming").change(function(){
     $("#programming-types-list").toggle();

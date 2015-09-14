@@ -67,3 +67,13 @@
 <div class="6u 12u$(small)" style="visibility: hidden;">
     <input type="text" id="other-text-box" name="other-text-box" placeholder="define 'other'">
 </div>
+<script>
+    //brings up the other text box if the other checkbox is checked
+    $("#skill-other").change(function(){
+         if (this.checked) {
+            document.getElementById("other-text-box").style.visibility="visible";
+         }else{
+            document.getElementById("other-text-box").style.visibility="hidden";
+         }
+    });
+</script>
