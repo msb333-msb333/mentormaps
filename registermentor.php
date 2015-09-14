@@ -60,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'      => $_POST['skill-scouting'      ],
                                         'skill-fundraising'   => $_POST['skill-fundraising'   ],
                                         'skill-other'         => $_POST['skill-other'         ],
-                                        'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
                                         )
                                     );
 
@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $db->query("INSERT INTO `logins` (`EMAIL`, `PASSWORD`, `TYPE`, `KEY`, `VERIFIED`) VALUES ('".$mentor_email."', '".$pass_hash."', 'MENTOR', '".$guid."', 'false');");
     $db->query("INSERT INTO `data` (`ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('MENTOR', '".$mentor_name."', '".$json_encoded_skills."', '".$team_number."', '".$mentor_bio."', '".$mentor_phone."', '".$mentor_email."', '".$mentor_address."', '".$type."', '".$age."');");
-    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '[]', '[]')");
+    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$mentor_email', '{lv1:[], lv2:[]}', '{lv1:[], lv2:[]}')");
 
     require "./config.php";
     require "./pages/account_verify_email.php";    
