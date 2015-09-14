@@ -59,7 +59,7 @@ $("#submitTeamRegistrationForm").click(function(){
     var address4 =     document.getElementById("address-country").value;
     var zip =           document.getElementById("zip").value;
     
-    var team_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
+    var team_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
     
     var team_phone = document.getElementById("team-phone"       ).value;
     var pass1 =      document.getElementById("pass1"            ).value;
@@ -73,7 +73,7 @@ $("#submitTeamRegistrationForm").click(function(){
     }
     
     //checks that the user has filled out all required fields
-    if(team_number==""||team_name==""||team_email==""||team_address==", , , "||pass1==""||pass2==""){
+    if(team_number==""||team_name==""||team_email==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
         return;
     }
@@ -171,13 +171,13 @@ $("#submitMentorRegistrationForm").click(function(){
     var zip = document.getElementById("zip").value;
     var age      =     document.getElementById("age"            ).value;
     
-    var mentor_address = address1 + ", " + address2 + ", " + address3 + zip + ", " + address4;
+    var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
     
     var mentor_phone = document.getElementById("mentor-phone"   ).value;
     var pass1 = document.getElementById("pass1"                 ).value;
     var pass2 = document.getElementById("pass2"                 ).value;
     
-    if(mentor_name==""||mentor_email==""||mentor_address==", , , "||pass1==""||pass2==""){
+    if(mentor_name==""||mentor_email==""||pass1==""||pass2==""){
         alert("you did not fill in a required field");
         return;
     }

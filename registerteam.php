@@ -139,22 +139,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     <div>
                                         <div class="row uniform">
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" title="Team Name" name="team-name" id="team-name" placeholder="Team Name" />
+                                                <input type="text" title="Team Name" name="team-name" id="team-name" placeholder="Team Name" required/>
                                             </div>
                                             <div class="6u$ 12u$(xsmall)">
-                                                <input type="email" title="Email" name="team-email" id="team-email" placeholder="Email" />
+                                                <input type="email" title="Email" name="team-email" id="team-email" placeholder="Email" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" title="Password" id="pass1" placeholder="Password" />
+                                                <input type="password" title="Password" id="pass1" placeholder="Password" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="password" title="Retype Password" id="pass2" placeholder="Retype Password" />
+                                                <input type="password" title="Retype Password" id="pass2" placeholder="Retype Password" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" />
+                                                <input type="text" title="Team Number" name="team-number" id="team-number" placeholder="Team Number" required/>
                                             </div>
                                             <div class="6u 12u$(small)">
-                                                <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" />
+                                                <input type="text" title="Contact Person" name="rname" id="rname" placeholder="Contact Person" required/>
                                             </div>
 
                                             <?php include "./pages/address_form.html"; ?>
@@ -188,9 +188,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(small)">
                                                 <br />&nbsp;
                                             </div>
-                                            <?php
-                                            include("./pages/skillset_form.html");
-                                            ?>
+
+                                            <?php include("./pages/skillset_form.html"); ?>
+                                            
                                             <div class="12u$">
                                                 <textarea name="comments" maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>

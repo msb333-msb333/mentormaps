@@ -177,7 +177,11 @@ echo '<script>var marker_map = [];</script>';?>
             if($noaccount){
                 echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
             }else{
-                echo 'centerMap(map, "'. $my_address .'");';
+                if(!$unbiased){
+                    echo 'centerMap(map, "'. $my_address .'");';
+                }else{
+                    echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
+                }
             }
                 
             ?>
@@ -413,9 +417,15 @@ echo '<script>var marker_map = [];</script>';?>
                                                 </a>
                                             </li>
                                             <li>
+                                                <?php if(!$unbiased){ ?>
                                                 <a href="./map.php?opt=unbiased">
                                                     (advanced) view unbiased map
                                                 </a>
+                                                <?php }else{ ?>
+                                                <a href="./map.php">
+                                                    view regular map
+                                                </a>
+                                                <?php } ?>
                                             </li>
                                             <li>
                                                 <a href="./logout.php">

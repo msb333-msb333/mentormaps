@@ -93,7 +93,8 @@
                     <div class="inner">
                         <header class="major">
                             <h2>Find the people that will guide your team with MentorMaps</h2>
-                            <p>MentorMaps was developed by FRC Team 3309 to make every team/mentor's life just a little bit easier </p>
+                            <p>MentorMaps was developed by FRC Team 3309 to make every team/mentor's life just a little bit easier <br/>
+                                <button onclick="window.location = './map.php?opt=noaccount';">try it now</button></p>
                         </header>
                     </div>
                 </section>
