@@ -12,7 +12,7 @@ if(isset($_GET['opt'])){
 function utf8_converter($array){
     array_walk_recursive($array, function(&$item, $key){
         if(!mb_detect_encoding($item, 'utf-8', true)){
-                $item = utf8_encode($item);
+            $item = utf8_encode($item);
         }
     });
     return $array;
@@ -111,6 +111,22 @@ echo '<script>var marker_map = [];</script>';
 <html>
     <head>
         <style>
+            .driving-button {
+                content:url('./img/ic_directions_car_white_48dp_2x.png');
+            }
+
+            .driving-button:hover{
+                content:url('./img/ic_directions_car_red_48dp_2x.png');
+            }
+
+            .open-profile{
+                content:url("./img/ic_open_in_new_white_48dp_2x.png");
+            }
+
+            .open-profile:hover{
+                content:url("./img/ic_open_in_new_red_48dp_2x.png");
+            }
+
             .li-team-tile{
                 color:#191919;
                 background-color:#FFFFFF;
@@ -171,6 +187,7 @@ echo '<script>var marker_map = [];</script>';
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById('map-canvas'),{zoom: 11});
+            directionsDisplay.setMap(map);
             <?php
             if($noaccount){
                 echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
@@ -217,8 +234,8 @@ echo '<script>var marker_map = [];</script>';
 
         function calcRoute(start, end) {
             var request = {
-                origin:start,
-                destination:end,
+                origin: start,
+                destination: end,
                 travelMode: google.maps.TravelMode.DRIVING
             };
             directionsService.route(request, function(result, status) {
@@ -262,27 +279,28 @@ echo '<script>var marker_map = [];</script>';
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
         var iconurl = "http://qca.st/images/redditor.png";
+        console.log(teamdata);
         if(teamdata['account_type']=='TEAM'){
-            if(typedata['pref_ftc']=='true'){
+            if(typedata['ftc']=='true'){
                 iconurl = 'img/white.png';
             }
-            if(typedata['pref_fll']=='true'){
+            if(typedata['fll']=='true'){
                 iconurl = 'img/blue.png';
             }
-            if(typedata['pref_frc']=='true'){
+            if(typedata['frc']=='true'){
                 iconurl = 'img/red.png';
             }
-            if(typedata['pref_vex']=='true'){
+            if(typedata['vex']=='true'){
                 iconurl = 'img/orange.png';
             }
         }else{
             //the does1 variable checks whether the account is affiliated with more than one type (FRC & FTC, VEX & FRC, etc)
             var does1 = false;
-            if(typedata['pref_ftc']=='true'){
+            if(typedata['ftc']=='true'){
                 does1 = true;
                 iconurl = 'img/whitem.png';
             }
-            if(typedata['pref_fll']=='true'){
+            if(typedata['fll']=='true'){
                 if(does1==true){
                     iconurl = 'img/greenm.png';
                 }else{
@@ -290,17 +308,19 @@ echo '<script>var marker_map = [];</script>';
                     iconurl = 'img/bluem.png';
                 }
             }
-            if(typedata['pref_frc']=='true'){
+            if(typedata['frc']=='true'){
                 if(does1==true){
                     iconurl = 'img/greenm.png';
                 }else{
+                    does1 = true;
                     iconurl = 'img/redm.png';
                 }
             }
-            if(typedata['pref_vex']=='true'){
+            if(typedata['vex']=='true'){
                 if(does1==true){
                     iconurl = 'img/greenm.png';
                 }else{
+                    does1 = true;
                     iconurl = 'img/orangem.png';
                 }
             }
@@ -337,7 +357,7 @@ echo '<script>var marker_map = [];</script>';
             if(typedata['pref_vex']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
-            document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;">Team Info: </div><a href="./profile.php?p='+teamdata['email']+'" target="_blank"><img src="img/ic_open_in_new_white_48dp_2x.png" width="24px" height="24px" /></a>';
+            document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \''+address+'\');" class="driving-button"/></div><a href="./profile.php?p='+teamdata['email']+'" target="_blank"><img class="open-profile"/></a>';
             
             var searchingFor = "";
             var ssjson = $.parseJSON(teamdata['searching_skills_json']);
@@ -350,24 +370,6 @@ echo '<script>var marker_map = [];</script>';
                     }
                 }
             });
-            <?php
-            if(isset($type)){
-                if($type=="MENTOR"){
-                    echo'
-                    document.getElementById("searching-skills-container").innerHTML = "<b><u>Searching For:<br /></u></b>" + searchingFor;
-                    document.getElementById("name-container").innerHTML = "<b><u>Team:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                    ';
-                }else{
-                    echo '
-                    document.getElementById("searching-skills-container").innerHTML = "<b><u>Offers:<br /></u></b>" + searchingFor;
-                    document.getElementById("name-container").innerHTML = "<b><u>Mentor Info:<br /></u></b>" + teamdata[\'name\'] + ", " + teamdata[\'team_number\'];
-                    ';
-                }
-            }else{
-
-            }
-            ?>
-            
             });
             google.maps.event.addListener(marker, 'mouseover', function() {
                 infowindow.open(map, this);

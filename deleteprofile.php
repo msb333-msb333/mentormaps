@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db->query("DELETE FROM `logins` WHERE EMAIL = '" . $userToDelete . "' LIMIT 1;");
     $db->query("DELETE FROM `data` WHERE EMAIL = '". $userToDelete ."' LIMIT 1;");
 
-    echo '{"status":"deleted profile successfully"}';
+    echo json_encode(array("status"=>"deleted profile successfully"));
 }else{
     die("must be POST");
 }

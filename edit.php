@@ -277,7 +277,7 @@
                 };
                 if($("#skill-other").is(":checked")){
                     $("#other-text-box").css("");//dunno what this was
-                    //TODO figure it out            ^
+                    //TODO figure this out          ^
                 }
                 </script>
             </section>
@@ -325,14 +325,7 @@
         $age =  sanitize($_POST['age']);
         $db->query("UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'");
 
-        echo '<script>console.log("'.$type.'");</script>';
-        $sql = "UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';";
-        echo '<script>console.log("'.$sql.'");</script>';
-        $db->query($sql);
-
-        if($db->errno){
-            echo $db->error();
-        }
+        $db->query("UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';");
     }else{
         if(!isset($_GET['p'])){
             echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
