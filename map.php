@@ -114,10 +114,8 @@ echo '<script>var marker_map = [];</script>';
             .li-team-tile{
                 color:#191919;
                 background-color:#FFFFFF;
-                border-style: solid;
-                border-width: 2px;
                 padding: .2em 1em;
-                border-color:#191919;
+                border: 2px solid #191919;
                 margin:0 0 7px 0;
             }
 
@@ -442,7 +440,7 @@ echo '<script>var marker_map = [];</script>';
                                     <script>
                                         document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
                                     </script>
-                                    <ul style="margin: 0;padding: 0;list-style-type:none;overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
+                                    <ul style="margin: 0;padding: 0;list-style-type:none;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
                                         <!--li team elements go here (appended with javascript)-->
                                     </ul>
                                 </div>
@@ -453,7 +451,7 @@ echo '<script>var marker_map = [];</script>';
                                             $("#range-display").html($("#slidey-thing").val());
                                         }
                                     </script>
-                                    <div style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
+                                    <div style="line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
                                         <ul style="list-style-type:none;" id="list-thing">
                                             <li>
                                                 Search Filter
@@ -584,9 +582,9 @@ echo '<script>var marker_map = [];</script>';
 
                                         var teamListIndex = 0;
                                         console.log("teamscore_map length: " + teamscore_map.length);
-                                        for(var e in teamscore_map){
-                                            var team = teamscore_map[e]['team'];
-                                            var result = teamscore_map[e].compare_result;
+                                        for(var teamscore_map_index in teamscore_map){
+                                            var team = teamscore_map[teamscore_map_index]['team'];
+                                            var result = teamscore_map[teamscore_map_index].compare_result;
                                             if(result != 0 && !isNaN(result)){
                                                 teamListIndex++;
                                                 $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+teamListIndex+" | "+team['name']+"</li>");

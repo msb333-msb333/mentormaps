@@ -16,10 +16,22 @@ function submitAddress(address){
                 'longitude' : longitude
             }
         });
+          return true;
       } else {
-        alert("Google Maps was unable to find the lat/lng for that address");
-        return;
+        return false;
       }
+    });
+}
+
+function submitDefaultAddress(){
+    $.ajax({
+        type: 'POST',
+        url: './storeaddress.php',
+        data : {
+            'address' : "ERROR, please update address in <a href='./profile.php'>profile</a>",
+            'latitude' : 33,
+            'longitude' : -117
+        }
     });
 }
 
@@ -125,8 +137,13 @@ $("#submitTeamRegistrationForm").click(function(){
             'comments':                     $("#comments").val()
         },
         success: function(data){
-            submitAddress(team_address);
-            $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
+            if(!submitAddress(team_address)){
+                alert("Google Maps was unable to find the lat/lng for that address");
+                submitDefaultAddress();
+                $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> and update your address");
+            }else {
+                $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
+            }
         },
         error: function(xhr, textStatus, errorThrown) {
             //TODO make this error-catching system more reliable
@@ -228,8 +245,13 @@ $("#submitMentorRegistrationForm").click(function(){
             'bio':                          $("#bio").val()
         },
         success: function(data){
-            submitAddress(mentor_address);
-            $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
+            if(!submitAddress(mentor_address)){
+                alert("Google Maps was unable to find the lat/lng for that address");
+                submitDefaultAddress();
+                $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> to update your address");
+            }else {
+                $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
+            }
         },
         error: function(xhr, textStatus, errorThrown) {
            if(errorThrown="SyntaxError: Unexpected token a"){

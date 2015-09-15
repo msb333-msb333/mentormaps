@@ -138,7 +138,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                     <label for="no">
                         No
                     </label>
-                    <textarea type="text" id="why" placeholder="Why?" rows="2"></textarea>
+                    <textarea id="why" placeholder="Why?" rows="2"></textarea>
                 </div>
                 <script>
                     $("#why").hide();
@@ -198,7 +198,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                 What features would you like to see added?
             </h3>
             <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <textarea type="text" name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"></textarea>
+                <textarea name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"></textarea>
             </div>
             <button id="submit" onclick="submit();" class="button">
                 submit

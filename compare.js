@@ -14,15 +14,15 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance, 
     var skills_searching_for = [];
     var skills_offered = [];
 
-    for(var e in team_skills){
-        if(team_skills[e] == 'true'){
-            skills_searching_for.push(e);
+    for(var team_skill_index in team_skills){
+        if(team_skills[team_skill_index] == 'true'){
+            skills_searching_for.push(team_skill_index);
         }
     }
 
-    for(var e in mentor_skills){
-        if(mentor_skills[e] == 'true'){
-            skills_offered.push(e);
+    for(var mentor_skill_index in mentor_skills){
+        if(mentor_skills[mentor_skill_index] == 'true'){
+            skills_offered.push(mentor_skill_index);
         }
     }
 

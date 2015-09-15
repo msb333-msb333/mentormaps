@@ -100,7 +100,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     require "./security/salt.php";
     require "./db.php";
 
-    $username = santiize($_POST['username']);
+    $username = sanitize($_POST['username']);
     $password = sanitize($_POST['password']);
     $refurl = sanitize($_POST['refurl']);
 

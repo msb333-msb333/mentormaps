@@ -9,4 +9,3 @@
 
     $db->query("UPDATE `assoc` SET `interested-in-me` = '$theirIntJSON' WHERE EMAIL = '$theirEmail';");
     $db->query("UPDATE `assoc` SET `interested-in` = '$myIntJSON' WHERE EMAIL = '$myEmail';");
-?>

@@ -30,12 +30,10 @@
 			}
 			a{
 				text-decoration: none;
-    			text-decoration: none;
 			}
 			a:visited{
 				text-decoration: none;
 				color: black;
-    			text-decoration: none;
 			}
 		</style>
 	</head>
@@ -61,4 +59,5 @@
 			<img src="<?php echo $SITE_ROOT; ?>/images/mentorfooter.jpg"/>
 		</div>
 	</div>
-</html>'; } ?>
+</html>';
+}

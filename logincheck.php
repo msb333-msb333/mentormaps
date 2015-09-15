@@ -16,4 +16,3 @@ if(!isset($_SESSION['auth'])){//if they aren't logged in, redirect them to the l
 }else if($_SESSION['auth'] == true){//if the user is logged in
     //do nothing
 }
-?>

@@ -13,4 +13,3 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }else{
     die("must be POST");
 }
-?>

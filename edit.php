@@ -100,7 +100,6 @@
                         'PHONE':                        phone,
                         'TEAM_NUMBER':                  team_number,
                         'AGE' :                         age,
-                        'NAME' :                        name,
             
                         'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
                         'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
@@ -146,8 +145,6 @@
         }
         .notifier {
             width:200px;
-            height:20px;
-            height:auto;
             position:relative;
             left:50%;
             margin-left:-100px;
