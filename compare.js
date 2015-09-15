@@ -9,27 +9,27 @@ function contains(a, obj) {
 }
 
 //alogorithm for comparing accounts; returns a value 0-1 based on compatibility
-function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_weight){
+function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_weight) {
     var skills_searching_for = [];
     var skills_offered = [];
 
-    for(var mySkillIndex in mySkills){
-        if(mySkills[mySkillIndex] == 'true'){
+    for (var mySkillIndex in mySkills) {
+        if (mySkills[mySkillIndex] == 'true') {
             skills_searching_for.push(mySkillIndex);
         }
     }
 
-    for(var theirSkillIndex in theirSkills){
-        if(theirSkills[theirSkillIndex] == 'true'){
+    for (var theirSkillIndex in theirSkills) {
+        if (theirSkills[theirSkillIndex] == 'true') {
             skills_offered.push(theirSkillIndex);
         }
     }
 
     //assign a variable that counts the number of skills that the two accounts share
     var matches = 0;
-    for(var i=0;i<skills_searching_for.length;i++){
+    for (var i = 0; i < skills_searching_for.length; i++) {
         var element = skills_searching_for[i];
-        if(skills_offered.indexOf(element) != -1){
+        if (skills_offered.indexOf(element) != -1) {
             matches++;
         }
     }
@@ -38,13 +38,13 @@ function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_
 
     //the type score can be 0 or 1 and filters incompatible account types (FRC, FTC, FLL, VEX, etc)
     var type_score = 0;
-    if(contains(theirTypes, myTypes)){
+    if (contains(theirTypes, myTypes)) {
         type_score = 1;
     }
 
     //just some code to make the algorithm easier to understand
     var numerator = skills_score * type_score;
     var denominator = distance * distance_weight;
-    
+
     return numerator / denominator;
 }
