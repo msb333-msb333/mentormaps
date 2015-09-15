@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/edit.php" afterPath="$PROJECT_DIR$/edit.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/customjquery.js" afterPath="$PROJECT_DIR$/customjquery.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -30,14 +30,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="customjquery.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="customjquery.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/customjquery.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="277" column="42" selection-start-line="277" selection-start-column="42" selection-end-line="277" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.39565217">
+              <caret line="287" column="0" selection-start-line="287" selection-start-column="0" selection-end-line="287" selection-end-column="0" />
               <folding>
-                <marker date="1442342373178" expanded="true" signature="1781:1802" placeholder="..." />
-                <marker date="1442342373178" expanded="true" signature="1781:1803" placeholder="..." />
+                <element signature="n#!!block;n#submitAddress#0" expanded="false" />
+                <element signature="n#!!block;n#submitDefaultAddress#0" expanded="false" />
+                <element signature="n#!!block;n#checkEULA#0" expanded="false" />
+                <element signature="e#2288#5658#0" expanded="false" />
+                <element signature="e#3604#4306#0" expanded="false" />
+                <element signature="e#4325#4516#0" expanded="false" />
+                <element signature="e#5713#8895#0" expanded="false" />
+                <element signature="e#6973#7163#0" expanded="false" />
+                <element signature="e#7186#7888#0" expanded="false" />
+                <element signature="e#8982#9028#0" expanded="false" />
+                <element signature="e#9073#9123#0" expanded="false" />
+                <marker date="1442350297226" expanded="true" signature="1781:1802" placeholder="..." />
+                <marker date="1442350297226" expanded="true" signature="1781:1803" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -75,10 +86,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/edit.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15186916">
+            <state vertical-scroll-proportion="-2.03125">
               <caret line="5" column="90" selection-start-line="5" selection-start-column="90" selection-end-line="5" selection-end-column="90" />
               <folding>
                 <marker date="1442349913799" expanded="true" signature="171:207" placeholder="SELECT * FRO..." />
@@ -189,11 +200,11 @@
         <option value="$PROJECT_DIR$/survey.php" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/config.php" />
-        <option value="$PROJECT_DIR$/customjquery.js" />
         <option value="$PROJECT_DIR$/registerteam.php" />
         <option value="$PROJECT_DIR$/registermentor.php" />
         <option value="$PROJECT_DIR$/profile.php" />
         <option value="$PROJECT_DIR$/edit.php" />
+        <option value="$PROJECT_DIR$/customjquery.js" />
       </list>
     </option>
   </component>
@@ -391,7 +402,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442349899670</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="sanitize edit input">
+      <created>1442349926473</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1442349926473</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -442,10 +459,13 @@
     <MESSAGE value="ready to test for changeable type" />
     <MESSAGE value="changeable type" />
     <MESSAGE value="edit optimizations" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit optimizations" />
+    <MESSAGE value="sanitize edit input" />
+    <option name="LAST_COMMIT_MESSAGE" value="sanitize edit input" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -781,17 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/customjquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="277" column="42" selection-start-line="277" selection-start-column="42" selection-end-line="277" selection-end-column="42" />
-          <folding>
-            <marker date="1442342373178" expanded="true" signature="1781:1802" placeholder="..." />
-            <marker date="1442342373178" expanded="true" signature="1781:1803" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -837,11 +846,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15186916">
+        <state vertical-scroll-proportion="-2.03125">
           <caret line="5" column="90" selection-start-line="5" selection-start-column="90" selection-end-line="5" selection-end-column="90" />
           <folding>
             <marker date="1442349913799" expanded="true" signature="171:207" placeholder="SELECT * FRO..." />
             <marker date="1442349913799" expanded="true" signature="171:232" placeholder="SELECT * FRO..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/customjquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39565217">
+          <caret line="287" column="0" selection-start-line="287" selection-start-column="0" selection-end-line="287" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#submitAddress#0" expanded="false" />
+            <element signature="n#!!block;n#submitDefaultAddress#0" expanded="false" />
+            <element signature="n#!!block;n#checkEULA#0" expanded="false" />
+            <element signature="e#2288#5658#0" expanded="false" />
+            <element signature="e#3604#4306#0" expanded="false" />
+            <element signature="e#4325#4516#0" expanded="false" />
+            <element signature="e#5713#8895#0" expanded="false" />
+            <element signature="e#6973#7163#0" expanded="false" />
+            <element signature="e#7186#7888#0" expanded="false" />
+            <element signature="e#8982#9028#0" expanded="false" />
+            <element signature="e#9073#9123#0" expanded="false" />
+            <marker date="1442350297226" expanded="true" signature="1781:1802" placeholder="..." />
+            <marker date="1442350297226" expanded="true" signature="1781:1803" placeholder="..." />
           </folding>
         </state>
       </provider>

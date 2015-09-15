@@ -98,56 +98,65 @@ $("#submitTeamRegistrationForm").click(function(){
         $("#pass2").css({"border" : "2px solid orange"});
         return;
     }
-    
+
+    var checkboxes = [
+        'FLLcheck',
+        'FTCcheck',
+        'FRCcheck',
+        'VEXcheck',
+        'skill-engineering',
+        'engineering-mechanical',
+        'engineering-electrical',
+        'skill-programming',
+        'programming-c',
+        'programming-java',
+        'programming-csharp',
+        'programming-python',
+        'programming-robotc',
+        'programming-nxt',
+        'programming-labview',
+        'programming-easyc',
+        'programming-ev3',
+        'skill-cad',
+        'skill-manufacturing',
+        'skill-design',
+        'skill-strategy',
+        'skill-scouting',
+        'skill-business',
+        'skill-fundraising',
+        'skill-marketing',
+        'skill-other'
+    ];
+    var fields = [
+        'pass1',
+        'pass2',
+        'rname',
+        'team-name',
+        'team-email',
+        'team-phone',
+        'team-number',
+        'other-text-box',
+        'comments'
+    ];
+
+    var info = {};
+    info['team-address'] = team_address;
+    info['team-age'] = teamage;
+
+    for(var index in fields){
+        var fieldName = fields[index];
+        info[fieldName] = $("#"+fieldName).val();
+    }
+
+    for(var index in checkboxes){
+        var cbname = checkboxes[index];
+        info[cbname] = $("#"+cbname).is(":checked");
+    }
+
     $.ajax({
         type:                               'POST',
         url:                                "./registerteam.php",
-        data: {
-            'rname' :                       $("#rname").val(),
-            'team-name':                    $("#team-name").val(),
-            'team-email':                   $("#team-email").val(),
-            'team-address':                 team_address,
-            'team-phone':                   $("#team-phone").val(),
-            'pass1':                        pass1,
-            'pass2':                        pass2,
-            'team-number':                  $("#team-number").val(),
-            'team-age' :                    teamage,
-            
-            'FLLcheck':                     $("#FLLcheck").is(":checked"),
-            'FTCcheck':                     $("#FTCcheck").is(":checked"),
-            'FRCcheck':                     $("#FRCcheck").is(":checked"),
-            'VEXcheck':                     $("#VEXcheck").is(":checked"),
-            
-            'skill-engineering':            $("#skill-engineering").is(":checked"),
-            
-            'engineering-mechanical' :      $("#engineering-mechanical").is(":checked"),
-            'engineering-electrical' :      $("#engineering-electrical").is(":checked"),
-            
-            'skill-programming':            $("#skill-programming").is(":checked"),
-            
-            'programming-c':                $("#programming-c").is(":checked"),
-            'programming-java':             $("#programming-java").is(":checked"),
-            'programming-csharp':           $("#programming-csharp").is(":checked"),
-            'programming-python':           $("#programming-python").is(":checked"),
-            'programming-robotc':           $("#programming-robotc").is(":checked"),
-            'programming-nxt':              $("#programming-nxt").is(":checked"),
-            'programming-labview':          $("#programming-labview").is(":checked"),
-            'programming-easyc':            $("#programming-easyc").is(":checked"),
-            'programming-ev3':              $("#programming-ev3").is(":checked"),
-            
-            'skill-cad':                    $("#skill-cad").is(":checked"),
-            'skill-manufacturing':          $("#skill-manufacturing").is(":checked"),
-            'skill-design':                 $("#skill-design").is(":checked"),
-            'skill-strategy':               $("#skill-strategy").is(":checked"),
-            'skill-scouting':               $("#skill-scouting").is(":checked"),
-            'skill-business':               $("#skill-business").is(":checked"),
-            'skill-fundraising':            $("#skill-fundraising").is(":checked"),
-            'skill-marketing':              $("#skill-marketing").is(":checked"),
-            'skill-other':                  $("#skill-other").is(":checked"),
-            
-            'other-text-box':               $("#other-text-box").val(),
-            'comments':                     $("#comments").val()
-        },
+        data: info,
         success: function(){
             submitAddress(team_address);
         },
@@ -213,7 +222,6 @@ $("#submitMentorRegistrationForm").click(function(){
         'bio',
         'other-text-box'
     ];
-
     var checkboxes = [
         'FLLcheck',
         'FTCcheck',
@@ -243,7 +251,6 @@ $("#submitMentorRegistrationForm").click(function(){
         'skill-other'
     ];
 
-    //populate info object with all necessary fields & data
     var info = {};
     info["mentor-address"] = mentor_address;
     for(var index in fields){
