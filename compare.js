@@ -8,21 +8,20 @@ function contains(a, obj) {
     return false;
 }
 
-//alogorithm for comparing teams; returns a value 0-1 based on compatibility
-//paramters are js arrays
-function compare(team_skills, mentor_skills, team_type, mentor_types, distance, distance_weight){
+//alogorithm for comparing accounts; returns a value 0-1 based on compatibility
+function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_weight){
     var skills_searching_for = [];
     var skills_offered = [];
 
-    for(var team_skill_index in team_skills){
-        if(team_skills[team_skill_index] == 'true'){
-            skills_searching_for.push(team_skill_index);
+    for(var mySkillIndex in mySkills){
+        if(mySkills[mySkillIndex] == 'true'){
+            skills_searching_for.push(mySkillIndex);
         }
     }
 
-    for(var mentor_skill_index in mentor_skills){
-        if(mentor_skills[mentor_skill_index] == 'true'){
-            skills_offered.push(mentor_skill_index);
+    for(var theirSkillIndex in theirSkills){
+        if(theirSkills[theirSkillIndex] == 'true'){
+            skills_offered.push(theirSkillIndex);
         }
     }
 
@@ -30,7 +29,7 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance, 
     var matches = 0;
     for(var i=0;i<skills_searching_for.length;i++){
         var element = skills_searching_for[i];
-        if(skills_offered.indexOf(element) > -1){
+        if(skills_offered.indexOf(element) != -1){
             matches++;
         }
     }
@@ -39,7 +38,7 @@ function compare(team_skills, mentor_skills, team_type, mentor_types, distance, 
 
     //the type score can be 0 or 1 and filters incompatible account types (FRC, FTC, FLL, VEX, etc)
     var type_score = 0;
-    if(contains(mentor_types, team_type)){
+    if(contains(theirTypes, myTypes)){
         type_score = 1;
     }
 
