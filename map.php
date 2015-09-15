@@ -87,7 +87,7 @@ while($r=mysqli_fetch_assoc($result)){
         'email'         => $r['EMAIL'],
         'address'       => $r['ADDRESS'],
         'type'          => $r['TYPE'],
-        'age'           => $r['AGE'],
+        'experience'    => $r['AGE'],
         'account_type'  => $r['ACCOUNT_TYPE'],
     );
     if(in_array($current['email'], $verif_data))
@@ -278,7 +278,7 @@ echo '<script>var marker_map = [];</script>';
     }
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
-        var iconurl = "http://qca.st/images/redditor.png";
+        var iconurl = "http://qca.st/images/redditor.png";//the user would only see this if something has gone horribly, horribly wrong
         console.log(teamdata);
         if(teamdata['account_type']=='TEAM'){
             if(typedata['ftc']=='true'){

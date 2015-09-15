@@ -124,22 +124,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" title="Phone Number" name="mentor-phone" id="mentor-phone" placeholder="Phone Number (Optional)" />
                                             </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="checkbox" id="FLLcheck" name="typeChecks">
-                                                <label for="FLLcheck">FLL</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="checkbox" id="FTCcheck" name="typeChecks">
-                                                <label for="FTCcheck">FTC</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="checkbox" id="FRCcheck" name="typeChecks">
-                                                <label for="FRCcheck">FRC</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="checkbox" id="VEXcheck" name="typeChecks">
-                                                <label for="VEXcheck">VEX</label>
-                                            </div>
+
+                                            <?php include("./pages/type_form.html"); ?>
+
                                             <div class="6u 12u$(small)">
                                                 <br />
                                             </div>
