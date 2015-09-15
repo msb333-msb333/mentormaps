@@ -62,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         'skill-scouting'        => $_POST['skill-scouting'],
                                         'skill-fundraising'     => $_POST['skill-fundraising'],
                                         'skill-other'           => $_POST['skill-other'],
-                                        'skill-other-desc'      => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']))
+                                        'skill-other-desc'      => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
                                         ));
                     
     $type = json_encode(array('pref_fll' => $_POST['FLLcheck'],
@@ -76,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $db->query("INSERT INTO `logins` (`KEY`, `VERIFIED`, `EMAIL`, `PASSWORD`, `TYPE`) VALUES ('".$guid."', 'false', '" . $team_email . "', '" . $pass_hash . "', 'TEAM');");
     $db->query("INSERT INTO `data` (`RNAME`, `ACCOUNT_TYPE`, `NAME`, `SKILLS_JSON`, `TEAM_NUMBER`, `COMMENTS`, `PHONE`, `EMAIL`, `ADDRESS`, `TYPE`, `AGE`) VALUES ('".$rname."', 'TEAM', '".$team_name."', '".$json_encoded_skills."', '".$team_number."', '".$comments."', '".$team_phone."', '".$team_email."', '".$team_address."', '".$type."', '".$team_age."');");
-    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '[]', '[]')");
+    $db->query("INSERT INTO `assoc` (`email`, `interested-in`, `interested-in-me`) VALUES ('$team_email', '{lv1:[], lv2:[]}', '{lv1:[], lv2:[]}')");
 
     require "./config.php";
     require "./pages/account_verify_email.php";

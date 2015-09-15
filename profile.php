@@ -44,10 +44,10 @@ require "./logincheck.php";
         }
 
         if($myInterests==""){
-            $myInterests = "[]";
+            $myInterests = "{\"lv1\":[], \"lv2\":[]}";
         }
         if($theirInterests==""){
-            $theirInterests = "[]";
+            $theirInterests = "{\"lv1\":[], \"lv2\":[]}";
         }
 
 ?>
@@ -65,6 +65,7 @@ require "./logincheck.php";
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
+        <script src="./interest.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -124,40 +125,13 @@ require "./logincheck.php";
         var theirInterests = <?php echo $theirInterests; ?>;
 
         $(function(){
-            if(myInterests.indexOf('<?php echo $email; ?>') > -1){
+            if(myInterests.lv1.indexOf('<?php echo $email; ?>') > -1){
                 $("#im-interested").prop('checked', true);
             }
         });
 
         function redirectToEditPage(){
             window.location = './edit.php';
-        }
-
-        function updateInterest(interest, email, from){
-            console.log("val if int param: " + interest);
-            if(interest){
-                console.log("int is true, adding " + email + " to myint");
-                myInterests.push(email);
-                theirInterests.push(from);
-            }else{
-                console.log("int is false, removing " + email + " from myint");
-                myInterests.splice(myInterests.indexOf(email), 1);
-                theirInterests.splice(theirInterests.indexOf(from), 1);
-            }
-
-            console.log("new myint: " + myInterests);
-            console.log("new theirint: " + theirInterests);
-
-            $.ajax({
-                url: './updateinterest.php',
-                type: 'POST',
-                data: {
-                    'theirEmail': email,
-                    'myEmail': "<?php echo $_SESSION['email']; ?>",
-                    'theirIntJSON': JSON.stringify(theirInterests),
-                    'myIntJSON': JSON.stringify(myInterests)
-                }
-            });
         }
     </script>
 
@@ -184,9 +158,9 @@ require "./logincheck.php";
                             });
                             $("#im-interested").change(function(){
                                 if($("#im-interested").is(':checked')){
-                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>", 1);
                                 }else{
-                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
+                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>", 1);
                                 }
                             });
                         </script>

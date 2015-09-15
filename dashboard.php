@@ -9,8 +9,8 @@ if(isset($_GET['p'])){
     //get all information from the db about the specified user
     $sql = "SELECT * FROM `assoc` WHERE email = '$user';";
     $result = $db->query($sql);
-    $interested_in      = '[]';
-    $interested_in_me   = '[]';
+    $interested_in      = '{lv1:[], lv2:[]}';
+    $interested_in_me   = '{lv1:[], lv2:[]}';
     if($result){
         while($r=mysqli_fetch_assoc($result)){
             $interested_in      = $r['interested-in'];
@@ -42,6 +42,7 @@ if(isset($_GET['p'])){
         <script src="assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <script src="./interest.js"></script>
     </head>
     <body class="landing">
 
@@ -70,8 +71,8 @@ if(isset($_GET['p'])){
                         </nav>
                     </header>
             <script>
-                var interested_in = <?php echo $interested_in; ?>;
-                var interested_in_me = <?php echo $interested_in_me; ?>;
+                var myInterests = <?php echo $interested_in; ?>;
+                var theirInterests = <?php echo $interested_in_me; ?>;
             </script>
             <article id="main">
                 <header>
@@ -88,8 +89,11 @@ if(isset($_GET['p'])){
                                 </tr>
                                 <script>
                                 //iterate over every account that is interested in the currently logged in user
-                                    $.each(interested_in_me, function(key, value){
-                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                    $.each(theirInterests.lv1, function(key, value){
+                                        document.write("<tr><td>(lv1) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                    });
+                                    $.each(theirInterests.lv2, function(key, value){
+                                        document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                 </script>
                             </table>
@@ -100,8 +104,11 @@ if(isset($_GET['p'])){
                                 </tr>
                                 <script>
                                     //iterate over every account that the currently logged in user is interested in
-                                    $.each(interested_in, function(key, value){
-                                        document.write("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                    $.each(myInterests.lv1, function(key, value){
+                                        document.write("<tr><td>(lv1) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                    });
+                                    $.each(myInterests.lv2, function(key, value){
+                                        document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                 </script>
                             </table>
