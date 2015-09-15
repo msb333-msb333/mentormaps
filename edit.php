@@ -12,7 +12,7 @@
                 $phone = $i['PHONE'];
                 $email = $i['EMAIL'];
                 $address = $i['ADDRESS'];
-                $type = $i['TYPE'];
+                $type = json_decode($i['TYPE']);
                 $age = $i['AGE'];
                 $account_type = $i['ACCOUNT_TYPE'];
             }
@@ -84,6 +84,13 @@
                 var phone = document.getElementById("phone").value;
                 var age = document.getElementById("age").value;
 
+                var type = {
+                    'frc' : $("#FRCcheck").is(":checked"),
+                    'ftc' : $("#FTCcheck").is(":checked"),
+                    'fll' : $("#FLLcheck").is(":checked"),
+                    'vex' : $("#VEXcheck").is(":checked")
+                };
+
                 //add new address entry if it changed
                 if(!(address=='<?php echo $address; ?>')){
                     submitAddress(address);
@@ -94,6 +101,7 @@
                     type: 'POST',
                     url: "./edit.php",
                     data: {
+                        'type' :                        type,
                         'NAME' :                        name,
                         'userToUpdate' :                '<?php echo $_SESSION['email']; ?>',
                         'ADDRESS':                      address,
@@ -232,12 +240,25 @@
                 </div>
                 <br />
 
-                <!--todo maybe
-                <div class="6u 12u$(small)">
-                    Type
-                    <input id="type" name="TYPE" type="text" placeholder="type" value="<?php echo 'type_here'; ?>" readonly/>
+
+
+                <div class="3u 12u$(small)">
+                    <input type="checkbox" id="FLLcheck" name="typeChecks" <?php if($type['fll']=='true') echo 'checked'; ?>>
+                    <label for="FLLcheck">FLL</label>
                 </div>
-                <br />-->
+                <div class="3u 12u$(small)">
+                    <input type="checkbox" id="FTCcheck" name="typeChecks" <?php if($type['ftc']=='true') echo 'checked'; ?>>
+                    <label for="FTCcheck">FTC</label>
+                </div>
+                <div class="3u 12u$(small)">
+                    <input type="checkbox" id="FRCcheck" name="typeChecks" <?php if($type['frc']=='true') echo 'checked'; ?>>
+                    <label for="FRCcheck">FRC</label>
+                </div>
+                <div class="3u 12u$(small)">
+                    <input type="checkbox" id="VEXcheck" name="typeChecks" <?php if($type['vex']=='true') echo 'checked'; ?>>
+                    <label for="VEXcheck">VEX</label>
+                </div>
+
                 
                 <div class="6u 12u$(small)">
                 <?php if($account_type=="MENTOR"){
@@ -269,39 +290,40 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){//update fields
         require "./db.php";
         checkIfUserLoggedIn($_POST['userToUpdate']);
-        $session_email = $_SESSION['email'];
+        $session_email = sanitize($_SESSION['email']);
         
         $json_encoded_skills = json_encode(
-                                    array(
-                                        'skill-engineering' => $_POST['skill-engineering'],
-                                        'engineering-desc'  => array(
-                                                                            'engineering-mechanical' => $_POST['engineering-mechanical'],
-                                                                            'engineering-electrical' => $_POST['engineering-electrical']),
+            array(
+                'skill-engineering' => $_POST['skill-engineering'],
+                'engineering-desc'  => array(
+                    'engineering-mechanical' => $_POST['engineering-mechanical'],
+                    'engineering-electrical' => $_POST['engineering-electrical']),
 
-                                        'skill-programming' => $_POST['skill-programming'],
-                                        'skill-cad' => $_POST['skill-cad'],
-                                        'programming-desc' => array(
-                                                                            'programming-c' => $_POST['programming-c'],
-                                                                            'programming-java' => $_POST['programming-java'],
-                                                                            'programming-csharp' => $_POST['programming-csharp'],
-                                                                            'programming-python' => $_POST['programming-python'],
-                                                                            'programming-robotc' => $_POST['programming-robotc'],
-                                                                            'programming-labview' => $_POST['programming-labview'],
-                                                                            'programming-easyc' => $_POST['programming-easyc'],
-                                                                            'programming-nxt' => $_POST['programming-nxt'],
-                                                                            'programming-ev3' => $_POST['programming-ev3']),
+                'skill-programming' => $_POST['skill-programming'],
+                'skill-cad' => $_POST['skill-cad'],
+                'programming-desc' => array(
+                    'programming-c' => $_POST['programming-c'],
+                    'programming-java' => $_POST['programming-java'],
+                    'programming-csharp' => $_POST['programming-csharp'],
+                    'programming-python' => $_POST['programming-python'],
+                    'programming-robotc' => $_POST['programming-robotc'],
+                    'programming-labview' => $_POST['programming-labview'],
+                    'programming-easyc' => $_POST['programming-easyc'],
+                    'programming-nxt' => $_POST['programming-nxt'],
+                    'programming-ev3' => $_POST['programming-ev3']),
 
-                                        'skill-strategy' => $_POST['skill-strategy'],
-                                        'skill-business' => $_POST['skill-business'],
-                                        'skill-marketing' => $_POST['skill-marketing'],
-                                        'skill-manufacturing' => $_POST['skill-manufacturing'],
-                                        'skill-design' => $_POST['skill-design'],
-                                        'skill-scouting' => $_POST['skill-scouting'],
-                                        'skill-fundraising' => $_POST['skill-fundraising'],
-                                        'skill-other' => $_POST['skill-other'],
-                                        'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
-                                        ));
-        
+                'skill-strategy' => $_POST['skill-strategy'],
+                'skill-business' => $_POST['skill-business'],
+                'skill-marketing' => $_POST['skill-marketing'],
+                'skill-manufacturing' => $_POST['skill-manufacturing'],
+                'skill-design' => $_POST['skill-design'],
+                'skill-scouting' => $_POST['skill-scouting'],
+                'skill-fundraising' => $_POST['skill-fundraising'],
+                'skill-other' => $_POST['skill-other'],
+                'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+            )
+        );
+
         $name = sanitize($_POST['NAME']);
         $sql = "UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'";
         $db->query($sql);
@@ -330,11 +352,13 @@
         $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
         $db->query($sql);
 
+        $type = sanitize($_POST['type']);
+        $sql = "UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';";
+        $db->query($sql);
+
         if($db->errno){
             echo $db->error();
         }
-        
-        //echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$session_email.'">';
         
     }else{
         if(!isset($_GET['p'])){
