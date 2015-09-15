@@ -424,7 +424,6 @@ echo '<script>var marker_map = [];</script>';
                         </nav>
                     </header>
                     <article id="footer" style="padding-top:30px;">
-                        <div id="maybe-this-will-work-wrapper"><!--holy crap, it worked-->
                             <div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
                                 <div id="team-list-wrapper">
                                     <script>
@@ -596,7 +595,6 @@ echo '<script>var marker_map = [];</script>';
                                     <?php } ?>
                                 });
                             </script>
-                        </div>
                     <style>
                         .paddedImgHolder{
                             padding-top:10px;
