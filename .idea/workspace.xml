@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compare.js" afterPath="$PROJECT_DIR$/compare.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map.php" afterPath="$PROJECT_DIR$/map.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -437,7 +435,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442351769899</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fancy new buttons &amp; driving directions">
+      <created>1442357101571</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1442357101571</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -493,7 +497,8 @@
     <MESSAGE value="iterate through skills recursively serverside" />
     <MESSAGE value="never forget to sanitize" />
     <MESSAGE value="echo valid json" />
-    <option name="LAST_COMMIT_MESSAGE" value="echo valid json" />
+    <MESSAGE value="fancy new buttons &amp; driving directions" />
+    <option name="LAST_COMMIT_MESSAGE" value="fancy new buttons &amp; driving directions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
