@@ -58,10 +58,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     
     $type = json_encode(
         array(
-            'pref_fll' => $_POST['FLLcheck'],
-            'pref_ftc' => $_POST['FTCcheck'],
-            'pref_frc' => $_POST['FRCcheck'],
-            'pref_vex' => $_POST['VEXcheck']
+            'fll' => $_POST['FLLcheck'],
+            'ftc' => $_POST['FTCcheck'],
+            'frc' => $_POST['FRCcheck'],
+            'vex' => $_POST['VEXcheck']
         )
     );
     

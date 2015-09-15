@@ -250,16 +250,16 @@ require "./logincheck.php";
                                 var types_array = [];
                                 $.each(type, function(key, value){
                                     if(value=='true'){
-                                        if(key=='pref_frc'){
+                                        if(key=='frc'){
                                             types_array.push("FRC");
                                         }
-                                        if(key=='pref_ftc'){
+                                        if(key=='ftc'){
                                             types_array.push("FTC");
                                         }
-                                        if(key=='pref_fll'){
+                                        if(key=='fll'){
                                             types_array.push("FLL");
                                         }
-                                        if(key=='pref_vex'){
+                                        if(key=='vex'){
                                             types_array.push("VEX");
                                         }
                                     }
