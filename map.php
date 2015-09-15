@@ -278,7 +278,7 @@ echo '<script>var marker_map = [];</script>';
     }
     function codeAddress(map, address, teamdata) {
         var typedata = $.parseJSON(teamdata['type']);
-        var iconurl = "http://qca.st/images/redditor.png";//the user would only see this if something has gone horribly, horribly wrong
+        var iconurl = "./img/undef.png";
         console.log(teamdata);
         if(teamdata['account_type']=='TEAM'){
             if(typedata['ftc']=='true'){
@@ -345,16 +345,16 @@ echo '<script>var marker_map = [];</script>';
       
         google.maps.event.addListener(marker, 'click', function(){
             $("#img-container").html("");
-            if(typedata['pref_fll']=='true'){
+            if(typedata['fll']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
-            if(typedata['pref_ftc']=='true'){
+            if(typedata['ftc']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
-            if(typedata['pref_frc']=='true'){
+            if(typedata['frc']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
-            if(typedata['pref_vex']=='true'){
+            if(typedata['vex']=='true'){
                 document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \''+address+'\');" class="driving-button"/></div><a href="./profile.php?p='+teamdata['email']+'" target="_blank"><img class="open-profile"/></a>';

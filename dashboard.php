@@ -95,7 +95,7 @@ if(isset($_GET['p'])){
                 function refreshInterestedInMe(){
                     $("#interested-in-me-table").html("<tr><th>Who's Interested In Me:</th></tr>");
                     $.each(theirInterests.lv1, function(key, value){
-                        $("#interested-in-me-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
+                        $("#interested-in-me-table").append("<tr><td>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
                     });
                     $.each(theirInterests.lv2, function(key, value){
                         $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
