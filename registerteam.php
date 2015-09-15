@@ -132,22 +132,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <div class="6u 12u$(xsmall)">
                                                 <input type="text" name="team-phone" id="team-phone" placeholder="Phone Number (Optional)" />
                                             </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="radio" id="FLLcheck" name="typeChecks" checked>
-                                                <label for="FLLcheck">FLL</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="radio" id="FTCcheck" name="typeChecks">
-                                                <label for="FTCcheck">FTC</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="radio" id="FRCcheck" name="typeChecks">
-                                                <label for="FRCcheck">FRC</label>
-                                            </div>
-                                            <div class="3u 12u$(small)">
-                                                <input type="radio" id="VEXcheck" name="typeChecks">
-                                                <label for="VEXcheck">VEX</label>
-                                            </div>
+
+                                            <?php include("./pages/type_form.html"); ?>
+
                                             <div class="6u 12u$(small)">
                                                 Searching for...
                                             </div>
@@ -158,7 +145,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <?php include("./pages/skillset_form.html"); ?>
                                             
                                             <div class="12u$">
-                                                <textarea name="comments" maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
+                                                <textarea maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
                                                 <input type="checkbox" id="EulaAgreement"/>

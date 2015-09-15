@@ -19,11 +19,13 @@ function submitAddress(address){
                     'longitude' : longitude
                 },
                 success: function(){
+                    console.log("address info submitted successfully");
                     $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
                 }
             });
           }else{
-              alert("Google Maps was unable to find the lat/lng for that address");
+              alert("Google Maps was unable to find a latitude or longitude for that address");
+              console.log("submitting default address");
               submitDefaultAddress();
           }
         });
@@ -100,10 +102,10 @@ $("#submitTeamRegistrationForm").click(function(){
     }
 
     var checkboxes = [
-        'FLLcheck',
-        'FTCcheck',
-        'FRCcheck',
-        'VEXcheck',
+        'fll',
+        'ftc',
+        'frc',
+        'vex',
         'skill-engineering',
         'engineering-mechanical',
         'engineering-electrical',
@@ -135,7 +137,7 @@ $("#submitTeamRegistrationForm").click(function(){
         'team-email',
         'team-phone',
         'team-number',
-        'other-text-box',
+        'skill-other-desc',
         'comments'
     ];
 
@@ -158,6 +160,7 @@ $("#submitTeamRegistrationForm").click(function(){
         url:                                "./registerteam.php",
         data: info,
         success: function(){
+            console.log("basic acct info submitted successfully");
             submitAddress(team_address);
         },
         error: function(xhr, textStatus, errorThrown) {
@@ -220,13 +223,13 @@ $("#submitMentorRegistrationForm").click(function(){
         'team-number',
         'age',
         'bio',
-        'other-text-box'
+        'skill-other-desc'
     ];
     var checkboxes = [
-        'FLLcheck',
-        'FTCcheck',
-        'FRCcheck',
-        'VEXcheck',
+        'fll',
+        'ftc',
+        'frc',
+        'vex',
         'skill-engineering',
         'engineering-mechanical',
         'engineering-electrical',
