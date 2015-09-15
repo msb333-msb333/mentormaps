@@ -85,7 +85,11 @@
                     submitAddress(address);
                 }
 
-                var checkboxes = ['frc', 'ftc', 'vex', 'fll',
+                var checkboxes = [
+                    'frc',
+                    'ftc',
+                    'vex',
+                    'fll',
                     'skill-engineering',
                     'engineering-mechanical',
                     'engineering-electrical',
@@ -109,10 +113,6 @@
                     'skill-marketing',
                     'skill-other'
                 ];
-
-                var info = {};
-                info['userToUpdate'] = '<?php echo $_SESSION['email']; ?>';
-
                 var fields = [
                     'name',
                     'address',
@@ -122,6 +122,9 @@
                     'other-text-box',
                     'comments'
                 ];
+
+                var info = {};
+                info['userToUpdate'] = '<?php echo $_SESSION['email']; ?>';
 
                 for(var index in fields){
                     var fieldName = fields[index];
