@@ -89,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             </div>
             <?php
                 if(isset($_GET['error'])){
-                    echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password <a href=\"./resetpassword.php\">reset?</a><br /><br />";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
+                    echo '<script>document.getElementById("wrong-password").innerHTML = "Wrong password <a href=\"./resetpassword.php\">reset?</a><br/><br/>";document.getElementById("wrong-password").setAttribute("style", "color:red;");</script>';
                 }
             ?>
             

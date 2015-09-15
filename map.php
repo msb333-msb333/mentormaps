@@ -494,8 +494,7 @@ echo '<script>var marker_map = [];</script>';
                                     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
                                     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                                     var d = R * c;
-                                    var ret = ((d * 3.28) / 5280);
-                                    return ret; // returns the distance in miles you damn commie
+                                    return ((d * 3.28) / 5280); // returns the distance in miles you damn commie
                                 };
                                 <?php if(!$noaccount){ ?>
                                 var me;
@@ -577,7 +576,7 @@ echo '<script>var marker_map = [];</script>';
                         
                                         var comparator = function(a,b){
                                             return b.compare_result - a.compare_result;
-                                        }
+                                        };
                         
                                         teamscore_map = teamscore_map.sort(comparator);
                         

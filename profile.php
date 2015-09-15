@@ -18,15 +18,13 @@ require "./logincheck.php";
         }
         echo '<!--this is a ' . $account_type . '-->';
 
-        $theirInterests;
         $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($email)."';";
 
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $theirInterests = $r['interested-in-me'];
         }
-        
-        $myInterests;
+
         $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($_SESSION['email'])."';";
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){

@@ -159,9 +159,9 @@
             padding:10px;
             text-align:center;
             border-radius: 2px;
-            -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+            -webkit-box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
+            -moz-box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
+            box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
         }
         </style>
         
@@ -256,10 +256,10 @@
                 var element1 = document.getElementById("readonly1");
                 element1.onmouseover = function(){
                     document.getElementById("notice1").style.display = "block";
-                }
+                };
                 element1.onmouseout = function(){
                     document.getElementById("notice1").style.display = "none";
-                }
+                };
                 if($("#skill-other").is(":checked")){
                     $("#other-text-box").css("");
                 }

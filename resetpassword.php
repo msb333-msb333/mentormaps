@@ -12,11 +12,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         require "./config.php";
         require "./pages/reset_password_email.php";
         sendEmail($sendgrid_api_key, $_POST['email'], 'MentorMaps: Reset Password', echoResetPasswordEmail($key, $SITE_ROOT));
-        die("sent reset email");
+        echo "sent reset email";
         require "./pages/default_footer.html";
     }else{
         require "./pages/default_header.html";
-        die("no such email in db");
+        echo "no such email in db";
         require "./pages/default_footer.html";
     }
 }else{
