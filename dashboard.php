@@ -30,18 +30,28 @@ if(isset($_GET['p'])){
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <style>
+            .not-interested-button{
+                width:24;
+                height:24;
+                content:url('./img/ic_not_interested_black_48dp_2x.png');
+            }
+            .not-interested-button:hover{
+                content:url('./img/ic_not_interested_red_48dp_2x.png');
+            }
+        </style>
     </head>
     <body class="landing">
             <div id="page-wrapper">
@@ -68,8 +78,50 @@ if(isset($_GET['p'])){
             <script>
                 var myInterests = <?php echo $interested_in; ?>;
                 var theirInterests = <?php echo $interested_in_me; ?>;
-                function remove(email){
-                    console.log(email);
+
+                function updateInterest(myEmail, theirEmail){
+                    $.ajax({
+                        url: './updateinterest.php',
+                        type: 'POST',
+                        data: {
+                            'theirEmail': theirEmail,
+                            'myEmail': myEmail,
+                            'theirIntJSON': JSON.stringify(theirInterests),
+                            'myIntJSON': JSON.stringify(myInterests)
+                        }
+                    });
+                }
+
+                //iterate over every account that is interested in the currently logged in user
+                function refreshInterestedInMe(){
+                    $("#interested-in-me-table").html("<tr><th>Who's Interested In Me:</th></tr>");
+                    $.each(theirInterests.lv1, function(key, value){
+                        $("#interested-in-me-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                    });
+                    $.each(theirInterests.lv2, function(key, value){
+                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                    });
+                }
+
+                function refreshInterestedIn(){
+                    $("#interested-in-table").html("<tr><th>Who I'm Interested In:</th></tr>");
+                    $.each(myInterests.lv1, function(key, value){
+                        $("#interested-in-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/> | "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                    });
+                    $.each(myInterests.lv2, function(key, value){
+                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                    });
+                }
+
+                var myEmail = '<?php echo $_SESSION['email']; ?>';
+
+                function notinterested(email){
+                    myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
+                    theirInterests.lv1.splice(theirInterests.lv1.indexOf(email), 1);
+
+                    updateInterest(myEmail, email);
+                    refreshInterestedIn();
+                    refreshInterestedInMe();
                 }
             </script>
             <article id="main">
@@ -81,37 +133,14 @@ if(isset($_GET['p'])){
                 <section class="wrapper style5">
                     <div class="inner">
                         <section id="main-section" style="color:black;display:inline-block;width:100%;">
-                            <table style="color:black;width:40%;float:left;">
-                                <tr>
-                                    <th>Who's Interested In Me:</th>
-                                </tr>
-                                <script>
-                                    //iterate over every account that is interested in the currently logged in user
-                                    $.each(theirInterests.lv1, function(key, value){
-                                        document.write("<tr><td><button onclick='remove(\""+value+"\");'>remove</button>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
-                                    });
-                                    $.each(theirInterests.lv2, function(key, value){
-                                        document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
-                                    });
-                                </script>
-                            </table>
-
-                            <table style="color:black;width:40%;float:right;">
-                                <tr>
-                                    <th>Who I'm Interested In:</th>
-                                </tr>
-                                <script>
-                                    //iterate over every account that the currently logged in user is interested in
-                                    $.each(myInterests.lv1, function(key, value){
-                                        document.write("<tr><td><button onclick='remove(\""+value+"\");'>remove</button>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
-                                    });
-                                    $.each(myInterests.lv2, function(key, value){
-                                        document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
-                                    });
-                                </script>
-                            </table>
-
-                            
+                            <table style="color:black;width:40%;float:left;" id="interested-in-me-table"></table>
+                            <script>
+                                refreshInterestedInMe();
+                            </script>
+                            <table style="color:black;width:40%;float:right;" id="interested-in-table"></table>
+                            <script>
+                                refreshInterestedIn();
+                            </script>
                         </section>
                     </div>
                 </section>
