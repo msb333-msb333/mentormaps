@@ -128,6 +128,11 @@ echo '<script>var marker_map = [];</script>';
             content: url("./img/ic_open_in_new_red_48dp_2x.png");
         }
 
+        .team-info-label{
+            font-size:24px;
+            display:inline;
+        }
+
         .li-team-tile {
             color: #191919;
             background-color: #FFFFFF;
@@ -139,6 +144,10 @@ echo '<script>var marker_map = [];</script>';
         .li-team-tile:hover {
             background-color: #E8E8E8;
             border-color: #303030;
+        }
+
+        .img-padding{
+            padding-left:1%;
         }
 
         #map-canvas {
@@ -351,18 +360,18 @@ echo '<script>var marker_map = [];</script>';
             google.maps.event.addListener(marker, 'click', function () {
                 $("#img-container").html("");
                 if (typedata['fll'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                    document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
                 }
                 if (typedata['ftc'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                    document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
                 }
                 if (typedata['frc'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                    document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
                 }
                 if (typedata['vex'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
+                    document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
                 }
-                document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + address + '\');" class="driving-button"/></div><a href="./profile.php?p=' + teamdata['email'] + '" target="_blank"><img class="open-profile"/></a>';
+                document.getElementById("team-info-label").innerHTML = '<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + address + '\');" class="driving-button"/></div><a href="./profile.php?p=' + teamdata['email'] + '" target="_blank"><img class="open-profile"/></a>';
             });
             google.maps.event.addListener(marker, 'mouseover', function () {
                 infowindow.open(map, this);
