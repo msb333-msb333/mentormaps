@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $team_address       = sanitize($_POST['team-address']);
     $team_phone         = sanitize($_POST['team-phone']);
     $comments           = sanitize($_POST['comments']);
-    $TEAM_NUMBER        = sanitize($_POST['team-number']);
+    $team_number        = sanitize($_POST['team-number']);
     $rname              = sanitize($_POST['rname']);
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
@@ -95,7 +95,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="./assets/js/jquery.scrollTo.min.js"></script>
-        <script src="./customjquery.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -207,6 +206,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </footer>
             </div>
     </body>
+    <script src="./customjquery.js"></script>
     <script>
         $(function(){
             $("#engineering-types-list").toggle();

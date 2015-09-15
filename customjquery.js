@@ -42,7 +42,7 @@ function submitDefaultAddress(){
             $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> to update your address");
         },
         error: function(){
-            $("#register-section").html("Error submitting default address, possibly a database connection error. Contact an administrator.<div style='color:rgba(0,0,0,0.4);'>oh boy, now you did it</div>");
+            $("#register-section").html("Wow, you really screwed up; this should never happen. Contact an Administrator.<div style='color:rgba(0,0,0,0.4);'>oh man, you really did it now</div>");
         }
     });
 }
