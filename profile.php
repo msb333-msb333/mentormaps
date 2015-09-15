@@ -307,14 +307,12 @@ require "./logincheck.php";
                             };
                             
                             $.each(skills_json, function(key, value){
-                                if(key=='skill-other-desc'){
-                                    if(skills_json['skill-other']=='true'){
-                                        document.write("<li>Other Skill: ("+value+")</li>");
-                                    }
-                                }else if(key=="skill-other"){
-                                    //don't print this key
+                                if(key=='skill-other-desc' && skills_json['skill-other']=='true'){
+                                    document.write("<li>Other Skill: ("+value+")</li>");
                                 }else if(value=='true'){
                                     document.write('<li>' + assoc[key] + '</li>');
+                                }else if(key=="skill-other") {
+                                    //don't print this key
                                 }
                             });
                         </script>
