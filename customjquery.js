@@ -158,6 +158,9 @@ $("#submitMentorRegistrationForm").click(function(){
     for(var fieldIndex in required_fields){
         var field = required_fields[fieldIndex];
         if($(field).val()==""){
+            if(allFieldsFilledOut){
+                $.scrollTo($(field));
+            }
             allFieldsFilledOut = false;
             $(field).css({"border" : "2px solid red"});
         }else{
