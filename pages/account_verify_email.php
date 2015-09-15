@@ -30,12 +30,10 @@
 			}
 			a{
 				text-decoration: none;
-    			text-decoration: none;
 			}
 			a:visited{
 				text-decoration: none;
 				color: black;
-    			text-decoration: none;
 			}
 		</style>
 	</head>
@@ -64,4 +62,5 @@
 		</div>
 	</div>
 </html>
-'; } ?>
+';
+}

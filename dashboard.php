@@ -3,7 +3,7 @@ require "./db.php";
 require "./logincheck.php";
 
 if(isset($_GET['p'])){
-    $user = $_GET['p'];
+    $user = sanitize($_GET['p']);
     checkIfUserLoggedIn($user);
 
     //get all information from the db about the specified user
@@ -18,7 +18,6 @@ if(isset($_GET['p'])){
         }
     }else{
         //TODO handle invalid query error
-        //invalid query
     }
 }else{
     echo "<meta http-equiv=\"refresh\" content=\"0;URL=./dashboard.php?p=".$_SESSION['email']."\">";
@@ -44,8 +43,8 @@ if(isset($_GET['p'])){
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <style>
             .not-interested-button{
-                width:24;
-                height:24;
+                width:24px;
+                height:24px;
                 content:url('./img/ic_not_interested_black_48dp_2x.png');
             }
             .not-interested-button:hover{
@@ -96,20 +95,20 @@ if(isset($_GET['p'])){
                 function refreshInterestedInMe(){
                     $("#interested-in-me-table").html("<tr><th>Who's Interested In Me:</th></tr>");
                     $.each(theirInterests.lv1, function(key, value){
-                        $("#interested-in-me-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                        $("#interested-in-me-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
                     });
                     $.each(theirInterests.lv2, function(key, value){
-                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
                     });
                 }
 
                 function refreshInterestedIn(){
                     $("#interested-in-table").html("<tr><th>Who I'm Interested In:</th></tr>");
                     $.each(myInterests.lv1, function(key, value){
-                        $("#interested-in-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/> | "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                        $("#interested-in-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\""+value+"\");'/> | "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
                     });
                     $.each(myInterests.lv2, function(key, value){
-                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                        $("#interested-in-table").append("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;< src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
                     });
                 }
 

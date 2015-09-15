@@ -12,4 +12,7 @@
         } 
     return $inp; 
     }
-?>
+
+    function sanitize($input){
+        return htmlspecialchars(mysql_escape_mimic($input), ENT_QUOTES, "UTF-8");
+    }

@@ -11,4 +11,3 @@
             ->setHtml($html);
         $sendgrid->send($email);
     }
-?>

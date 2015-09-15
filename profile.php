@@ -3,18 +3,7 @@ require "./logincheck.php";
     if(isset($_GET['p'])){
         $refurl = "./profile.php?p=" . $_GET['p'];
         require "./db.php";
-        
-        $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
-        $name                   = "";
-        $skills_json            = "";
-        $team_number            = "";
-        $comments               = "";
-        $phone                  = "";
-        $email                  = "";
-        $address                = "";
-        $type                   = "";
-        $age                    = "";
-        $account_type           = "";
+        $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".sanitize($_GET['p'])."'");
         while($i=mysqli_fetch_assoc($result)){
             $name               = $i['NAME'         ];
             $skills_json        = $i['SKILLS_JSON'  ];
@@ -29,25 +18,24 @@ require "./logincheck.php";
         }
         echo '<!--this is a ' . $account_type . '-->';
 
-        $theirInterests;
-        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '$email'";
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($email)."';";
+
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $theirInterests = $r['interested-in-me'];
         }
-        
-        $myInterests;
-        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".$_SESSION['email']."'";
+
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($_SESSION['email'])."';";
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $myInterests = $r['interested-in'];
         }
 
         if($myInterests==""){
-            $myInterests = "{\"lv1\":[], \"lv2\":[]}";
+            $myInterests = "{lv1:[], lv2:[]}";
         }
         if($theirInterests==""){
-            $theirInterests = "{\"lv1\":[], \"lv2\":[]}";
+            $theirInterests = "{lv1:[], lv2:[]}";
         }
 
 ?>
@@ -57,19 +45,18 @@ require "./logincheck.php";
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/jquery.scrollex.min.js"></script>
-        <script src="assets/js/jquery.scrolly.min.js"></script>
-        <script src="assets/js/skel.min.js"></script>
+        <link rel="stylesheet" href="./assets/css/main.css" />
+        <script src="./assets/js/jquery.min.js"></script>
+        <script src="./assets/js/jquery.scrollex.min.js"></script>
+        <script src="./assets/js/jquery.scrolly.min.js"></script>
+        <script src="./assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
-        <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="./interest.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <script src="./assets/js/util.js"></script>
+        <script src="./assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="./assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="./assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="./assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="./assets/js/ie/html5shiv.js"></script><![endif]-->
     </head>
     <body class="landing">
             <div id="page-wrapper">
@@ -96,85 +83,84 @@ require "./logincheck.php";
                         Array.prototype.indexOf = function(searchElement /*, fromIndex */){
                             "use strict";
                             if (this === void 0 || this === null)
-                    throw new TypeError();
-                var t = Object(this);
-                var len = t.length >>> 0;
-                if (len === 0)
-                    return -1;
-                var n = 0;
-                if (arguments.length > 0){
-                    n = Number(arguments[1]);
-                    if (n !== n)
-                        n = 0;
-                    else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
-                        n = (n > 0 || -1) * Math.floor(Math.abs(n));
-                }
-                if (n >= len)
-                    return -1;
-                var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+                               throw new TypeError();
+                            var t = Object(this);
+                            var len = t.length >>> 0;
+                            if (len === 0)
+                                return -1;
+                            var n = 0;
+                            if (arguments.length > 0){
+                                n = Number(arguments[1]);
+                                if (n !== n)
+                                    n = 0;
+                                else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
+                                    n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                            }
+                            if (n >= len)
+                                return -1;
+                            var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
 
-                for (; k < len; k++){
-                    if (k in t && t[k] === searchElement)
-                        return k;
+                            for (; k < len; k++){
+                                if (k in t && t[k] === searchElement)
+                                    return k;
+                                }
+                            return -1;
+                        };
+
                     }
-                return -1;
-            };
 
-        }
+                    function updateInterest(interest, email, from, level){
+                        console.log("val of int param: " + interest);
+                        if(level==1){
+                            if(interest){
+                                console.log("int is true, adding " + email + " to myint");
+                                myInterests.lv1.push(email);
+                                theirInterests.lv1.push(from);
+                            }else{
+                                console.log("int is false, removing " + email + " from myint");
+                                myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
+                                theirInterests.lv1.splice(theirInterests.lv1.indexOf(from), 1);
+                            }
+                        }else{
+                            if(interest){
+                                console.log("int is true, adding " + email + " to myint");
+                                myInterests.lv2.push(email);
+                                theirInterests.lv2.push(from);
+                            }else{
+                                console.log("int is false, removing " + email + " from myint");
+                                myInterests.lv2.splice(myInterests.lv2.indexOf(email), 1);
+                                theirInterests.lv2.splice(theirInterests.lv2.indexOf(from), 1);
+                            }
+                        }
 
-        function updateInterest(interest, email, from, level){
-            console.log("val of int param: " + interest);
-            if(level==1){
-                if(interest){
-                    console.log("int is true, adding " + email + " to myint");
-                    myInterests.lv1.push(email);
-                    theirInterests.lv1.push(from);
-                }else{
-                    console.log("int is false, removing " + email + " from myint");
-                    myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
-                    theirInterests.lv1.splice(theirInterests.lv1.indexOf(from), 1);
-                }
-            }else{
-                if(interest){
-                    console.log("int is true, adding " + email + " to myint");
-                    myInterests.lv2.push(email);
-                    theirInterests.lv2.push(from);
-                }else{
-                    console.log("int is false, removing " + email + " from myint");
-                    myInterests.lv2.splice(myInterests.lv2.indexOf(email), 1);
-                    theirInterests.lv2.splice(theirInterests.lv2.indexOf(from), 1);
-                }
-            }
+                        console.log("new myint: " + myInterests);
+                        console.log("new theirint: " + theirInterests);
 
-            console.log("new myint: " + myInterests);
-            console.log("new theirint: " + theirInterests);
+                        $.ajax({
+                            url: './updateinterest.php',
+                            type: 'POST',
+                            data: {
+                                'theirEmail': email,
+                                'myEmail': "<?php echo $_SESSION['email']; ?>",
+                                'theirIntJSON': JSON.stringify(theirInterests),
+                                'myIntJSON': JSON.stringify(myInterests)
+                            }
+                        });
+                    }
 
-            $.ajax({
-                url: './updateinterest.php',
-                type: 'POST',
-                data: {
-                    'theirEmail': email,
-                    'myEmail': "<?php echo $_SESSION['email']; ?>",
-                    'theirIntJSON': JSON.stringify(theirInterests),
-                    'myIntJSON': JSON.stringify(myInterests)
-                }
-            });
-        }
+                    var myInterests = <?php echo $myInterests; ?>;
+                    var theirInterests = <?php echo $theirInterests; ?>;
 
-        var myInterests = <?php echo $myInterests; ?>;
-        var theirInterests = <?php echo $theirInterests; ?>;
+                    $(function(){
+                        if(myInterests.lv1.indexOf('<?php echo $email; ?>') > -1){
+                            $("#im-interested").prop('checked', true);
+                        }
+                    });
 
-        $(function(){
-            if(myInterests.lv1.indexOf('<?php echo $email; ?>') > -1){
-                $("#im-interested").prop('checked', true);
-            }
-        });
-
-        function redirectToEditPage(){
-            window.location = './edit.php';
-        }
-    </script>
-
+                    function redirectToEditPage(){
+                        window.location = './edit.php';
+                    }
+                </script>
     <article id="main"> 
         <section class="wrapper style5">
             <div id="map-nav" style="padding-left:3%;padding-bottom:1%;">
@@ -299,9 +285,6 @@ require "./logincheck.php";
                                 echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL;
                             ?>
                             var assoc = {
-                                "skill-engineering"         : '',
-                                "skill-programming"         : '',
-                                "skill-other"               : '',
                                 "skill-cad"                 : 'CAD',
                                 "skill-strategy"            : 'Strategy',
                                 "skill-business"            : 'Business',

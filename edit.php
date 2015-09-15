@@ -3,18 +3,7 @@
         require "./db.php";
         if(isset($_GET['p'])){
             checkIfUserLoggedIn($_GET['p']);
-            //get all info from the db
             $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
-            $name = "";
-            $skills_json = "";
-            $team_number = "";
-            $comments = "";
-            $phone = "";
-            $email = "";
-            $address = "";
-            $type = "";
-            $age = "";
-            $account_type = "";
             while($i=mysqli_fetch_assoc($result)){
                 $name = $i['NAME'];
                 $skills_json = $i['SKILLS_JSON'];
@@ -35,25 +24,21 @@
         <title>Mentor Maps</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
@@ -76,22 +61,21 @@
                     </header>
         
         <script src="./customjquery.js"></script>
-<script>
-        
-        function del(){
-            if(confirm("Are you sure you want to delete your profile?")){
-                $.ajax({
-                    url: "./deleteprofile.php",
-                    type: 'POST',
-                    data: {
-                        'user_to_delete' : '<?php echo $_SESSION['email']; ?>'
-                    },
-                    success : function(){
-                        window.location = "./logout.php";
-                    }
-                });
+        <script>
+            function del(){
+                if(confirm("Are you sure you want to delete your profile?")){
+                    $.ajax({
+                        url: "./deleteprofile.php",
+                        type: 'POST',
+                        data: {
+                            'user_to_delete' : '<?php echo $_SESSION['email']; ?>'
+                        },
+                        success : function(){
+                            window.location = "./logout.php";
+                        }
+                    });
+                }
             }
-        }
         
             function submit(){
                 var team_number = document.getElementById("team_number").value;
@@ -116,7 +100,6 @@
                         'PHONE':                        phone,
                         'TEAM_NUMBER':                  team_number,
                         'AGE' :                         age,
-                        'NAME' :                        name,
             
                         'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
                         'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
@@ -162,8 +145,6 @@
         }
         .notifier {
             width:200px;
-            height:20px;
-            height:auto;
             position:relative;
             left:50%;
             margin-left:-100px;
@@ -175,9 +156,9 @@
             padding:10px;
             text-align:center;
             border-radius: 2px;
-            -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-            box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+            -webkit-box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
+            -moz-box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
+            box-shadow: 0 0 24px -1px rgba(56, 56, 56, 1);
         }
         </style>
         
@@ -272,10 +253,10 @@
                 var element1 = document.getElementById("readonly1");
                 element1.onmouseover = function(){
                     document.getElementById("notice1").style.display = "block";
-                }
+                };
                 element1.onmouseout = function(){
                     document.getElementById("notice1").style.display = "none";
-                }
+                };
                 if($("#skill-other").is(":checked")){
                     $("#other-text-box").css("");
                 }
@@ -296,7 +277,7 @@
                                         'engineering-desc'  => array(
                                                                             'engineering-mechanical' => $_POST['engineering-mechanical'],
                                                                             'engineering-electrical' => $_POST['engineering-electrical']),
-                                                    
+
                                         'skill-programming' => $_POST['skill-programming'],
                                         'skill-cad' => $_POST['skill-cad'],
                                         'programming-desc' => array(
@@ -309,7 +290,7 @@
                                                                             'programming-easyc' => $_POST['programming-easyc'],
                                                                             'programming-nxt' => $_POST['programming-nxt'],
                                                                             'programming-ev3' => $_POST['programming-ev3']),
-                                                                            
+
                                         'skill-strategy' => $_POST['skill-strategy'],
                                         'skill-business' => $_POST['skill-business'],
                                         'skill-marketing' => $_POST['skill-marketing'],
@@ -321,7 +302,7 @@
                                         'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
         
-        $name = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['NAME']));
+        $name = sanitize($_POST['NAME']);
         $sql = "UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
@@ -329,23 +310,23 @@
         $sql = "UPDATE `data` SET SKILLS_JSON = '$skills_json' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $team_number = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['TEAM_NUMBER']));
+        $team_number = sanitize($_POST['TEAM_NUMBER']);
         $sql = "UPDATE `data` SET TEAM_NUMBER = '$team_number' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $comments = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['COMMENTS']));
+        $comments = sanitize($_POST['COMMENTS']);
         $sql = "UPDATE `data` SET COMMENTS = '$comments' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $phone = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['PHONE']));
+        $phone = sanitize($_POST['PHONE']);
         $sql = "UPDATE `data` SET PHONE = '$phone' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $address = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['ADDRESS']));
+        $address = sanitize($_POST['ADDRESS']);
         $sql = "UPDATE `data` SET ADDRESS = '$address' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $age = str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['AGE']));
+        $age =  sanitize($_POST['AGE']);
         $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
         $db->query($sql);
 

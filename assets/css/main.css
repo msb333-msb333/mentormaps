@@ -92,19 +92,19 @@
 	}
 
 	.row.\30 \25 > * {
-		padding: 0 0 0 0em;
+		padding: 0 0 0 0;
 	}
 
 	.row.\30 \25 {
-		margin: 0 0 -1px 0em;
+		margin: 0 0 -1px 0;
 	}
 
 	.row.uniform.\30 \25 > * {
-		padding: 0em 0 0 0em;
+		padding: 0 0 0 0;
 	}
 
 	.row.uniform.\30 \25 {
-		margin: 0em 0 -1px 0em;
+		margin: 0 0 -1px 0;
 	}
 
 	.row > * {
@@ -3214,9 +3214,7 @@
 					}
 
 		#menu .close {
-			background-image: url("images/close.svg");
-			background-position: 4.85em 1em;
-			background-repeat: no-repeat;
+			background: url("images/close.svg") no-repeat 4.85em 1em;
 			border: 0;
 			cursor: pointer;
 			display: block;
@@ -3331,9 +3329,7 @@
 						}
 
 							#header nav > ul > li > a.menuToggle:after {
-								background-image: url("images/bars.svg");
-								background-position: right center;
-								background-repeat: no-repeat;
+								background: url("images/bars.svg") no-repeat right center;
 								content: '';
 								display: inline-block;
 								height: 3.75em;
@@ -3485,9 +3481,7 @@
 		}
 
 			#banner .more:after {
-				background-image: url("images/arrow.svg");
-				background-position: center;
-				background-repeat: no-repeat;
+				background: url("images/arrow.svg") no-repeat center;
 				background-size: contain;
 				bottom: 4em;
 				content: '';

@@ -6,21 +6,25 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 <html>
     <head>
         <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
-        <title>Mentor Maps</title>
+        <title>
+            Mentor Maps
+        </title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     </head>
     <body class="landing">
             <div id="page-wrapper">
@@ -46,10 +50,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                             </ul>
                         </nav>
                     </header>
-
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
 <script>
     var exp = 1;
     function redirect(){
@@ -138,7 +138,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                     <label for="no">
                         No
                     </label>
-                    <textarea type="text" id="why" placeholder="Why?" rows="2"></textarea>
+                    <textarea id="why" placeholder="Why?" rows="2"></textarea>
                 </div>
                 <script>
                     $("#why").hide();
@@ -198,7 +198,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                 What features would you like to see added?
             </h3>
             <div align='center' style="padding-top:10px; padding-bottom:10px">
-                <textarea type="text" name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"></textarea>
+                <textarea name="team-name" id="toAddFeaturesField" placeholder="Write Response" style="width: 60%"></textarea>
             </div>
             <button id="submit" onclick="submit();" class="button">
                 submit
@@ -218,32 +218,15 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 }else{
     require "./db.php";
 
-    //get vars from POST
-    $recFriend              = $_POST['recFriend'        ];
-    $recFeatures            = $_POST['recFeatures'      ];
-    $toAddFeatures          = $_POST['toAddFeatures'    ];
-    $dislikedFeatures       = $_POST['dislikedFeatures' ];
-    $email                  = $_POST['email'            ];
-    $why                    = $_POST['why'              ];
+    //prevent xss & sql injection
+    $email                  = sanitize($_POST['email']);
+    $recFriend              = sanitize($_POST['recFriend']);
+    $recFeatures            = sanitize($_POST['recFeatures']);
+    $toAddFeatures          = sanitize($_POST['toAddFeatures']);
+    $dislikedFeatures       = sanitize($_POST['dislikedFeatures']);
+    $why                    = sanitize($_POST['why']);
 
-    //make sure we're not being attacked by mysql escaping the strings
-    $recFeatures            = mysql_escape_mimic($recFeatures     );
-    $toAddFeatures          = mysql_escape_mimic($toAddFeatures   );
-    $dislikedFeatures       = mysql_escape_mimic($dislikedFeatures);
-    $why                    = mysql_escape_mimic($why             );
-
-    $recFeatures            = str_replace("<script", "im a dirty little hacker: ", $recFeatures     );
-    $toAddFeatures          = str_replace("<script", "im a dirty little hacker: ", $toAddFeatures   );
-    $dislikedFeatures       = str_replace("<script", "im a dirty little hacker: ", $dislikedFeatures);
-    $why                    = str_replace("<script", "im a dirty little hacker: ", $why             );
-
-    if($why==""){
-        $why = "NULL";
-    }
-
-    //add the result as a new row
-    $sql = "INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
-    $db->query($sql);
+    $db->query("INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');");
     echo '{"status":"queried successfully"}';
 }
 ?>

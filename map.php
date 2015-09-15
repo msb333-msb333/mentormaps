@@ -78,34 +78,35 @@ if(!$noaccount){
 $result=$db->query("SELECT * FROM `data`;");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){
-        $current = array(
-                        'name'          => $r['NAME'],
-                        'skills_json'   => $r['SKILLS_JSON'],
-                        'team_number'   => $r['TEAM_NUMBER'],
-                        'comments'      => $r['COMMENTS'],
-                        'phone'         => $r['PHONE'],
-                        'email'         => $r['EMAIL'],
-                        'address'       => $r['ADDRESS'],
-                        'type'          => $r['TYPE'],
-                        'age'           => $r['AGE'],
-                        'account_type'  => $r['ACCOUNT_TYPE'],
-                        );
-        if(in_array($current['email'], $verif_data))
-            array_push($all_data, $current);
+    $current = array(
+        'name'          => $r['NAME'],
+        'skills_json'   => $r['SKILLS_JSON'],
+        'team_number'   => $r['TEAM_NUMBER'],
+        'comments'      => $r['COMMENTS'],
+        'phone'         => $r['PHONE'],
+        'email'         => $r['EMAIL'],
+        'address'       => $r['ADDRESS'],
+        'type'          => $r['TYPE'],
+        'age'           => $r['AGE'],
+        'account_type'  => $r['ACCOUNT_TYPE'],
+    );
+    if(in_array($current['email'], $verif_data))
+        array_push($all_data, $current);
 }
 
 $geoLookup = array();
 $r=$db->query("SELECT LATITUDE, LONGITUDE, ADDRESS FROM `data`;");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
-                    'latitude' => $i['LATITUDE'],
-                    'longitude' => $i['LONGITUDE'],
-                    'address' => $i['ADDRESS']
-                    );
+        'latitude' => $i['LATITUDE'],
+        'longitude' => $i['LONGITUDE'],
+        'address' => $i['ADDRESS']
+    );
     array_push($geoLookup, $current);
 }
 
-echo '<script>var marker_map = [];</script>';?>
+echo '<script>var marker_map = [];</script>';
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -113,10 +114,8 @@ echo '<script>var marker_map = [];</script>';?>
             .li-team-tile{
                 color:#191919;
                 background-color:#FFFFFF;
-                border-style: solid;
-                border-width: 2px;
                 padding: .2em 1em;
-                border-color:#191919;
+                border: 2px solid #191919;
                 margin:0 0 7px 0;
             }
 
@@ -144,7 +143,6 @@ echo '<script>var marker_map = [];</script>';?>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
-
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -197,25 +195,22 @@ echo '<script>var marker_map = [];</script>';?>
                     }
                     while($r=mysqli_fetch_assoc($result)){
                         $a = array(
-                                    'name'                  => $r['NAME'        ],
-                                    'searching_skills_json' => $r['SKILLS_JSON' ],
-                                    'team_number'           => $r['TEAM_NUMBER' ],
-                                    'comments'              => $r['COMMENTS'    ],
-                                    'phone'                 => $r['PHONE'       ],
-                                    'email'                 => $r['EMAIL'       ],
-                                    'address'               => $r['ADDRESS'     ],
-                                    'type'                  => $r['TYPE'        ],
-                                    'account_type'          => $r['ACCOUNT_TYPE']
-                                    );
+                                'name'                  => $r['NAME'        ],
+                                'searching_skills_json' => $r['SKILLS_JSON' ],
+                                'team_number'           => $r['TEAM_NUMBER' ],
+                                'comments'              => $r['COMMENTS'    ],
+                                'phone'                 => $r['PHONE'       ],
+                                'email'                 => $r['EMAIL'       ],
+                                'address'               => $r['ADDRESS'     ],
+                                'type'                  => $r['TYPE'        ],
+                                'account_type'          => $r['ACCOUNT_TYPE']
+                            );
                         if(in_array($a['email'], $verif_data))
                             array_push($allteams, $a);
-                        $teamjson = json_encode(
-                                                utf8_converter($a)
-                                                );
+                        $teamjson = json_encode(utf8_converter($a));
                     }
                     if(in_array($a['email'], $verif_data))
                         echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
-
                 }
             ?>
         }
@@ -445,7 +440,7 @@ echo '<script>var marker_map = [];</script>';?>
                                     <script>
                                         document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
                                     </script>
-                                    <ul style="margin: 0;padding: 0;list-style-type:none;overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
+                                    <ul style="margin: 0;padding: 0;list-style-type:none;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;" id="team-list">
                                         <!--li team elements go here (appended with javascript)-->
                                     </ul>
                                 </div>
@@ -456,7 +451,7 @@ echo '<script>var marker_map = [];</script>';?>
                                             $("#range-display").html($("#slidey-thing").val());
                                         }
                                     </script>
-                                    <div style="overflow-y:scroll;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
+                                    <div style="line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
                                         <ul style="list-style-type:none;" id="list-thing">
                                             <li>
                                                 Search Filter
@@ -497,8 +492,7 @@ echo '<script>var marker_map = [];</script>';?>
                                     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
                                     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                                     var d = R * c;
-                                    var ret = ((d * 3.28) / 5280);
-                                    return ret; // returns the distance in miles you damn commie
+                                    return ((d * 3.28) / 5280); // returns the distance in miles you damn commie
                                 };
                                 <?php if(!$noaccount){ ?>
                                 var me;
@@ -580,7 +574,7 @@ echo '<script>var marker_map = [];</script>';?>
                         
                                         var comparator = function(a,b){
                                             return b.compare_result - a.compare_result;
-                                        }
+                                        };
                         
                                         teamscore_map = teamscore_map.sort(comparator);
                         
@@ -588,9 +582,9 @@ echo '<script>var marker_map = [];</script>';?>
 
                                         var teamListIndex = 0;
                                         console.log("teamscore_map length: " + teamscore_map.length);
-                                        for(var e in teamscore_map){
-                                            var team = teamscore_map[e]['team'];
-                                            var result = teamscore_map[e].compare_result;
+                                        for(var teamscore_map_index in teamscore_map){
+                                            var team = teamscore_map[teamscore_map_index]['team'];
+                                            var result = teamscore_map[teamscore_map_index].compare_result;
                                             if(result != 0 && !isNaN(result)){
                                                 teamListIndex++;
                                                 $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+teamListIndex+" | "+team['name']+"</li>");
