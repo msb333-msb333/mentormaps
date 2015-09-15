@@ -100,9 +100,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     require "./security/salt.php";
     require "./db.php";
 
-    $username = mysql_escape_mimic($_POST['username']);
-    $password = mysql_escape_mimic($_POST['password']);
-    $refurl = mysql_escape_mimic($_POST['refurl']);
+    $username = santiize($_POST['username']);
+    $password = sanitize($_POST['password']);
+    $refurl = sanitize($_POST['refurl']);
 
     $salt = createSalt($username);//yum
     $concatPass = $password . $salt;

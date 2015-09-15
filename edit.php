@@ -305,7 +305,7 @@
                                         'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
                                         ));
         
-        $name = htmlspecialchars(mysql_escape_mimic($_POST['NAME']), ENT_QUOTES, "UTF-8");
+        $name = sanitize($_POST['NAME']);
         $sql = "UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
@@ -313,23 +313,23 @@
         $sql = "UPDATE `data` SET SKILLS_JSON = '$skills_json' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $team_number = htmlspecialchars(mysql_escape_mimic($_POST['TEAM_NUMBER']), ENT_QUOTES, "UTF-8");
+        $team_number = sanitize($_POST['TEAM_NUMBER']);
         $sql = "UPDATE `data` SET TEAM_NUMBER = '$team_number' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $comments = htmlspecialchars(mysql_escape_mimic($_POST['COMMENTS']), ENT_QUOTES, "UTF-8");
+        $comments = sanitize($_POST['COMMENTS']);
         $sql = "UPDATE `data` SET COMMENTS = '$comments' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $phone = htmlspecialchars(mysql_escape_mimic($_POST['PHONE']), ENT_QUOTES, "UTF-8");
+        $phone = sanitize($_POST['PHONE']);
         $sql = "UPDATE `data` SET PHONE = '$phone' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $address = htmlspecialchars(mysql_escape_mimic($_POST['ADDRESS']), ENT_QUOTES, "UTF-8");
+        $address = sanitize($_POST['ADDRESS']);
         $sql = "UPDATE `data` SET ADDRESS = '$address' WHERE EMAIL = '$session_email'";
         $db->query($sql);
         
-        $age =  htmlspecialchars(mysql_escape_mimic($_POST['AGE']), ENT_QUOTES, "UTF-8");
+        $age =  sanitize($_POST['AGE']);
         $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
         $db->query($sql);
 

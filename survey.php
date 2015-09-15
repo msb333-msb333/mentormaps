@@ -219,15 +219,14 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     require "./db.php";
 
     //prevent xss & sql injection
-    $email                  = htmlspecialchars(mysql_escape_mimic($_POST['email']),             ENT_QUOTES, "UTF-8");
-    $recFriend              = htmlspecialchars(mysql_escape_mimic($_POST['recFriend']),         ENT_QUOTES, "UTF-8");
-    $recFeatures            = htmlspecialchars(mysql_escape_mimic($_POST['recFeatures']),       ENT_QUOTES, "UTF-8");
-    $toAddFeatures          = htmlspecialchars(mysql_escape_mimic($_POST['toAddFeatures']),     ENT_QUOTES, "UTF-8");
-    $dislikedFeatures       = htmlspecialchars(mysql_escape_mimic($_POST['dislikedFeatures']),  ENT_QUOTES, "UTF-8");
-    $why                    = htmlspecialchars(mysql_escape_mimic($_POST['why']),               ENT_QUOTES, "UTF-8");
+    $email                  = sanitize($_POST['email']);
+    $recFriend              = sanitize($_POST['recFriend']);
+    $recFeatures            = sanitize($_POST['recFeatures']);
+    $toAddFeatures          = sanitize($_POST['toAddFeatures']);
+    $dislikedFeatures       = sanitize($_POST['dislikedFeatures']);
+    $why                    = sanitize($_POST['why']);
 
-    $sql = "INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
-    $db->query($sql);
+    $db->query("INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');");
     echo '{"status":"queried successfully"}';
 }
 ?>

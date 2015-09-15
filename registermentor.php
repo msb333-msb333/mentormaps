@@ -9,13 +9,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass2           =      $_POST['pass2'];
 
     //prevent xss & sql injection
-    $mentor_name     =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-name']),     ENT_QUOTES, 'UTF-8');
-    $mentor_email    =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-email']),    ENT_QUOTES, 'UTF-8');
-    $mentor_address  =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-address']),  ENT_QUOTES, 'UTF-8');
-    $mentor_phone    =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-phone']),    ENT_QUOTES, 'UTF-8');
-    $mentor_bio      =      htmlspecialchars(mysql_escape_mimic($_POST['bio']),             ENT_QUOTES, 'UTF-8');
-    $team_number     =      htmlspecialchars(mysql_escape_mimic($_POST['team-number']),     ENT_QUOTES, 'UTF-8');
-    $age             =      htmlspecialchars(mysql_escape_mimic($_POST['age']),             ENT_QUOTES, 'UTF-8');
+    $mentor_name     =      sanitize($_POST['mentor-name']);
+    $mentor_email    =      sanitize($_POST['mentor-email']);
+    $mentor_address  =      sanitize($_POST['mentor-address']);
+    $mentor_phone    =      sanitize($_POST['mentor-phone']);
+    $mentor_bio      =      sanitize($_POST['bio']);
+    $team_number     =      sanitize($_POST['team-number']);
+    $age             =      sanitize($_POST['age']);
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'skill-scouting'      => $_POST['skill-scouting'      ],
             'skill-fundraising'   => $_POST['skill-fundraising'   ],
             'skill-other'         => $_POST['skill-other'         ],
-            'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
+            'skill-other-desc'    => sanitize($_POST['other-text-box'])
             )
         );
 

@@ -3,7 +3,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./config.php";
     require "./db.php";
     require "./mailsender.php";
-    $result=$db->query("SELECT * FROM `logins` WHERE `EMAIL` = '".$_POST['email']."';");
+    $result=$db->query("SELECT * FROM `logins` WHERE `EMAIL` = '".sanitize($_POST['email'])."';");
     while($r=mysqli_fetch_assoc($result)){
         $key = $r['KEY'];
     }

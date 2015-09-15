@@ -3,7 +3,7 @@ require "./db.php";
 require "./logincheck.php";
 
 if(isset($_GET['p'])){
-    $user = $_GET['p'];
+    $user = sanitize($_GET['p']);
     checkIfUserLoggedIn($user);
 
     //get all information from the db about the specified user
@@ -18,7 +18,6 @@ if(isset($_GET['p'])){
         }
     }else{
         //TODO handle invalid query error
-        //invalid query
     }
 }else{
     echo "<meta http-equiv=\"refresh\" content=\"0;URL=./dashboard.php?p=".$_SESSION['email']."\">";
@@ -44,8 +43,8 @@ if(isset($_GET['p'])){
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <style>
             .not-interested-button{
-                width:24;
-                height:24;
+                width:24px;
+                height:24px;
                 content:url('./img/ic_not_interested_black_48dp_2x.png');
             }
             .not-interested-button:hover{

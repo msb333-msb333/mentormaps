@@ -3,7 +3,7 @@ require "./logincheck.php";
     if(isset($_GET['p'])){
         $refurl = "./profile.php?p=" . $_GET['p'];
         require "./db.php";
-        $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
+        $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".sanitize($_GET['p'])."'");
         while($i=mysqli_fetch_assoc($result)){
             $name               = $i['NAME'         ];
             $skills_json        = $i['SKILLS_JSON'  ];
@@ -19,14 +19,15 @@ require "./logincheck.php";
         echo '<!--this is a ' . $account_type . '-->';
 
         $theirInterests;
-        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '$email'";
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($email)."';";
+
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $theirInterests = $r['interested-in-me'];
         }
         
         $myInterests;
-        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".$_SESSION['email']."'";
+        $sql = "SELECT * FROM `assoc` WHERE EMAIL = '".sanitize($_SESSION['email'])."';";
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $myInterests = $r['interested-in'];

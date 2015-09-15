@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(isset($_GET['key'])){
         require "./db.php";
 
-        $sql = "SELECT * FROM `logins` WHERE `KEY` = '".$_GET['key']."'";
+        $sql = "SELECT * FROM `logins` WHERE `KEY` = '".sanitize($_GET['key'])."'";
         $result=$db->query($sql);
         while($r=mysqli_fetch_assoc($result)){
             $email = $r['EMAIL'];
@@ -57,9 +57,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     require "./db.php";
     require "./security/salt.php";
 
-    $pass_hash = md5(mysql_escape_mimic($_POST['newpass']) . createSalt($_POST['email']));
+    $pass_hash = md5(sanitize($_POST['newpass']) . createSalt(sanitize($_POST['email'])));
 
-    $sql = "UPDATE `logins` SET `PASSWORD` = '$pass_hash' WHERE `EMAIL` = '".$_POST['email']."';";
+    $sql = "UPDATE `logins` SET `PASSWORD` = '$pass_hash' WHERE `EMAIL` = '".sanitize($_POST['email'])."';";
     $db->query($sql);
 }
 ?>

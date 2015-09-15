@@ -4,7 +4,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./logincheck.php";
     checkIfUserLoggedIn($_POST['user_to_delete']);
 
-    $userToDelete = htmlspecialchars(mysql_escape_mimic($_POST['user_to_delete']), ENT_QUOTES, "UTF-8");
+    $userToDelete = sanitize($_POST['user_to_delete']);
 
     $db->query("DELETE FROM `logins` WHERE EMAIL = '" . $userToDelete . "' LIMIT 1;");
     $db->query("DELETE FROM `data` WHERE EMAIL = '". $userToDelete ."' LIMIT 1;");

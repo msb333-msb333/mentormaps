@@ -10,14 +10,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $pass2              = $_POST['pass2'];
     
     //prevent xss & sql injection
-    $team_age           = htmlspecialchars(mysql_escape_mimic($_POST['team-age']),       ENT_QUOTES, 'UTF-8');
-    $team_name          = htmlspecialchars(mysql_escape_mimic($_POST['team-name']),      ENT_QUOTES, 'UTF-8');
-    $team_email         = htmlspecialchars(mysql_escape_mimic($_POST['team-email']),     ENT_QUOTES, 'UTF-8');
-    $team_address       = htmlspecialchars(mysql_escape_mimic($_POST['team-address']),   ENT_QUOTES, 'UTF-8');
-    $team_phone         = htmlspecialchars(mysql_escape_mimic($_POST['team-phone']),     ENT_QUOTES, 'UTF-8');
-    $comments           = htmlspecialchars(mysql_escape_mimic($_POST['comments']),       ENT_QUOTES, 'UTF-8');
-    $TEAM_NUMBER        = htmlspecialchars(mysql_escape_mimic($_POST['team-number']),    ENT_QUOTES, 'UTF-8');
-    $rname              = htmlspecialchars(mysql_escape_mimic($_POST['rname']),          ENT_QUOTES, 'UTF-8');
+    $team_age           = sanitize($_POST['team-age']);
+    $team_name          = sanitize($_POST['team-name']);
+    $team_email         = sanitize($_POST['team-email']);
+    $team_address       = sanitize($_POST['team-address']);
+    $team_phone         = sanitize($_POST['team-phone']);
+    $comments           = sanitize($_POST['comments']);
+    $TEAM_NUMBER        = sanitize($_POST['team-number']);
+    $rname              = sanitize($_POST['rname']);
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$team_email'");
     if($result->num_rows > 0){
@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'skill-scouting'        => $_POST['skill-scouting'],
             'skill-fundraising'     => $_POST['skill-fundraising'],
             'skill-other'           => $_POST['skill-other'],
-            'skill-other-desc'      => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
+            'skill-other-desc'      => sanitize($_POST['other-text-box'])
         )
     );
                     
@@ -188,7 +188,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <textarea name="comments" maxlength="200" id="comments" title="Comments" placeholder="Write something about your team" rows="6"></textarea>
                                             </div>
                                             <div class="12u$">
-                                                <input type="checkbox" id="EulaAgreement"></input>
+                                                <input type="checkbox" id="EulaAgreement"/>
                                                 <label for="EulaAgreement">I agree to the <a target="_blank" href="./tos.php">terms of service</a> and certify that I am 18 years of age or older</label>
                                             </div>
                                             <div class="12u$">
