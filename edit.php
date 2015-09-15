@@ -3,7 +3,7 @@
         require "./db.php";
         if(isset($_GET['p'])){
             checkIfUserLoggedIn($_GET['p']);
-            $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".$_GET['p']."'");
+            $result=$db->query("SELECT * FROM `data` WHERE EMAIL = '".sanitize($_GET['p'])."';");
             while($i=mysqli_fetch_assoc($result)){
                 $name = $i['NAME'];
                 $skills_json = $i['SKILLS_JSON'];
