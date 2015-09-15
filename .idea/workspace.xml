@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/edit.php" afterPath="$PROJECT_DIR$/edit.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -378,7 +377,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442343079762</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="changeable type">
+      <created>1442343916094</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1442343916094</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -427,7 +432,8 @@
     <MESSAGE value="fix register team" />
     <MESSAGE value="rename type keys" />
     <MESSAGE value="ready to test for changeable type" />
-    <option name="LAST_COMMIT_MESSAGE" value="ready to test for changeable type" />
+    <MESSAGE value="changeable type" />
+    <option name="LAST_COMMIT_MESSAGE" value="changeable type" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
