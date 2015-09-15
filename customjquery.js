@@ -1,27 +1,33 @@
 function submitAddress(address){
     console.log("address: " + address);
       geocoder = new google.maps.Geocoder();
-      geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var pos = results[0].geometry.location;
-        var latitude = pos.lat();
-        var longitude = pos.lng();
-        console.log(address + " | " + latitude + " | " + longitude);
-        $.ajax({
-            type: 'POST',
-            url: './storeaddress.php',
-            data : {
-                'address' : address,
-                'latitude' : latitude,
-                'longitude' : longitude
-            }
+      geocoder.geocode({
+              'address': address
+      },
+      function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var pos = results[0].geometry.location;
+            var latitude = pos.lat();
+            var longitude = pos.lng();
+            console.log(address + " | " + latitude + " | " + longitude);
+            $.ajax({
+                type: 'POST',
+                url: './storeaddress.php',
+                data : {
+                    'address' : address,
+                    'latitude' : latitude,
+                    'longitude' : longitude
+                },
+                success: function(){
+                    $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
+                }
+            });
+          }else{
+              alert("Google Maps was unable to find the lat/lng for that address");
+              submitDefaultAddress();
+          }
         });
-          return true;
-      } else {
-        return false;
-      }
-    });
-}
+    }
 
 function submitDefaultAddress(){
     $.ajax({
@@ -31,6 +37,12 @@ function submitDefaultAddress(){
             'address' : "ERROR, please update address in <a href='./profile.php'>profile</a>",
             'latitude' : 33,
             'longitude' : -117
+        },
+        success: function(){
+            $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> to update your address");
+        },
+        error: function(){
+            $("#register-section").html("Error submitting default address, possibly a database connection error. Contact an administrator.<div style='color:rgba(0,0,0,0.4);'>oh boy, now you did it</div>");
         }
     });
 }
@@ -136,14 +148,8 @@ $("#submitTeamRegistrationForm").click(function(){
             'other-text-box':               $("#other-text-box").val(),
             'comments':                     $("#comments").val()
         },
-        success: function(data){
-            if(!submitAddress(team_address)){
-                alert("Google Maps was unable to find the lat/lng for that address");
-                submitDefaultAddress();
-                $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> and update your address");
-            }else {
-                $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
-            }
+        success: function(){
+            submitAddress(team_address);
         },
         error: function(xhr, textStatus, errorThrown) {
             //TODO make this error-catching system more reliable
@@ -196,62 +202,66 @@ $("#submitMentorRegistrationForm").click(function(){
         return;
     }
 
+    var fields = [
+        'mentor-name',
+        'mentor-email',
+        'mentor-phone',
+        'pass1',
+        'pass2',
+        'team-number',
+        'age',
+        'bio',
+        'other-text-box'
+    ];
+
+    var checkboxes = [
+        'FLLcheck',
+        'FTCcheck',
+        'FRCcheck',
+        'VEXcheck',
+        'skill-engineering',
+        'engineering-mechanical',
+        'engineering-electrical',
+        'skill-manufacturing',
+        'skill-programming',
+        'skill-cad',
+        'programming-c',
+        'programming-java',
+        'programming-csharp',
+        'programming-python',
+        'programming-robotc',
+        'programming-nxt',
+        'programming-labview',
+        'programming-easyc',
+        'programming-ev3',
+        'skill-design',
+        'skill-strategy',
+        'skill-scouting',
+        'skill-business',
+        'skill-fundraising',
+        'skill-marketing',
+        'skill-other'
+    ];
+
+    //populate info object with all necessary fields & data
+    var info = {};
+    info["mentor-address"] = mentor_address;
+    for(var index in fields){
+        var fieldname = fields[index];
+        info[fieldname] = $("#" + fieldname).val();
+    }
+
+    for(var index in checkboxes){
+        var cbname = checkboxes[index];
+        info[cbname] = $("#" + cbname).is(":checked");
+    }
+
     $.ajax({
         type:                               'POST',
         url:                                "./registermentor.php",
-        data: {
-            'mentor-name':                  $("#mentor-name").val(),
-            'mentor-email':                 $("#mentor-email").val(),
-            'mentor-address':               mentor_address,
-            'mentor-phone':                 $("#mentor-phone").val(),
-            'pass1':                        pass1,
-            'pass2':                        pass2,
-            'team-number':                  $("#team-number").val(),
-            'age' :                         $("#age").val(),
-            
-            'FLLcheck':                     $("#FLLcheck").is(":checked"),
-            'FTCcheck':                     $("#FTCcheck").is(":checked"),
-            'FRCcheck':                     $("#FRCcheck").is(":checked"),
-            'VEXcheck':                     $("#VEXcheck").is(":checked"),
-            
-            'skill-engineering':            $("#skill-engineering").is(":checked"),
-            
-            'engineering-mechanical' :      $("#engineering-mechanical").is(":checked"),
-            'engineering-electrical' :      $("#engineering-electrical").is(":checked"),
-            
-            'skill-manufacturing':          $("#skill-manufacturing").is(":checked"),
-            'skill-programming':            $("#skill-programming").is(":checked"),
-            'skill-cad':                    $("#skill-cad").is(":checked"),
-            
-            'programming-c':                $("#programming-c").is(":checked"),
-            'programming-java':             $("#programming-java").is(":checked"),
-            'programming-csharp':           $("#programming-csharp").is(":checked"),
-            'programming-python':           $("#programming-python").is(":checked"),
-            'programming-robotc':           $("#programming-robotc").is(":checked"),
-            'programming-nxt':              $("#programming-nxt").is(":checked"),
-            'programming-labview':          $("#programming-labview").is(":checked"),
-            'programming-easyc':            $("#programming-easyc").is(":checked"),
-            'programming-ev3':              $("#programming-ev3").is(":checked"),
-            
-            'skill-design':                 $("#skill-design").is(":checked"),
-            'skill-strategy':               $("#skill-strategy").is(":checked"),
-            'skill-scouting':               $("#skill-scouting").is(":checked"),
-            'skill-business':               $("#skill-business").is(":checked"),
-            'skill-fundraising':            $("#skill-fundraising").is(":checked"),
-            'skill-marketing':              $("#skill-marketing").is(":checked"),
-            'skill-other':                  $("#skill-other").is(":checked"),
-
-            'other-text-box':               $("#other-text-box").val(),
-            'bio':                          $("#bio").val()
-        },
-        success: function(data){
-            if(!submitAddress(mentor_address)){
-                alert("Google Maps was unable to find the lat/lng for that address");
-                submitDefaultAddress();
-                $("#register-section").html("Partially Registered, please verify your account and visit your <a href='./profile.php'>profile</a> to update your address");
-            }else {
-                $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
-            }
+        data:                               info,
+        success: function(){
+            submitAddress(mentor_address);
         },
         error: function(xhr, textStatus, errorThrown) {
            if(errorThrown="SyntaxError: Unexpected token a"){
