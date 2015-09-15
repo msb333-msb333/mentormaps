@@ -6,21 +6,25 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 <html>
     <head>
         <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
-        <title>Mentor Maps</title>
+        <title>
+            Mentor Maps
+        </title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="assets/css/main.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
         <script src="assets/js/jquery.scrolly.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-e-RpEFPKNX-hDqBs--zoYYCk2vmXdZg"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     </head>
     <body class="landing">
             <div id="page-wrapper">
@@ -46,10 +50,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                             </ul>
                         </nav>
                     </header>
-
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
 <script>
     var exp = 1;
     function redirect(){
@@ -218,30 +218,14 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 }else{
     require "./db.php";
 
-    //get vars from POST
-    $recFriend              = $_POST['recFriend'        ];
-    $recFeatures            = $_POST['recFeatures'      ];
-    $toAddFeatures          = $_POST['toAddFeatures'    ];
-    $dislikedFeatures       = $_POST['dislikedFeatures' ];
-    $email                  = $_POST['email'            ];
-    $why                    = $_POST['why'              ];
+    //prevent xss & sql injection
+    $email                  = htmlspecialchars(mysql_escape_mimic($_POST['email']),             ENT_QUOTES, "UTF-8");
+    $recFriend              = htmlspecialchars(mysql_escape_mimic($_POST['recFriend']),         ENT_QUOTES, "UTF-8");
+    $recFeatures            = htmlspecialchars(mysql_escape_mimic($_POST['recFeatures']),       ENT_QUOTES, "UTF-8");
+    $toAddFeatures          = htmlspecialchars(mysql_escape_mimic($_POST['toAddFeatures']),     ENT_QUOTES, "UTF-8");
+    $dislikedFeatures       = htmlspecialchars(mysql_escape_mimic($_POST['dislikedFeatures']),  ENT_QUOTES, "UTF-8");
+    $why                    = htmlspecialchars(mysql_escape_mimic($_POST['why']),               ENT_QUOTES, "UTF-8");
 
-    //make sure we're not being attacked by mysql escaping the strings
-    $recFeatures            = mysql_escape_mimic($recFeatures     );
-    $toAddFeatures          = mysql_escape_mimic($toAddFeatures   );
-    $dislikedFeatures       = mysql_escape_mimic($dislikedFeatures);
-    $why                    = mysql_escape_mimic($why             );
-
-    $recFeatures            = str_replace("<script", "im a dirty little hacker: ", $recFeatures     );
-    $toAddFeatures          = str_replace("<script", "im a dirty little hacker: ", $toAddFeatures   );
-    $dislikedFeatures       = str_replace("<script", "im a dirty little hacker: ", $dislikedFeatures);
-    $why                    = str_replace("<script", "im a dirty little hacker: ", $why             );
-
-    if($why==""){
-        $why = "NULL";
-    }
-
-    //add the result as a new row
     $sql = "INSERT INTO `survey_results` (WHY, EMAIL, REC_FRIEND, TO_ADD_FEATURES, REC_FEATURES, DISLIKED_FEATURES) VALUES ('$why', '$email', '$recFriend', '$toAddFeatures', '$recFeatures', '$dislikedFeatures');";
     $db->query($sql);
     echo '{"status":"queried successfully"}';

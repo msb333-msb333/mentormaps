@@ -1,7 +1,10 @@
 <?php
     require "./db.php";
-    $key = $_GET['key'];
-    $sql = "UPDATE `logins` SET `VERIFIED` = 'true' WHERE `KEY` = '$key'";
-    $db->query($sql);
+
+    //sanitize input
+    $key = htmlspecialchars(mysql_escape_mimic($_GET['key']), ENT_QUOTES, "UTF-8");
+
+    $db->query("UPDATE `logins` SET `VERIFIED` = 'true' WHERE `KEY` = '$key'");
+
     echo '<script>window.location = "./login.php";</script>';
 ?>
