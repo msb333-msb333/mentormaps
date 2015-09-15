@@ -160,6 +160,8 @@ $("#submitMentorRegistrationForm").click(function(){
         if($(field).val()==""){
             allFieldsFilledOut = false;
             $(field).css({"border" : "2px solid red"});
+        }else{
+            $(field).css({"border" : ""});
         }
     }
 
