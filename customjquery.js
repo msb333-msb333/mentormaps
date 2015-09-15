@@ -1,35 +1,25 @@
-//submit a geocode request to google once so as to not overload per second limit
-function getLatLngFromAddress(address){
+function submitAddress(address){
     console.log("address: " + address);
       geocoder = new google.maps.Geocoder();
       geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        submitLatLng(results[0].geometry.location, address);
+        var pos = results[0].geometry.location;
+        var latitude = pos.lat();
+        var longitude = pos.lng();
+        console.log(address + " | " + latitude + " | " + longitude);
+        $.ajax({
+            type: 'POST',
+            url: './storeaddress.php',
+            data : {
+                'address' : address,
+                'latitude' : latitude,
+                'longitude' : longitude
+            }
+        });
       } else {
         alert("Google Maps was unable to find the lat/lng for that address");
         return;
       }
-    });
-}
-
-//just a semantic function to make the code easier to understand
-function submitAddress(address){
-    getLatLngFromAddress(address);
-}
-
-//store the latitude and longitude for the given address in the database
-function submitLatLng(pos, address){
-    var latitude = pos.lat();
-    var longitude = pos.lng();
-    console.log(address + " | " + latitude + " | " + longitude);
-    $.ajax({
-        type: 'POST',
-        url: './storeaddress.php',
-        data : {
-            'address' : address,
-            'latitude' : latitude,
-            'longitude' : longitude
-        }
     });
 }
 
@@ -48,23 +38,12 @@ $("#submitTeamRegistrationForm").click(function(){
     if(!(checkEULA())){
         return;
     }
-    var team_number =  document.getElementById("team-number"    ).value;
-    var team_name =    document.getElementById("team-name"      ).value;
-    var team_email =   document.getElementById("team-email"     ).value;
-    var rname =         document.getElementById("rname"         ).value;
     
-    var address1 =     document.getElementById("address-line-1" ).value;
-    var address2 =     document.getElementById("address-city"   ).value;
-    var address3 =     document.getElementById("address-state"  ).value;
-    var address4 =     document.getElementById("address-country").value;
-    var zip =           document.getElementById("zip").value;
+    var team_address = $("#address-line-1").val() + ", " + $("#address-city").val() + ", " + $("#address-state").val() + ", " + $("#zip").val() + ", " + $("#address-country").val();
     
-    var team_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
-    
-    var team_phone = document.getElementById("team-phone"       ).value;
-    var pass1 =      document.getElementById("pass1"            ).value;
-    var pass2 =      document.getElementById("pass2"            ).value;
-    var teamage =    document.getElementById("team-age"         ).checked;
+    var pass1 =      $("#pass1").val();
+    var pass2 =      $("#pass2").val();
+    var teamage =    $("#team-age").is(":checked");
 
     if(teamage){
         teamage = "Rookie Team";
@@ -72,8 +51,18 @@ $("#submitTeamRegistrationForm").click(function(){
         teamage = "Experienced Team";
     }
     
-    //checks that the user has filled out all required fields
-    if(team_number==""||team_name==""||team_email==""||pass1==""||pass2==""){
+    var required_fields = ["#pass1", "#pass2", "#team-number", "#team-email", "#team-name", "#rname", "#zip", "#address-country", "#address-state", "#address-city"];
+
+    var allFieldsFilledOut = true;
+    for(var fieldIndex in required_fields){
+        var field = required_fields[fieldIndex];
+        if($(field).val()==""){
+            allFieldsFilledOut = false;
+            $(field).css({"border" : "2px solid red"});
+        }
+    }
+
+    if(!allFieldsFilledOut){
         alert("you did not fill in a required field");
         return;
     }
@@ -81,65 +70,63 @@ $("#submitTeamRegistrationForm").click(function(){
     //checks for mismatched passwords
     if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
+        $("#pass1").css({"border" : "2px solid orange"});
+        $("#pass2").css({"border" : "2px solid orange"});
         return;
     }
     
-    //submit ajax request to store the data,
-    //  this will probably get replaced with some parse api code at one point
     $.ajax({
         type:                               'POST',
         url:                                "./registerteam.php",
         data: {
-            'rname' : rname,
-            'team-name':                    team_name,
-            'team-email':                   team_email,
+            'rname' :                       $("#rname").val(),
+            'team-name':                    $("#team-name").val(),
+            'team-email':                   $("#team-email").val(),
             'team-address':                 team_address,
-            'team-phone':                   team_phone,
+            'team-phone':                   $("#team-phone").val(),
             'pass1':                        pass1,
             'pass2':                        pass2,
-            'team-number':                  team_number,
+            'team-number':                  $("#team-number").val(),
             'team-age' :                    teamage,
             
-            'FLLcheck':                     document.getElementById("FLLcheck"                    ).checked,
-            'FTCcheck':                     document.getElementById("FTCcheck"                    ).checked,
-            'FRCcheck':                     document.getElementById("FRCcheck"                    ).checked,
-            'VEXcheck':                     document.getElementById("VEXcheck"                    ).checked,
+            'FLLcheck':                     $("#FLLcheck").is(":checked"),
+            'FTCcheck':                     $("#FTCcheck").is(":checked"),
+            'FRCcheck':                     $("#FRCcheck").is(":checked"),
+            'VEXcheck':                     $("#VEXcheck").is(":checked"),
             
-            'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
+            'skill-engineering':            $("#skill-engineering").is(":checked"),
             
-            'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
-            'engineering-electrical' :      document.getElementById("engineering-electrical"      ).checked,
+            'engineering-mechanical' :      $("#engineering-mechanical").is(":checked"),
+            'engineering-electrical' :      $("#engineering-electrical").is(":checked"),
             
-            'skill-manufacturing':          document.getElementById("skill-manufacturing"         ).checked,
+            'skill-programming':            $("#skill-programming").is(":checked"),
             
-            'skill-programming':            document.getElementById("skill-programming"           ).checked,
+            'programming-c':                $("#programming-c").is(":checked"),
+            'programming-java':             $("#programming-java").is(":checked"),
+            'programming-csharp':           $("#programming-csharp").is(":checked"),
+            'programming-python':           $("#programming-python").is(":checked"),
+            'programming-robotc':           $("#programming-robotc").is(":checked"),
+            'programming-nxt':              $("#programming-nxt").is(":checked"),
+            'programming-labview':          $("#programming-labview").is(":checked"),
+            'programming-easyc':            $("#programming-easyc").is(":checked"),
+            'programming-ev3':              $("#programming-ev3").is(":checked"),
             
-            'programming-c':                document.getElementById("programming-c"               ).checked,
-            'programming-java':             document.getElementById("programming-java"            ).checked,
-            'programming-csharp':           document.getElementById("programming-csharp"          ).checked,
-            'programming-python':           document.getElementById("programming-python"          ).checked,
-            'programming-robotc':           document.getElementById("programming-robotc"          ).checked,
-            'programming-nxt':              document.getElementById("programming-nxt"             ).checked,
-            'programming-labview':          document.getElementById("programming-labview"         ).checked,
-            'programming-easyc':            document.getElementById("programming-easyc"           ).checked,
-            'programming-ev3':              document.getElementById("programming-ev3"             ).checked,
+            'skill-cad':                    $("#skill-cad").is(":checked"),
+            'skill-manufacturing':          $("#skill-manufacturing").is(":checked"),
+            'skill-design':                 $("#skill-design").is(":checked"),
+            'skill-strategy':               $("#skill-strategy").is(":checked"),
+            'skill-scouting':               $("#skill-scouting").is(":checked"),
+            'skill-business':               $("#skill-business").is(":checked"),
+            'skill-fundraising':            $("#skill-fundraising").is(":checked"),
+            'skill-marketing':              $("#skill-marketing").is(":checked"),
+            'skill-other':                  $("#skill-other").is(":checked"),
             
-            'skill-cad':                    document.getElementById("skill-cad"                   ).checked,
-            
-            'skill-design':                 document.getElementById("skill-design"                ).checked,
-            'skill-strategy':               document.getElementById("skill-strategy"              ).checked,
-            'skill-scouting':               document.getElementById("skill-scouting"              ).checked,
-            'skill-business':               document.getElementById("skill-business"              ).checked,
-            'skill-fundraising':            document.getElementById("skill-fundraising"           ).checked,
-            'skill-marketing':              document.getElementById("skill-marketing"             ).checked,
-            'skill-other':                  document.getElementById("skill-other"                 ).checked,
-            
-            'other-text-box':               document.getElementById("other-text-box"              ).value,
-            'comments':                     document.getElementById("comments"                    ).value
+            'other-text-box':               $("#other-text-box").val(),
+            'comments':                     $("#comments").val()
         },
         success: function(data){
-            //replace the form with a success message
-            document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
+            submitAddress(team_address);
+            $("#register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
         },
         error: function(xhr, textStatus, errorThrown) {
             //TODO make this error-catching system more reliable
@@ -152,38 +139,44 @@ $("#submitTeamRegistrationForm").click(function(){
             }
         }
     });
-    //wrap up by storing the user's address
-    submitAddress(team_address);
+    //wrap up by storing the user's address    
 });
 
 $("#submitMentorRegistrationForm").click(function(){
     if(!(checkEULA())){
         return;
     }
-    var team_number =  document.getElementById("team-number"    ).value;
-    var mentor_name =  document.getElementById("mentor-name"    ).value;
-    var mentor_email = document.getElementById("mentor-email"   ).value;
     
-    var address1 =     document.getElementById("address-line-1" ).value;
-    var address2 =     document.getElementById("address-city"   ).value;
-    var address3 =     document.getElementById("address-state"  ).value;
-    var address4 =     document.getElementById("address-country").value;
-    var zip = document.getElementById("zip").value;
-    var age      =     document.getElementById("age"            ).value;
+    var mentor_address = $("#address-line-1").val() + ", " + $("#address-city").val() + ", " + $("#address-state").val() + ", " + $("#zip").val() + ", " + $("#address-country").val();
     
-    var mentor_address = address1 + ", " + address2 + ", " + address3 + ", " + zip + ", " + address4;
+    var pass1 =             $("#pass1").val();
+    var pass2 =             $("#pass2").val();
     
-    var mentor_phone = document.getElementById("mentor-phone"   ).value;
-    var pass1 = document.getElementById("pass1"                 ).value;
-    var pass2 = document.getElementById("pass2"                 ).value;
-    
-    if(mentor_name==""||mentor_email==""||pass1==""||pass2==""){
+    var required_fields = ["#mentor-name", "#mentor-email", "#pass1", "#pass2", "#zip", "#address-country", "#address-state", "#address-city"];
+
+    var allFieldsFilledOut = true;
+    for(var fieldIndex in required_fields){
+        var field = required_fields[fieldIndex];
+        if($(field).val()==""){
+            if(allFieldsFilledOut){
+                $.scrollTo($(field));
+            }
+            allFieldsFilledOut = false;
+            $(field).css({"border" : "2px solid red"});
+        }else{
+            $(field).css({"border" : ""});
+        }
+    }
+
+    if(!allFieldsFilledOut){
         alert("you did not fill in a required field");
         return;
     }
     
     if(!(pass1.toString()==pass2.toString())){
         alert("passwords do not match");
+        $("#pass1").css({"border" : "2px solid orange"});
+        $("#pass2").css({"border" : "2px solid orange"});
         return;
     }
 
@@ -191,53 +184,53 @@ $("#submitMentorRegistrationForm").click(function(){
         type:                               'POST',
         url:                                "./registermentor.php",
         data: {
-            'mentor-name':                  mentor_name,
-            'mentor-email':                 mentor_email,
+            'mentor-name':                  $("#mentor-name").val(),
+            'mentor-email':                 $("#mentor-email").val(),
             'mentor-address':               mentor_address,
-            'mentor-phone':                 mentor_phone,
+            'mentor-phone':                 $("#mentor-phone").val(),
             'pass1':                        pass1,
             'pass2':                        pass2,
-            'team-number':                  team_number,
-            'age' :                         age,
+            'team-number':                  $("#team-number").val(),
+            'age' :                         $("#age").val(),
             
-            'FLLcheck':                     document.getElementById("FLLcheck"              ).checked,
-            'FTCcheck':                     document.getElementById("FTCcheck"              ).checked,
-            'FRCcheck':                     document.getElementById("FRCcheck"              ).checked,
-            'VEXcheck':                     document.getElementById("VEXcheck"              ).checked,
+            'FLLcheck':                     $("#FLLcheck").is(":checked"),
+            'FTCcheck':                     $("#FTCcheck").is(":checked"),
+            'FRCcheck':                     $("#FRCcheck").is(":checked"),
+            'VEXcheck':                     $("#VEXcheck").is(":checked"),
             
-            'skill-engineering':            document.getElementById("skill-engineering"     ).checked,
+            'skill-engineering':            $("#skill-engineering").is(":checked"),
             
-            'engineering-mechanical' :      document.getElementById("engineering-mechanical").checked,
-            'engineering-electrical' :      document.getElementById("engineering-electrical").checked,
+            'engineering-mechanical' :      $("#engineering-mechanical").is(":checked"),
+            'engineering-electrical' :      $("#engineering-electrical").is(":checked"),
             
-            'skill-manufacturing':          document.getElementById("skill-manufacturing"   ).checked,
-            'skill-programming':            document.getElementById("skill-programming"     ).checked,
-            'skill-cad':                    document.getElementById("skill-cad"             ).checked,
+            'skill-manufacturing':          $("#skill-manufacturing").is(":checked"),
+            'skill-programming':            $("#skill-programming").is(":checked"),
+            'skill-cad':                    $("#skill-cad").is(":checked"),
             
-            'programming-c':                document.getElementById("programming-c"         ).checked,
-            'programming-java':             document.getElementById("programming-java"      ).checked,
-            'programming-csharp':           document.getElementById("programming-csharp"    ).checked,
-            'programming-python':           document.getElementById("programming-python"    ).checked,
-            'programming-robotc':           document.getElementById("programming-robotc"    ).checked,
-            'programming-nxt':              document.getElementById("programming-nxt"       ).checked,
-            'programming-labview':          document.getElementById("programming-labview"   ).checked,
-            'programming-easyc':            document.getElementById("programming-easyc"     ).checked,
-            'programming-ev3':              document.getElementById("programming-ev3"       ).checked,
+            'programming-c':                $("#programming-c").is(":checked"),
+            'programming-java':             $("#programming-java").is(":checked"),
+            'programming-csharp':           $("#programming-csharp").is(":checked"),
+            'programming-python':           $("#programming-python").is(":checked"),
+            'programming-robotc':           $("#programming-robotc").is(":checked"),
+            'programming-nxt':              $("#programming-nxt").is(":checked"),
+            'programming-labview':          $("#programming-labview").is(":checked"),
+            'programming-easyc':            $("#programming-easyc").is(":checked"),
+            'programming-ev3':              $("#programming-ev3").is(":checked"),
             
-            'skill-design':                 document.getElementById("skill-design"          ).checked,
-            'skill-strategy':               document.getElementById("skill-strategy"        ).checked,
-            'skill-scouting':               document.getElementById("skill-scouting"        ).checked,
-            'skill-business':               document.getElementById("skill-business"        ).checked,
-            'skill-fundraising':            document.getElementById("skill-fundraising"     ).checked,
-            'skill-marketing':              document.getElementById("skill-marketing"       ).checked,
-            'skill-other':                  document.getElementById("skill-other"           ).checked,
-            
-            'other-text-box':               document.getElementById("other-text-box"        ).value,
-            'bio':                          document.getElementById("bio"                   ).value
+            'skill-design':                 $("#skill-design").is(":checked"),
+            'skill-strategy':               $("#skill-strategy").is(":checked"),
+            'skill-scouting':               $("#skill-scouting").is(":checked"),
+            'skill-business':               $("#skill-business").is(":checked"),
+            'skill-fundraising':            $("#skill-fundraising").is(":checked"),
+            'skill-marketing':              $("#skill-marketing").is(":checked"),
+            'skill-other':                  $("#skill-other").is(":checked"),
+
+            'other-text-box':               $("#other-text-box").val(),
+            'bio':                          $("#bio").val()
         },
         success: function(data){
-            document.getElementById("register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
-            console.log("request successful");
+            submitAddress(mentor_address);
+            $("#register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
         },
         error: function(xhr, textStatus, errorThrown) {
            if(errorThrown="SyntaxError: Unexpected token a"){
@@ -248,8 +241,6 @@ $("#submitMentorRegistrationForm").click(function(){
             }
         }
     });
-    
-    submitAddress(mentor_address);
 });
 
 //enables collapsable lists for skillsets
