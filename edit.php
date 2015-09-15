@@ -78,62 +78,67 @@
             }
         
             function submit(){
-                var team_number = document.getElementById("team_number").value;
-                var name = document.getElementById("name").value;
                 var address = document.getElementById("address").value;
-                var phone = document.getElementById("phone").value;
-                var age = document.getElementById("age").value;
 
                 //add new address entry if it changed
                 if(!(address=='<?php echo $address; ?>')){
                     submitAddress(address);
                 }
 
+                var checkboxes = ['frc', 'ftc', 'vex', 'fll',
+                    'skill-engineering',
+                    'engineering-mechanical',
+                    'engineering-electrical',
+                    'skill-manufacturing',
+                    'skill-programming',
+                    'programming-c',
+                    'programming-java',
+                    'programming-csharp',
+                    'programming-python',
+                    'programming-robotc',
+                    'programming-nxt',
+                    'programming-labview',
+                    'programming-easyc',
+                    'programming-ev3',
+                    'skill-cad',
+                    'skill-design',
+                    'skill-strategy',
+                    'skill-scouting',
+                    'skill-business',
+                    'skill-fundraising',
+                    'skill-marketing',
+                    'skill-other'
+                ];
+
+                var info = {};
+                info['userToUpdate'] = '<?php echo $_SESSION['email']; ?>';
+
+                var fields = [
+                    'name',
+                    'address',
+                    'phone',
+                    'team-number',
+                    'age',
+                    'other-text-box',
+                    'comments'
+                ];
+
+                for(var index in fields){
+                    var fieldName = fields[index];
+                    info[fieldName] = $("#"+fieldName).val();
+                }
+
+                for(var index in checkboxes){
+                    var indexName = checkboxes[index];
+                    info[indexName] = $("#"+indexName).is(":checked");
+                }
+
                 //update user info
                 $.ajax({
                     type: 'POST',
                     url: "./edit.php",
-                    data: {
-                        'frc':                          $("#FRCcheck").is(":checked"),
-                        'ftc':                          $("#FTCcheck").is(":checked"),
-                        'vex':                          $("#VEXcheck").is(":checked"),
-                        'fll':                          $("#FLLcheck").is(":checked"),
-                        'NAME' :                        name,
-                        'userToUpdate' :                '<?php echo $_SESSION['email']; ?>',
-                        'ADDRESS':                      address,
-                        'PHONE':                        phone,
-                        'TEAM_NUMBER':                  team_number,
-                        'AGE' :                         age,
-            
-                        'skill-engineering':            document.getElementById("skill-engineering"           ).checked,
-                        'engineering-mechanical' :      document.getElementById("engineering-mechanical"      ).checked,
-                        'engineering-electrical' :      document.getElementById("engineering-electrical"      ).checked,
-                        
-                        'skill-manufacturing':          document.getElementById("skill-manufacturing"         ).checked,
-            
-                        'skill-programming':            document.getElementById("skill-programming"           ).checked,
-                        'programming-c':                document.getElementById("programming-c"               ).checked,
-                        'programming-java':             document.getElementById("programming-java"            ).checked,
-                        'programming-csharp':           document.getElementById("programming-csharp"          ).checked,
-                        'programming-python':           document.getElementById("programming-python"          ).checked,
-                        'programming-robotc':           document.getElementById("programming-robotc"          ).checked,
-                        'programming-nxt':              document.getElementById("programming-nxt"             ).checked,
-                        'programming-labview':          document.getElementById("programming-labview"         ).checked,
-                        'programming-easyc':            document.getElementById("programming-easyc"           ).checked,
-                        'programming-ev3':              document.getElementById("programming-ev3"             ).checked,
-                        
-                        'skill-cad':                    document.getElementById("skill-cad"                   ).checked,
-                        'skill-design':                 document.getElementById("skill-design"                ).checked,
-                        'skill-strategy':               document.getElementById("skill-strategy"              ).checked,
-                        'skill-scouting':               document.getElementById("skill-scouting"              ).checked,
-                        'skill-business':               document.getElementById("skill-business"              ).checked,
-                        'skill-fundraising':            document.getElementById("skill-fundraising"           ).checked,
-                        'skill-marketing':              document.getElementById("skill-marketing"             ).checked,
-                        'skill-other':                  document.getElementById("skill-other"                 ).checked,
-                        'other-text-box':               document.getElementById("other-text-box"              ).value,
-                        'COMMENTS':                     document.getElementById("comments"                    ).value
-                    },
-                    success:function(data){
+                    data: info,
+                    success:function(){
                         $('.notifier').fadeIn(400).delay(3000).fadeOut(400);
                     }
                 });
@@ -214,25 +219,25 @@
                 
                 <div class="6u 12u$(small)">
                 Team Number
-                    <input id="team_number" name="TEAM_NUMBER" type="text" placeholder="team_number" value="<?php if(isset($team_number))echo $team_number;else echo 'loading...'; ?>"/>
+                    <input id="team-number" type="text" placeholder="team number" value="<?php if(isset($team_number))echo $team_number;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Comments
-                    <input id="comments" name="COMMENTS"  maxlength="200" type="text" placeholder="comments" value="<?php if(isset($comments))echo $comments;else echo 'loading...'; ?>"/>
+                    <input id="comments"  maxlength="200" type="text" placeholder="comments" value="<?php if(isset($comments))echo $comments;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Phone
-                    <input id="phone" name="PHONE" type="text" placeholder="phone" value="<?php if(isset($phone))echo $phone;else echo 'loading...'; ?>"/>
+                    <input id="phone" type="text" placeholder="phone" value="<?php if(isset($phone))echo $phone;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
                 
                 <div class="6u 12u$(small)">
                 Address
-                    <input id="address" name="ADDRESS" type="text" placeholder="address" value="<?php if(isset($address))echo $address;else echo 'loading...'; ?>"/>
+                    <input id="address" type="text" placeholder="address" value="<?php if(isset($address))echo $address;else echo 'loading...'; ?>"/>
                 </div>
                 <br />
 
@@ -276,7 +281,8 @@
                     document.getElementById("notice1").style.display = "none";
                 };
                 if($("#skill-other").is(":checked")){
-                    $("#other-text-box").css("");
+                    $("#other-text-box").css("");//dunno what this was
+                    //TODO figure it out            ^
                 }
                 </script>
             </section>
@@ -288,16 +294,16 @@
         require "./db.php";
         checkIfUserLoggedIn($_POST['userToUpdate']);
         $session_email = sanitize($_SESSION['email']);
-        
+
         $json_encoded_skills = json_encode(
             array(
                 'skill-engineering' => $_POST['skill-engineering'],
-                'engineering-desc'  => array(
+                'engineering-desc' => array(
                     'engineering-mechanical' => $_POST['engineering-mechanical'],
-                    'engineering-electrical' => $_POST['engineering-electrical']),
+                    'engineering-electrical' => $_POST['engineering-electrical']
+                ),
 
                 'skill-programming' => $_POST['skill-programming'],
-                'skill-cad' => $_POST['skill-cad'],
                 'programming-desc' => array(
                     'programming-c' => $_POST['programming-c'],
                     'programming-java' => $_POST['programming-java'],
@@ -307,8 +313,10 @@
                     'programming-labview' => $_POST['programming-labview'],
                     'programming-easyc' => $_POST['programming-easyc'],
                     'programming-nxt' => $_POST['programming-nxt'],
-                    'programming-ev3' => $_POST['programming-ev3']),
+                    'programming-ev3' => $_POST['programming-ev3']
+                ),
 
+                'skill-cad' => $_POST['skill-cad'],
                 'skill-strategy' => $_POST['skill-strategy'],
                 'skill-business' => $_POST['skill-business'],
                 'skill-marketing' => $_POST['skill-marketing'],
@@ -317,46 +325,36 @@
                 'skill-scouting' => $_POST['skill-scouting'],
                 'skill-fundraising' => $_POST['skill-fundraising'],
                 'skill-other' => $_POST['skill-other'],
-                'skill-other-desc' => str_replace("<script", "im a dirty little hacker: ", mysql_escape_mimic($_POST['other-text-box']))
+                'skill-other-desc' => sanitize($_POST['other-text-box'])
             )
         );
 
-        $name = sanitize($_POST['NAME']);
-        $sql = "UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $skills_json = $json_encoded_skills;
-        $sql = "UPDATE `data` SET SKILLS_JSON = '$skills_json' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $team_number = sanitize($_POST['TEAM_NUMBER']);
-        $sql = "UPDATE `data` SET TEAM_NUMBER = '$team_number' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $comments = sanitize($_POST['COMMENTS']);
-        $sql = "UPDATE `data` SET COMMENTS = '$comments' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $phone = sanitize($_POST['PHONE']);
-        $sql = "UPDATE `data` SET PHONE = '$phone' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $address = sanitize($_POST['ADDRESS']);
-        $sql = "UPDATE `data` SET ADDRESS = '$address' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
-        
-        $age =  sanitize($_POST['AGE']);
-        $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
-        $db->query($sql);
+        $name = sanitize($_POST['name']);
+        $db->query("UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'");
 
-        $type = json_encode(
-            array(
-                'frc' => $_POST['frc'],
-                'ftc' => $_POST['ftc'],
-                'vex' => $_POST['vex'],
-                'fll' => $_POST['fll']
-            )
-        );
+        $db->query("UPDATE `data` SET SKILLS_JSON = '$json_encoded_skills' WHERE EMAIL = '$session_email'");
+        
+        $team_number = sanitize($_POST['team-number']);
+        $db->query("UPDATE `data` SET TEAM_NUMBER = '$team_number' WHERE EMAIL = '$session_email'");
+        
+        $comments = sanitize($_POST['comments']);
+        $db->query("UPDATE `data` SET COMMENTS = '$comments' WHERE EMAIL = '$session_email'");
+        
+        $phone = sanitize($_POST['phone']);
+        $db->query("UPDATE `data` SET PHONE = '$phone' WHERE EMAIL = '$session_email'");
+        
+        $address = sanitize($_POST['address']);
+        $db->query("UPDATE `data` SET ADDRESS = '$address' WHERE EMAIL = '$session_email'");
+        
+        $age =  sanitize($_POST['age']);
+        $db->query("UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'");
+
+        $typeKeys = array('frc', 'ftc', 'fll', 'vex');
+
+        $type = array();
+        foreach($typeKeys as $typeKey){
+            $type[$typeKey] = $_POST[$typeKey];
+        }
 
         echo '<script>console.log("'.$type.'");</script>';
         $sql = "UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';";
