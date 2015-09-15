@@ -138,8 +138,7 @@ $("#submitTeamRegistrationForm").click(function(){
                 console.log("An error occurred: " + xhr.statusText + " : " + errorThrown);
             }
         }
-    });
-    //wrap up by storing the user's address    
+    }); 
 });
 
 $("#submitMentorRegistrationForm").click(function(){

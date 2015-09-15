@@ -5,25 +5,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require "./security/salt.php";
     require "./mailsender.php";
 
-    $mentor_name     =      mysql_escape_mimic($_POST['mentor-name']   );   
-    $mentor_email    =      mysql_escape_mimic($_POST['mentor-email']  );
-    $mentor_address  =      mysql_escape_mimic($_POST['mentor-address']);
-    $mentor_phone    =      mysql_escape_mimic($_POST['mentor-phone']  );
-    $mentor_bio      =      mysql_escape_mimic($_POST['bio']           );
-    $team_number     =      mysql_escape_mimic($_POST['team-number']   );
-    $age             =      mysql_escape_mimic($_POST['age']           );
-
     $pass1           =      $_POST['pass1'];
     $pass2           =      $_POST['pass2'];
 
-    //prevent xss
-    $mentor_name     =      htmlspecialchars($mentor_name,      ENT_QUOTES, 'UTF-8');
-    $mentor_email    =      htmlspecialchars($mentor_email,     ENT_QUOTES, 'UTF-8');
-    $mentor_address  =      htmlspecialchars($mentor_address,   ENT_QUOTES, 'UTF-8');
-    $mentor_phone    =      htmlspecialchars($mentor_phone,     ENT_QUOTES, 'UTF-8');
-    $mentor_bio      =      htmlspecialchars($mentor_bio,       ENT_QUOTES, 'UTF-8');
-    $team_number     =      htmlspecialchars($team_number,      ENT_QUOTES, 'UTF-8');
-    $age             =      htmlspecialchars($age,              ENT_QUOTES, 'UTF-8');
+    //prevent xss & sql injection
+    $mentor_name     =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-name']),     ENT_QUOTES, 'UTF-8');
+    $mentor_email    =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-email']),    ENT_QUOTES, 'UTF-8');
+    $mentor_address  =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-address']),  ENT_QUOTES, 'UTF-8');
+    $mentor_phone    =      htmlspecialchars(mysql_escape_mimic($_POST['mentor-phone']),    ENT_QUOTES, 'UTF-8');
+    $mentor_bio      =      htmlspecialchars(mysql_escape_mimic($_POST['bio']),             ENT_QUOTES, 'UTF-8');
+    $team_number     =      htmlspecialchars(mysql_escape_mimic($_POST['team-number']),     ENT_QUOTES, 'UTF-8');
+    $age             =      htmlspecialchars(mysql_escape_mimic($_POST['age']),             ENT_QUOTES, 'UTF-8');
     
     $result=$db->query("SELECT * FROM `logins` WHERE EMAIL = '$mentor_email'");
     if($result->num_rows > 0){
@@ -31,47 +23,47 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     $json_encoded_skills = json_encode(
-                                    array(
-                                        'skill-engineering' => $_POST['skill-engineering'],
-                                        'engineering-desc'  => array(
-                                                                    'engineering-mechanical' => $_POST['engineering-mechanical'],
-                                                                    'engineering-electrical' => $_POST['engineering-electrical']
-                                                                    ),
+        array(
+            'skill-engineering' => $_POST['skill-engineering'],
+            'engineering-desc'  => array(
+                'engineering-mechanical' => $_POST['engineering-mechanical'],
+                'engineering-electrical' => $_POST['engineering-electrical']
+            ),
                                                     
-                                        'skill-programming' => $_POST['skill-programming'],
-                                        'programming-desc'  => array(
-                                                                    'programming-c'         => $_POST['programming-c'          ],
-                                                                    'programming-java'      => $_POST['programming-java'       ],
-                                                                    'programming-csharp'    => $_POST['programming-csharp'     ],
-                                                                    'programming-python'    => $_POST['programming-python'     ],
-                                                                    'programming-robotc'    => $_POST['programming-robotc'     ],
-                                                                    'programming-labview'   => $_POST['programming-labview'    ],
-                                                                    'programming-easyc'     => $_POST['programming-easyc'      ],
-                                                                    'programming-nxt'       => $_POST['programming-nxt'        ],
-                                                                    'programming-ev3'       => $_POST['programming-ev3'        ]
-                                                                    ),
+            'skill-programming' => $_POST['skill-programming'],
+            'programming-desc'  => array(
+                'programming-c'         => $_POST['programming-c'          ],
+                'programming-java'      => $_POST['programming-java'       ],
+                'programming-csharp'    => $_POST['programming-csharp'     ],
+                'programming-python'    => $_POST['programming-python'     ],
+                'programming-robotc'    => $_POST['programming-robotc'     ],
+                'programming-labview'   => $_POST['programming-labview'    ],
+                'programming-easyc'     => $_POST['programming-easyc'      ],
+                'programming-nxt'       => $_POST['programming-nxt'        ],
+                'programming-ev3'       => $_POST['programming-ev3'        ]
+            ),
 
-                                        'skill-cad'           => $_POST['skill-cad'           ],
-                                        'skill-strategy'      => $_POST['skill-strategy'      ],
-                                        'skill-business'      => $_POST['skill-business'      ],
-                                        'skill-marketing'     => $_POST['skill-marketing'     ],
-                                        'skill-manufacturing' => $_POST['skill-manufacturing' ],
-                                        'skill-design'        => $_POST['skill-design'        ],
-                                        'skill-scouting'      => $_POST['skill-scouting'      ],
-                                        'skill-fundraising'   => $_POST['skill-fundraising'   ],
-                                        'skill-other'         => $_POST['skill-other'         ],
-                                        'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
-                                        )
-                                    );
+            'skill-cad'           => $_POST['skill-cad'           ],
+            'skill-strategy'      => $_POST['skill-strategy'      ],
+            'skill-business'      => $_POST['skill-business'      ],
+            'skill-marketing'     => $_POST['skill-marketing'     ],
+            'skill-manufacturing' => $_POST['skill-manufacturing' ],
+            'skill-design'        => $_POST['skill-design'        ],
+            'skill-scouting'      => $_POST['skill-scouting'      ],
+            'skill-fundraising'   => $_POST['skill-fundraising'   ],
+            'skill-other'         => $_POST['skill-other'         ],
+            'skill-other-desc'    => htmlspecialchars(mysql_escape_mimic($_POST['other-text-box']), ENT_QUOTES, 'UTF-8')
+            )
+        );
 
     $type = json_encode(
-                    array(
-                        'pref_fll' => $_POST['FLLcheck'],
-                        'pref_ftc' => $_POST['FTCcheck'],
-                        'pref_frc' => $_POST['FRCcheck'],
-                        'pref_vex' => $_POST['VEXcheck']
-                        )
-                    );
+        array(
+            'pref_fll' => $_POST['FLLcheck'],
+            'pref_ftc' => $_POST['FTCcheck'],
+            'pref_frc' => $_POST['FRCcheck'],
+            'pref_vex' => $_POST['VEXcheck']
+            )
+        );
     
     $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($mentor_email));
 
