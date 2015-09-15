@@ -12,7 +12,7 @@
                 $phone = $i['PHONE'];
                 $email = $i['EMAIL'];
                 $address = $i['ADDRESS'];
-                $type = json_decode($i['TYPE']);
+                $type = json_decode($i['TYPE'], true);
                 $age = $i['AGE'];
                 $account_type = $i['ACCOUNT_TYPE'];
             }
@@ -84,13 +84,6 @@
                 var phone = document.getElementById("phone").value;
                 var age = document.getElementById("age").value;
 
-                var type = {
-                    'frc' : $("#FRCcheck").is(":checked"),
-                    'ftc' : $("#FTCcheck").is(":checked"),
-                    'fll' : $("#FLLcheck").is(":checked"),
-                    'vex' : $("#VEXcheck").is(":checked")
-                };
-
                 //add new address entry if it changed
                 if(!(address=='<?php echo $address; ?>')){
                     submitAddress(address);
@@ -101,7 +94,10 @@
                     type: 'POST',
                     url: "./edit.php",
                     data: {
-                        'type' :                        type,
+                        'frc':                          $("#FRCcheck").is(":checked"),
+                        'ftc':                          $("#FTCcheck").is(":checked"),
+                        'vex':                          $("#VEXcheck").is(":checked"),
+                        'fll':                          $("#FLLcheck").is(":checked"),
                         'NAME' :                        name,
                         'userToUpdate' :                '<?php echo $_SESSION['email']; ?>',
                         'ADDRESS':                      address,
@@ -240,8 +236,10 @@
                 </div>
                 <br />
 
-
-
+                <div class="3u 12u$(small)">
+                    Program Affiliation:
+                </div>
+                <br/>
                 <div class="3u 12u$(small)">
                     <input type="checkbox" id="FLLcheck" name="typeChecks" <?php if($type['fll']=='true') echo 'checked'; ?>>
                     <label for="FLLcheck">FLL</label>
@@ -258,8 +256,7 @@
                     <input type="checkbox" id="VEXcheck" name="typeChecks" <?php if($type['vex']=='true') echo 'checked'; ?>>
                     <label for="VEXcheck">VEX</label>
                 </div>
-
-                
+                <br/>
                 <div class="6u 12u$(small)">
                 <?php if($account_type=="MENTOR"){
                     echo 'Years of ';
@@ -352,14 +349,23 @@
         $sql = "UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'";
         $db->query($sql);
 
-        $type = sanitize($_POST['type']);
+        $type = json_encode(
+            array(
+                'frc' => $_POST['frc'],
+                'ftc' => $_POST['ftc'],
+                'vex' => $_POST['vex'],
+                'fll' => $_POST['fll']
+            )
+        );
+
+        echo '<script>console.log("'.$type.'");</script>';
         $sql = "UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';";
+        echo '<script>console.log("'.$sql.'");</script>';
         $db->query($sql);
 
         if($db->errno){
             echo $db->error();
         }
-        
     }else{
         if(!isset($_GET['p'])){
             echo '<meta http-equiv="refresh" content="0;URL=./edit.php?p='.$_SESSION['email'].'">';
