@@ -42,14 +42,9 @@ if(isset($_GET['p'])){
         <script src="assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
-        <script src="./interest.js"></script>
     </head>
     <body class="landing">
-
-        <!-- Page Wrapper -->
             <div id="page-wrapper">
-
-                <!-- Header -->
                     <header id="header">
                         <h1><a href="./index.php">Mentor Maps</a></h1>
                         <nav id="nav">
@@ -73,6 +68,9 @@ if(isset($_GET['p'])){
             <script>
                 var myInterests = <?php echo $interested_in; ?>;
                 var theirInterests = <?php echo $interested_in_me; ?>;
+                function remove(email){
+                    console.log(email);
+                }
             </script>
             <article id="main">
                 <header>
@@ -88,9 +86,9 @@ if(isset($_GET['p'])){
                                     <th>Who's Interested In Me:</th>
                                 </tr>
                                 <script>
-                                //iterate over every account that is interested in the currently logged in user
+                                    //iterate over every account that is interested in the currently logged in user
                                     $.each(theirInterests.lv1, function(key, value){
-                                        document.write("<tr><td>(lv1) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                        document.write("<tr><td><button onclick='remove(\""+value+"\");'>remove</button>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                     $.each(theirInterests.lv2, function(key, value){
                                         document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
@@ -105,7 +103,7 @@ if(isset($_GET['p'])){
                                 <script>
                                     //iterate over every account that the currently logged in user is interested in
                                     $.each(myInterests.lv1, function(key, value){
-                                        document.write("<tr><td>(lv1) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
+                                        document.write("<tr><td><button onclick='remove(\""+value+"\");'>remove</button>"+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
                                     });
                                     $.each(myInterests.lv2, function(key, value){
                                         document.write("<tr><td>(lv2) "+value+"<a href='./profile.php?p="+value+"'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'></img></a></td></tr>");
