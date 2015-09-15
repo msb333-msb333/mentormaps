@@ -301,8 +301,9 @@
         //set types
         $type = array();
         foreach($type_keys as $typeKey){
-            $type[$typeKey] = $_POST[$typeKey];
+            $type[$typeKey] = sanitize($_POST[$typeKey]);
         }
+        $type = json_encode($type);
 
         $name = sanitize($_POST['name']);
         $db->query("UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'");

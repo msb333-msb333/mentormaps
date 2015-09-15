@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //set types
     $type = array();
     foreach($type_keys as $typeKey){
-        $type[$typeKey] = $_POST[$typeKey];
+        $type[$typeKey] = sanitize($_POST[$typeKey]);
     }
     $type = json_encode($type);
     
