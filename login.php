@@ -104,13 +104,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $password = sanitize($_POST['password']);
     $refurl = sanitize($_POST['refurl']);
 
-    $salt = createSalt($username);//yum
+    $salt = createSalt($username);
     $concatPass = $password . $salt;
-    $pass_hash = md5($concatPass);//if the login is correct, this value should match up with the email provided in the database
+    $pass_hash = md5($concatPass);
     
     $resultset = $db->query("SELECT * FROM `logins` WHERE `EMAIL` = '$username' AND `PASSWORD` = '$pass_hash'");
     
-    if($resultset->num_rows > 0){//if at least 1 value matches, the user's session cookies are modified to store their email
+    if($resultset->num_rows > 0){
         $_SESSION['auth'] = true;
         $_SESSION['email'] = $username;
         echo "<meta http-equiv=\"refresh\" content=\"0;URL=$refurl\">";

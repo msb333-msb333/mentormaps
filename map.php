@@ -78,34 +78,35 @@ if(!$noaccount){
 $result=$db->query("SELECT * FROM `data`;");
 $all_data = array();
 while($r=mysqli_fetch_assoc($result)){
-        $current = array(
-                        'name'          => $r['NAME'],
-                        'skills_json'   => $r['SKILLS_JSON'],
-                        'team_number'   => $r['TEAM_NUMBER'],
-                        'comments'      => $r['COMMENTS'],
-                        'phone'         => $r['PHONE'],
-                        'email'         => $r['EMAIL'],
-                        'address'       => $r['ADDRESS'],
-                        'type'          => $r['TYPE'],
-                        'age'           => $r['AGE'],
-                        'account_type'  => $r['ACCOUNT_TYPE'],
-                        );
-        if(in_array($current['email'], $verif_data))
-            array_push($all_data, $current);
+    $current = array(
+        'name'          => $r['NAME'],
+        'skills_json'   => $r['SKILLS_JSON'],
+        'team_number'   => $r['TEAM_NUMBER'],
+        'comments'      => $r['COMMENTS'],
+        'phone'         => $r['PHONE'],
+        'email'         => $r['EMAIL'],
+        'address'       => $r['ADDRESS'],
+        'type'          => $r['TYPE'],
+        'age'           => $r['AGE'],
+        'account_type'  => $r['ACCOUNT_TYPE'],
+    );
+    if(in_array($current['email'], $verif_data))
+        array_push($all_data, $current);
 }
 
 $geoLookup = array();
 $r=$db->query("SELECT LATITUDE, LONGITUDE, ADDRESS FROM `data`;");
 while($i=mysqli_fetch_assoc($r)){
     $current = array(
-                    'latitude' => $i['LATITUDE'],
-                    'longitude' => $i['LONGITUDE'],
-                    'address' => $i['ADDRESS']
-                    );
+        'latitude' => $i['LATITUDE'],
+        'longitude' => $i['LONGITUDE'],
+        'address' => $i['ADDRESS']
+    );
     array_push($geoLookup, $current);
 }
 
-echo '<script>var marker_map = [];</script>';?>
+echo '<script>var marker_map = [];</script>';
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -144,7 +145,6 @@ echo '<script>var marker_map = [];</script>';?>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
-
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -197,25 +197,22 @@ echo '<script>var marker_map = [];</script>';?>
                     }
                     while($r=mysqli_fetch_assoc($result)){
                         $a = array(
-                                    'name'                  => $r['NAME'        ],
-                                    'searching_skills_json' => $r['SKILLS_JSON' ],
-                                    'team_number'           => $r['TEAM_NUMBER' ],
-                                    'comments'              => $r['COMMENTS'    ],
-                                    'phone'                 => $r['PHONE'       ],
-                                    'email'                 => $r['EMAIL'       ],
-                                    'address'               => $r['ADDRESS'     ],
-                                    'type'                  => $r['TYPE'        ],
-                                    'account_type'          => $r['ACCOUNT_TYPE']
-                                    );
+                                'name'                  => $r['NAME'        ],
+                                'searching_skills_json' => $r['SKILLS_JSON' ],
+                                'team_number'           => $r['TEAM_NUMBER' ],
+                                'comments'              => $r['COMMENTS'    ],
+                                'phone'                 => $r['PHONE'       ],
+                                'email'                 => $r['EMAIL'       ],
+                                'address'               => $r['ADDRESS'     ],
+                                'type'                  => $r['TYPE'        ],
+                                'account_type'          => $r['ACCOUNT_TYPE']
+                            );
                         if(in_array($a['email'], $verif_data))
                             array_push($allteams, $a);
-                        $teamjson = json_encode(
-                                                utf8_converter($a)
-                                                );
+                        $teamjson = json_encode(utf8_converter($a));
                     }
                     if(in_array($a['email'], $verif_data))
                         echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
-
                 }
             ?>
         }
