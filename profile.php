@@ -305,25 +305,16 @@ require "./logincheck.php";
                                 "engineering-mechanical"    : 'Mechanical Engineering',
                                 "engineering-electrical"    : 'Electrical Engineering'
                             };
-                            $.each(skills_json['programming-desc'], function(key, value){
-                                skills_json[key] = value;
-                            });
-                            
-                            $.each(skills_json['engineering-desc'], function(key, value){
-                                skills_json[key] = value;
-                            });
                             
                             $.each(skills_json, function(key, value){
-                                if(key != 'engineering-desc' && key != 'programming-desc'){
-                                    if(key=='skill-other-desc'){
-                                        if(skills_json['skill-other']=='true'){
-                                            document.write("<li>Other Skill: ("+value+")</li>");  
-                                        }
-                                    }else if(key=='skill-programming' || key=='skill-engineering'||key=="skill-other"){
-                                        //don't print these keys
-                                    }else if(value=='true'){
-                                        document.write('<li>' + assoc[key] + '</li>');
+                                if(key=='skill-other-desc'){
+                                    if(skills_json['skill-other']=='true'){
+                                        document.write("<li>Other Skill: ("+value+")</li>");
                                     }
+                                }else if(key=="skill-other"){
+                                    //don't print this key
+                                }else if(value=='true'){
+                                    document.write('<li>' + assoc[key] + '</li>');
                                 }
                             });
                         </script>

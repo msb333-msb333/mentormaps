@@ -197,14 +197,6 @@
                     <script>
                         <?php echo 'var skills_json = ' . $skills_json . ';' . PHP_EOL; ?>
                         
-                        $.each(skills_json['programming-desc'], function(key, value){
-                            skills_json[key] = value;
-                        });
-                        
-                        $.each(skills_json['engineering-desc'], function(key, value){
-                            skills_json[key] = value;
-                        });
-                        
                         $.each(skills_json, function(key, value){
                             if(value=='true'){
                                 $("#" + key).prop('checked', true);
@@ -298,39 +290,19 @@
         checkIfUserLoggedIn($_POST['userToUpdate']);
         $session_email = sanitize($_SESSION['email']);
 
-        $json_encoded_skills = json_encode(
-            array(
-                'skill-engineering' => $_POST['skill-engineering'],
-                'engineering-desc' => array(
-                    'engineering-mechanical' => $_POST['engineering-mechanical'],
-                    'engineering-electrical' => $_POST['engineering-electrical']
-                ),
+        //set skills
+        require "./skills.php";
+        $non_json_array = array();
+        foreach($skills_keys as $skill_key){
+            $non_json_array[$skill_key] = sanitize($_POST[$skill_key]);
+        }
+        $json_encoded_skills = json_encode($non_json_array);
 
-                'skill-programming' => $_POST['skill-programming'],
-                'programming-desc' => array(
-                    'programming-c' => $_POST['programming-c'],
-                    'programming-java' => $_POST['programming-java'],
-                    'programming-csharp' => $_POST['programming-csharp'],
-                    'programming-python' => $_POST['programming-python'],
-                    'programming-robotc' => $_POST['programming-robotc'],
-                    'programming-labview' => $_POST['programming-labview'],
-                    'programming-easyc' => $_POST['programming-easyc'],
-                    'programming-nxt' => $_POST['programming-nxt'],
-                    'programming-ev3' => $_POST['programming-ev3']
-                ),
-
-                'skill-cad' => $_POST['skill-cad'],
-                'skill-strategy' => $_POST['skill-strategy'],
-                'skill-business' => $_POST['skill-business'],
-                'skill-marketing' => $_POST['skill-marketing'],
-                'skill-manufacturing' => $_POST['skill-manufacturing'],
-                'skill-design' => $_POST['skill-design'],
-                'skill-scouting' => $_POST['skill-scouting'],
-                'skill-fundraising' => $_POST['skill-fundraising'],
-                'skill-other' => $_POST['skill-other'],
-                'skill-other-desc' => sanitize($_POST['other-text-box'])
-            )
-        );
+        //set types
+        $type = array();
+        foreach($type_keys as $typeKey){
+            $type[$typeKey] = $_POST[$typeKey];
+        }
 
         $name = sanitize($_POST['name']);
         $db->query("UPDATE `data` SET NAME = '$name' WHERE EMAIL = '$session_email'");
@@ -351,13 +323,6 @@
         
         $age =  sanitize($_POST['age']);
         $db->query("UPDATE `data` SET AGE = '$age' WHERE EMAIL = '$session_email'");
-
-        $typeKeys = array('frc', 'ftc', 'fll', 'vex');
-
-        $type = array();
-        foreach($typeKeys as $typeKey){
-            $type[$typeKey] = $_POST[$typeKey];
-        }
 
         echo '<script>console.log("'.$type.'");</script>';
         $sql = "UPDATE `data` SET `TYPE` = '$type' WHERE EMAIL = '$session_email';";
