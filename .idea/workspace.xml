@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/edit.php" afterPath="$PROJECT_DIR$/edit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registermentor.php" afterPath="$PROJECT_DIR$/registermentor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registerteam.php" afterPath="$PROJECT_DIR$/registerteam.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -74,10 +71,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/edit.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53107345">
+            <state vertical-scroll-proportion="-13.428572">
               <caret line="298" column="26" selection-start-line="298" selection-start-column="26" selection-end-line="298" selection-end-column="26" />
               <folding>
                 <element signature="e#4089#5095#0#HTML" expanded="false" />
@@ -88,10 +85,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="skills.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="skills.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/skills.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.542856">
+            <state vertical-scroll-proportion="0.8519774">
               <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
               <folding />
             </state>
@@ -458,7 +455,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442351343340</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="never forget to sanitize">
+      <created>1442351408640</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1442351408640</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -512,7 +515,8 @@
     <MESSAGE value="optimize register team" />
     <MESSAGE value="spacing" />
     <MESSAGE value="iterate through skills recursively serverside" />
-    <option name="LAST_COMMIT_MESSAGE" value="iterate through skills recursively serverside" />
+    <MESSAGE value="never forget to sanitize" />
+    <option name="LAST_COMMIT_MESSAGE" value="never forget to sanitize" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -898,14 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/skills.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.542856">
-          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/registerteam.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.342857">
@@ -975,13 +971,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53107345">
+        <state vertical-scroll-proportion="-13.428572">
           <caret line="298" column="26" selection-start-line="298" selection-start-column="26" selection-end-line="298" selection-end-column="26" />
           <folding>
             <element signature="e#4089#5095#0#HTML" expanded="false" />
             <element signature="e#5126#5364#0#HTML" expanded="false" />
             <marker date="1442351384953" expanded="true" signature="171:232" placeholder="SELECT * FRO..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skills.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8519774">
+          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
