@@ -22,48 +22,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         die("a user already has that email address");
     }
 
-    $json_encoded_skills = json_encode(
-        array(
-            'skill-engineering' => $_POST['skill-engineering'],
-            'engineering-desc'  => array(
-                'engineering-mechanical' => $_POST['engineering-mechanical'],
-                'engineering-electrical' => $_POST['engineering-electrical']
-            ),
-                                                    
-            'skill-programming' => $_POST['skill-programming'],
-            'programming-desc'  => array(
-                'programming-c'         => $_POST['programming-c'          ],
-                'programming-java'      => $_POST['programming-java'       ],
-                'programming-csharp'    => $_POST['programming-csharp'     ],
-                'programming-python'    => $_POST['programming-python'     ],
-                'programming-robotc'    => $_POST['programming-robotc'     ],
-                'programming-labview'   => $_POST['programming-labview'    ],
-                'programming-easyc'     => $_POST['programming-easyc'      ],
-                'programming-nxt'       => $_POST['programming-nxt'        ],
-                'programming-ev3'       => $_POST['programming-ev3'        ]
-            ),
+    //set skills
+    require "./skills.php";
+    $non_json_array = array();
+    foreach($skills_keys as $skill_key){
+        $non_json_array[$skill_key] = sanitize($_POST[$skill_key]);
+    }
+    $json_encoded_skills = json_encode($non_json_array);
 
-            'skill-cad'           => $_POST['skill-cad'           ],
-            'skill-strategy'      => $_POST['skill-strategy'      ],
-            'skill-business'      => $_POST['skill-business'      ],
-            'skill-marketing'     => $_POST['skill-marketing'     ],
-            'skill-manufacturing' => $_POST['skill-manufacturing' ],
-            'skill-design'        => $_POST['skill-design'        ],
-            'skill-scouting'      => $_POST['skill-scouting'      ],
-            'skill-fundraising'   => $_POST['skill-fundraising'   ],
-            'skill-other'         => $_POST['skill-other'         ],
-            'skill-other-desc'    => sanitize($_POST['other-text-box'])
-            )
-        );
-
-    $type = json_encode(
-        array(
-            'fll' => $_POST['FLLcheck'],
-            'ftc' => $_POST['FTCcheck'],
-            'frc' => $_POST['FRCcheck'],
-            'vex' => $_POST['VEXcheck']
-            )
-        );
+    //set types
+    $type = array();
+    foreach($type_keys as $typeKey){
+        $type[$typeKey] = sanitize($_POST[$typeKey]);
+    }
+    $type = json_encode($type);
     
     $pass_hash = md5(mysql_escape_mimic($pass1) . createSalt($mentor_email));
 
