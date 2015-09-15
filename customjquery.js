@@ -126,7 +126,7 @@ $("#submitTeamRegistrationForm").click(function(){
         },
         success: function(data){
             submitAddress(team_address);
-            $("#register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
+            $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
         },
         error: function(xhr, textStatus, errorThrown) {
             //TODO make this error-catching system more reliable
@@ -230,7 +230,7 @@ $("#submitMentorRegistrationForm").click(function(){
         },
         success: function(data){
             submitAddress(mentor_address);
-            $("#register-section").innerHTML = "Successfully Registered, please check your email and follow the link to verify your account";
+            $("#register-section").html("Successfully Registered, please check your email and follow the link to verify your account");
         },
         error: function(xhr, textStatus, errorThrown) {
            if(errorThrown="SyntaxError: Unexpected token a"){
