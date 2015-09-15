@@ -358,18 +358,6 @@ echo '<script>var marker_map = [];</script>';
                 document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" style=\"padding-left:1%;\"/>";
             }
             document.getElementById("team-info-label").innerHTML = '<div style="font-size:24px;display:inline;"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \''+address+'\');" class="driving-button"/></div><a href="./profile.php?p='+teamdata['email']+'" target="_blank"><img class="open-profile"/></a>';
-            
-            var searchingFor = "";
-            var ssjson = $.parseJSON(teamdata['searching_skills_json']);
-            $.each(ssjson, function(key, value){
-                if(key == 'skill-other'){
-                        searchingFor = searchingFor + "other ("+teamdata['other_detail']+")";
-                }else{
-                    if(value=='true'){
-                        searchingFor = searchingFor + key + "<br />";
-                    }
-                }
-            });
             });
             google.maps.event.addListener(marker, 'mouseover', function() {
                 infowindow.open(map, this);
