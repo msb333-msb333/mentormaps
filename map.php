@@ -625,31 +625,24 @@ echo '<script>var marker_map = [];</script>';
                 <?php } ?>
             });
         </script>
-        <?php if (isset($type)) {
-            if ($type == "TEAM") { ?>
-                <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder"
-                                                                                src="img/redm.png"/>FRC | <img
-                        class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder"
-                                                                                  src="img/bluem.png"/>FLL | <img
-                        class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder"
-                                                                                   src="img/greenm.png"/> MULTI
-                </div>
-            <?php } else { ?>
-                <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder"
-                                                                                src="img/red.png"/>FRC | <img
-                        class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder"
-                                                                                 src="img/blue.png"/>FLL | <img
-                        class="paddedImgHolder" src="img/orange.png"/> VEX
-                </div>
-            <?php }
+        <?php
+
+        function echoTeamLegend(){
+            echo '<div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder" src="img/greenm.png"/> MULTI</div>';
+        }
+
+        function echoMentorLegend(){
+            echo '<div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png"/> VEX</div>';
+        }
+
+        if (isset($type)) {
+            if ($type == "TEAM") {
+                echoTeamLegend();
+            } else {
+                echoMentorLegend();
+            }
         } else {
-            ?>
-            <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC
-                | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder"
-                                                                                src="img/blue.png"/>FLL | <img
-                    class="paddedImgHolder" src="img/orange.png"/> VEX
-            </div>
-            <?php
+            echoMentorLegend();
         } ?>
         <div style="white-space:nowrap;">
             <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
