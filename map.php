@@ -26,16 +26,14 @@ if (!$noaccount) {
     require "./logincheck.php";
     //get the logged in user's account type from the session variable
     $email = $_SESSION['email'];
-    $sql = "SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'";
     $type = "UNDEFINED";
-    $result = $db->query($sql);
+    $result = $db->query("SELECT `TYPE` FROM `logins` WHERE `EMAIL` = '$email'");
     while ($r = mysqli_fetch_assoc($result)) {
         $type = $r['TYPE'];
     }
     //get the user's address
-    $sql = "SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'";
     $my_address = "UNDEFINED";
-    $result = $db->query($sql);
+    $result = $db->query("SELECT `ADDRESS` FROM `data` WHERE `EMAIL` = '$email'");
     while ($r = mysqli_fetch_assoc($result)) {
         $my_address = $r['ADDRESS'];
     }
@@ -191,14 +189,10 @@ echo '<script>var marker_map = [];</script>';
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
-    <!--[if lte IE 8]>
-    <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <!--[if lte IE 8]>
-    <script src="assets/js/ie/respond.min.js"></script><![endif]-->
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
-    <!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
     <script>
         var directionsDisplay;
         var directionsService = new google.maps.DirectionsService();
