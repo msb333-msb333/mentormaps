@@ -218,7 +218,8 @@ echo '<script>var marker_map = [];</script>';
                 Flng = 0;
                 alert("error getting lat/lng from geolookup array");
             }
-            map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
+            map.setCenter(new google.maps.LatLng(Flat, Flng));
+            map.setZoom(16);
         }
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
