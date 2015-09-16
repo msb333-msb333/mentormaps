@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map.php" afterPath="$PROJECT_DIR$/map.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Joey.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Joey.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -96,8 +96,8 @@
       <file leaf-file-name="map.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35480225">
-              <caret line="224" column="22" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.47231638">
+              <caret line="228" column="26" selection-start-line="228" selection-start-column="26" selection-end-line="228" selection-end-column="26" />
               <folding>
                 <element signature="e#12879#12980#0#HTML" expanded="false" />
                 <element signature="e#13028#13280#0#HTML" expanded="false" />
@@ -530,7 +530,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442373700993</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="update zoom on map recenter">
+      <created>1442374093156</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1442374093156</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -571,7 +577,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix a ton of bugs" />
     <MESSAGE value="some more optimizations" />
     <MESSAGE value="fix control flow for registration" />
     <MESSAGE value="fix register team" />
@@ -596,7 +601,8 @@
     <MESSAGE value="fix register mentor bug where only one program affiliation could be selected" />
     <MESSAGE value="fix tiles on left so now they act as clicking on a marker" />
     <MESSAGE value="make the map work again, readd click functionality to both tiles and markers" />
-    <option name="LAST_COMMIT_MESSAGE" value="make the map work again, readd click functionality to both tiles and markers" />
+    <MESSAGE value="update zoom on map recenter" />
+    <option name="LAST_COMMIT_MESSAGE" value="update zoom on map recenter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -999,8 +1005,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/map.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35480225">
-          <caret line="224" column="22" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.47231638">
+          <caret line="228" column="26" selection-start-line="228" selection-start-column="26" selection-end-line="228" selection-end-column="26" />
           <folding>
             <element signature="e#12879#12980#0#HTML" expanded="false" />
             <element signature="e#13028#13280#0#HTML" expanded="false" />
