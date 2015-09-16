@@ -110,7 +110,7 @@
     <!-- Two -->
     <section id="two" class="wrapper alt style2">
         <section class="spotlight">
-            <div class="image"><img src="images/pic01.jpg" alt=""/></div>
+            <div class="image"><img src="images/pic01.jpg"/></div>
             <div class="content">
                 <h2>Nicely displays local <i>FIRST</i> and VEX teams on a Google Map!<br/></h2>
 
@@ -119,7 +119,7 @@
             </div>
         </section>
         <section class="spotlight">
-            <div class="image"><img src="images/pic02.jpg" alt=""/></div>
+            <div class="image"><img src="images/pic02.jpg" /></div>
             <div class="content">
                 <h2>Calculates what mentor you need or what team you can help!<br/></h2>
 
@@ -128,7 +128,7 @@
             </div>
         </section>
         <section class="spotlight">
-            <div class="image"><img src="images/pic03.jpg" alt=""/></div>
+            <div class="image"><img src="images/pic03.jpg" /></div>
             <div class="content">
                 <h2>Merging LinkedIn and Social Media for <i>FIRST</i> and VEX Teams<br/></h2>
 

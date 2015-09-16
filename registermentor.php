@@ -139,7 +139,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                            placeholder="Phone Number (Optional)"/>
                                 </div>
 
-                                <?php include("./pages/type_form.html"); ?>
+                                <div class="3u 12u$(small)">
+                                    <input type="checkbox" id="fll" name="typeChecks">
+                                    <label for="fll">FLL</label>
+                                </div>
+                                <div class="3u 12u$(small)">
+                                    <input type="checkbox" id="ftc" name="typeChecks">
+                                    <label for="ftc">FTC</label>
+                                </div>
+                                <div class="3u 12u$(small)">
+                                    <input type="checkbox" id="frc" name="typeChecks">
+                                    <label for="frc">FRC</label>
+                                </div>
+                                <div class="3u 12u$(small)">
+                                    <input type="checkbox" id="vex" name="typeChecks">
+                                    <label for="vex">VEX</label>
+                                </div>
 
                                 <div class="6u 12u$(small)">
                                     <br/>
