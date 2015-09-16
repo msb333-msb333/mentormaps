@@ -147,7 +147,25 @@ echo '<script>var marker_map = [];</script>';
         }
 
         .img-padding{
+            width:160px;
+            height:160px;
             padding-left:1%;
+        }
+
+        .frc-image{
+            content:url('./img/frc.png');
+        }
+
+        .vex-image{
+            content:url('./img/vex.png');
+        }
+
+        .ftc-image{
+            content:url('./img/ftc.png');
+        }
+
+        .fll-image{
+            content:url('./img/fll.png');
         }
 
         #map-canvas {
@@ -298,18 +316,18 @@ echo '<script>var marker_map = [];</script>';
                     var typedata = $.parseJSON(team['type']);
                     $("#img-container").html("");
                     if (typedata['fll'] == 'true') {
-                        document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                        $("#img-container").html($("#img-container").html() + "<img class='img-padding fll-image'/>");
                     }
                     if (typedata['ftc'] == 'true') {
-                        document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                        $("#img-container").html($("#img-container").html() + "<img class='img-padding ftc-image'/>");
                     }
                     if (typedata['frc'] == 'true') {
-                        document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                        $("#img-container").html($("#img-container").html() + "<img class='img-padding frc-image'/>");
                     }
                     if (typedata['vex'] == 'true') {
-                        document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                        $("#img-container").html($("#img-container").html() + "<img class='img-padding vex-image'/>");
                     }
-                    document.getElementById("team-info-label").innerHTML = '<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>';
+                    $("#team-info-label").html('<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
                 }
             }
         }

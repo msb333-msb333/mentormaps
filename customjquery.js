@@ -59,6 +59,33 @@ function checkEULA() {
     }
 }
 
+var checkboxes = [
+    'fll',
+    'ftc',
+    'frc',
+    'vex',
+    'engineering-mechanical',
+    'engineering-electrical',
+    'skill-manufacturing',
+    'skill-cad',
+    'programming-c',
+    'programming-java',
+    'programming-csharp',
+    'programming-python',
+    'programming-robotc',
+    'programming-nxt',
+    'programming-labview',
+    'programming-easyc',
+    'programming-ev3',
+    'skill-design',
+    'skill-strategy',
+    'skill-scouting',
+    'skill-business',
+    'skill-fundraising',
+    'skill-marketing',
+    'skill-other'
+];
+
 //dispatches async ajax request to submit team data, request is handled in a php if/else statement in the corresponding dispatch page
 $("#submitTeamRegistrationForm").click(function () {
     if (!(checkEULA())) {
@@ -101,34 +128,6 @@ $("#submitTeamRegistrationForm").click(function () {
         return;
     }
 
-    var checkboxes = [
-        'fll',
-        'ftc',
-        'frc',
-        'vex',
-        'skill-engineering',
-        'engineering-mechanical',
-        'engineering-electrical',
-        'skill-programming',
-        'programming-c',
-        'programming-java',
-        'programming-csharp',
-        'programming-python',
-        'programming-robotc',
-        'programming-nxt',
-        'programming-labview',
-        'programming-easyc',
-        'programming-ev3',
-        'skill-cad',
-        'skill-manufacturing',
-        'skill-design',
-        'skill-strategy',
-        'skill-scouting',
-        'skill-business',
-        'skill-fundraising',
-        'skill-marketing',
-        'skill-other'
-    ];
     var fields = [
         'pass1',
         'pass2',
@@ -224,34 +223,6 @@ $("#submitMentorRegistrationForm").click(function () {
         'age',
         'bio',
         'skill-other-desc'
-    ];
-    var checkboxes = [
-        'fll',
-        'ftc',
-        'frc',
-        'vex',
-        'skill-engineering',
-        'engineering-mechanical',
-        'engineering-electrical',
-        'skill-manufacturing',
-        'skill-programming',
-        'skill-cad',
-        'programming-c',
-        'programming-java',
-        'programming-csharp',
-        'programming-python',
-        'programming-robotc',
-        'programming-nxt',
-        'programming-labview',
-        'programming-easyc',
-        'programming-ev3',
-        'skill-design',
-        'skill-strategy',
-        'skill-scouting',
-        'skill-business',
-        'skill-fundraising',
-        'skill-marketing',
-        'skill-other'
     ];
 
     var info = {};
