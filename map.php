@@ -290,6 +290,30 @@ echo '<script>var marker_map = [];</script>';
                 infowindow.close();
             });
         }
+
+        function showDetails(teamEmail){
+            for(var index in allteams){
+                var team = allteams[index];
+                if(team['email']==teamEmail){
+                    var typedata = $.parseJSON(team['type']);
+                    $("#img-container").html("");
+                    if (typedata['fll'] == 'true') {
+                        document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                    }
+                    if (typedata['ftc'] == 'true') {
+                        document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                    }
+                    if (typedata['frc'] == 'true') {
+                        document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                    }
+                    if (typedata['vex'] == 'true') {
+                        document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
+                    }
+                    document.getElementById("team-info-label").innerHTML = '<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>';
+                }
+            }
+        }
+
         function codeAddress(map, address, teamdata) {
             var typedata = $.parseJSON(teamdata['type']);
             var iconurl = "./img/undef.png";
@@ -358,20 +382,7 @@ echo '<script>var marker_map = [];</script>';
             });
 
             google.maps.event.addListener(marker, 'click', function () {
-                $("#img-container").html("");
-                if (typedata['fll'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/fll.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
-                }
-                if (typedata['ftc'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/ftc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
-                }
-                if (typedata['frc'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/frc.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
-                }
-                if (typedata['vex'] == 'true') {
-                    document.getElementById("img-container").innerHTML += "<img src=\"img/vex.png\" width=\"160px\" height=\"160px\" class='img-padding' />";
-                }
-                document.getElementById("team-info-label").innerHTML = '<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + address + '\');" class="driving-button"/></div><a href="./profile.php?p=' + teamdata['email'] + '" target="_blank"><img class="open-profile"/></a>';
+                showDetails("'"+teamdata['email']+"'");
             });
             google.maps.event.addListener(marker, 'mouseover', function () {
                 infowindow.open(map, this);
@@ -527,14 +538,6 @@ echo '<script>var marker_map = [];</script>';
                 });
             }
 
-            function listTeams() {
-                $("#team-list").html("");
-                for (var i = 0; i < allteams.length; i++) {
-                    var team = allteams[i];
-                    $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");' class='li-team-tile'>" + (i + 1) + " | " + team['name'] + "</li>");
-                }
-            }
-
             function refreshListing() {
                 $("#team-list").html("");
                 var teamscore_map = [];
@@ -595,7 +598,7 @@ echo '<script>var marker_map = [];</script>';
                     var result = teamscore_map[teamscore_map_index].compare_result;
                     if (result != 0 && !isNaN(result)) {
                         teamListIndex++;
-                        $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
+                        $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\""+team['email']+"\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
                         console.log("marker_map length: " + marker_map.length);
                         $.each(marker_map, function (key, value) {
                             var m = marker_map[key];

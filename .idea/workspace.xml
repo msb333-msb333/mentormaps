@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registermentor.php" afterPath="$PROJECT_DIR$/registermentor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/type_form.html" afterPath="$PROJECT_DIR$/pages/type_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map.php" afterPath="$PROJECT_DIR$/map.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -115,10 +113,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registermentor.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="registermentor.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/registermentor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5016949">
+            <state vertical-scroll-proportion="-12.685715">
               <caret line="147" column="64" selection-start-line="147" selection-start-column="64" selection-end-line="147" selection-end-column="64" />
               <folding>
                 <marker date="1442364610386" expanded="true" signature="703:755" placeholder="SELECT * FRO..." />
@@ -130,22 +128,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="map.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="map.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-30.457144">
-              <caret line="462" column="29" selection-start-line="462" selection-start-column="29" selection-end-line="462" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.33411214">
+              <caret line="297" column="61" selection-start-line="297" selection-start-column="61" selection-end-line="297" selection-end-column="61" />
               <folding>
-                <marker date="1442359980288" expanded="true" signature="661:713" placeholder="SELECT `TYPE..." />
-                <marker date="1442359980288" expanded="true" signature="895:948" placeholder="SELECT `ADDR..." />
-                <marker date="1442359980288" expanded="true" signature="1316:1372" placeholder="SELECT `ADDR..." />
-                <marker date="1442359980288" expanded="true" signature="1491:1549" placeholder="SELECT `ADDR..." />
-                <marker date="1442359980288" expanded="true" signature="1675:1703" placeholder="SELECT `ADDR..." />
-                <marker date="1442359980288" expanded="true" signature="1734:1762" placeholder="SELECT `ADDR..." />
-                <marker date="1442359980288" expanded="true" signature="1935:1957" placeholder="SELECT * FRO..." />
-                <marker date="1442359980288" expanded="true" signature="2425:2445" placeholder="SELECT * FRO..." />
-                <marker date="1442359980288" expanded="true" signature="3043:3090" placeholder="SELECT LATIT..." />
-                <marker date="1442359980288" expanded="true" signature="7160:7209" placeholder="SELECT * FRO..." />
+                <marker date="1442366024564" expanded="true" signature="661:713" placeholder="SELECT `TYPE..." />
+                <marker date="1442366024564" expanded="true" signature="895:948" placeholder="SELECT `ADDR..." />
+                <marker date="1442366024564" expanded="true" signature="1316:1372" placeholder="SELECT `ADDR..." />
+                <marker date="1442366024564" expanded="true" signature="1491:1549" placeholder="SELECT `ADDR..." />
+                <marker date="1442366024564" expanded="true" signature="1675:1703" placeholder="SELECT `ADDR..." />
+                <marker date="1442366024564" expanded="true" signature="1734:1762" placeholder="SELECT `ADDR..." />
+                <marker date="1442366024564" expanded="true" signature="1935:1957" placeholder="SELECT * FRO..." />
+                <marker date="1442366024564" expanded="true" signature="2425:2445" placeholder="SELECT * FRO..." />
+                <marker date="1442366024564" expanded="true" signature="3043:3090" placeholder="SELECT LATIT..." />
+                <marker date="1442366024564" expanded="true" signature="7160:7209" placeholder="SELECT * FRO..." />
               </folding>
             </state>
           </provider>
@@ -209,10 +207,10 @@
         <option value="$PROJECT_DIR$/db.php" />
         <option value="$PROJECT_DIR$/deleteprofile.php" />
         <option value="$PROJECT_DIR$/edit.php" />
-        <option value="$PROJECT_DIR$/map.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/pages/type_form.html" />
         <option value="$PROJECT_DIR$/registermentor.php" />
+        <option value="$PROJECT_DIR$/map.php" />
       </list>
     </option>
   </component>
@@ -520,7 +518,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442360306987</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="fix register mentor bug where only one program affiliation could be selected">
+      <created>1442365070386</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1442365070386</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -529,22 +533,22 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1296875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31012657" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978904" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -585,7 +589,8 @@
     <MESSAGE value="remove useless div" />
     <MESSAGE value="reformat all files using phpstorm" />
     <MESSAGE value="stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="stuff" />
+    <MESSAGE value="fix register mentor bug where only one program affiliation could be selected" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix register mentor bug where only one program affiliation could be selected" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -628,6 +633,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="122" column="61" selection-start-line="122" selection-start-column="61" selection-end-line="122" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -935,25 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.457144">
-          <caret line="462" column="29" selection-start-line="462" selection-start-column="29" selection-end-line="462" selection-end-column="29" />
-          <folding>
-            <marker date="1442359980288" expanded="true" signature="661:713" placeholder="SELECT `TYPE..." />
-            <marker date="1442359980288" expanded="true" signature="895:948" placeholder="SELECT `ADDR..." />
-            <marker date="1442359980288" expanded="true" signature="1316:1372" placeholder="SELECT `ADDR..." />
-            <marker date="1442359980288" expanded="true" signature="1491:1549" placeholder="SELECT `ADDR..." />
-            <marker date="1442359980288" expanded="true" signature="1675:1703" placeholder="SELECT `ADDR..." />
-            <marker date="1442359980288" expanded="true" signature="1734:1762" placeholder="SELECT `ADDR..." />
-            <marker date="1442359980288" expanded="true" signature="1935:1957" placeholder="SELECT * FRO..." />
-            <marker date="1442359980288" expanded="true" signature="2425:2445" placeholder="SELECT * FRO..." />
-            <marker date="1442359980288" expanded="true" signature="3043:3090" placeholder="SELECT LATIT..." />
-            <marker date="1442359980288" expanded="true" signature="7160:7209" placeholder="SELECT * FRO..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71428573">
@@ -993,13 +980,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/registermentor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5016949">
+        <state vertical-scroll-proportion="-12.685715">
           <caret line="147" column="64" selection-start-line="147" selection-start-column="64" selection-end-line="147" selection-end-column="64" />
           <folding>
             <marker date="1442364610386" expanded="true" signature="703:755" placeholder="SELECT * FRO..." />
             <marker date="1442364610386" expanded="true" signature="1419:1579" placeholder="INSERT INTO ..." />
             <marker date="1442364610386" expanded="true" signature="1600:1960" placeholder="INSERT INTO ..." />
             <marker date="1442364610386" expanded="true" signature="1981:2112" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33411214">
+          <caret line="297" column="61" selection-start-line="297" selection-start-column="61" selection-end-line="297" selection-end-column="61" />
+          <folding>
+            <marker date="1442366024564" expanded="true" signature="661:713" placeholder="SELECT `TYPE..." />
+            <marker date="1442366024564" expanded="true" signature="895:948" placeholder="SELECT `ADDR..." />
+            <marker date="1442366024564" expanded="true" signature="1316:1372" placeholder="SELECT `ADDR..." />
+            <marker date="1442366024564" expanded="true" signature="1491:1549" placeholder="SELECT `ADDR..." />
+            <marker date="1442366024564" expanded="true" signature="1675:1703" placeholder="SELECT `ADDR..." />
+            <marker date="1442366024564" expanded="true" signature="1734:1762" placeholder="SELECT `ADDR..." />
+            <marker date="1442366024564" expanded="true" signature="1935:1957" placeholder="SELECT * FRO..." />
+            <marker date="1442366024564" expanded="true" signature="2425:2445" placeholder="SELECT * FRO..." />
+            <marker date="1442366024564" expanded="true" signature="3043:3090" placeholder="SELECT LATIT..." />
+            <marker date="1442366024564" expanded="true" signature="7160:7209" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
