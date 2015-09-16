@@ -8,7 +8,7 @@ function contains(a, obj) {
     return false;
 }
 
-//alogorithm for comparing accounts; returns a value 0-1 based on compatibility
+//algorithm for comparing accounts; returns a value 0-1 based on compatibility
 function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_weight) {
     var skills_searching_for = [];
     var skills_offered = [];

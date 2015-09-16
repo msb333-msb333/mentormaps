@@ -133,6 +133,10 @@ echo '<script>var marker_map = [];</script>';
             display:inline;
         }
 
+        .paddedImgHolder {
+            padding-top: 10px;
+        }
+
         .li-team-tile {
             color: #191919;
             background-color: #FFFFFF;
@@ -221,19 +225,15 @@ echo '<script>var marker_map = [];</script>';
             map = new google.maps.Map(document.getElementById('map-canvas'), {zoom: 11});
             directionsDisplay.setMap(map);
             <?php
-            if($noaccount){
-                echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
-            }else{
-                if(!$unbiased){
-                    echo 'centerMap(map, "'. $my_address .'");';
-                }else{
+                if($noaccount){
                     echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
+                }else{
+                    if(!$unbiased){
+                        echo 'centerAndSetMarker(map, "'. $my_address .'");';
+                    }else{
+                        echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
+                    }
                 }
-            }
-                
-            ?>
-            directionsDisplay.setMap(map);
-            <?php
                 $allteams = array();
                 foreach($address_array as $address){
                     $teamjson = "UNDEFINED";
@@ -244,16 +244,16 @@ echo '<script>var marker_map = [];</script>';
                     }
                     while($r=mysqli_fetch_assoc($result)){
                         $a = array(
-                                'name'                  => $r['NAME'        ],
-                                'searching_skills_json' => $r['SKILLS_JSON' ],
-                                'team_number'           => $r['TEAM_NUMBER' ],
-                                'comments'              => $r['COMMENTS'    ],
-                                'phone'                 => $r['PHONE'       ],
-                                'email'                 => $r['EMAIL'       ],
-                                'address'               => $r['ADDRESS'     ],
-                                'type'                  => $r['TYPE'        ],
-                                'account_type'          => $r['ACCOUNT_TYPE']
-                            );
+                            'name'                  => $r['NAME'        ],
+                            'searching_skills_json' => $r['SKILLS_JSON' ],
+                            'team_number'           => $r['TEAM_NUMBER' ],
+                            'comments'              => $r['COMMENTS'    ],
+                            'phone'                 => $r['PHONE'       ],
+                            'email'                 => $r['EMAIL'       ],
+                            'address'               => $r['ADDRESS'     ],
+                            'type'                  => $r['TYPE'        ],
+                            'account_type'          => $r['ACCOUNT_TYPE']
+                        );
                         if(in_array($a['email'], $verif_data))
                             array_push($allteams, $a);
                         $teamjson = json_encode(utf8_converter($a));
@@ -280,33 +280,31 @@ echo '<script>var marker_map = [];</script>';
         function centerMapNoAccount(map, lat, lng) {
             map.setCenter(new google.maps.LatLng(lat, lng), 2);
         }
-
-        function centerMap(map, address) {
-            var Flat = 0;
-            var Flng = 0;
+        function getLatLngForAddress(geoLookup, address) {
             $.each(geoLookup, function (key, value) {
                 var geoLocation = geoLookup[key];
                 if (address == geoLocation.address) {
-                    Flat = parseFloat(geoLocation.latitude);
-                    Flng = parseFloat(geoLocation.longitude);
+                    return {
+                        lat: parseFloat(geoLocation.latitude ),
+                        lng: parseFloat(geoLocation.longitude)
+                    };
                 }
             });
-            map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
+        }
 
+        function centerAndSetMarker(map, address) {
+            var geoLookupResult = getLatLngForAddress(geoLookup, address);
+            map.setCenter(new google.maps.LatLng(geoLookupResult.lat, geoLookupResult.lng), 2);
             var marker = new google.maps.Marker({
                 map: map,
-                position: {lat: Flat, lng: Flng},
+                position: {lat: geoLookupResult.lat, lng: geoLookupResult.lng},
                 icon: './img/mentorflag.png'
             });
             var infowindow = new google.maps.InfoWindow({
                 content: "Your location"
             });
-            google.maps.event.addListener(marker, 'mouseover', function () {
-                infowindow.open(map, this);
-            });
-            google.maps.event.addListener(marker, 'mouseout', function () {
-                infowindow.close();
-            });
+            google.maps.event.addListener(marker, 'mouseover', function () { infowindow.open(map, this); });
+            google.maps.event.addListener(marker, 'mouseout',  function () { infowindow.close(); });
         }
 
         function showDetails(teamEmail){
@@ -314,20 +312,20 @@ echo '<script>var marker_map = [];</script>';
                 var team = allteams[index];
                 if(team['email']==teamEmail){
                     var typedata = $.parseJSON(team['type']);
-                    $("#img-container").html("");
+                    $('#img-container').html('');
                     if (typedata['fll'] == 'true') {
-                        $("#img-container").html($("#img-container").html() + "<img class='img-padding fll-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img class='img-padding fll-image'/>");
                     }
                     if (typedata['ftc'] == 'true') {
-                        $("#img-container").html($("#img-container").html() + "<img class='img-padding ftc-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img class='img-padding ftc-image'/>");
                     }
                     if (typedata['frc'] == 'true') {
-                        $("#img-container").html($("#img-container").html() + "<img class='img-padding frc-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img class='img-padding frc-image'/>");
                     }
                     if (typedata['vex'] == 'true') {
-                        $("#img-container").html($("#img-container").html() + "<img class='img-padding vex-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img class='img-padding vex-image'/>");
                     }
-                    $("#team-info-label").html('<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
+                    $('#team-info-label').html('<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
                 }
             }
         }
@@ -557,7 +555,7 @@ echo '<script>var marker_map = [];</script>';
             }
 
             function refreshListing() {
-                $("#team-list").html("");
+                $('#team-list').html("");
                 var teamscore_map = [];
                 for (var i = 0; i < allteams.length; i++) {
                     var team = allteams[i];
@@ -635,11 +633,6 @@ echo '<script>var marker_map = [];</script>';
                 <?php } ?>
             });
         </script>
-        <style>
-            .paddedImgHolder {
-                padding-top: 10px;
-            }
-        </style>
         <?php if (isset($type)) {
             if ($type == "TEAM") { ?>
                 <div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder"
