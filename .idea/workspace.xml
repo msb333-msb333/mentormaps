@@ -96,32 +96,30 @@
       <file leaf-file-name="map.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79435027">
-              <caret line="651" column="26" selection-start-line="651" selection-start-column="26" selection-end-line="651" selection-end-column="26" />
+            <state vertical-scroll-proportion="1.7344633">
+              <caret line="663" column="17" selection-start-line="663" selection-start-column="17" selection-end-line="663" selection-end-column="17" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#section#0;n#div#0;n#div#1;n#article#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1442446491157" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
-                <marker date="1442446491157" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
-                <marker date="1442446491157" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
-                <marker date="1442446491157" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
-                <marker date="1442446491157" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
-                <marker date="1442446491157" expanded="true" signature="1716:1744" placeholder="SELECT `ADDR..." />
-                <marker date="1442446491157" expanded="true" signature="1917:1939" placeholder="SELECT * FRO..." />
-                <marker date="1442446491157" expanded="true" signature="2407:2427" placeholder="SELECT * FRO..." />
-                <marker date="1442446491157" expanded="true" signature="3025:3072" placeholder="SELECT LATIT..." />
-                <marker date="1442446491157" expanded="true" signature="7503:7552" placeholder="SELECT * FRO..." />
-                <marker date="1442446491157" expanded="true" signature="25325:25370" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="25744:25789" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26282:26301" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26302:26658" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26357:26392" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26592:26598" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26592:26624" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26592:26643" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26592:26658" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26819:26956" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26850:26942" placeholder="..." />
-                <marker date="1442446491157" expanded="true" signature="26867:26928" placeholder="..." />
+                <element signature="n#style#0;n#div#1;n#article#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1442446702189" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
+                <marker date="1442446702189" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
+                <marker date="1442446702189" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
+                <marker date="1442446702189" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
+                <marker date="1442446702189" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
+                <marker date="1442446702189" expanded="true" signature="1716:1744" placeholder="SELECT `ADDR..." />
+                <marker date="1442446702189" expanded="true" signature="1917:1939" placeholder="SELECT * FRO..." />
+                <marker date="1442446702189" expanded="true" signature="2407:2427" placeholder="SELECT * FRO..." />
+                <marker date="1442446702189" expanded="true" signature="3025:3072" placeholder="SELECT LATIT..." />
+                <marker date="1442446702189" expanded="true" signature="7503:7552" placeholder="SELECT * FRO..." />
+                <marker date="1442446702189" expanded="true" signature="25325:25370" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="25744:25789" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26261:26734" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26330:26365" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26713:26719" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26713:26733" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26713:26734" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26894:27031" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26925:27017" placeholder="..." />
+                <marker date="1442446702189" expanded="true" signature="26942:27003" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -571,7 +569,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442446416088</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="remove unnecessary div">
+      <created>1442446508767</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1442446508767</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -612,7 +616,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix control flow for registration" />
     <MESSAGE value="fix register team" />
     <MESSAGE value="rename type keys" />
     <MESSAGE value="ready to test for changeable type" />
@@ -637,7 +640,8 @@
     <MESSAGE value="update zoom on map recenter" />
     <MESSAGE value="stuff" />
     <MESSAGE value="simplify legend code" />
-    <option name="LAST_COMMIT_MESSAGE" value="simplify legend code" />
+    <MESSAGE value="remove unnecessary div" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unnecessary div" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1033,32 +1037,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/map.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79435027">
-          <caret line="651" column="26" selection-start-line="651" selection-start-column="26" selection-end-line="651" selection-end-column="26" />
+        <state vertical-scroll-proportion="1.7344633">
+          <caret line="663" column="17" selection-start-line="663" selection-start-column="17" selection-end-line="663" selection-end-column="17" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#section#0;n#div#0;n#div#1;n#article#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1442446491157" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
-            <marker date="1442446491157" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
-            <marker date="1442446491157" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
-            <marker date="1442446491157" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
-            <marker date="1442446491157" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
-            <marker date="1442446491157" expanded="true" signature="1716:1744" placeholder="SELECT `ADDR..." />
-            <marker date="1442446491157" expanded="true" signature="1917:1939" placeholder="SELECT * FRO..." />
-            <marker date="1442446491157" expanded="true" signature="2407:2427" placeholder="SELECT * FRO..." />
-            <marker date="1442446491157" expanded="true" signature="3025:3072" placeholder="SELECT LATIT..." />
-            <marker date="1442446491157" expanded="true" signature="7503:7552" placeholder="SELECT * FRO..." />
-            <marker date="1442446491157" expanded="true" signature="25325:25370" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="25744:25789" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26282:26301" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26302:26658" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26357:26392" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26592:26598" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26592:26624" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26592:26643" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26592:26658" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26819:26956" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26850:26942" placeholder="..." />
-            <marker date="1442446491157" expanded="true" signature="26867:26928" placeholder="..." />
+            <element signature="n#style#0;n#div#1;n#article#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1442446702189" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
+            <marker date="1442446702189" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
+            <marker date="1442446702189" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
+            <marker date="1442446702189" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
+            <marker date="1442446702189" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
+            <marker date="1442446702189" expanded="true" signature="1716:1744" placeholder="SELECT `ADDR..." />
+            <marker date="1442446702189" expanded="true" signature="1917:1939" placeholder="SELECT * FRO..." />
+            <marker date="1442446702189" expanded="true" signature="2407:2427" placeholder="SELECT * FRO..." />
+            <marker date="1442446702189" expanded="true" signature="3025:3072" placeholder="SELECT LATIT..." />
+            <marker date="1442446702189" expanded="true" signature="7503:7552" placeholder="SELECT * FRO..." />
+            <marker date="1442446702189" expanded="true" signature="25325:25370" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="25744:25789" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26261:26734" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26330:26365" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26713:26719" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26713:26733" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26713:26734" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26894:27031" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26925:27017" placeholder="..." />
+            <marker date="1442446702189" expanded="true" signature="26942:27003" placeholder="..." />
           </folding>
         </state>
       </provider>

@@ -644,12 +644,12 @@ echo '<script>var marker_map = [];</script>';
         } else {
             echoMentorLegend();
         } ?>
-        <div style="white-space:nowrap;">
-            <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
-                <section id="team-info-section">
-                    <div id="team-info-label"></div>
-                    <div style="text-align:center;" class="12u 12u$(small)" id="img-container"></div>
-                </section>
+        <div class="inner" id="team-info" style="white-space:nowrap;padding-top:20px;text-align:center;">
+            <div id="team-info-label">
+                <!--populated with buttons for driving directions and a link to the profile of the selected account-->
+            </div>
+            <div  class="12u 12u$(small)" id="img-container">
+                <!--populated by images based on the selected account's affiliate programs-->
             </div>
         </div>
         <br/>
