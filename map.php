@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 $unbiased = false;
 $noaccount = false;
@@ -111,11 +112,11 @@ echo '<script>var marker_map = [];</script>';
 <head>
     <style>
         .driving-button {
-            content: url('./img/ic_directions_car_white_48dp_2x.png');
+            content: url("./img/ic_directions_car_white_48dp_2x.png");
         }
 
         .driving-button:hover {
-            content: url('./img/ic_directions_car_red_48dp_2x.png');
+            content: url("./img/ic_directions_car_red_48dp_2x.png");
         }
 
         .open-profile {
@@ -258,7 +259,11 @@ echo '<script>var marker_map = [];</script>';
                 }
             ?>
         }
-
+        <?php
+        echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
+        echo 'var allteams = ' . json_encode(utf8_converter($allteams)) . ';' . PHP_EOL;
+        echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
+        ?>
         function calcRoute(start, end) {
             var request = {
                 origin: start,
@@ -507,12 +512,6 @@ echo '<script>var marker_map = [];</script>';
             </div>
         </div>
         <script>
-            <?php
-                echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
-                echo 'var allteams = ' . json_encode(utf8_converter($allteams)) . ';' . PHP_EOL;
-                echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
-            ?>
-
             var rad = function (x) {
                 return x * Math.PI / 180;
             };
@@ -592,7 +591,7 @@ echo '<script>var marker_map = [];</script>';
                         }
                         var distance_weight = 6.4;
                         var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
-                        teamscore_map.push({team, compare_result});
+                        teamscore_map.push({team:team, compare_result:compare_result});
                     }
                 }
 
