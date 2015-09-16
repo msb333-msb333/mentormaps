@@ -563,22 +563,22 @@ echo '<script>var marker_map = [];</script>';
                 var teamscore_map = [];
                 for (var i = 0; i < allteams.length; i++) {
                     var team = allteams[i];
-                    <?php if(!$noaccount){ ?>
-                    var searchingfor = $.parseJSON(me['skills_json']);
+                    <?php if($noaccount){ ?>
+                        var searchingfor = {};
                     <?php }else{ ?>
-                    var searchingfor = {};
+                        var searchingfor = $.parseJSON(me['skills_json']);
                     <?php } ?>
                     var offered = $.parseJSON(team['searching_skills_json']);
                     var p1array = getLatLngArrayFromAddress(team['address']);
                     var p1lat = globalRet.latitude;//TODO find out why the return statement doesn't work
                     var p1lng = globalRet.longitude;
-                    <?php if(!$noaccount){ ?>
-                    var p2array = getLatLngArrayFromAddress(me['address']);
-                    var p2lat = globalRet.latitude;
-                    var p2lng = globalRet.longitude;
+                    <?php if($noaccount){ ?>
+                        var p2lat = 33.878652;
+                        var p2lng = -117.997470;
                     <?php }else{ ?>
-                    var p2lat = 33.878652;
-                    var p2lng = -117.997470;
+                        var p2array = getLatLngArrayFromAddress(me['address']);
+                        var p2lat = globalRet.latitude;
+                        var p2lng = globalRet.longitude;
                     <?php } ?>
                     var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
                     if (!(distance > $("#slidey-thing").val())) {
