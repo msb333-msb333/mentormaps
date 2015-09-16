@@ -550,6 +550,14 @@ echo '<script>var marker_map = [];</script>';
                 });
             }
 
+            function listTeams(){
+                $("#team-list").html("");
+                    for(var i=0;i<allteams.length;i++){
+                        var team = allteams[i];
+                        $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
+                    }
+            }
+
             function refreshListing() {
                 $('#team-list').html("");
                 var teamscore_map = [];
@@ -619,9 +627,9 @@ echo '<script>var marker_map = [];</script>';
             }
             $(document).ready(function () {
                 <?php if($noaccount){ ?>
-                listTeams();
+                    listTeams();
                 <?php }else{ ?>
-                refreshListing();
+                    refreshListing();
                 <?php } ?>
             });
         </script>
@@ -632,7 +640,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         function echoMentorLegend(){
-            echo '<div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png"/> VEX</div>';
+            echo '<div class="legend"><img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png"/> VEX</div>';
         }
 
         if (isset($type)) {
