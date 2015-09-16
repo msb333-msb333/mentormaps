@@ -648,9 +648,7 @@ echo '<script>var marker_map = [];</script>';
             <div class="inner" id="team-info" style="padding-top:20px;text-align:center;">
                 <section id="team-info-section">
                     <div id="team-info-label"></div>
-                    <div class="row uniform">
-                        <div class="12u 12u$(small)" id="img-container"></div>
-                    </div>
+                    <div style="text-align:center;" class="12u 12u$(small)" id="img-container"></div>
                 </section>
             </div>
         </div>
