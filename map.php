@@ -229,7 +229,7 @@ echo '<script>var marker_map = [];</script>';
                     echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
                 }else{
                     if(!$unbiased){
-                        echo 'centerAndSetMarker(map, "'. $my_address .'");';
+                        echo 'centerMap(map, "'. $my_address .'");';
                     }else{
                         echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
                     }
@@ -280,31 +280,34 @@ echo '<script>var marker_map = [];</script>';
         function centerMapNoAccount(map, lat, lng) {
             map.setCenter(new google.maps.LatLng(lat, lng), 2);
         }
-        function getLatLngForAddress(geoLookup, address) {
+
+        function centerMap(map, address) {
+            var Flat = 0;
+            var Flng = 0;
             $.each(geoLookup, function (key, value) {
                 var geoLocation = geoLookup[key];
                 if (address == geoLocation.address) {
-                    return {
-                        lat: parseFloat(geoLocation.latitude ),
-                        lng: parseFloat(geoLocation.longitude)
-                    };
+                    Flat = parseFloat(geoLocation.latitude ),
+                    Flng = parseFloat(geoLocation.longitude);
                 }
             });
-        }
 
-        function centerAndSetMarker(map, address) {
-            var geoLookupResult = getLatLngForAddress(geoLookup, address);
-            map.setCenter(new google.maps.LatLng(geoLookupResult.lat, geoLookupResult.lng), 2);
+            map.setCenter(new google.maps.LatLng(Flat, Flng), 2);
+
             var marker = new google.maps.Marker({
                 map: map,
-                position: {lat: geoLookupResult.lat, lng: geoLookupResult.lng},
+                position: {lat: Flat, lng: Flng},
                 icon: './img/mentorflag.png'
             });
             var infowindow = new google.maps.InfoWindow({
                 content: "Your location"
             });
-            google.maps.event.addListener(marker, 'mouseover', function () { infowindow.open(map, this); });
-            google.maps.event.addListener(marker, 'mouseout',  function () { infowindow.close(); });
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                infowindow.open(map, this);
+            });
+            google.maps.event.addListener(marker, 'mouseout', function () {
+                infowindow.close();
+            });
         }
 
         function showDetails(teamEmail){
@@ -333,7 +336,6 @@ echo '<script>var marker_map = [];</script>';
         function codeAddress(map, address, teamdata) {
             var typedata = $.parseJSON(teamdata['type']);
             var iconurl = "./img/undef.png";
-            console.log(teamdata);
             if (teamdata['account_type'] == 'TEAM') {
                 if (typedata['ftc'] == 'true') {
                     iconurl = 'img/white.png';
@@ -398,7 +400,7 @@ echo '<script>var marker_map = [];</script>';
             });
 
             google.maps.event.addListener(marker, 'click', function () {
-                showDetails("'"+teamdata['email']+"'");
+                showDetails(teamdata['email']);
             });
             google.maps.event.addListener(marker, 'mouseover', function () {
                 infowindow.open(map, this);
@@ -605,17 +607,13 @@ echo '<script>var marker_map = [];</script>';
 
                 teamscore_map = teamscore_map.sort(comparator);
 
-                console.log(teamscore_map);
-
                 var teamListIndex = 0;
-                console.log("teamscore_map length: " + teamscore_map.length);
                 for (var teamscore_map_index in teamscore_map) {
                     var team = teamscore_map[teamscore_map_index]['team'];
                     var result = teamscore_map[teamscore_map_index].compare_result;
                     if (result != 0 && !isNaN(result)) {
                         teamListIndex++;
                         $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\""+team['email']+"\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
-                        console.log("marker_map length: " + marker_map.length);
                         $.each(marker_map, function (key, value) {
                             var m = marker_map[key];
                             if (m.address == team.address) {
