@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     require "./pages/default_header.html";
     ?>
         <section class="wrapper style4">
@@ -53,13 +53,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         die("No key defined<br/>Perhaps you'd like to go back <a href='./index.php'>home</a>?");
     }
     require "./pages/default_footer.html";
-}else{
+} else {
     require "./db.php";
     require "./security/salt.php";
 
     $pass_hash = md5(sanitize($_POST['newpass']) . createSalt(sanitize($_POST['email'])));
 
-    $sql = "UPDATE `logins` SET `PASSWORD` = '$pass_hash' WHERE `EMAIL` = '".sanitize($_POST['email'])."';";
+    $sql = "UPDATE `logins` SET `PASSWORD` = '$pass_hash' WHERE `EMAIL` = '" . sanitize($_POST['email']) . "';";
     $db->query($sql);
 }
 ?>
