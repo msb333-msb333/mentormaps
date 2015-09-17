@@ -162,6 +162,7 @@ echo '<script>var marker_map = [];</script>';
             border: 2px solid #191919;
             margin: 5px 5px 5px 5px;
             border-radius: 10px;
+            cursor:pointer;
         }
 
         .li-team-tile:hover {
@@ -179,6 +180,7 @@ echo '<script>var marker_map = [];</script>';
             margin: 0;
             padding: 0;
             list-style-type:none;
+            cursor:default;
             line-height:2em;
             overflow:scroll;
             overflow-x:hidden;
@@ -186,6 +188,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         .search-filter{
+            cursor:default;
             line-height:2em;
             overflow:scroll;
             overflow-x:hidden;
@@ -298,7 +301,9 @@ echo '<script>var marker_map = [];</script>';
             for(var index in alldata){
                 var dataEntry = alldata[index];
                 console.log(dataEntry);
-                marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
+                if(dataEntry.address != '<?php echo $my_address; ?>') {
+                    marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
+                }
             }
         }
 
@@ -638,7 +643,7 @@ echo '<script>var marker_map = [];</script>';
                                     }
                                 }
 
-                                var distance_weight = 6.4;
+                                var distance_weight = 1;
                                 var compare_result = compare(searchingfor, offered, myTypes, theirTypes, distance, distance_weight);
                                 teamscore_map.push({team: team, compare_result: compare_result});
                             }
