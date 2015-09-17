@@ -114,6 +114,7 @@ echo '<script>var marker_map = [];</script>';
             height:62px;
             width:100%;
             background-color:teal;
+            padding-top:0px;
         }
         .driving-button {
             content: url("./img/ic_directions_car_white_48dp_2x.png");
@@ -158,12 +159,49 @@ echo '<script>var marker_map = [];</script>';
             background-color: #FFFFFF;
             padding: .2em 1em;
             border: 2px solid #191919;
-            margin: 0 0 7px 0;
+            margin: 5px 5px 5px 5px;
+            border-radius: 10px;
         }
 
         .li-team-tile:hover {
             background-color: #E8E8E8;
             border-color: #303030;
+        }
+
+        .result-list{
+            text-align:left;
+            height:75vh;
+            float:left;
+            background-color:teal;
+            width:15%;
+            color:white;
+            margin: 0;
+            padding: 0;
+            list-style-type:none;
+            line-height:2em;
+            overflow:scroll;
+            overflow-x:hidden;
+            overflow-y:auto;
+        }
+
+        .search-filter{
+            line-height:2em;
+            overflow:scroll;
+            overflow-x:hidden;
+            height:75vh;
+            float:right;
+            background-color:teal;
+            width:15%;
+            color:white;
+            list-style-type:none;
+            overflow-y:auto;
+        }
+
+        #map-and-search-wrapper{
+            display:inline-block;
+            width:100%;
+            color:black;
+            height:75vh;
         }
 
         .img-padding{
@@ -190,6 +228,10 @@ echo '<script>var marker_map = [];</script>';
 
         #map-canvas {
             height: 100%;
+        }
+
+        #map-section{
+            height:75vh;
         }
     </style>
     <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
@@ -408,6 +450,10 @@ echo '<script>var marker_map = [];</script>';
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
+        function updateRangeDisplay() {
+            $("#range-display").html($("#slidey-thing").val());
+        }
     </script>
 </head>
 <body>
@@ -463,48 +509,29 @@ echo '<script>var marker_map = [];</script>';
         </nav>
     </header>
     <article class="wrapper style4" style="padding-top:30px;text-align:center;">
-        <div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
-            <div id="team-list-wrapper">
-                <script>
-                    document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
-                </script>
-                <ul style="margin: 0;padding: 0;list-style-type:none;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;"
-                    id="team-list">
-                    <!--li team elements go here (appended with javascript)-->
-                </ul>
-            </div>
-            <div id="search-wrapper">
-                <script>
-                    document.getElementById('search-wrapper').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";text-align: center;float:right;background-color:teal;width:15%;color:white;text-align:left;");
-                    function updateRangeDisplay() {
-                        $("#range-display").html($("#slidey-thing").val());
-                    }
-                </script>
-                <div style="line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
-                    <ul style="list-style-type:none;" id="list-thing">
-                        <li>
-                            Search Filter
-                        </li>
-                        <li>
-                            Range <input id="slidey-thing" type="range" max="99" min="1"
-                                         onchange="updateRangeDisplay();"/>
+        <div id="map-and-search-wrapper">
+            <ul class="result-list" id="team-list">
+                <!--li team elements go here (appended with javascript)-->
+            </ul>
 
-                            <div id="range-display" style="display:inline;">50</div>
-                        </li>
-                        <li>
-                            <button onclick="refreshListing();">
-                                Update List
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="map-section">
-                <script>
-                    document.getElementById("map-section").style.height = window.innerHeight - (window.innerHeight / 4) + "px";
-                </script>
-                <div id="map-canvas"></div>
-            </div>
+            <ul class="search-filter" id="list-thing">
+                <li>
+                    Search Filter
+                </li>
+                <li>
+                    Range <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();" />
+                    <div id="range-display" style="display:inline;">
+                        50
+                    </div>
+                </li>
+                <li>
+                    <button onclick="refreshListing();">
+                        Update List
+                    </button>
+                </li>
+            </ul>
+
+            <div id="map-canvas"></div>
         </div>
         <script>
             var rad = function (x) {
