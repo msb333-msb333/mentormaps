@@ -101,9 +101,8 @@
 
                 <p>MentorMaps was developed by FRC Team 3309 to make every team/mentor's life just a little bit easier
                     <br/>
-                    <br/>
-                    <button onclick="window.location = './map.php?opt=noaccount';">try it now</button>
                 </p>
+                <button onclick="window.location = './map.php?opt=noaccount';">try it now</button>
             </header>
         </div>
     </section>
@@ -161,7 +160,7 @@
                     <h3>"...Every single student needs someone who they can look up to and work with to build a great
                         foundation for themselves and, as mentors, we provide that opportunity for them..."</h3>
 
-                    <p> - <i>Pauline Tasci, Mentor and Student Alum of Team 3476 "Code Orange"</i></p>
+                    <p> - <i>Pauline Tasci, Mentor for Team 3476 "Code Orange"</i></p>
                 </li>
                 <li>
                     <h3><br>"Mentors create a spark of knowledge in a student to see their ideas transformed into
