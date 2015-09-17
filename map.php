@@ -619,23 +619,27 @@ echo '<script>var marker_map = [];</script>';
                             var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
 
                             if (!(distance > $("#slidey-thing").val())) {
-                                var process_teamtype = $.parseJSON(me['type']);
-                                var process_mentortypes = $.parseJSON(team['type']);
-                                var teamtype;
-                                var mentortypes = [];
-                                for (var e in process_mentortypes) {
-                                    if (process_mentortypes[e] == 'true') {
-                                        mentortypes.push(e);
+                                var myTypes = [];
+                                var theirTypes = [];
+
+                                var prelim_myTypes = $.parseJSON(me.type);
+                                for(var index in prelim_myTypes){
+                                    var type = prelim_myTypes[index];
+                                    if(type == 'true'){
+                                        myTypes.push(index);
                                     }
                                 }
-                                for (var e in process_teamtype) {
-                                    if (process_teamtype[e] == 'true') {
-                                        teamtype = e;
-                                        break;
+
+                                var prelim_theirTypes = $.parseJSON(me.type);
+                                for(var index in prelim_theirTypes){
+                                    var type = prelim_theirTypes[index];
+                                    if(type == 'true'){
+                                        theirTypes.push(index);
                                     }
                                 }
+
                                 var distance_weight = 6.4;
-                                var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
+                                var compare_result = compare(searchingfor, offered, myTypes, theirTypes, distance, distance_weight);
                                 teamscore_map.push({team: team, compare_result: compare_result});
                             }
                         }
