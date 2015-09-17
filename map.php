@@ -37,27 +37,8 @@ if (!$noaccount) {
     while ($r = mysqli_fetch_assoc($result)) {
         $my_address = $r['ADDRESS'];
     }
-    //store all of the opposite kinds of addresses
-    if ($unbiased == false) {
-        if ($type == "MENTOR") {
-            echo '<!--you are a mentor, displaying all results for teams-->';
-            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
-        } else {
-            echo '<!--you are a team, displaying all results for mentors-->';
-            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
-        }
-    } else {
-        echo '<!--you are using an unbiased map, displaying all results in db-->';
-        $sql = "SELECT `ADDRESS` FROM `data`;";
-    }
 } else {
     $my_address = "";
-    $sql = "SELECT `ADDRESS` FROM `data`;";
-}
-
-$result = $db->query($sql);
-while ($r = mysqli_fetch_assoc($result)) {
-    array_push($address_array, $r['ADDRESS']);
 }
 
 $verif_data = array();
@@ -606,21 +587,10 @@ echo '<script>var marker_map = [];</script>';
                             function updateExpDisplay(){
                                 var exp = $("#exp_slider").val();
                                 if(acct=='team') {
-                                    var html = "";
-                                    if (exp > 1) {
-                                        $("#details_display").html(" years of Experience");
-                                    } else {
-                                        $("#details_display").html(" year of Experience");
-                                    }
+                                    $("#details_display").html(exp > 1 ? ' years of experience' : ' year of Experience');
                                     $("#exp_display").html(exp);
                                 }else{
-                                    var desired = 'Rookie Team';
-                                    if(exp==0){
-                                        desired = 'Rookie Team';
-                                    }else{
-                                        desired = 'Experienced Team';
-                                    }
-                                    $("#exp_display").html(desired);
+                                    $("#exp_display").html(exp==0 ? 'Rookie Team' : 'Experienced Team');
                                 }
                             }
 
