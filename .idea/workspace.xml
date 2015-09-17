@@ -7,18 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe39520-243b-4ca4-beed-90408e371dbc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/copy.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard.php" afterPath="$PROJECT_DIR$/dashboard.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.php" afterPath="$PROJECT_DIR$/db.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.php" afterPath="$PROJECT_DIR$/login.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map.php" afterPath="$PROJECT_DIR$/map.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile.php" afterPath="$PROJECT_DIR$/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register.php" afterPath="$PROJECT_DIR$/register.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registermentor.php" afterPath="$PROJECT_DIR$/registermentor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registerteam.php" afterPath="$PROJECT_DIR$/registerteam.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/survey.php" afterPath="$PROJECT_DIR$/survey.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tos.php" afterPath="$PROJECT_DIR$/tos.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mentormaps.iws" />
@@ -98,12 +87,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="map.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="map.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="48.285713">
-              <caret line="22" column="7" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="7" />
-              <folding />
+            <state vertical-scroll-proportion="0.36331776">
+              <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
+              <folding>
+                <marker date="1442451861280" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
+                <marker date="1442451861280" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
+                <marker date="1442451861280" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
+                <marker date="1442451861280" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
+                <marker date="1442451861280" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
+                <marker date="1442451861280" expanded="true" signature="1738:1766" placeholder="SELECT `ADDR..." />
+                <marker date="1442451861280" expanded="true" signature="1939:1961" placeholder="SELECT * FRO..." />
+                <marker date="1442451861280" expanded="true" signature="2411:2431" placeholder="SELECT * FRO..." />
+                <marker date="1442451861280" expanded="true" signature="3028:3075" placeholder="SELECT LATIT..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -133,11 +132,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="copy.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="copy.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/copy.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.058757063">
-              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+            <state vertical-scroll-proportion="-2.2285714">
+              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -190,7 +189,6 @@
         <option value="$PROJECT_DIR$/pages/type_form.html" />
         <option value="$PROJECT_DIR$/customjquery.js" />
         <option value="$PROJECT_DIR$/compare.js" />
-        <option value="$PROJECT_DIR$/map.php" />
         <option value="$PROJECT_DIR$/dashboard.php" />
         <option value="$PROJECT_DIR$/db.php" />
         <option value="$PROJECT_DIR$/copy.php" />
@@ -202,6 +200,7 @@
         <option value="$PROJECT_DIR$/profile.php" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/map.php" />
       </list>
     </option>
   </component>
@@ -587,7 +586,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442450911197</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="update the way copyright is displayed">
+      <created>1442451641593</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1442451641593</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -628,7 +633,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sanitize edit input" />
     <MESSAGE value="optimize register team" />
     <MESSAGE value="spacing" />
     <MESSAGE value="iterate through skills recursively serverside" />
@@ -653,7 +657,8 @@
     <MESSAGE value="indent" />
     <MESSAGE value="fix no account access" />
     <MESSAGE value="backend overhaul; remove redundant allteams variable in php and js" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend overhaul; remove redundant allteams variable in php and js" />
+    <MESSAGE value="update the way copyright is displayed" />
+    <option name="LAST_COMMIT_MESSAGE" value="update the way copyright is displayed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1024,14 +1029,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="48.285713">
-          <caret line="22" column="7" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.428572">
@@ -1076,9 +1073,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/copy.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058757063">
-          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+        <state vertical-scroll-proportion="-2.2285714">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36331776">
+          <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
+          <folding>
+            <marker date="1442451861280" expanded="true" signature="716:768" placeholder="SELECT `TYPE..." />
+            <marker date="1442451861280" expanded="true" signature="939:992" placeholder="SELECT `ADDR..." />
+            <marker date="1442451861280" expanded="true" signature="1298:1354" placeholder="SELECT `ADDR..." />
+            <marker date="1442451861280" expanded="true" signature="1473:1531" placeholder="SELECT `ADDR..." />
+            <marker date="1442451861280" expanded="true" signature="1657:1685" placeholder="SELECT `ADDR..." />
+            <marker date="1442451861280" expanded="true" signature="1738:1766" placeholder="SELECT `ADDR..." />
+            <marker date="1442451861280" expanded="true" signature="1939:1961" placeholder="SELECT * FRO..." />
+            <marker date="1442451861280" expanded="true" signature="2411:2431" placeholder="SELECT * FRO..." />
+            <marker date="1442451861280" expanded="true" signature="3028:3075" placeholder="SELECT LATIT..." />
+          </folding>
         </state>
       </provider>
     </entry>

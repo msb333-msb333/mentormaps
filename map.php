@@ -131,6 +131,19 @@ echo '<script>var marker_map = [];</script>';
             content: url("./img/ic_open_in_new_red_48dp_2x.png");
         }
 
+        .team-name{
+            /*for once these ui designers know what a real font looks like*/
+            /*font-family:'comic sans ms';*/
+
+            font-family:'verdana';
+            color: #191919;
+            background-color: #FFFFFF;
+            padding: .2em 1em;
+            border: 5px solid #191919;
+            margin: 0 0 7px 0;
+
+        }
+
         .team-info-label{
             font-size:24px;
             display:inline;
@@ -310,7 +323,7 @@ echo '<script>var marker_map = [];</script>';
                     if (typedata['vex'] == 'true') {
                         $('#img-container').html($('#img-container').html() + "<img class='img-padding vex-image'/>");
                     }
-                    $('#team-info-label').html('<div class="team-info-label"><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
+                    $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
                 }
             }
         }
