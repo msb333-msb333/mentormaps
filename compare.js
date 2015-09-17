@@ -33,14 +33,25 @@ function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_
             matches++;
         }
     }
+
     //divides the number of shared skills by the number of total skills of the account to compare
     var skills_score = matches / skills_searching_for.length;
 
     //the type score can be 0 or 1 and filters incompatible account types (FRC, FTC, FLL, VEX, etc)
     var type_score = 0;
-    if (contains(theirTypes, myTypes)) {
-        type_score = 1;
+    for(var myType in myTypes){
+        for(var theirType in theirTypes){
+            if(myType == theirType){
+                type_score = 1;
+            }
+        }
     }
+
+    console.log("my types");
+    console.log(myTypes);
+
+    console.log("their types");
+    console.log(theirTypes);
 
     //just some code to make the algorithm easier to understand
     var numerator = skills_score * type_score;

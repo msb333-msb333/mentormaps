@@ -357,7 +357,7 @@
     </article>
     <footer id="footer">
         <ul class="copyright">
-            <li><?php echoCopy(); ?></li>
+            <li><?php require "./copy.php"; echoCopy(); ?></li>
         </ul>
     </footer>
 </div>

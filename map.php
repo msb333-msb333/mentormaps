@@ -110,9 +110,12 @@ echo '<script>var marker_map = [];</script>';
 <head>
     <style>
         .legend{
-            height:62px;
+            height:3em;
             width:100%;
-            background-color:teal;
+            background-color: teal;
+            display:block;
+            margin:0 0 0 0;/*yeah, a negative margin. don't judge; css is hard*/
+            padding:0;
         }
         .driving-button {
             content: url("./img/ic_directions_car_white_48dp_2x.png");
@@ -149,7 +152,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         .paddedImgHolder {
-            padding-top: 10px;
+            padding: 0.2em 0 0 0;
         }
 
         .li-team-tile {
@@ -157,12 +160,53 @@ echo '<script>var marker_map = [];</script>';
             background-color: #FFFFFF;
             padding: .2em 1em;
             border: 2px solid #191919;
-            margin: 0 0 7px 0;
+            margin: 5px 5px 5px 5px;
+            border-radius: 10px;
         }
 
         .li-team-tile:hover {
             background-color: #E8E8E8;
             border-color: #303030;
+        }
+
+        .result-list{
+            text-align:left;
+            height:100%;
+            float:left;
+            background-color: teal;
+            width:15%;
+            color:white;
+            margin: 0;
+            padding: 0;
+            list-style-type:none;
+            line-height:2em;
+            overflow:scroll;
+            overflow-x:hidden;
+            overflow-y:auto;
+        }
+
+        .search-filter{
+            line-height:2em;
+            overflow:scroll;
+            overflow-x:hidden;
+            height:100%;
+            margin: 0;
+            padding: 0;
+            float:right;
+            background-color: teal;
+            width:15%;
+            color:white;
+            list-style-type:none;
+            overflow-y:auto;
+        }
+
+        #map-and-search-wrapper{
+            display:inline-block;
+            width:100%;
+            color:black;
+            height:75vh;
+            padding:0;
+            margin:0;
         }
 
         .img-padding{
@@ -188,7 +232,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         #map-canvas {
-            height: 100%;
+            height:100%;
         }
     </style>
     <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
@@ -407,6 +451,14 @@ echo '<script>var marker_map = [];</script>';
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
+        function updateRangeDisplay() {
+            $("#range-display").html($("#slidey-thing").val());
+        }
+
+        function profileRedirect(profile){
+            window.location = './profile.php?p=' + profile;
+        }
     </script>
 </head>
 <body>
@@ -461,49 +513,30 @@ echo '<script>var marker_map = [];</script>';
             </ul>
         </nav>
     </header>
-    <article class="wrapper style4" style="padding-top:30px;text-align:center;">
-        <div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
-            <div id="team-list-wrapper">
-                <script>
-                    document.getElementById('team-list-wrapper').setAttribute('style', 'text-align:left;height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";float:left;background-color:teal;width:15%;color:white;");
-                </script>
-                <ul style="margin: 0;padding: 0;list-style-type:none;line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;"
-                    id="team-list">
-                    <!--li team elements go here (appended with javascript)-->
-                </ul>
-            </div>
-            <div id="search-wrapper">
-                <script>
-                    document.getElementById('search-wrapper').setAttribute('style', 'height:' + parseInt(parseInt(window.innerHeight) - parseInt((window.innerHeight / 4))) + "px" + ";text-align: center;float:right;background-color:teal;width:15%;color:white;text-align:left;");
-                    function updateRangeDisplay() {
-                        $("#range-display").html($("#slidey-thing").val());
-                    }
-                </script>
-                <div style="line-height:2em;overflow:scroll;overflow-x:hidden;height:100%;">
-                    <ul style="list-style-type:none;" id="list-thing">
-                        <li>
-                            Search Filter
-                        </li>
-                        <li>
-                            Range <input id="slidey-thing" type="range" max="99" min="1"
-                                         onchange="updateRangeDisplay();"/>
+    <article class="wrapper style4" style="padding-top:0;text-align:center;">
+        <div id="map-and-search-wrapper">
+            <ul class="result-list" id="team-list">
+                <!--li team elements go here (appended with javascript)-->
+            </ul>
 
-                            <div id="range-display" style="display:inline;">50</div>
-                        </li>
-                        <li>
-                            <button onclick="refreshListing();">
-                                Update List
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="map-section">
-                <script>
-                    document.getElementById("map-section").style.height = window.innerHeight - (window.innerHeight / 4) + "px";
-                </script>
-                <div id="map-canvas"></div>
-            </div>
+            <ul class="search-filter" id="list-thing">
+                <li>
+                    Search Filter
+                </li>
+                <li>
+                    Range <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();" />
+                    <div id="range-display" style="display:inline;">
+                        50
+                    </div>
+                </li>
+                <li>
+                    <button onclick="refreshListing();">
+                        Update List
+                    </button>
+                </li>
+            </ul>
+
+            <div id="map-canvas"></div>
         </div>
         <script>
             var rad = function (x) {
@@ -574,43 +607,43 @@ echo '<script>var marker_map = [];</script>';
                     var teamscore_map = [];
                     for (var i = 0; i < alldata.length; i++) {
                         var team = alldata[i];
-                        console.log("exec $.parseJSON");
-                        var searchingfor = $.parseJSON(me['skills_json']);
+                        if (!(team.address == '<?php echo $my_address; ?>')) {
+                            var searchingfor = $.parseJSON(me['skills_json']);
+                            var offered = $.parseJSON(team['skills_json']);
+                            var p1array = getLatLngArrayFromAddress(team['address']);
+                            var p1lat = p1array.latitude;
+                            var p1lng = p1array.longitude;
+                            var p2array = getLatLngArrayFromAddress(me['address']);
+                            var p2lat = p2array.latitude;
+                            var p2lng = p2array.longitude;
+                            var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
 
-                        console.log("exec $.parseJSON 2");
-                        var offered = $.parseJSON(team['skills_json']);
+                            if (!(distance > $("#slidey-thing").val())) {
+                                var myTypes = [];
+                                var theirTypes = [];
 
-                        console.log("exec $.parseJSON 3");
-                        var p1array = getLatLngArrayFromAddress(team['address']);
-                        var p1lat = p1array.latitude;
-                        var p1lng = p1array.longitude;
-                        var p2array = getLatLngArrayFromAddress(me['address']);
-                        var p2lat = p2array.latitude;
-                        var p2lng = p2array.longitude;
-                        var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
-
-                        if (!(distance > $("#slidey-thing").val())) {
-                            var process_teamtype = $.parseJSON(me['type']);
-                            var process_mentortypes = $.parseJSON(team['type']);
-                            var teamtype;
-                            var mentortypes = [];
-                            for (var e in process_mentortypes) {
-                                if (process_mentortypes[e] == 'true') {
-                                    mentortypes.push(e);
+                                var prelim_myTypes = $.parseJSON(me.type);
+                                for(var index in prelim_myTypes){
+                                    var type = prelim_myTypes[index];
+                                    if(type == 'true'){
+                                        myTypes.push(index);
+                                    }
                                 }
-                            }
-                            for (var e in process_teamtype) {
-                                if (process_teamtype[e] == 'true') {
-                                    teamtype = e;
-                                    break;
+
+                                var prelim_theirTypes = $.parseJSON(me.type);
+                                for(var index in prelim_theirTypes){
+                                    var type = prelim_theirTypes[index];
+                                    if(type == 'true'){
+                                        theirTypes.push(index);
+                                    }
                                 }
+
+                                var distance_weight = 6.4;
+                                var compare_result = compare(searchingfor, offered, myTypes, theirTypes, distance, distance_weight);
+                                teamscore_map.push({team: team, compare_result: compare_result});
                             }
-                            var distance_weight = 6.4;
-                            var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
-                            teamscore_map.push({team: team, compare_result: compare_result});
                         }
                     }
-
                     var comparator = function (a, b) {
                         return b.compare_result - a.compare_result;
                     };
@@ -621,9 +654,10 @@ echo '<script>var marker_map = [];</script>';
                     for (var teamscore_map_index in teamscore_map) {
                         var team = teamscore_map[teamscore_map_index]['team'];
                         var result = teamscore_map[teamscore_map_index].compare_result;
+                        console.log(team.name + " compare result: " + result);
                         if (result != 0 && !isNaN(result)) {
                             teamListIndex++;
-                            $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\"" + team['email'] + "\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
+                            $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\"" + team['email'] + "\");' class='li-team-tile'>" + (teamListIndex) + " | " + team['name'] + "</li>");
                             $.each(marker_map, function (key, value) {
                                 var m = marker_map[key];
                                 if (m.address == team.address) {
@@ -674,7 +708,7 @@ echo '<script>var marker_map = [];</script>';
             Take Our Survey
         </button>
     </article>
-    <footer id="footer" style="background-color: #446179; padding: 3rem 0 1rem 0;">
+    <footer id="footer" style="background: #2e3842; padding: 3rem 0 0 0;">
         <ul class="copyright">
             <li>
                 <?php echoCopy(); ?>
