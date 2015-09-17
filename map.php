@@ -37,27 +37,8 @@ if (!$noaccount) {
     while ($r = mysqli_fetch_assoc($result)) {
         $my_address = $r['ADDRESS'];
     }
-    //store all of the opposite kinds of addresses
-    if ($unbiased == false) {
-        if ($type == "MENTOR") {
-            echo '<!--you are a mentor, displaying all results for teams-->';
-            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'TEAM';";
-        } else {
-            echo '<!--you are a team, displaying all results for mentors-->';
-            $sql = "SELECT `ADDRESS` FROM `data` WHERE ACCOUNT_TYPE = 'MENTOR';";
-        }
-    } else {
-        echo '<!--you are using an unbiased map, displaying all results in db-->';
-        $sql = "SELECT `ADDRESS` FROM `data`;";
-    }
 } else {
     $my_address = "";
-    $sql = "SELECT `ADDRESS` FROM `data`;";
-}
-
-$result = $db->query($sql);
-while ($r = mysqli_fetch_assoc($result)) {
-    array_push($address_array, $r['ADDRESS']);
 }
 
 $verif_data = array();
@@ -162,6 +143,7 @@ echo '<script>var marker_map = [];</script>';
             border: 2px solid #191919;
             margin: 5px 5px 5px 5px;
             border-radius: 10px;
+            cursor:pointer;
         }
 
         .li-team-tile:hover {
@@ -179,6 +161,7 @@ echo '<script>var marker_map = [];</script>';
             margin: 0;
             padding: 0;
             list-style-type:none;
+            cursor:default;
             line-height:2em;
             overflow:scroll;
             overflow-x:hidden;
@@ -186,6 +169,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         .search-filter{
+            cursor:default;
             line-height:2em;
             overflow:scroll;
             overflow-x:hidden;
@@ -207,6 +191,14 @@ echo '<script>var marker_map = [];</script>';
             height:75vh;
             padding:0;
             margin:0;
+        }
+
+        .toggler {
+            cursor:pointer;
+        }
+
+        .toggler:hover{
+            background:rgba(255, 255, 255, 0.2);
         }
 
         .img-padding{
@@ -262,6 +254,32 @@ echo '<script>var marker_map = [];</script>';
         var directionsDisplay;
         var directionsService = new google.maps.DirectionsService();
         var map;
+
+        var me = "not found";
+        for (var i = 0; i < alldata.length; i++) {
+            var current_item = alldata[i];
+            if (current_item['address'] == '<?php echo $my_address; ?>') {
+                me = current_item;
+                break;
+            }
+        }
+
+        //case if the me variable is not matched to an entry in the database
+        if(me == "not found"){
+            me = {
+                'name' : 'no_account',
+                'skills_json': 'no_account',
+                'team_number': 'no_account',
+                'comments': 'no_account',
+                'phone': 'no_account',
+                'email': 'no_account',
+                'address': 'no_account',
+                'type': 'no_account',
+                'experience': 'no_account',
+                'account_type': 'no_account'
+            };
+        }
+
         function recenterMap(address) {
             var Flat = 0;
             var Flng = 0;
@@ -298,7 +316,9 @@ echo '<script>var marker_map = [];</script>';
             for(var index in alldata){
                 var dataEntry = alldata[index];
                 console.log(dataEntry);
-                marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
+                if(dataEntry.address != '<?php echo $my_address; ?>') {
+                    marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
+                }
             }
         }
 
@@ -530,6 +550,55 @@ echo '<script>var marker_map = [];</script>';
                     </div>
                 </li>
                 <li>
+                    <div class="toggler" onclick="$('#prog_aff_list').toggle();">Program Affiliation</div>
+                    <ul id="prog_aff_list">
+                        <input type="checkbox" id="frc"/>
+                        <label for="frc">FRC</label>
+                        <input type="checkbox" id="ftc"/>
+                        <label for="ftc">FTC</label>
+                        <input type="checkbox" id="fll"/>
+                        <label for="fll">FLL</label>
+                        <input type="checkbox" id="vex"/>
+                        <label for="vex">VEX</label>
+                        <script>
+                            var types = $.parseJSON(me.type);
+                            for(type in types){
+                                if(types[type] == 'true'){
+                                    $("#"+type).prop("checked", true);
+                                }
+                            }
+                            $('#prog_aff_list').toggle();
+                        </script>
+                    </ul>
+
+                </li>
+                <li>
+                    <div class="toggler" onclick="$('#exp_list').toggle();">Experience</div>
+                    <ul id="exp_list">
+                        <?php if($type=="TEAM"){ ?>
+                            <input id="exp_slider" type="range" min="1" max="10" onchange="updateExpDisplay();"/>
+                            <script>var acct = "team";</script>
+                        <?php }else{ ?>
+                            <input id="exp_slider" type="range" min="0" max="1" onchange="updateExpDisplay();"/>
+                            <script>var acct = "mentor";</script>
+                        <?php } ?>
+                        <div id="exp_display"></div><div id="details_display"></div>
+                        <script>
+                            function updateExpDisplay(){
+                                var exp = $("#exp_slider").val();
+                                if(acct=='team') {
+                                    $("#details_display").html(exp > 1 ? ' years of experience' : ' year of Experience');
+                                    $("#exp_display").html(exp);
+                                }else{
+                                    $("#exp_display").html(exp==0 ? 'Rookie Team' : 'Experienced Team');
+                                }
+                            }
+
+                            $('#exp_list').toggle();
+                        </script>
+                    </ul>
+                </li>
+                <li>
                     <button onclick="refreshListing();">
                         Update List
                     </button>
@@ -553,31 +622,6 @@ echo '<script>var marker_map = [];</script>';
                 return ((d * 3.28) / 5280); // returns the distance in miles you damn commie
             };
 
-            var me = "not found";
-            for (var i = 0; i < alldata.length; i++) {
-                var current_item = alldata[i];
-                if (current_item['address'] == '<?php echo $my_address; ?>') {
-                    me = current_item;
-                    break;
-                }
-            }
-
-            //case if the me variable is not matched to an entry in the database
-            if(me == "not found"){
-                me = {
-                    'name' : 'no_account',
-                    'skills_json': 'no_account',
-                    'team_number': 'no_account',
-                    'comments': 'no_account',
-                    'phone': 'no_account',
-                    'email': 'no_account',
-                    'address': 'no_account',
-                    'type': 'no_account',
-                    'experience': 'no_account',
-                    'account_type': 'no_account'
-                };
-            }
-
             function getLatLngArrayFromAddress(address) {
                 var ret = {lat:33.878652, lng:-117.997470};//default lat & lng
                 $.each(geoLookup, function (key, value) {
@@ -598,6 +642,23 @@ echo '<script>var marker_map = [];</script>';
                 }
             }
 
+            function getSpecifiedTypes(){
+                var ret = {};
+                var types = [
+                    'frc',
+                    'ftc',
+                    'fll',
+                    'vex'
+                ];
+                for(var index in types){
+                    var type = types[index];
+                    console.log(type + " | "+$("#"+type).is(":checked"));
+                    ret[type] = $("#"+type).is(":checked");
+                }
+                console.log(ret);
+                return ret;
+            }
+
             function refreshListing() {
                 if(me.type=='no_account'){
                     alert("your account was not paired in the database so the compatability algorithm will not work");
@@ -607,7 +668,7 @@ echo '<script>var marker_map = [];</script>';
                     var teamscore_map = [];
                     for (var i = 0; i < alldata.length; i++) {
                         var team = alldata[i];
-                        if (!(team.address == '<?php echo $my_address; ?>')) {
+                        if (!(team.address == '<?php echo $my_address; ?>') && team.account_type != me.account_type) {
                             var searchingfor = $.parseJSON(me['skills_json']);
                             var offered = $.parseJSON(team['skills_json']);
                             var p1array = getLatLngArrayFromAddress(team['address']);
@@ -622,15 +683,15 @@ echo '<script>var marker_map = [];</script>';
                                 var myTypes = [];
                                 var theirTypes = [];
 
-                                var prelim_myTypes = $.parseJSON(me.type);
+                                var prelim_myTypes = getSpecifiedTypes();
                                 for(var index in prelim_myTypes){
                                     var type = prelim_myTypes[index];
-                                    if(type == 'true'){
+                                    if(type == true){
                                         myTypes.push(index);
                                     }
                                 }
 
-                                var prelim_theirTypes = $.parseJSON(me.type);
+                                var prelim_theirTypes = $.parseJSON(team.type);
                                 for(var index in prelim_theirTypes){
                                     var type = prelim_theirTypes[index];
                                     if(type == 'true'){
@@ -638,9 +699,23 @@ echo '<script>var marker_map = [];</script>';
                                     }
                                 }
 
-                                var distance_weight = 6.4;
+                                var distance_weight = 1;
                                 var compare_result = compare(searchingfor, offered, myTypes, theirTypes, distance, distance_weight);
-                                teamscore_map.push({team: team, compare_result: compare_result});
+                                if(!isNaN(team.experience)){
+                                    mul = team.experience;
+                                }
+                                console.log("neer neer");
+                                console.log($("#exp_display").html()==team.experience);
+                                if($("#exp_display").html()==team.experience){
+                                    mul = 100;
+                                }else{
+                                    mul = 1;
+                                }
+                                if(mul==0||mul<0||isNaN(mul)&&'team'=='<?php echo $type; ?>'){
+                                    mul = 0.1;
+                                }
+                                var res = (compare_result * mul);
+                                teamscore_map.push({team: team, compare_result: res});
                             }
                         }
                     }
