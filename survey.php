@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         </article>
         <footer id="footer">
             <ul class="copyright">
-                <li>&copy; FRC Team 3309, 2015</li>
+                <li><?php echoCopy(); ?></li>
             </ul>
         </footer>
     </div>
