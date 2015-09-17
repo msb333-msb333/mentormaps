@@ -52,6 +52,7 @@ if (!$noaccount) {
         $sql = "SELECT `ADDRESS` FROM `data`;";
     }
 } else {
+    $my_address = "";
     $sql = "SELECT `ADDRESS` FROM `data`;";
 }
 
@@ -88,7 +89,7 @@ while ($r = mysqli_fetch_assoc($result)) {
         'address' => $r['ADDRESS'],
         'type' => $r['TYPE'],
         'experience' => $r['AGE'],
-        'account_type' => $r['ACCOUNT_TYPE'],
+        'account_type' => $r['ACCOUNT_TYPE']
     );
     if (in_array($current['email'], $verif_data))
         array_push($all_data, $current);
@@ -111,6 +112,11 @@ echo '<script>var marker_map = [];</script>';
 <html>
 <head>
     <style>
+        .legend{
+            height:62px;
+            width:100%;
+            background-color:teal;
+        }
         .driving-button {
             content: url("./img/ic_directions_car_white_48dp_2x.png");
         }
@@ -525,8 +531,8 @@ echo '<script>var marker_map = [];</script>';
                 var d = R * c;
                 return ((d * 3.28) / 5280); // returns the distance in miles you damn commie
             };
-            <?php if(!$noaccount){ ?>
-            var me;
+
+            var me = "not found";
             for (var i = 0; i < alldata.length; i++) {
                 var current_item = alldata[i];
                 if (current_item['address'] == '<?php echo $my_address; ?>') {
@@ -534,94 +540,105 @@ echo '<script>var marker_map = [];</script>';
                     break;
                 }
             }
-            <?php } ?>
 
-            var globalRet = 0;//workaround because the return statement below doesn't do what it's supposed to
+            //case if the me variable is not matched to an entry in the database
+            if(me == "not found"){
+                me = {
+                    'name' : 'no_account',
+                    'skills_json': 'no_account',
+                    'team_number': 'no_account',
+                    'comments': 'no_account',
+                    'phone': 'no_account',
+                    'email': 'no_account',
+                    'address': 'no_account',
+                    'type': 'no_account',
+                    'experience': 'no_account',
+                    'account_type': 'no_account'
+                };
+            }
+
             function getLatLngArrayFromAddress(address) {
+                var ret = {lat:33.878652, lng:-117.997470};//default lat & lng
                 $.each(geoLookup, function (key, value) {
                     var geoLocation = geoLookup[key];
                     if (address == geoLocation.address) {
-                        var Flat = parseFloat(geoLocation.latitude);
-                        var Flng = parseFloat(geoLocation.longitude);
-                        var ret = {latitude: Flat, longitude: Flng};
-                        globalRet = ret;
-                        return ret;
+                        ret = {latitude: parseFloat(geoLocation.latitude), longitude: parseFloat(geoLocation.longitude)};
                     }
                 });
+                return ret;
             }
 
             function listTeams(){
+                console.log(alldata.length);
                 $("#team-list").html("");
-                    for(var i=0;i<allteams.length;i++){
-                        var team = allteams[i];
-                        $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
-                    }
+                for(var i=0;i<alldata.length;i++){
+                    var team = alldata[i];
+                    $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
+                }
             }
 
             function refreshListing() {
-                $('#team-list').html("");
-                var teamscore_map = [];
-                for (var i = 0; i < allteams.length; i++) {
-                    var team = allteams[i];
-                    <?php if($noaccount){ ?>
-                        var searchingfor = {};
-                    <?php }else{ ?>
+                if(me.type=='no_account'){
+                    alert("your account was not paired in the database so the compatability algorithm will not work");
+                    listTeams();
+                }else {
+                    $('#team-list').html("");
+                    var teamscore_map = [];
+                    for (var i = 0; i < allteams.length; i++) {
+                        var team = allteams[i];
                         var searchingfor = $.parseJSON(me['skills_json']);
-                    <?php } ?>
-                    var offered = $.parseJSON(team['searching_skills_json']);
-                    var p1array = getLatLngArrayFromAddress(team['address']);
-                    var p1lat = globalRet.latitude;//TODO find out why the return statement doesn't work
-                    var p1lng = globalRet.longitude;
-                    <?php if($noaccount){ ?>
-                        var p2lat = 33.878652;
-                        var p2lng = -117.997470;
-                    <?php }else{ ?>
+
+                        var offered = $.parseJSON(team['searching_skills_json']);
+                        var p1array = getLatLngArrayFromAddress(team['address']);
+                        var p1lat = p1array.latitude;
+                        var p1lng = p1array.longitude;
                         var p2array = getLatLngArrayFromAddress(me['address']);
-                        var p2lat = globalRet.latitude;
-                        var p2lng = globalRet.longitude;
-                    <?php } ?>
-                    var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
-                    if (!(distance > $("#slidey-thing").val())) {
-                        var process_teamtype = $.parseJSON(me['type']);
-                        var process_mentortypes = $.parseJSON(team['type']);
-                        var teamtype;
-                        var mentortypes = [];
-                        for (var e in process_mentortypes) {
-                            if (process_mentortypes[e] == 'true') {
-                                mentortypes.push(e);
+                        var p2lat = p2array.latitude;
+                        var p2lng = p2array.longitude;
+                        var distance = getDistance(p1lat, p1lng, p2lat, p2lng);
+
+                        if (!(distance > $("#slidey-thing").val())) {
+                            var process_teamtype = $.parseJSON(me['type']);
+                            var process_mentortypes = $.parseJSON(team['type']);
+                            var teamtype;
+                            var mentortypes = [];
+                            for (var e in process_mentortypes) {
+                                if (process_mentortypes[e] == 'true') {
+                                    mentortypes.push(e);
+                                }
                             }
-                        }
-                        for (var e in process_teamtype) {
-                            if (process_teamtype[e] == 'true') {
-                                teamtype = e;
-                                break;
+                            for (var e in process_teamtype) {
+                                if (process_teamtype[e] == 'true') {
+                                    teamtype = e;
+                                    break;
+                                }
                             }
+                            var distance_weight = 6.4;
+                            var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
+                            teamscore_map.push({team: team, compare_result: compare_result});
                         }
-                        var distance_weight = 6.4;
-                        var compare_result = compare(searchingfor, offered, teamtype, mentortypes, distance, distance_weight);
-                        teamscore_map.push({team:team, compare_result:compare_result});
                     }
-                }
 
-                var comparator = function (a, b) {
-                    return b.compare_result - a.compare_result;
-                };
+                    var comparator = function (a, b) {
+                        return b.compare_result - a.compare_result;
+                    };
 
-                teamscore_map = teamscore_map.sort(comparator);
+                    teamscore_map = teamscore_map.sort(comparator);
 
-                var teamListIndex = 0;
-                for (var teamscore_map_index in teamscore_map) {
-                    var team = teamscore_map[teamscore_map_index]['team'];
-                    var result = teamscore_map[teamscore_map_index].compare_result;
-                    if (result != 0 && !isNaN(result)) {
-                        teamListIndex++;
-                        $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\""+team['email']+"\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
-                        $.each(marker_map, function (key, value) {
-                            var m = marker_map[key];
-                            if (m.address == team.address) {
-                                m.marker.setIcon("http://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
-                            }
-                        });
+                    var teamListIndex = 0;
+                    for (var teamscore_map_index in teamscore_map) {
+                        var team = teamscore_map[teamscore_map_index]['team'];
+                        var result = teamscore_map[teamscore_map_index].compare_result;
+                        if (result != 0 && !isNaN(result)) {
+                            teamListIndex++;
+                            $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\"" + team['email'] + "\");' class='li-team-tile'>" + teamListIndex + " | " + team['name'] + "</li>");
+                            $.each(marker_map, function (key, value) {
+                                var m = marker_map[key];
+                                if (m.address == team.address) {
+                                    m.marker.setIcon("http://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -636,7 +653,7 @@ echo '<script>var marker_map = [];</script>';
         <?php
 
         function echoTeamLegend(){
-            echo '<div style="width:100%;background-color:teal;height:62px;"><img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder" src="img/greenm.png"/> MULTI</div>';
+            echo '<div class="legend"><img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder" src="img/greenm.png"/> MULTI</div>';
         }
 
         function echoMentorLegend(){
