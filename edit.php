@@ -126,7 +126,7 @@ function showEditPage()
                 'phone',
                 'team-number',
                 'age',
-                'other-text-box',
+                'skill-other-desc',
                 'comments'
             ];
 
@@ -136,11 +136,13 @@ function showEditPage()
             for (var index in fields) {
                 var fieldName = fields[index];
                 info[fieldName] = $("#" + fieldName).val();
+                console.log(fieldName + " | " + info[fieldName]);
             }
 
             for (var index in checkboxes) {
                 var indexName = checkboxes[index];
                 info[indexName] = $("#" + indexName).is(":checked");
+                console.log(indexName + " | " + info[indexName]);
             }
 
             //update user info
@@ -213,11 +215,11 @@ function showEditPage()
                         if (value == 'true') {
                             $("#" + key).prop('checked', true);
                             if (key == "skill-other") {
-                                document.getElementById("other-text-box").style.visibility = "visible";
+                                document.getElementById("skill-other-desc").style.visibility = "visible";
                             }
                         }
                         if (key == "skill-other-desc") {
-                            $("#other-text-box").val(value);
+                            $("#skill-other-desc").val(value);
                         }
                     });
                 </script>
@@ -258,24 +260,24 @@ function showEditPage()
             <br/>
 
             <div class="3u 12u$(small)">
-                <input type="checkbox" id="FLLcheck"
+                <input type="checkbox" id="fll"
                        name="typeChecks" <?php if ($type['fll'] == 'true') echo 'checked'; ?>>
-                <label for="FLLcheck">FLL</label>
+                <label for="fll">FLL</label>
             </div>
             <div class="3u 12u$(small)">
-                <input type="checkbox" id="FTCcheck"
+                <input type="checkbox" id="ftc"
                        name="typeChecks" <?php if ($type['ftc'] == 'true') echo 'checked'; ?>>
-                <label for="FTCcheck">FTC</label>
+                <label for="ftc">FTC</label>
             </div>
             <div class="3u 12u$(small)">
-                <input type="checkbox" id="FRCcheck"
+                <input type="checkbox" id="frc"
                        name="typeChecks" <?php if ($type['frc'] == 'true') echo 'checked'; ?>>
-                <label for="FRCcheck">FRC</label>
+                <label for="frc">FRC</label>
             </div>
             <div class="3u 12u$(small)">
-                <input type="checkbox" id="VEXcheck"
+                <input type="checkbox" id="vex"
                        name="typeChecks" <?php if ($type['vex'] == 'true') echo 'checked'; ?>>
-                <label for="VEXcheck">VEX</label>
+                <label for="vex">VEX</label>
             </div>
             <br/>
 
@@ -302,8 +304,7 @@ function showEditPage()
                     document.getElementById("notice1").style.display = "none";
                 };
                 if ($("#skill-other").is(":checked")) {
-                    $("#other-text-box").css("");//dunno what this was
-                    //TODO figure this out          ^
+                    $("#skill-other-desc").css("");//makes the other skill box visible
                 }
             </script>
         </section>
