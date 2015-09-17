@@ -334,6 +334,13 @@ if (isset($_GET['p'])) {
             </div>
         </section>
     </article>
+    <div id="footer">
+        <ul class="copyright">
+            <li>
+                <?php echoCopy(); ?>
+            </li>
+        </ul>
+    </div>
     <?php
 } else {
     echo '<meta http-equiv="refresh" content="0;URL=./profile.php?p=' . $_SESSION['email'] . '">';

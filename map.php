@@ -449,7 +449,7 @@ echo '<script>var marker_map = [];</script>';
             </ul>
         </nav>
     </header>
-    <article id="footer" style="padding-top:30px;">
+    <article class="wrapper style4" style="padding-top:30px;text-align:center;">
         <div id="map-and-search-wrapper" style="display:inline-block;width:100%;color:black;">
             <div id="team-list-wrapper">
                 <script>
@@ -662,10 +662,10 @@ echo '<script>var marker_map = [];</script>';
             Take Our Survey
         </button>
     </article>
-    <footer id="footer">
+    <footer id="footer" style="background-color: #446179; padding: 3rem 0 1rem 0;">
         <ul class="copyright">
             <li>
-                &copy; FRC Team 3309, 2015
+                <?php echoCopy(); ?>
             </li>
         </ul>
     </footer>

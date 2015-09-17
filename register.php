@@ -85,7 +85,7 @@
 
     <footer id="footer">
         <ul class="copyright">
-            <li>&copy; FRC Team 3309, 2015</li>
+            <li><?php require "./copy.php"; echoCopy(); ?></li>
         </ul>
     </footer>
 </div>

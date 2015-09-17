@@ -1,5 +1,6 @@
 <?php
 require "./config.php";
+require "copy.php";
 
 $db = new mysqli($mysqlip, $dbuser, $dbpass, $dbname);
 
