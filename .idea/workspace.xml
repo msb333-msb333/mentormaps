@@ -592,7 +592,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442451641593</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="more ui changes">
+      <created>1442452043191</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1442452043191</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -633,7 +639,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="optimize register team" />
     <MESSAGE value="spacing" />
     <MESSAGE value="iterate through skills recursively serverside" />
     <MESSAGE value="never forget to sanitize" />
@@ -658,7 +663,8 @@
     <MESSAGE value="fix no account access" />
     <MESSAGE value="backend overhaul; remove redundant allteams variable in php and js" />
     <MESSAGE value="update the way copyright is displayed" />
-    <option name="LAST_COMMIT_MESSAGE" value="update the way copyright is displayed" />
+    <MESSAGE value="more ui changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="more ui changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
