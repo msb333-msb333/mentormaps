@@ -69,10 +69,8 @@ while ($r = mysqli_fetch_assoc($result)) {
     }
 }
 
-if (!$noaccount) {
-    if (!in_array($_SESSION['email'], $verif_data)) {
-        echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
-    }
+if (!in_array($_SESSION['email'], $verif_data) && !$noaccount) {
+    echo '<script>alert("Warning: your account is not verified. please verify your account to show up on the map.");</script>';
 }
 
 //populate an array with the entire database's contents so they can be accessed in javascript
@@ -201,6 +199,10 @@ echo '<script>var marker_map = [];</script>';
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
     <script>
+        <?php
+        echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
+        echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
+        ?>
         var directionsDisplay;
         var directionsService = new google.maps.DirectionsService();
         var map;
@@ -236,40 +238,14 @@ echo '<script>var marker_map = [];</script>';
                         echo 'centerMapNoAccount(map, 33.878652, -117.997470);';
                     }
                 }
-                $allteams = array();
-                foreach($address_array as $address){
-                    $teamjson = "UNDEFINED";
-                    $sql = "SELECT * FROM `data` WHERE `ADDRESS` = '$address';";
-                    $result=$db->query($sql);
-                    if($result==false){
-                        break;
-                    }
-                    while($r=mysqli_fetch_assoc($result)){
-                        $a = array(
-                            'name'                  => $r['NAME'        ],
-                            'searching_skills_json' => $r['SKILLS_JSON' ],
-                            'team_number'           => $r['TEAM_NUMBER' ],
-                            'comments'              => $r['COMMENTS'    ],
-                            'phone'                 => $r['PHONE'       ],
-                            'email'                 => $r['EMAIL'       ],
-                            'address'               => $r['ADDRESS'     ],
-                            'type'                  => $r['TYPE'        ],
-                            'account_type'          => $r['ACCOUNT_TYPE']
-                        );
-                        if(in_array($a['email'], $verif_data))
-                            array_push($allteams, $a);
-                        $teamjson = json_encode(utf8_converter($a));
-                    }
-                    if(in_array($a['email'], $verif_data))
-                        echo 'marker_map.push(codeAddress(map, "'.$address.'", '.$teamjson.'));'. PHP_EOL;
-                }
             ?>
+            for(var index in alldata){
+                var dataEntry = alldata[index];
+                console.log(dataEntry);
+                marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
+            }
         }
-        <?php
-        echo 'var alldata = ' . json_encode(utf8_converter($all_data)) . ';' . PHP_EOL;
-        echo 'var allteams = ' . json_encode(utf8_converter($allteams)) . ';' . PHP_EOL;
-        echo 'var geoLookup = ' . json_encode(utf8_converter($geoLookup)) . ';' . PHP_EOL;
-        ?>
+
         function calcRoute(start, end) {
             var request = {
                 origin: start,
@@ -317,10 +293,10 @@ echo '<script>var marker_map = [];</script>';
         }
 
         function showDetails(teamEmail){
-            for(var index in allteams){
-                var team = allteams[index];
+            for(var index in alldata){
+                var team = alldata[index];
                 if(team['email']==teamEmail){
-                    var typedata = $.parseJSON(team['type']);
+                    var typedata = $.parseJSON(team.type);
                     $('#img-container').html('');
                     if (typedata['fll'] == 'true') {
                         $('#img-container').html($('#img-container').html() + "<img class='img-padding fll-image'/>");
@@ -340,7 +316,7 @@ echo '<script>var marker_map = [];</script>';
         }
 
         function codeAddress(map, address, teamdata) {
-            var typedata = $.parseJSON(teamdata['type']);
+            var typedata = $.parseJSON(teamdata.type);
             var iconurl = "./img/undef.png";
             if (teamdata['account_type'] == 'TEAM') {
                 if (typedata['ftc'] == 'true') {
@@ -584,11 +560,15 @@ echo '<script>var marker_map = [];</script>';
                 }else {
                     $('#team-list').html("");
                     var teamscore_map = [];
-                    for (var i = 0; i < allteams.length; i++) {
-                        var team = allteams[i];
+                    for (var i = 0; i < alldata.length; i++) {
+                        var team = alldata[i];
+                        console.log("exec $.parseJSON");
                         var searchingfor = $.parseJSON(me['skills_json']);
 
-                        var offered = $.parseJSON(team['searching_skills_json']);
+                        console.log("exec $.parseJSON 2");
+                        var offered = $.parseJSON(team['skills_json']);
+
+                        console.log("exec $.parseJSON 3");
                         var p1array = getLatLngArrayFromAddress(team['address']);
                         var p1lat = p1array.latitude;
                         var p1lng = p1array.longitude;
