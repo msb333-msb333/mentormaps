@@ -212,6 +212,14 @@ echo '<script>var marker_map = [];</script>';
             margin:0;
         }
 
+        .toggler {
+            cursor:pointer;
+        }
+
+        .toggler:hover{
+            background:rgba(255, 255, 255, 0.2);
+        }
+
         .img-padding{
             width:160px;
             height:160px;
@@ -265,6 +273,32 @@ echo '<script>var marker_map = [];</script>';
         var directionsDisplay;
         var directionsService = new google.maps.DirectionsService();
         var map;
+
+        var me = "not found";
+        for (var i = 0; i < alldata.length; i++) {
+            var current_item = alldata[i];
+            if (current_item['address'] == '<?php echo $my_address; ?>') {
+                me = current_item;
+                break;
+            }
+        }
+
+        //case if the me variable is not matched to an entry in the database
+        if(me == "not found"){
+            me = {
+                'name' : 'no_account',
+                'skills_json': 'no_account',
+                'team_number': 'no_account',
+                'comments': 'no_account',
+                'phone': 'no_account',
+                'email': 'no_account',
+                'address': 'no_account',
+                'type': 'no_account',
+                'experience': 'no_account',
+                'account_type': 'no_account'
+            };
+        }
+
         function recenterMap(address) {
             var Flat = 0;
             var Flng = 0;
@@ -535,6 +569,38 @@ echo '<script>var marker_map = [];</script>';
                     </div>
                 </li>
                 <li>
+                    <div class="toggler" onclick="$('#prog_aff_list').toggle();">Program Affiliation</div>
+                    <ul id="prog_aff_list">
+                        <input type="checkbox" id="frc"/>
+                        <label for="frc">FRC</label>
+                        <input type="checkbox" id="ftc"/>
+                        <label for="ftc">FTC</label>
+                        <input type="checkbox" id="fll"/>
+                        <label for="fll">FLL</label>
+                        <input type="checkbox" id="vex"/>
+                        <label for="vex">VEX</label>
+                        <script>
+                            var types = $.parseJSON(me.type);
+                            for(type in types){
+                                if(types[type] == 'true'){
+                                    $("#"+type).prop("checked", true);
+                                }
+                            }
+                            $('#prog_aff_list').toggle();
+                        </script>
+                    </ul>
+
+                </li>
+                <li>
+                    <div class="toggler" onclick="$('#exp_list').toggle();">Experience</div>
+                    <ul id="exp_list">
+                        <input type="range" />
+                        <script>
+                            $('#exp_list').toggle();
+                        </script>
+                    </ul>
+                </li>
+                <li>
                     <button onclick="refreshListing();">
                         Update List
                     </button>
@@ -558,31 +624,6 @@ echo '<script>var marker_map = [];</script>';
                 return ((d * 3.28) / 5280); // returns the distance in miles you damn commie
             };
 
-            var me = "not found";
-            for (var i = 0; i < alldata.length; i++) {
-                var current_item = alldata[i];
-                if (current_item['address'] == '<?php echo $my_address; ?>') {
-                    me = current_item;
-                    break;
-                }
-            }
-
-            //case if the me variable is not matched to an entry in the database
-            if(me == "not found"){
-                me = {
-                    'name' : 'no_account',
-                    'skills_json': 'no_account',
-                    'team_number': 'no_account',
-                    'comments': 'no_account',
-                    'phone': 'no_account',
-                    'email': 'no_account',
-                    'address': 'no_account',
-                    'type': 'no_account',
-                    'experience': 'no_account',
-                    'account_type': 'no_account'
-                };
-            }
-
             function getLatLngArrayFromAddress(address) {
                 var ret = {lat:33.878652, lng:-117.997470};//default lat & lng
                 $.each(geoLookup, function (key, value) {
@@ -601,6 +642,23 @@ echo '<script>var marker_map = [];</script>';
                     var team = alldata[i];
                     $("#team-list").append("<li onclick='recenterMap(\""+team['address']+"\");' class='li-team-tile'>"+(i+1)+" | "+team['name']+"</li>");
                 }
+            }
+
+            function getSpecifiedTypes(){
+                var ret = {};
+                var types = [
+                    'frc',
+                    'ftc',
+                    'fll',
+                    'vex'
+                ];
+                for(var index in types){
+                    var type = types[index];
+                    console.log(type + " | "+$("#"+type).is(":checked"));
+                    ret[type] = $("#"+type).is(":checked");
+                }
+                console.log(ret);
+                return ret;
             }
 
             function refreshListing() {
@@ -627,15 +685,15 @@ echo '<script>var marker_map = [];</script>';
                                 var myTypes = [];
                                 var theirTypes = [];
 
-                                var prelim_myTypes = $.parseJSON(me.type);
+                                var prelim_myTypes = getSpecifiedTypes();
                                 for(var index in prelim_myTypes){
                                     var type = prelim_myTypes[index];
-                                    if(type == 'true'){
+                                    if(type == true){
                                         myTypes.push(index);
                                     }
                                 }
 
-                                var prelim_theirTypes = $.parseJSON(me.type);
+                                var prelim_theirTypes = $.parseJSON(team.type);
                                 for(var index in prelim_theirTypes){
                                     var type = prelim_theirTypes[index];
                                     if(type == 'true'){

@@ -39,9 +39,12 @@ function compare(mySkills, theirSkills, myTypes, theirTypes, distance, distance_
 
     //the type score can be 0 or 1 and filters incompatible account types (FRC, FTC, FLL, VEX, etc)
     var type_score = 0;
-    for(var myType in myTypes){
-        for(var theirType in theirTypes){
+    for(var myTypeIndex in myTypes){
+        var myType = myTypes[myTypeIndex];
+        for(var theirTypeIndex in theirTypes){
+            var theirType = theirTypes[theirTypeIndex];
             if(myType == theirType){
+                console.log("one of their skills matches one of yours");
                 type_score = 1;
             }
         }
