@@ -594,8 +594,36 @@ echo '<script>var marker_map = [];</script>';
                 <li>
                     <div class="toggler" onclick="$('#exp_list').toggle();">Experience</div>
                     <ul id="exp_list">
-                        <input type="range" />
+                        <?php if($type=="TEAM"){ ?>
+                            <input id="exp_slider" type="range" min="1" max="10" onchange="updateExpDisplay();"/>
+                            <script>var acct = "team";</script>
+                        <?php }else{ ?>
+                            <input id="exp_slider" type="range" min="0" max="1" onchange="updateExpDisplay();"/>
+                            <script>var acct = "mentor";</script>
+                        <?php } ?>
+                        <div id="exp_display"></div><div id="details_display"></div>
                         <script>
+                            function updateExpDisplay(){
+                                var exp = $("#exp_slider").val();
+                                if(acct=='team') {
+                                    var html = "";
+                                    if (exp > 1) {
+                                        $("#details_display").html(" years of Experience");
+                                    } else {
+                                        $("#details_display").html(" year of Experience");
+                                    }
+                                    $("#exp_display").html(exp);
+                                }else{
+                                    var desired = 'Rookie Team';
+                                    if(exp==0){
+                                        desired = 'Rookie Team';
+                                    }else{
+                                        desired = 'Experienced Team';
+                                    }
+                                    $("#exp_display").html(desired);
+                                }
+                            }
+
                             $('#exp_list').toggle();
                         </script>
                     </ul>
@@ -703,7 +731,21 @@ echo '<script>var marker_map = [];</script>';
 
                                 var distance_weight = 1;
                                 var compare_result = compare(searchingfor, offered, myTypes, theirTypes, distance, distance_weight);
-                                teamscore_map.push({team: team, compare_result: compare_result});
+                                if(!isNaN(team.experience)){
+                                    mul = team.experience;
+                                }
+                                console.log("neer neer");
+                                console.log($("#exp_display").html()==team.experience);
+                                if($("#exp_display").html()==team.experience){
+                                    mul = 100;
+                                }else{
+                                    mul = 1;
+                                }
+                                if(mul==0||mul<0||isNaN(mul)&&'team'=='<?php echo $type; ?>'){
+                                    mul = 0.1;
+                                }
+                                var res = (compare_result * mul);
+                                teamscore_map.push({team: team, compare_result: res});
                             }
                         }
                     }
