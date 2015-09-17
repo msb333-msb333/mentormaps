@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 $unbiased = false;
 $noaccount = false;
