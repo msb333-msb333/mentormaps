@@ -698,7 +698,7 @@ echo '<script>var marker_map = [];</script>';
                     var teamscore_map = [];
                     for (var i = 0; i < alldata.length; i++) {
                         var team = alldata[i];
-                        if (!(team.address == '<?php echo $my_address; ?>')) {
+                        if (!(team.address == '<?php echo $my_address; ?>') && team.account_type != me.account_type) {
                             var searchingfor = $.parseJSON(me['skills_json']);
                             var offered = $.parseJSON(team['skills_json']);
                             var p1array = getLatLngArrayFromAddress(team['address']);
