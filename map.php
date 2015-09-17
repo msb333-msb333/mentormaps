@@ -9,8 +9,7 @@ if (isset($_GET['opt'])) {
     }
 }
 
-function utf8_converter($array)
-{
+function utf8_converter($array){
     array_walk_recursive($array, function (&$item, $key) {
         if (!mb_detect_encoding($item, 'utf-8', true)) {
             $item = utf8_encode($item);
@@ -315,7 +314,6 @@ echo '<script>var marker_map = [];</script>';
             ?>
             for(var index in alldata){
                 var dataEntry = alldata[index];
-                console.log(dataEntry);
                 if(dataEntry.address != '<?php echo $my_address; ?>') {
                     marker_map.push(codeAddress(map, dataEntry.address, dataEntry));
                 }
@@ -634,7 +632,6 @@ echo '<script>var marker_map = [];</script>';
             }
 
             function listTeams(){
-                console.log(alldata.length);
                 $("#team-list").html("");
                 for(var i=0;i<alldata.length;i++){
                     var team = alldata[i];
@@ -652,10 +649,8 @@ echo '<script>var marker_map = [];</script>';
                 ];
                 for(var index in types){
                     var type = types[index];
-                    console.log(type + " | "+$("#"+type).is(":checked"));
                     ret[type] = $("#"+type).is(":checked");
                 }
-                console.log(ret);
                 return ret;
             }
 
@@ -704,8 +699,6 @@ echo '<script>var marker_map = [];</script>';
                                 if(!isNaN(team.experience)){
                                     mul = team.experience;
                                 }
-                                console.log("neer neer");
-                                console.log($("#exp_display").html()==team.experience);
                                 if($("#exp_display").html()==team.experience){
                                     mul = 100;
                                 }else{
@@ -729,7 +722,6 @@ echo '<script>var marker_map = [];</script>';
                     for (var teamscore_map_index in teamscore_map) {
                         var team = teamscore_map[teamscore_map_index]['team'];
                         var result = teamscore_map[teamscore_map_index].compare_result;
-                        console.log(team.name + " compare result: " + result);
                         if (result != 0 && !isNaN(result)) {
                             teamListIndex++;
                             $("#team-list").append("<li onclick='recenterMap(\"" + team['address'] + "\");showDetails(\"" + team['email'] + "\");' class='li-team-tile'>" + (teamListIndex) + " | " + team['name'] + "</li>");
