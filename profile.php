@@ -22,7 +22,7 @@ if (isset($_GET['p'])) {
 
     $result = $db->query($sql);
     while ($r = mysqli_fetch_assoc($result)) {
-        $theirInterests = $r['interested-in-me'];
+        $interestedInMe = $r['interested-in-me'];
     }
 
     $sql = "SELECT * FROM `assoc` WHERE EMAIL = '" . sanitize($_SESSION['email']) . "';";
@@ -34,8 +34,8 @@ if (isset($_GET['p'])) {
     if ($myInterests == "") {
         $myInterests = "{lv1:[], lv2:[]}";
     }
-    if ($theirInterests == "") {
-        $theirInterests = "{lv1:[], lv2:[]}";
+    if ($interestedInMe == "") {
+        $interestedInMe = "{lv1:[], lv2:[]}";
     }
 
     ?>
@@ -115,28 +115,16 @@ if (isset($_GET['p'])) {
 
         }
 
-        function updateInterest(interest, email, from, level) {
+        function updateInterest(interest, email, from) {
             console.log("val of int param: " + interest);
-            if (level == 1) {
-                if (interest) {
-                    console.log("int is true, adding " + email + " to myint");
-                    myInterests.lv1.push(email);
-                    theirInterests.lv1.push(from);
-                } else {
-                    console.log("int is false, removing " + email + " from myint");
-                    myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
-                    theirInterests.lv1.splice(theirInterests.lv1.indexOf(from), 1);
-                }
+            if (interest) {
+                console.log("int is true, adding " + email + " to myint");
+                myInterests.lv1.push(email);
+                theirInterests.lv1.push(from);
             } else {
-                if (interest) {
-                    console.log("int is true, adding " + email + " to myint");
-                    myInterests.lv2.push(email);
-                    theirInterests.lv2.push(from);
-                } else {
-                    console.log("int is false, removing " + email + " from myint");
-                    myInterests.lv2.splice(myInterests.lv2.indexOf(email), 1);
-                    theirInterests.lv2.splice(theirInterests.lv2.indexOf(from), 1);
-                }
+                 console.log("int is false, removing " + email + " from myint");
+                 myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
+                 theirInterests.lv1.splice(theirInterests.lv1.indexOf(from), 1);
             }
 
             console.log("new myint: " + myInterests);
@@ -155,7 +143,7 @@ if (isset($_GET['p'])) {
         }
 
         var myInterests = <?php echo $myInterests; ?>;
-        var theirInterests = <?php echo $theirInterests; ?>;
+        var theirInterests = <?php echo $interestedInMe; ?>;
 
         $(function () {
             if (myInterests.lv1.indexOf('<?php echo $email; ?>') > -1) {
@@ -191,9 +179,9 @@ if (isset($_GET['p'])) {
                             });
                             $("#im-interested").change(function () {
                                 if ($("#im-interested").is(':checked')) {
-                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>", 1);
+                                    updateInterest(true, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 } else {
-                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>", 1);
+                                    updateInterest(false, '<?php echo $email; ?>', "<?php echo $_SESSION['email']; ?>");
                                 }
                             });
                         </script>

@@ -56,6 +56,26 @@ if (isset($_GET['p'])) {
         .not-interested-button:hover {
             content: url('./img/ic_not_interested_red_48dp_2x.png');
         }
+
+        .lv2button{
+            width: 24px;
+            height: 24px;
+            content: url('./img/ic_library_add_black_48dp_2x.png');
+        }
+
+        .lv2button:hover{
+            content: url('./img/ic_library_add_red_48dp_2x.png');
+        }
+
+        .lv2notinterested{
+            width: 24px;
+            height: 24px;
+            content: url('./img/ic_not_interested_black_48dp_2x.png');
+        }
+
+        .lv2notinterested:hover{
+            content: url('./img/ic_not_interested_red_48dp_2x.png');
+        }
     </style>
 </head>
 <body class="landing">
@@ -83,7 +103,77 @@ if (isset($_GET['p'])) {
     </header>
     <script>
         var myInterests = <?php echo $interested_in; ?>;
-        var theirInterests = <?php echo $interested_in_me; ?>;
+        var interested_in_me = <?php echo $interested_in_me; ?>;
+        var myEmail = '<?php echo $_SESSION['email']; ?>';
+
+
+        function lv2NotInterested(email){
+            myInterests.lv2.splice(myInterests.lv2.indexOf(email), 1);
+            myInterests.lv1.push(email);
+            updateInterest(myEmail, email);
+
+            $.ajax({
+                url: './getInterestForEmail.php',
+                type: 'POST',
+                data: {
+                    email : email
+                },
+                success: function(data){
+                    var theirInt = $.parseJSON($.parseJSON(data).response);
+                    theirInt.lv2.splice(theirInt.lv2.indexOf(myEmail), 1);
+                    theirInt.lv1.push(myEmail);
+                    updateTheirInterest(email, theirInt);
+                }
+            });
+            refreshInterestedIn();
+        }
+
+        function updateTheirInterest(email, theirInt){
+            $.ajax({
+                type:'POST',
+                url:'./setInterestForEmail.php',
+                data: {
+                    email: email,
+                    theirInt: JSON.stringify(theirInt)
+                },
+                success:function(data){
+                    console.log("successfully updated `interested-in-me` for " + email);
+                }
+            });
+        }
+
+        function updateInterestArraysForEmail(email){
+            $.ajax({
+                url: './getInterestForEmail.php',
+                type: 'POST',
+                data: {
+                    email : email
+                },
+                success: function(data){
+                    var theirInt = $.parseJSON($.parseJSON(data).response);
+                    theirInt.lv1.splice(theirInt.lv1.indexOf(myEmail), 1);
+                    theirInt.lv2.push(myEmail);
+                    updateTheirInterest(email, theirInt);
+                }
+            });
+        }
+
+        function addToLv2(email){
+            myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
+            myInterests.lv2.push(email);
+            updateInterest(myEmail, email);
+            updateInterestArraysForEmail(email);
+            //send notification email
+            $.ajax({
+                url: './lv2Notifier.php',
+                type: 'POST',
+                data: {
+                    theirEmail: email,
+                    myEmail: myEmail
+                }
+            });
+            refreshInterestedIn();
+        }
 
         function updateInterest(myEmail, theirEmail) {
             $.ajax({
@@ -92,7 +182,7 @@ if (isset($_GET['p'])) {
                 data: {
                     'theirEmail': theirEmail,
                     'myEmail': myEmail,
-                    'theirIntJSON': JSON.stringify(theirInterests),
+                    'theirIntJSON': JSON.stringify(interested_in_me),
                     'myIntJSON': JSON.stringify(myInterests)
                 }
             });
@@ -101,10 +191,10 @@ if (isset($_GET['p'])) {
         //iterate over every account that is interested in the currently logged in user
         function refreshInterestedInMe() {
             $("#interested-in-me-table").html("<tr><th>Who's Interested In Me:</th></tr>");
-            $.each(theirInterests.lv1, function (key, value) {
+            $.each(interested_in_me.lv1, function (key, value) {
                 $("#interested-in-me-table").append("<tr><td>" + value + "<a href='./profile.php?p=" + value + "'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
             });
-            $.each(theirInterests.lv2, function (key, value) {
+            $.each(interested_in_me.lv2, function (key, value) {
                 $("#interested-in-table").append("<tr><td>(lv2) " + value + "<a href='./profile.php?p=" + value + "'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
             });
         }
@@ -112,18 +202,16 @@ if (isset($_GET['p'])) {
         function refreshInterestedIn() {
             $("#interested-in-table").html("<tr><th>Who I'm Interested In:</th></tr>");
             $.each(myInterests.lv1, function (key, value) {
-                $("#interested-in-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\"" + value + "\");'/> | " + value + "<a href='./profile.php?p=" + value + "'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
+                $("#interested-in-table").append("<tr><td><img class='not-interested-button' onclick='notinterested(\"" + value + "\");'/> | " + value + "<a href='./profile.php?p=" + value + "'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a> | <img class=\"lv2button\" onclick=\"addToLv2('"+value+"');\" /></td></tr>");
             });
             $.each(myInterests.lv2, function (key, value) {
-                $("#interested-in-table").append("<tr><td>(lv2) " + value + "<a href='./profile.php?p=" + value + "'>&nbsp;< src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a></td></tr>");
+                $("#interested-in-table").append("<tr><td>(lv2) " + value + "<a href='./profile.php?p=" + value + "'>&nbsp;<img src='./img/ic_open_in_new_black_24dp_2x.png' width='24px'/></a> | <img class='lv2notinterested' onclick='lv2NotInterested(\""+value+"\");'></td></tr>");
             });
         }
 
-        var myEmail = '<?php echo $_SESSION['email']; ?>';
-
         function notinterested(email) {
             myInterests.lv1.splice(myInterests.lv1.indexOf(email), 1);
-            theirInterests.lv1.splice(theirInterests.lv1.indexOf(email), 1);
+            interested_in_me.lv1.splice(interested_in_me.lv1.indexOf(email), 1);
 
             updateInterest(myEmail, email);
             refreshInterestedIn();
