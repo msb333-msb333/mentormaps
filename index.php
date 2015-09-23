@@ -1,20 +1,20 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <link rel="shortcut icon" href="http://mentormaps.net/favicon.ico"/>
+    <link rel="shortcut icon" href="https://mentormaps.net/favicon.ico"/>
     <title>
         Mentor Maps
     </title>
     <meta charset="utf-8"/>
-    <script src="./assets/js/mousetrap.min.js"></script>
+    <script src="https://mentormaps.net/assets/js/mousetrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="https://mentormaps.net/assets/css/main.css"/>
     <!--[if lte IE 8]>
-    <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <script src="https://mentormaps.net/assets/js/ie/html5shiv.js"></script><![endif]-->
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
+    <link rel="stylesheet" href="https://mentormaps.net/assets/css/ie8.css"/><![endif]-->
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
+    <link rel="stylesheet" href="https://mentormaps.net/assets/css/ie9.css"/><![endif]-->
     <script>
         function login() {
             window.location = "./login.php";
@@ -110,7 +110,7 @@
     <!-- Two -->
     <section id="two" class="wrapper alt style2">
         <section class="spotlight">
-            <div class="image"><img src="images/pic01.jpg"/></div>
+            <div class="image"><img src="https://mentormaps.net/images/pic01.jpg"/></div>
             <div class="content">
                 <h2>Nicely displays local <i>FIRST</i> and VEX teams on a Google Map!<br/></h2>
 
@@ -119,7 +119,7 @@
             </div>
         </section>
         <section class="spotlight">
-            <div class="image"><img src="images/pic02.jpg" /></div>
+            <div class="image"><img src="https://mentormaps.net/images/pic02.jpg" /></div>
             <div class="content">
                 <h2>Calculates what mentor you need or what team you can help!<br/></h2>
 
@@ -128,7 +128,7 @@
             </div>
         </section>
         <section class="spotlight">
-            <div class="image"><img src="images/pic03.jpg" /></div>
+            <div class="image"><img src="https://mentormaps.net/images/pic03.jpg" /></div>
             <div class="content">
                 <h2>Merging LinkedIn and Social Media for <i>FIRST</i> and VEX Teams<br/></h2>
 
@@ -192,13 +192,13 @@
         </ul>
     </footer>
 </div>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrollex.min.js"></script>
-<script src="assets/js/jquery.scrolly.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="https://mentormaps.net/assets/js/jquery.min.js"></script>
+<script src="https://mentormaps.net/assets/js/jquery.scrollex.min.js"></script>
+<script src="https://mentormaps.net/assets/js/jquery.scrolly.min.js"></script>
+<script src="https://mentormaps.net/assets/js/skel.min.js"></script>
+<script src="https://mentormaps.net/assets/js/util.js"></script>
+<script src="https://mentormaps.net/assets/js/main.js"></script>
 <!--[if lte IE 8]>
-<script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="https://mentormaps.net/assets/js/ie/respond.min.js"></script><![endif]-->
 </body>
 </html>
