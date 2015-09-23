@@ -240,7 +240,7 @@ echo '<script>var marker_map = [];</script>';
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiDYjxvrOGR6epXYDkO3XaZeT37OEix_Q"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
@@ -728,7 +728,7 @@ echo '<script>var marker_map = [];</script>';
                             $.each(marker_map, function (key, value) {
                                 var m = marker_map[key];
                                 if (m.address == team.address) {
-                                    m.marker.setIcon("http://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
+                                    m.marker.setIcon("https://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
                                 }
                             });
                         }
