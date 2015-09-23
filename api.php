@@ -8,7 +8,7 @@ while($r=mysqli_fetch_array($result)){
     array_push($a, array(
         $r['EMAIL'],
         $r['VERIFIED'],
-        $r['ACCOUNT_TYPE']
+        $r['TYPE']
     ));
 }
 
