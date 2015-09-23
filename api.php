@@ -28,6 +28,6 @@ while($r=mysqli_fetch_array($result)){
 
 $mentors = $total - $teams;
 $unverified = $total - $verified;
-echo "total:$total, verified:$verified, teams:$teams, unverified:$unverified, mentors:$mentors";
+echo "total:$total, verified:$verified, teams:$teams, unverified:$unverified, mentors:$mentors".PHP_EOL;
 
 die(json_encode($a));
