@@ -1,5 +1,11 @@
 <?php
 header("Content-Type: application/javascript");
 require "./db.php";
-$r = mysqli_fetch_array($db->query("SELECT * FROM `logins`"));
-die(json_encode($r));
+$result = $db->query("SELECT * FROM `logins`");
+$a = array();
+
+while($r=mysqli_fetch_array($result)){
+    array_push($a, $r['email']);
+}
+
+die(json_encode($a));
