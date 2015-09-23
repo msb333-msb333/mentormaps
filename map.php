@@ -559,7 +559,7 @@ echo '<script>var marker_map = [];</script>';
                         <input type="checkbox" id="vex"/>
                         <label for="vex">VEX</label>
                         <script>
-                            var types = me.type;
+                            var types = $.parseJSON(me.type);
                             for(type in types){
                                 if(types[type] == 'true'){
                                     $("#"+type).prop("checked", true);
