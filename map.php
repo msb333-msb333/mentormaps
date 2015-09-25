@@ -368,7 +368,7 @@ echo '<script>var marker_map = [];</script>';
                     if (typedata['vex'] == 'true') {
                         $('#img-container').html($('#img-container').html() + "<img src='./img/vex.png' class='img-padding'/>");
                     }
-                    $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
+                    $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" src="./img/ic_directions_car_white_48dp_2x.png" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img src="./img/ic_open_in_new_white_48dp_2x.png" class="open-profile"/></a>');
                 }
             }
         }
