@@ -19,8 +19,7 @@ while($r=mysqli_fetch_array($result)){
 
     $email = $r['EMAIL'];
 
-    echo "SELECT * FROM `locations` WHERE `email` = '$email';";
-    $result2 = $db->query("SELECT * FROM `locations` WHERE `email` = '$email';");
+    $result2 = $db->query("SELECT * FROM `data` WHERE `email` = '$email';");
 
     $a2 = array();
     while($r2=mysqli_fetch_assoc($result2)){
