@@ -8,7 +8,6 @@ $teams = 0;
 $verified = 0;
 $total = 0;
 
-
 while($r=mysqli_fetch_array($result)){
     $total++;
     if($r['TYPE']=='TEAM'){
@@ -18,11 +17,23 @@ while($r=mysqli_fetch_array($result)){
         $verified++;
     }
 
+    $email = $r['EMAIL'];
+
+    $result2 = $db->query("SELECT * FROM `locations` WHERE `email` = '$email';");
+    $a2 = array();
+    while($r2=mysqli_fetch_assoc($result2)){
+        array_push($a2, array(
+            'lat' => $r2['LATITUDE'],
+            'lng' => $r2['LONGITUDE']
+            )
+        );
+    }
 
     array_push($a, array(
-        $r['EMAIL'],
+        $email,
         $r['VERIFIED'],
-        $r['TYPE']
+        $r['TYPE'],
+        $a2
     ));
 }
 
