@@ -206,22 +206,6 @@ echo '<script>var marker_map = [];</script>';
             padding-left:1%;
         }
 
-        .frc-image{
-            content:url('./img/frc.png');
-        }
-
-        .vex-image{
-            content:url('./img/vex.png');
-        }
-
-        .ftc-image{
-            content:url('./img/ftc.png');
-        }
-
-        .fll-image{
-            content:url('./img/fll.png');
-        }
-
         #map-canvas {
             height:100%;
         }
@@ -373,16 +357,16 @@ echo '<script>var marker_map = [];</script>';
                     var typedata = $.parseJSON(team.type);
                     $('#img-container').html('');
                     if (typedata['fll'] == 'true') {
-                        $('#img-container').html($('#img-container').html() + "<img class='img-padding fll-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img  src='./img/fll.png' class='img-padding'/>");
                     }
                     if (typedata['ftc'] == 'true') {
-                        $('#img-container').html($('#img-container').html() + "<img class='img-padding ftc-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img src='./img/ftc.png' class='img-padding'/>");
                     }
                     if (typedata['frc'] == 'true') {
-                        $('#img-container').html($('#img-container').html() + "<img class='img-padding frc-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img src='./img/frc.png' class='img-padding'/>");
                     }
                     if (typedata['vex'] == 'true') {
-                        $('#img-container').html($('#img-container').html() + "<img class='img-padding vex-image'/>");
+                        $('#img-container').html($('#img-container').html() + "<img src='./img/vex.png' class='img-padding'/>");
                     }
                     $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img class="open-profile"/></a>');
                 }
