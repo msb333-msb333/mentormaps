@@ -712,7 +712,7 @@ echo '<script>var marker_map = [];</script>';
                             $.each(marker_map, function (key, value) {
                                 var m = marker_map[key];
                                 if (m.address == team.address) {
-                                    m.marker.setIcon("https://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
+                                    m.marker.setIcon("http://googlemapsmarkers.com/v1/" + teamListIndex + "/0066FF");
                                 }
                             });
                         }
