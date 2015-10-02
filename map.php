@@ -89,6 +89,10 @@ echo '<script>var marker_map = [];</script>';
 <html>
 <head>
     <style>
+        .li-header{
+            font-family:verdana;
+            font-size:1.2em;
+        }
         .legend{
             height:3em;
             width:100%;
@@ -522,7 +526,7 @@ echo '<script>var marker_map = [];</script>';
             </ul>
 
             <ul class="search-filter" id="list-thing">
-                <li>
+                <li class="li-header">
                     Search Filter
                 </li>
                 <li>
