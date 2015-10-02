@@ -730,11 +730,11 @@ echo '<script>var marker_map = [];</script>';
         <?php
 
         function echoTeamLegend(){
-            echo '<div class="legend"><img class="paddedImgHolder" src="img/mentorflag.png"/>YOU | <img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder" src="img/greenm.png"/> MULTI</div>';
+            echo '<div class="legend"><img class="paddedImgHolder" src="img/mentorflag.png"/>YOU | <img class="paddedImgHolder" src="img/redm.png"/>FRC | <img class="paddedImgHolder" src="img/whitem.png"/> FTC | <img class="paddedImgHolder" src="img/bluem.png"/>FLL | <img class="paddedImgHolder" src="img/orangem.png"/> VEX | <img class="paddedImgHolder" src="img/greenm.png"/> MULTI<img class="paddedImgHolder" src="img/purplem.png"/> | GENERAL MENTOR</div>';
         }
 
         function echoMentorLegend(){
-            echo '<div class="legend"><img class="paddedImgHolder" src="img/mentorflag.png"/>YOU | <img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png"/> VEX</div>';
+            echo '<div class="legend"><img class="paddedImgHolder" src="img/mentorflag.png"/>YOU | <img class="paddedImgHolder" src="img/red.png"/>FRC | <img class="paddedImgHolder" src="img/white.png"/> FTC | <img class="paddedImgHolder" src="img/blue.png"/>FLL | <img class="paddedImgHolder" src="img/orange.png"/> VEX<img class="paddedImgHolder" src="img/purplem.png"/> | GENERAL MENTOR</div>';
         }
 
         if (isset($type)) {
