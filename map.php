@@ -90,8 +90,15 @@ echo '<script>var marker_map = [];</script>';
 <head>
     <style>
         .li-header{
-            font-family:verdana;
-            font-size:1.2em;
+            color:white;
+            background-color: #545e68;
+            font-family: 'Open Sans', Helvetica, sans-serif;
+            font-size: 1.2em;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 600;
+            letter-spacing: 0.1em;
         }
         .legend{
             height:3em;
@@ -147,6 +154,10 @@ echo '<script>var marker_map = [];</script>';
             margin: 5px 5px 5px 5px;
             border-radius: 10px;
             cursor:pointer;
+        }
+
+        .sfilter{
+            padding-right:0.4em;
         }
 
         .li-team-tile:hover {
@@ -459,7 +470,7 @@ echo '<script>var marker_map = [];</script>';
         google.maps.event.addDomListener(window, 'load', initialize);
 
         function updateRangeDisplay() {
-            $("#range-display").html($("#slidey-thing").val());
+            $("#range-display").html($("#slidey-thing").val() + " miles");
         }
 
         function profileRedirect(profile){
@@ -527,15 +538,22 @@ echo '<script>var marker_map = [];</script>';
 
             <ul class="search-filter" id="list-thing">
                 <li class="li-header">
-                    Search Filter
+                    SEARCH FILTERS
                 </li>
-                <li>
-                    Range <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();" />
-                    <div id="range-display" style="display:inline;">
-                        50
+                <li class="sfilter">
+                    <div onclick="$('#range-ul').toggle();" class="toggler">
+                        Range
                     </div>
+                    <ul id="range-ul" style="list-style-type:none;text-align:center;border:1px solid blue;">
+                        <li>
+                            <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();" />
+                        </li>
+                        <li id="range-display" style="display:block;">
+                            50 miles
+                        </li>
+                    </ul>
                 </li>
-                <li>
+                <li class="sfilter">
                     <div class="toggler" onclick="$('#prog_aff_list').toggle();">Program Affiliation</div>
                     <ul id="prog_aff_list">
                         <input type="checkbox" id="frc"/>
@@ -558,7 +576,7 @@ echo '<script>var marker_map = [];</script>';
                     </ul>
 
                 </li>
-                <li>
+                <li class="sfilter">
                     <div class="toggler" onclick="$('#exp_list').toggle();">Experience</div>
                     <ul id="exp_list">
                         <?php if($type=="TEAM"){ ?>
@@ -584,7 +602,7 @@ echo '<script>var marker_map = [];</script>';
                         </script>
                     </ul>
                 </li>
-                <li>
+                <li class="sfilter">
                     <button onclick="refreshListing();">
                         Update List
                     </button>
