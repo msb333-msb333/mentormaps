@@ -132,7 +132,7 @@ echo '<script>var marker_map = [];</script>';
             color: #191919;
             background-color: #FFFFFF;
             padding: .2em 1em;
-            border: 5px solid #191919;
+            /*border: 5px solid #191919;*/
             margin: 0 0 7px 0;
 
         }
