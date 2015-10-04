@@ -132,7 +132,7 @@ echo '<script>var marker_map = [];</script>';
             color: #191919;
             background-color: #FFFFFF;
             padding: .2em 1em;
-            /*border: 5px solid #191919;*/
+            border: 5px solid #191919;
             margin: 0 0 7px 0;
 
         }
@@ -544,7 +544,7 @@ echo '<script>var marker_map = [];</script>';
                     <div onclick="$('#range-ul').toggle();" class="toggler">
                         Range
                     </div>
-                    <ul id="range-ul" style="list-style-type:none;text-align:center;border:1px solid blue;">
+                    <ul id="range-ul" style="list-style-type:none;text-align:center;">
                         <li>
                             <input id="slidey-thing" type="range" max="99" min="1" onchange="updateRangeDisplay();" />
                         </li>
