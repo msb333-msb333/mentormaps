@@ -152,7 +152,7 @@ echo '<script>var marker_map = [];</script>';
             padding: .2em 1em;
             border: 2px solid #191919;
             margin: 5px 5px 5px 5px;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor:pointer;
         }
 
