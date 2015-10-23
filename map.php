@@ -108,20 +108,33 @@ echo '<script>var marker_map = [];</script>';
             margin:0 0 0 0;/*yeah, a negative margin. don't judge; css is hard*/
             padding:0;
         }
+
         .driving-button {
-            content: url("./img/ic_directions_car_white_48dp_2x.png");
+            display: inline-block;
+            height: 96px;
+            width: 96px;
+            background-image: url("./img/ic_directions_car_white_48dp_2x.png");
         }
 
         .driving-button:hover {
-            content: url("./img/ic_directions_car_red_48dp_2x.png");
+            display: inline-block;
+            height: 96px;
+            width: 96px;
+            background-image: url("./img/ic_directions_car_red_48dp_2x.png");
         }
 
         .open-profile {
-            content: url("./img/ic_open_in_new_white_48dp_2x.png");
+            display: inline-block;
+            height: 96px;
+            width: 96px;
+            background-image: url("./img/ic_open_in_new_white_48dp_2x.png");
         }
 
         .open-profile:hover {
-            content: url("./img/ic_open_in_new_red_48dp_2x.png");
+            display: inline-block;
+            height: 96px;
+            width: 96px;
+            background-image: url("./img/ic_open_in_new_red_48dp_2x.png");
         }
 
         .team-name{
@@ -383,7 +396,7 @@ echo '<script>var marker_map = [];</script>';
                     if (typedata['vex'] == 'true') {
                         $('#img-container').html($('#img-container').html() + "<img src='./img/vex.png' class='img-padding'/>");
                     }
-                    $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><img onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" src="./img/ic_directions_car_white_48dp_2x.png" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><img src="./img/ic_open_in_new_white_48dp_2x.png" class="open-profile"/></a>');
+                    $('#team-info-label').html('<div class="team-info-label"><div class="team-name">'+team['name']+'</div><div onclick="calcRoute(\'<?php echo $my_address; ?>\', \'' + team['address'] + '\');" class="driving-button"/></div><a href="./profile.php?p=' + team['email'] + '" target="_blank"><div class="open-profile"/></a>');
                 }
             }
         }
@@ -579,13 +592,13 @@ echo '<script>var marker_map = [];</script>';
                 <li class="sfilter">
                     <div class="toggler" onclick="$('#exp_list').toggle();">Experience</div>
                     <ul id="exp_list">
-                        <?php if($type=="TEAM"){ ?>
-                            <input id="exp_slider" type="range" min="1" max="10" onchange="updateExpDisplay();"/>
-                            <script>var acct = "team";</script>
-                        <?php }else{ ?>
-                            <input id="exp_slider" type="range" min="0" max="1" onchange="updateExpDisplay();"/>
-                            <script>var acct = "mentor";</script>
-                        <?php } ?>
+                        <?php if(isset($type) && $type=="TEAM"){ 
+                            echo '<input id="exp_slider" type="range" min="1" max="10" onchange="updateExpDisplay();"/>';
+                            echo '<script>var acct = "team";</script>';
+                        } else { 
+                            echo '<input id="exp_slider" type="range" min="0" max="1" onchange="updateExpDisplay();"/>';
+                            echo '<script>var acct = "mentor";</script>';
+                        } ?>
                         <div id="exp_display"></div><div id="details_display"></div>
                         <script>
                             function updateExpDisplay(){
@@ -710,7 +723,7 @@ echo '<script>var marker_map = [];</script>';
                                 }else{
                                     mul = 1;
                                 }
-                                if(mul==0||mul<0||isNaN(mul)&&'team'=='<?php echo $type; ?>'){
+                                if(mul==0||mul<0||isNaN(mul)&&'team'=='<?php echo isset($type) ? $type : ""; ?>'){
                                     mul = 0.1;
                                 }
                                 var res = (compare_result * mul);
